@@ -1,0 +1,17 @@
+﻿<search:SearchFilterEditControl x:Class="SCSearchAgent.SCAnimalsSearchAgent.SearchUserControl.WinForms.SCAnimalsSearchAreaFilterEditHostControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:winForms="clr-namespace:SCSearchAgent.SCAnimalsSearchAgent.SearchUserControl.WinForms"
+             xmlns:search="clr-namespace:VideoOS.Platform.Search;assembly=VideoOS.Platform"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <WindowsFormsHost x:Name="_host">
+            <WindowsFormsHost.Child>
+                <winForms:SCAnimalsSearchAreaFilterEditControl x:Name="_legacyControl" />
+            </WindowsFormsHost.Child>
+        </WindowsFormsHost>
+    </Grid>
+</search:SearchFilterEditControl>

@@ -1,0 +1,4 @@
+<plugin>
+   <file name="DemoAccessControlPlugin.dll"/>
+   <load env="Service"/>
+</plugin>

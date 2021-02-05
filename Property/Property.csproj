@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{12B518B6-26B5-480A-8A69-F1D9A83BDD70}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Property</RootNamespace>
+    <AssemblyName>Property</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\src\CommonSamples.cs">
+      <Link>CommonSamples.cs</Link>
+    </Compile>
+    <Compile Include="Admin\PropertyToolsOptionDialogPlugin.cs" />
+    <Compile Include="Admin\PropertyToolsOptionDialogUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Admin\PropertyToolsOptionDialogUserControl.designer.cs">
+      <DependentUpon>PropertyToolsOptionDialogUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Background\PropertyBackgroundPlugin.cs" />
+    <Compile Include="Client\PropertyOptionsDialogPlugin.cs" />
+    <Compile Include="Client\PropertyOptionsDialogUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\PropertyOptionsDialogUserControl.Designer.cs">
+      <DependentUpon>PropertyOptionsDialogUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\PropertySidePanelPlugin.cs" />
+    <Compile Include="Client\PropertySidePanelUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\PropertySidePanelUserControl.Designer.cs">
+      <DependentUpon>PropertySidePanelUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\PropertyViewItemPlugin.cs" />
+    <Compile Include="Client\PropertyViewItemUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\PropertyViewItemUserControl.Designer.cs">
+      <DependentUpon>PropertyViewItemUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\PropertyPropertiesUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\PropertyPropertiesUserControl.Designer.cs">
+      <DependentUpon>PropertyPropertiesUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\PropertyViewItemManager.cs" />
+    <Compile Include="Client\PropertyWorkSpacePlugin.cs" />
+    <Compile Include="Client\PropertyWorkSpaceViewItemManager.cs" />
+    <Compile Include="Client\PropertyWorkSpaceViewItemPlugin.cs" />
+    <Compile Include="Client\PropertyWorkSpaceViewItemUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\PropertyWorkSpaceViewItemUserControl.Designer.cs">
+      <DependentUpon>PropertyWorkSpaceViewItemUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyDefinition.cs" />
+    <Compile Include="Utility.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Admin\PropertyToolsOptionDialogUserControl.resx">
+      <DependentUpon>PropertyToolsOptionDialogUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\PropertyViewItemUserControl.resx">
+      <DependentUpon>PropertyViewItemUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\PropertyPropertiesUserControl.resx">
+      <DependentUpon>PropertyPropertiesUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Client\PropertyWorkSpaceViewItemUserControl.resx">
+      <DependentUpon>PropertyWorkSpaceViewItemUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Server.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Client\PropertyOptionsDialogUserControl.resx">
+      <DependentUpon>PropertyOptionsDialogUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\PropertySidePanelUserControl.resx">
+      <DependentUpon>PropertySidePanelUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Property.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="plugin.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Resources\PropertyWorkSpace.bmp" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

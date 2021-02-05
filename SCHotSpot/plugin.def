@@ -1,0 +1,4 @@
+<plugin>
+   <file name="SCHotSpot.dll"/>
+   <load env="SmartClient"/>
+</plugin>

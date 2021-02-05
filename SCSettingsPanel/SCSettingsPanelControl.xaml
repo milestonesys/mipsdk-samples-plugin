@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="SCSettingsPanel.SCSettingsPanelControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SCSettingsPanel"
+             mc:Ignorable="d">
+    <Grid>
+        <Border Padding="30"
+                BorderThickness="1"
+                BorderBrush="LightGray"                
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+            
+            <TextBlock Text="This is a placeholder for your WPF control."
+                       TextWrapping="Wrap"
+                       FontSize="12"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center" />
+        </Border>
+    </Grid>
+</UserControl>

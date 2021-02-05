@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SerializeData xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <CredentialHolders>
+    <CredentialHolder>
+      <Id>4afd398c-8a22-4b6a-ac7b-03461e4591fd</Id>
+      <Name>Credential Holder 1</Name>
+      <PictureBytes>/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5/ooooA//2Q==</PictureBytes>
+      <Roles>
+        <string>Employee</string>
+        <string>Authority Level 1</string>
+      </Roles>
+      <Department>Development</Department>
+      <CardId>75499</CardId>
+      <ExpiryDate>2017-08-10T12:11:38.9330142Z</ExpiryDate>
+    </CredentialHolder>
+    <CredentialHolder>
+      <Id>9a9a2503-7dc7-40d2-b55c-4a866d78a7a6</Id>
+      <Name>Credential Holder 2</Name>
+      <PictureBytes>/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5/ooooA//2Q==</PictureBytes>
+      <Roles>
+        <string>Employee</string>
+        <string>Authority Level 1</string>
+      </Roles>
+      <Department>Development</Department>
+      <CardId>75500</CardId>
+      <ExpiryDate>2017-08-10T12:11:38.9330142Z</ExpiryDate>
+    </CredentialHolder>
+    <CredentialHolder>
+      <Id>9800c322-68b5-4abf-b2a5-a099088022c2</Id>
+      <Name>Credential Holder 3</Name>
+      <PictureBytes>/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5/ooooA//2Q==</PictureBytes>
+      <Roles>
+        <string>Employee</string>
+        <string>Authority Level 1</string>
+      </Roles>
+      <Department>Development</Department>
+      <CardId>75501</CardId>
+      <ExpiryDate>2017-08-10T12:11:38.9330142Z</ExpiryDate>
+    </CredentialHolder>
+    <CredentialHolder>
+      <Id>8e201726-428b-4393-8938-3738ded86781</Id>
+      <Name>Credential Holder 4</Name>
+      <PictureBytes>/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5/ooooA//2Q==</PictureBytes>
+      <Roles>
+        <string>Employee</string>
+        <string>Authority Level 1</string>
+      </Roles>
+      <Department>Development</Department>
+      <CardId>75502</CardId>
+      <ExpiryDate>2017-08-10T12:11:38.9330142Z</ExpiryDate>
+    </CredentialHolder>
+    <CredentialHolder>
+      <Id>285c22a1-8bfa-4b00-93d3-ef41e8df3d2e</Id>
+      <Name>Credential Holder 5</Name>
+      <PictureBytes>/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5/ooooA//2Q==</PictureBytes>
+      <Roles>
+        <string>Employee</string>
+        <string>Authority Level 1</string>
+      </Roles>
+      <Department>Development</Department>
+      <CardId>75503</CardId>
+      <ExpiryDate>2017-08-10T12:11:38.9330142Z</ExpiryDate>
+    </CredentialHolder>
+  </CredentialHolders>
+  <DoorControllers />
+  <Doors>
+    <Door>
+      <Id>4e42ccef-1a96-4fc9-934f-5d752ad3990f</Id>
+      <Name>Door 1</Name>
+      <DoorControllerId>00000000-0000-0000-0000-000000000000</DoorControllerId>
+      <IsAccessAllowed>true</IsAccessAllowed>
+      <HasRexButton>true</HasRexButton>
+      <LockCommandSupported>true</LockCommandSupported>
+      <UnlockCommandSupported>true</UnlockCommandSupported>
+      <UnlockTimeMilliSecs>10000</UnlockTimeMilliSecs>
+    </Door>
+    <Door>
+      <Id>5feaa6e6-e024-4aac-8fb9-dde5da07f313</Id>
+      <Name>Door 2</Name>
+      <DoorControllerId>00000000-0000-0000-0000-000000000000</DoorControllerId>
+      <IsAccessAllowed>true</IsAccessAllowed>
+      <HasRexButton>true</HasRexButton>
+      <LockCommandSupported>true</LockCommandSupported>
+      <UnlockCommandSupported>true</UnlockCommandSupported>
+      <UnlockTimeMilliSecs>10000</UnlockTimeMilliSecs>
+    </Door>
+    <Door>
+      <Id>5eefafb6-c0a3-4fd5-bfb9-873cd011cb0b</Id>
+      <Name>Door 3</Name>
+      <DoorControllerId>00000000-0000-0000-0000-000000000000</DoorControllerId>
+      <IsAccessAllowed>true</IsAccessAllowed>
+      <HasRexButton>true</HasRexButton>
+      <LockCommandSupported>true</LockCommandSupported>
+      <UnlockCommandSupported>true</UnlockCommandSupported>
+      <UnlockTimeMilliSecs>10000</UnlockTimeMilliSecs>
+    </Door>
+    <Door>
+      <Id>51d7d7f1-cba9-4a6c-9981-3b282f490a79</Id>
+      <Name>Door 4</Name>
+      <DoorControllerId>00000000-0000-0000-0000-000000000000</DoorControllerId>
+      <IsAccessAllowed>true</IsAccessAllowed>
+      <HasRexButton>true</HasRexButton>
+      <LockCommandSupported>true</LockCommandSupported>
+      <UnlockCommandSupported>true</UnlockCommandSupported>
+      <UnlockTimeMilliSecs>10000</UnlockTimeMilliSecs>
+    </Door>
+    <Door>
+      <Id>0e510909-9985-4d8b-9701-2b7a09bdf0c9</Id>
+      <Name>Door 5</Name>
+      <DoorControllerId>00000000-0000-0000-0000-000000000000</DoorControllerId>
+      <IsAccessAllowed>true</IsAccessAllowed>
+      <HasRexButton>true</HasRexButton>
+      <LockCommandSupported>true</LockCommandSupported>
+      <UnlockCommandSupported>true</UnlockCommandSupported>
+      <UnlockTimeMilliSecs>10000</UnlockTimeMilliSecs>
+    </Door>
+  </Doors>
+  <Users>
+    <User>
+      <Id>eaaafe6b-79e5-4355-b54b-8d4868591011</Id>
+      <Name>admin</Name>
+      <Password>pass</Password>
+      <LastChanged>2016-08-10T12:10:27.2517625Z</LastChanged>
+      <VisibleDoors />
+      <VisibleEventTypes />
+      <LockCommandVisible>false</LockCommandVisible>
+      <UnlockCommandVisible>false</UnlockCommandVisible>
+      <IsAdministrator>true</IsAdministrator>
+    </User>
+    <User>
+      <Id>39746728-b7ca-4363-a35b-f541cef1d2a8</Id>
+      <Name>user</Name>
+      <Password>1234</Password>
+      <LastChanged>2016-08-10T12:12:05.757606Z</LastChanged>
+      <VisibleDoors>
+        <guid>4e42ccef-1a96-4fc9-934f-5d752ad3990f</guid>
+        <guid>5feaa6e6-e024-4aac-8fb9-dde5da07f313</guid>
+      </VisibleDoors>
+      <VisibleEventTypes>
+        <guid>2c19393a-ea35-4ba6-afcc-5aa6e2a7c970</guid>
+        <guid>c1fb7d57-0b26-4690-8e33-fd3b508ec4d7</guid>
+        <guid>8120d2cf-ef2a-44d3-ad03-8d82dd6ddcae</guid>
+        <guid>50a13514-8bdc-4bc0-bd15-8bfe00bf940a</guid>
+        <guid>2388e3a9-e1b4-4b0a-82e5-6e68a37362eb</guid>
+        <guid>d540d326-d5e4-41b6-bb0a-bc97d93966ad</guid>
+        <guid>16affe3e-18a1-435f-b122-e24b20e390a8</guid>
+        <guid>3dd01fd4-c77e-4bbd-afb7-fa4679b6ad40</guid>
+        <guid>c0b3d197-5100-49bc-8d8c-cf5f82fc3053</guid>
+        <guid>4fc24ff8-9e47-4c85-940b-77f4573705bc</guid>
+        <guid>18e2767b-5414-45d6-a273-19d117feca0e</guid>
+      </VisibleEventTypes>
+      <LockCommandVisible>true</LockCommandVisible>
+      <UnlockCommandVisible>true</UnlockCommandVisible>
+      <IsAdministrator>false</IsAdministrator>
+    </User>
+  </Users>
+</SerializeData>

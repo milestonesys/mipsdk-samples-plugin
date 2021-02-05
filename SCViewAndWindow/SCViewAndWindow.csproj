@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B1E0548B-359E-4535-A6F2-F1E567C0FF75}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SCViewAndWindow</RootNamespace>
+    <AssemblyName>SCViewAndWindow</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\src\CommonSamples.cs">
+      <Link>CommonSamples.cs</Link>
+    </Compile>
+    <Compile Include="Client\AUXUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\AUXUserControl.Designer.cs">
+      <DependentUpon>AUXUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\IndicatorAndAppUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\IndicatorAndAppUserControl.Designer.cs">
+      <DependentUpon>IndicatorAndAppUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\LensUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\LensUserControl.Designer.cs">
+      <DependentUpon>LensUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\MapSelectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Client\MapSelectForm.Designer.cs">
+      <DependentUpon>MapSelectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\MultiWindowUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\MultiWindowUserControl.Designer.cs">
+      <DependentUpon>MultiWindowUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\PlaybackUControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\PlaybackUControl.Designer.cs">
+      <DependentUpon>PlaybackUControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\PTZAbsolutUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\PTZAbsolutUserControl.Designer.cs">
+      <DependentUpon>PTZAbsolutUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\PTZUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\PTZUserControl.Designer.cs">
+      <DependentUpon>PTZUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\SCViewAndWindowViewItemPlugin.cs" />
+    <Compile Include="Client\SCViewAndWindowViewItemUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\SCViewAndWindowViewItemUserControl.Designer.cs">
+      <DependentUpon>SCViewAndWindowViewItemUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\SCViewAndWindowPropertiesUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\SCViewAndWindowPropertiesUserControl.Designer.cs">
+      <DependentUpon>SCViewAndWindowPropertiesUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\SCViewAndWindowViewItemManager.cs" />
+    <Compile Include="Client\ViewCommandUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\ViewCommandUserControl.Designer.cs">
+      <DependentUpon>ViewCommandUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\ViewCreateUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\ViewCreateUserControl.Designer.cs">
+      <DependentUpon>ViewCreateUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\ViewDumpUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\ViewDumpUserControl.Designer.cs">
+      <DependentUpon>ViewDumpUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\ViewEditUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\ViewEditUserControl.Designer.cs">
+      <DependentUpon>ViewEditUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Client\WorkspaceUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Client\WorkspaceUserControl.Designer.cs">
+      <DependentUpon>WorkspaceUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SCViewAndWindowDefinition.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Client\MapSelectForm.resx">
+      <DependentUpon>MapSelectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\SCViewAndWindowViewItemUserControl.resx">
+      <DependentUpon>SCViewAndWindowViewItemUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\SCViewAndWindowPropertiesUserControl.resx">
+      <DependentUpon>SCViewAndWindowPropertiesUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Client\ViewDumpUserControl.resx">
+      <DependentUpon>ViewDumpUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\WorkspaceUserControl.resx">
+      <DependentUpon>WorkspaceUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Server.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Strings.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Client\AUXUserControl.resx">
+      <DependentUpon>AUXUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\IndicatorAndAppUserControl.resx">
+      <DependentUpon>IndicatorAndAppUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\LensUserControl.resx">
+      <DependentUpon>LensUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\MultiWindowUserControl.resx">
+      <DependentUpon>MultiWindowUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\PlaybackUControl.resx">
+      <DependentUpon>PlaybackUControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\PTZAbsolutUserControl.resx">
+      <DependentUpon>PTZAbsolutUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\PTZUserControl.resx">
+      <DependentUpon>PTZUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\ViewCommandUserControl.resx">
+      <DependentUpon>ViewCommandUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="plugin.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\SCVAWTool.ico" />
+    <EmbeddedResource Include="Client\ViewCreateUserControl.resx">
+      <DependentUpon>ViewCreateUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Client\ViewEditUserControl.resx">
+      <DependentUpon>ViewEditUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UnknownLayout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>rem mkdir "C:\Program Files\Milestone\MIPPlugins\SCViewAndWindow\"
+rem xcopy /y "$(TargetDir)SCViewAndWindow.dll" "C:\Program Files\Milestone\MIPPlugins\SCViewAndWindow"
+rem xcopy /y "$(TargetDir)plugin.def" "C:\Program Files\Milestone\MIPPlugins\SCViewAndWindow"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,30 @@
+<search:SearchFilterEditControl x:Class="SCSearchAgent.SCAnimalsSearchAgent.SearchUserControl.SCAnimalsSearchFilterEditControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:search="clr-namespace:VideoOS.Platform.Search;assembly=VideoOS.Platform"
+             xmlns:searchUserControl="clr-namespace:SCSearchAgent.SCAnimalsSearchAgent.SearchUserControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="comboboxstyle.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
+
+        <ComboBox ItemsSource="{Binding Species}" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" Style="{DynamicResource ComboBoxFlatNormalState}"> 
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="1">
+                        <Image Width="32" Height="32" Source="{Binding Image}"/>
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="4,0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+    </Grid>
+</search:SearchFilterEditControl>

@@ -1,0 +1,30 @@
+﻿<local:MessageDataSuper x:Class="MessageTester.MessageDataControls.TriggerCommandUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MessageTester.MessageDataControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock TextWrapping="Wrap" Margin="5,5,5,5">
+            Please note that the full possibilities for TriggerCommand can be explored in the ConfigAccsesVisSDK sample.<LineBreak/>
+            In this sample you can use TriggerCommand to trigger a user-defined event, and you can include a related camera.<LineBreak/>
+            First pick an event.
+        </TextBlock>
+        <Button Content="ItemPicker" Grid.Row="1" x:Name="_destinationsPickerButton" Width="100" Click="OnDestPicker"/>
+        <Label Content="No item has been picked yet. Use the ItemPicker button." Grid.Row="2" x:Name="_destinationFQIDLabel"/>
+        <Label Content="Pick a camera." Grid.Row="3"/>
+        <Button Content="ItemPicker" Grid.Row="4" x:Name="_relatedPickerButton" Width="100" Click="OnRelatedPicker"/>
+        <Label Content="No item has been picked yet. Use the ItemPicker button." Grid.Row="5" x:Name="_relatedFQIDLabel"/>
+    </Grid>
+</local:MessageDataSuper>

@@ -1,0 +1,4 @@
+<plugin>
+   <file name="SCToast.dll"/>
+   <load env="SmartClient"/>
+</plugin>

@@ -1,0 +1,4 @@
+<plugin>
+   <file name="MessageTester.dll"/>
+  <load env="SmartClient"/>
+</plugin>

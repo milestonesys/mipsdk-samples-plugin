@@ -1,0 +1,149 @@
+<platformclient:ViewItemWpfUserControl x:Class="SmartMapController.Client.SmartMapControllerViewItemWpfUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartMapController.Client"
+             xmlns:platformclient="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" MouseDown="ViewItemWpfUserControl_MouseDown" MouseDoubleClick="ViewItemWpfUserControl_MouseDoubleClick">
+    <UserControl.Resources>
+        <Style x:Key="NormalTB" TargetType="TextBox" BasedOn="{StaticResource ScTextBox}">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource ScButton}">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="18"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" x:Name="_headerGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" x:Name="_headerTextBlock" Margin="0,0,5,0">You are now running:</TextBlock>
+            <TextBlock Grid.Column="1" x:Name="_nameTextBlock"/>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="_contentGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <GroupBox Grid.Row="0" x:Name="_upperControl" Header="Select Smart Map:">
+                <Grid x:Name="_groupboxGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="_windowLabel" Content="Window:" Grid.Row="0" Grid.Column="0"/>
+                    <ComboBox x:Name="_windowComboBox" Width="200" Height="25" Margin="5" Grid.Row="0" Grid.Column="1" DropDownOpened="WindowSelection_DropDownOpened"/>
+                    <Label x:Name="_indexLabel" Content="View item Index:" Grid.Row="1" Grid.Column="0" />
+                    <TextBox Style="{StaticResource NormalTB}" x:Name="_indexBox" Grid.Row="1" Grid.Column="1" Text="0"/>
+                </Grid>
+            </GroupBox>
+            <TabControl Grid.Row="1" x:Name="lowerControl" SelectionChanged="TabSelectionChanged">
+                <TabItem x:Name="_goToCoordinates" Header="Go to coordinates">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Lat:" />
+                        <TextBox Style="{StaticResource NormalTB}" x:Name="_latitudeBox"  Grid.Row="0" Grid.Column="1" Text="55.6633988"/>
+                        <Label Content="Long:"  Grid.Row="1" Grid.Column="0"/>
+                        <TextBox Style="{StaticResource NormalTB}" x:Name="_longitudeBox"  Grid.Row="1" Grid.Column="1" Text="12.4043432"/>
+                        <Label Content="Zoom:"  Grid.Row="2" Grid.Column="0"/>
+                        <TextBox Style="{StaticResource NormalTB}" x:Name="_zoomBox"  Grid.Row="2" Grid.Column="1" Text="0.7"/>
+                        <Button  Content="Go to coordinates" Click="GoToCoordinatesClick" Grid.Row="3" Grid.Column="1"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Get current position">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label x:Name="_currentLatLabel" Content="Center Lat:"  Grid.Row="0" Grid.Column="0"/>
+                        <TextBox Style="{StaticResource NormalTB}" x:Name="_currentLatTextBox" TextWrapping="Wrap"  Grid.Row="0" Grid.Column="1"/>
+                        <Label x:Name="_currentLongLabel" Content="Center Long:"  Grid.Row="1" Grid.Column="0"/>
+                        <TextBox Style="{StaticResource NormalTB}" x:Name="_currentLongTextBox" TextWrapping="Wrap"  Grid.Row="1" Grid.Column="1"/>
+                        <Label x:Name="_upperLeftLatLabelP" Content="Upper left Lat:"  Grid.Row="2" Grid.Column="0"/>
+                        <TextBox Style="{StaticResource NormalTB}" x:Name="_upperLeftLatTextBoxP" Grid.Row="2" Grid.Column="1"/>
+                        <Label x:Name="_upperLeftLongLabelP" Content="Upper left Long:"  Grid.Row="3" Grid.Column="0"/>
+                        <TextBox Style="{StaticResource NormalTB}" x:Name="_upperLeftLongTextBoxP" Grid.Row="3" Grid.Column="1"/>
+                        <Label x:Name="_lowerRightLatLabelP" Content="Lower right Lat:"  Grid.Row="4" Grid.Column="0"/>
+                        <TextBox Style="{StaticResource NormalTB}" x:Name="_lowerRightLatTextBoxP" Grid.Row="4" Grid.Column="1"/>
+                        <Label x:Name="_lowerRightLongLabelP" Content="Lower right Long:"  Grid.Row="5" Grid.Column="0"/>
+                        <TextBox Style="{StaticResource NormalTB}" x:Name="_lowerRightLongTextBoxP" Grid.Row="5" Grid.Column="1"/>                        
+                        <Label x:Name="_zoomLabel" Content="Current zoom level:"  Grid.Row="6" Grid.Column="0"/>
+                        <TextBox Style="{StaticResource NormalTB}" x:Name="_zoomTextBox" TextWrapping="Wrap"  Grid.Row="6" Grid.Column="2"/>
+                        <Button Content="Get current position" Click="GetCurPositionClick"  Grid.Row="7" Grid.Column="1"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Go to area">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Label x:Name="_upperLeftLatLabel" Content="Upper left Lat:"  Grid.Row="0" Grid.Column="0"/>
+                        <TextBox Style="{StaticResource NormalTB}" x:Name="_upperLeftLatTextBox" Grid.Row="0" Grid.Column="1" Text="55.658140343876"/>
+                        <Label x:Name="_upperLeftLongLabel" Content="Upper left Long:"  Grid.Row="1" Grid.Column="0"/>
+                        <TextBox Style="{StaticResource NormalTB}" x:Name="_upperLeftLongTextBox" Grid.Row="1" Grid.Column="1" Text="12.3731985027713"/>
+                        <Label x:Name="_lowerRightLatLabel" Content="Lower right Lat:"  Grid.Row="2" Grid.Column="0"/>
+                        <TextBox Style="{StaticResource NormalTB}" x:Name="_lowerRightLatTextBox" Grid.Row="2" Grid.Column="1" Text="55.6557735875496"/>
+                        <Label x:Name="_lowerRightLongLabel" Content="Lower right Long:"  Grid.Row="3" Grid.Column="0"/>
+                        <TextBox Style="{StaticResource NormalTB}" x:Name="_lowerRightLongTextBox" Grid.Row="3" Grid.Column="1" Text="12.3792903930173"/>
+                        <Button  Content="Go to area"  Click="GoToAreaClick" Grid.Row="4" Grid.Column="1"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Go to location">
+                    <Grid>
+                        <Button Content="Go to location" Click="GoToLocationClick"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Go to item">
+                    <Button Content="Go to item" Grid.Row="1" Grid.Column="1" Click="GoToItemClick"/>
+                </TabItem>
+                <TabItem x:Name="_mapIndicationTab" Header="Map position changed indication">
+                    <TextBox x:Name="_changedDataTextBox" Grid.Row="2" Grid.ColumnSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" />
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</platformclient:ViewItemWpfUserControl>

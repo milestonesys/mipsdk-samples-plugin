@@ -1,0 +1,4 @@
+<plugin>
+   <file name="PlatformFileView.dll"/>
+  <load env="Administration"/>
+</plugin>

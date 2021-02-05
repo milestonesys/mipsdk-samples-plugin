@@ -1,0 +1,4 @@
+<plugin>
+  <file name="ActiveElementsOverlay.dll"/>
+  <load env="SmartClient"/>
+</plugin>

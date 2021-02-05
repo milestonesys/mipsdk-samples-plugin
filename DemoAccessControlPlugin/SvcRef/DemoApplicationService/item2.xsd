@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/DemoACServerApplication" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DemoACServerApplication" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8732/DemoACServerApplication/WebService/?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:8732/DemoACServerApplication/WebService/?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="EventDescriptor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EventId" type="ser:guid" />
+      <xs:element minOccurs="0" name="EventName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SourceType" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EventDescriptor" nillable="true" type="tns:EventDescriptor" />
+  <xs:complexType name="DoorDescriptor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DoorControllerId" type="ser:guid" />
+      <xs:element minOccurs="0" name="DoorId" type="ser:guid" />
+      <xs:element minOccurs="0" name="DoorName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Enabled" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HasRexButton" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LockCommandSupported" type="xs:boolean" />
+      <xs:element minOccurs="0" name="UnlockCommandSupported" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DoorDescriptor" nillable="true" type="tns:DoorDescriptor" />
+  <xs:complexType name="CredentialHolderDescriptor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CardId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CredentialHolderId" type="ser:guid" />
+      <xs:element minOccurs="0" name="CredentialHolderName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Department" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExpiryDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Picture" nillable="true" type="xs:base64Binary" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Roles" nillable="true" type="q1:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CredentialHolderDescriptor" nillable="true" type="tns:CredentialHolderDescriptor" />
+  <xs:complexType name="UserDescriptor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="LastChanged" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserDescriptor" nillable="true" type="tns:UserDescriptor" />
+  <xs:complexType name="BaseEvent">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EventId" type="ser:guid" />
+      <xs:element minOccurs="0" name="SequenceNumber" type="xs:long" />
+      <xs:element minOccurs="0" name="Timestamp" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BaseEvent" nillable="true" type="tns:BaseEvent" />
+  <xs:complexType name="DoorStatusEvent">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Status" nillable="true" type="tns:DoorStatus" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DoorStatusEvent" nillable="true" type="tns:DoorStatusEvent" />
+  <xs:complexType name="DoorStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DoorId" type="ser:guid" />
+      <xs:element minOccurs="0" name="IsLocked" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsOpen" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DoorStatus" nillable="true" type="tns:DoorStatus" />
+  <xs:complexType name="DoorControllerEvent">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AccessPoint" type="xs:int" />
+          <xs:element minOccurs="0" name="CredentialHolderId" type="ser:guid" />
+          <xs:element minOccurs="0" name="DoorId" type="ser:guid" />
+          <xs:element minOccurs="0" name="Reason" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="VmsUserName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DoorControllerEvent" nillable="true" type="tns:DoorControllerEvent" />
+  <xs:complexType name="CredentialHolderChangedEvent">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CredentialHolderId" type="ser:guid" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="CredentialHolderChangedEvent" nillable="true" type="tns:CredentialHolderChangedEvent" />
+  <xs:complexType name="UserChangedEvent">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="LastChanged" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+          <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UserChangedEvent" nillable="true" type="tns:UserChangedEvent" />
+  <xs:complexType name="ClearAlarmCommand">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DoorId" type="ser:guid" />
+      <xs:element minOccurs="0" name="EventTypeId" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClearAlarmCommand" nillable="true" type="tns:ClearAlarmCommand" />
+  <xs:complexType name="ArrayOfEventDescriptor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="EventDescriptor" nillable="true" type="tns:EventDescriptor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEventDescriptor" nillable="true" type="tns:ArrayOfEventDescriptor" />
+  <xs:complexType name="ArrayOfDoorControllerDescriptor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DoorControllerDescriptor" nillable="true" type="tns:DoorControllerDescriptor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDoorControllerDescriptor" nillable="true" type="tns:ArrayOfDoorControllerDescriptor" />
+  <xs:complexType name="DoorControllerDescriptor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DoorControllerId" type="ser:guid" />
+      <xs:element minOccurs="0" name="DoorControllerName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DoorControllerDescriptor" nillable="true" type="tns:DoorControllerDescriptor" />
+  <xs:complexType name="ArrayOfDoorDescriptor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DoorDescriptor" nillable="true" type="tns:DoorDescriptor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDoorDescriptor" nillable="true" type="tns:ArrayOfDoorDescriptor" />
+  <xs:complexType name="ArrayOfCredentialHolderDescriptor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CredentialHolderDescriptor" nillable="true" type="tns:CredentialHolderDescriptor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCredentialHolderDescriptor" nillable="true" type="tns:ArrayOfCredentialHolderDescriptor" />
+  <xs:complexType name="ArrayOfBaseEvent">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BaseEvent" nillable="true" type="tns:BaseEvent" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBaseEvent" nillable="true" type="tns:ArrayOfBaseEvent" />
+  <xs:complexType name="ArrayOfClearAlarmCommand">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClearAlarmCommand" nillable="true" type="tns:ClearAlarmCommand" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfClearAlarmCommand" nillable="true" type="tns:ArrayOfClearAlarmCommand" />
+</xs:schema>

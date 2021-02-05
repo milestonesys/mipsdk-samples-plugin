@@ -1,0 +1,4 @@
+<plugin>
+   <file name="ServerConnectionLicense.dll"/>
+   <load env="Administration"/>
+</plugin>

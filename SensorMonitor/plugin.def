@@ -1,0 +1,4 @@
+<plugin>
+   <file name="SensorMonitor.dll"/>
+   <load env="Service, Administration"/>
+</plugin>

@@ -1,0 +1,50 @@
+<platformclient:ViewItemWpfUserControl x:Class="MessageTester.Client.MessageTesterViewItemWpfUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MessageTester.Client"
+             xmlns:platformclient="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" MouseDown="ViewItemWpfUserControl_MouseDown" MouseDoubleClick="ViewItemWpfUserControl_MouseDoubleClick">
+    <Grid x:Name="_viewItemGrid" Margin="5,5,5,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto" MinHeight="10"/>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" MinHeight="10"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Message ids"/>
+                <ComboBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="120" Width="auto" x:Name="cbMessageIds" SelectionChanged="OnMessageSelect"/>
+                <Grid Grid.Row="3" x:Name="_messageDataControlsGrid"/>
+                <Button Content="Send message" HorizontalAlignment="Left"  Grid.Row="5" VerticalAlignment="Top" Width="120" x:Name="SendMessage" Click="OnSendMessage" IsEnabled="{Binding IsReadyToSend}"/>
+                <Label Grid.Row="6" Content="Response:" />
+                <TextBox Grid.Row="7" x:Name="ResponseTextBox" Text="No response" />
+                
+
+            </Grid>
+
+        </Grid>
+        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch"/>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions >
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Message Trace" Grid.Row="0"/>
+            <ListBox x:Name="_traceListbox" Grid.Row="1"/>
+        </Grid>
+
+    </Grid>
+</platformclient:ViewItemWpfUserControl>

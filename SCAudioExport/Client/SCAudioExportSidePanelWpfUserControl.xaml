@@ -1,0 +1,61 @@
+<platformclient:SidePanelWpfUserControl x:Class="SCAudioExport.Client.SCAudioExportSidePanelWpfUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:winform="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SCAudioExport.Client"
+             xmlns:platformclient="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+             mc:Ignorable="d" 
+             Height="430" Width="270">
+    <StackPanel Orientation="Vertical">
+        <Button x:Name="_buttonAddMicrophone" Content="Add Microphone" Click="_buttonAddMicrophone_Click" Margin="4"/>
+        <Button x:Name="_buttonAddSpeaker" Content="Add Speaker" Click="_buttonAddSpeaker_Click" Margin="4" />
+        <ListBox x:Name="_listBoxAudioDevices"  Margin="4" Height="70"/>
+        <TextBox x:Name="_textBoxExportName" Text="Enter your export name here" Margin="4"/>
+        <TextBox x:Name="_textBoxFileName" Text="Enter your file name here" Margin="4"/>
+        <ComboBox x:Name="_comboBoxCodec"  Margin="4"/>
+        <ComboBox x:Name="_comboBoxSampleRates" Margin="4">
+            <sys:Int32>8000</sys:Int32>
+            <sys:Int32>16000</sys:Int32>
+            <sys:Int32>44100</sys:Int32>
+        </ComboBox>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Label>Start time:</Label>
+            <Grid x:Name="DateTimePickerStartGrid" Grid.Column="1" Margin="4">
+                <WindowsFormsHost >
+                    <winform:DateTimePicker x:Name="_datePickerStart" Format="Time" />
+                </WindowsFormsHost>
+            </Grid>
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Label>End time:</Label>
+            <Grid x:Name="DateTimePickerEndGrid" Grid.Column="1" Margin="4">
+                <WindowsFormsHost >
+                    <winform:DateTimePicker x:Name="_datePickerEnd" Format="Time" />
+                </WindowsFormsHost>
+            </Grid>
+        </Grid>
+        <Button x:Name="_buttonSelectDestination" Content="Select Destination" Click="_buttonSelectDestination_Click" Margin="4"/>
+        <ProgressBar x:Name="_progressBar" Minimum="0" Maximum="100" Margin="4" Height="20"/>
+        <TextBlock TextWrapping="WrapWithOverflow" x:Name="textBlockStatus"  Text="Status:" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="_buttonExport" Content="Add export job"  Click="_buttonExport_Click" Margin="4"/>
+            <Button x:Name="_buttonCancel" Content="Cancel all jobs" Click="_buttonCancel_Click" Margin="4" Grid.Column="1"/>
+        </Grid>
+    </StackPanel>
+</platformclient:SidePanelWpfUserControl>

@@ -1,0 +1,28 @@
+﻿<client:SidePanelWpfUserControl x:Class="SCToast.Client.SCToastSidePanelUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:client="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+             xmlns:client1="clr-namespace:SCToast.Client">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" x:Name="_addToastButton" Content="Add Toast" Click="_addToastButton_OnClick"/>
+        <Button Grid.Row="1" x:Name="_updateToastButton" Content="Update Toast" Click="_updateToastButton_OnClick" Margin="0,5,0,0"/>
+        <Button Grid.Row="2" x:Name="_removeToastButton" Content="Remove Toast" Click="_removeToastButton_OnClick" Margin="0,5,0,0"/>
+        <CheckBox Grid.Row="3" x:Name="_removeOnActivationCheckBox" Content="Remove on activation" Margin="0,5,0,0"/>
+        <ListView Grid.Row="4" x:Name="_toastListView" Height="100" SelectionChanged="_toastListView_OnSelectionChanged" Margin="0,5,0,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={client1:SmartClientToastDataToDisplayTextConverter}}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBox Grid.Row="5" x:Name="_infoTextBox" Height="100" Margin="0,5,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+    </Grid>
+</client:SidePanelWpfUserControl>

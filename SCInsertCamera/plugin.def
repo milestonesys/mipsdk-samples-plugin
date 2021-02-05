@@ -1,0 +1,4 @@
+<plugin>
+   <file name="SCInsertCamera.dll"/>
+   <load env="SmartClient"/>
+</plugin>

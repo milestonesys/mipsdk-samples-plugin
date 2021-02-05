@@ -1,0 +1,17 @@
+﻿<external:ViewItemWpfUserControl x:Class="SCIndependentPlayback.Client.SCIndependentPlaybackViewItemWpfUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SCIndependentPlayback.Client"
+             xmlns:external="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+             mc:Ignorable="d" 
+             d:DesignHeight="312" d:DesignWidth="477">
+    <Grid>
+    <DockPanel>
+            <Grid x:Name="canvasPlaybackControl" DockPanel.Dock="Bottom"/>
+            <Grid x:Name="canvasVideo"/>
+    </DockPanel>
+        <WindowsFormsHost x:Name="_audioPlayerControlHost" Height="1" Width="1"/>
+    </Grid>
+</external:ViewItemWpfUserControl>

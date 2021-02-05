@@ -1,0 +1,3 @@
+﻿<plugin>
+   <file name="DemoDriver.dll" debug="false" />
+</plugin>

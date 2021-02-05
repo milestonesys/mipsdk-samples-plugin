@@ -1,0 +1,4 @@
+<plugin>
+   <file name="BatAction.dll"/>
+   <load env="Service"/>
+</plugin>

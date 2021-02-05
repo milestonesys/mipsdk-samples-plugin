@@ -1,0 +1,4 @@
+<plugin>
+   <file name="SCIndependentPlayback.dll"/>
+   <load env="SmartClient"/>
+</plugin>
