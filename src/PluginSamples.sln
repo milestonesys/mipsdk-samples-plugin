@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddUserWithConfigApi", "..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAccessControlPlugin", "..\DemoAccessControlPlugin\DemoAccessControlPlugin.csproj", "{973931B3-69CB-4264-BAB6-2893D425360F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimelineViewItem", "..\TimelineViewItem\TimelineViewItem.csproj", "{F7F7F0A9-9739-4ABC-AE30-5DF539F76EF6}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSettingsPanel", "..\SCSettingsPanel\SCSettingsPanel.csproj", "{2B146B32-0998-4CE6-ADA5-F3E154A29030}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RGBVideoEnhancementx86", "..\RGBVideoEnhancementx86\RGBVideoEnhancementx86.csproj", "{1027C65C-4741-4728-9978-49EB05215ABC}"
@@ -82,6 +84,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCToast", "..\SCToast\SCToast.csproj", "{76D0E21D-E86C-4BBF-8B05-7A6ED124E70E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSequenceViewer", "..\SCSequenceViewer\SCSequenceViewer.csproj", "{0E7700EB-F570-4654-A10D-6EBEAA5585BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CameraPlaybackControl", "..\CameraPlaybackControl\CameraPlaybackControl.csproj", "{1AF24D85-A483-405D-AA9F-28E6A9B207CC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigDump", "..\ConfigDump\ConfigDump.csproj", "{AB9312E1-E4FF-4405-99E7-E524E2838AE1}"
 EndProject

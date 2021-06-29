@@ -25,6 +25,8 @@ namespace DemoDriverDevice
         public const string DeviceEventMotionDetectionStop = "MD_STOP";
         public const string DeviceEventLPR = "LPR:";
 
+        public const string DeviceSettingFPS = "FPS";
+
         public const int DeviceVideoChannel1 = 0;
         public const int DeviceVideoChannel2 = 1;
         public const int DeviceAudioChannel = 2;
@@ -67,6 +69,9 @@ namespace DemoDriverDevice
 
         [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IDeviceService/SendCommand", ReplyAction = "http://tempuri.org/IDeviceService/SendCommand")]
         string SendCommand(string command);
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IDeviceService/ChangeSetting", ReplyAction = "http://tempuri.org/IDeviceService/ChangeSetting")]
+        void ChangeSetting(int channel, string key, string data);
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
@@ -152,5 +157,11 @@ namespace DemoDriverDevice
         {
             return base.Channel.SendCommand(command);
         }
+
+        public void ChangeSetting(int channel, string key, string data)
+        {
+            base.Channel.ChangeSetting(channel, key, data);
+        }
+
     }
 }

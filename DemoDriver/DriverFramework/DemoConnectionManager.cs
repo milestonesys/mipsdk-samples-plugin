@@ -14,6 +14,7 @@ namespace DemoDriver
     {
         private DeviceDriverProxy _proxy;
         private InputPoller _inputPoller;
+        private ISettingsManager _settingsManager;
 
         private Uri _uri;
         private DateTime _lastConnectCheck = DateTime.MinValue;
@@ -165,6 +166,15 @@ namespace DemoDriver
             string msg = string.Format("{0} on {1} with {2}", command, device, parameter);
             Toolbox.Log.Trace(msg);
             return _proxy.Client.SendCommand(msg);
+        }
+
+        public void ChangeSetting(int channel, string key, string data)
+        {
+            ThrowIfNotConnected();
+            if (_proxy != null)
+            {
+                _proxy.Client.ChangeSetting(channel, key, data);
+            }
         }
 
         private void BuildBaseProxy()

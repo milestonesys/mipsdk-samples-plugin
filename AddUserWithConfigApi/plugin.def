@@ -1,4 +1,4 @@
 <plugin>
-  <file name="AddUserSample.dll"/>
+  <file name="AddUserWithConfigApi.dll"/>
   <load env="SmartClient" />
 </plugin>

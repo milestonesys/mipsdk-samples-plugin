@@ -1,16 +1,45 @@
-﻿using DemoDriverDevice;
-using System;
+﻿using System;
 using VideoOS.Platform.DriverFramework.Data;
+using VideoOS.Platform.DriverFramework.Data.Settings;
 using VideoOS.Platform.DriverFramework.Managers;
+using System.Linq;
 
 namespace DemoDriver
 {
     internal class DemoVideoStreamSession : BaseDemoStreamSession
     {
-
+        private string _fps;
         public DemoVideoStreamSession(ISettingsManager settingsManager, DemoConnectionManager demoConnectionManager, Guid sessionId, string deviceId, int channelId, Guid streamId) : 
             base(settingsManager, demoConnectionManager, sessionId, deviceId, channelId, streamId)
         {
+            UpdateFrameRateOnDevice();
+
+            _settingsManager.OnSettingsChanged += _settingsManager_OnSettingsChanged;
+        }
+
+        public override void Close()
+        {
+            _settingsManager.OnSettingsChanged -= _settingsManager_OnSettingsChanged;
+
+            base.Close();
+        }
+
+        private void _settingsManager_OnSettingsChanged(object sender, SettingsChangedEventArgs e)
+        {            
+            if (e.Settings.Any(s => s.Key == Constants.FPS))
+            {
+                UpdateFrameRateOnDevice();
+            }
+        }
+
+        private void UpdateFrameRateOnDevice()
+        {
+            var setting = _settingsManager.GetSetting(new StreamSetting(Constants.FPS, _deviceId, _streamId, ""));
+            if (setting.Value != _fps)
+            {
+                _demoConnectionManager.ChangeSetting(Channel, DemoDriverDevice.DemoDeviceConstants.DeviceSettingFPS, setting.Value);
+                _fps = setting.Value;
+            }
         }
 
         protected override bool GetLiveFrameInternal(TimeSpan timeout, out BaseDataHeader header, out byte[] data)

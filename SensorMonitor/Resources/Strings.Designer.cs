@@ -61,7 +61,7 @@ namespace SensorMonitor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activate Sensor.
+        ///   Looks up a localized string similar to Activate sensor.
         /// </summary>
         internal static string ACTIVATESENSOR {
             get {
@@ -79,7 +79,7 @@ namespace SensorMonitor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deactive Sensor.
+        ///   Looks up a localized string similar to Deactivate sensor.
         /// </summary>
         internal static string DEACTIVATESENSOR {
             get {
@@ -115,7 +115,7 @@ namespace SensorMonitor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start Recording.
+        ///   Looks up a localized string similar to Start recording.
         /// </summary>
         internal static string STARTREC {
             get {
@@ -124,7 +124,7 @@ namespace SensorMonitor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stop Recording.
+        ///   Looks up a localized string similar to Stop recording.
         /// </summary>
         internal static string STOPREC {
             get {

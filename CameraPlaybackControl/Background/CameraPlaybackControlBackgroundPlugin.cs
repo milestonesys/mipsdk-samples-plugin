@@ -1,0 +1,72 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using VideoOS.Platform;
+using VideoOS.Platform.Background;
+using VideoOS.Platform.Client;
+
+namespace CameraPlaybackControl.Background
+{
+    /// <summary>
+    /// This class is used to keep track of the active ImageViewerAddons. It is useful to use a BackgroundPlugin class for this purpose, 
+    /// since it will stay active not matter which workspace or window the user opens.
+    /// </summary>
+    public class CameraPlaybackControlBackgroundPlugin : BackgroundPlugin
+    {
+        private List<ImageViewerAddOn> _imageViewers;
+
+        public override Guid Id => CameraPlaybackControlDefinition.CameraPlaybackControlBackgroundPlugin;
+
+        public override string Name => "StorageBackgroundPlugin";
+
+        public override List<EnvironmentType> TargetEnvironments => new List<EnvironmentType>() { EnvironmentType.SmartClient };
+
+        public override void Init()
+        {
+            _imageViewers = new List<ImageViewerAddOn>();
+
+            // Here we subscribe to the event which informs us that a new ImageViewer has been added. 
+            ClientControl.Instance.NewImageViewerControlEvent += Instance_NewImageViewerControlEvent;
+        }
+
+        /// <summary>
+        /// Called by the Environment when the user log's out.
+        /// </summary>
+        public override void Close()
+        {
+            // Always remember to unsubscribe from events
+            ClientControl.Instance.NewImageViewerControlEvent -= Instance_NewImageViewerControlEvent;
+        }
+
+        private void Instance_NewImageViewerControlEvent(ImageViewerAddOn imageViewerAddOn)
+        {
+            // Whenever we receive a ImageViewerAddon we subscribe to the "CloseEvent", so we can remove it from our list and thereby make certain to have an updated list
+            imageViewerAddOn.CloseEvent += ImageViewerAddOn_CloseEvent;
+            lock (_imageViewers)
+            {
+                _imageViewers.Add(imageViewerAddOn);
+            }
+        }
+
+        private void ImageViewerAddOn_CloseEvent(object sender, System.EventArgs e)
+        {
+            ImageViewerAddOn closingImageViewer = (ImageViewerAddOn)sender;
+            closingImageViewer.CloseEvent -= ImageViewerAddOn_CloseEvent;
+            lock (_imageViewers)
+            {
+                _imageViewers.Remove(closingImageViewer);
+            }
+        }
+
+        public ImageViewerAddOn FindSelectedImageViewAddOn()
+        {
+            lock (_imageViewers)
+            {
+                // We use the property "IsSelected" to get the ImageViewerAddon which are currently selected
+                return _imageViewers.FirstOrDefault(x => x.IsSelected);
+            }
+        }
+    }
+}

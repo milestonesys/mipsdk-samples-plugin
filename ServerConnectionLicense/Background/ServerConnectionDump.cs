@@ -49,7 +49,7 @@ namespace ServerConnection.Background
 
 		/// <summary>
 		/// A new license response has been received via activation.
-		/// We need to adjust the active number of Items according to the new licnse.
+		/// We need to adjust the active number of Items according to the new license.
 		/// Following cases needs to be done:
 		/// - If counter increases, more trial licenses should be set to normal 
 		/// 
@@ -61,7 +61,7 @@ namespace ServerConnection.Background
 		private static object NewLicense(VideoOS.Platform.Messaging.Message message, FQID s, FQID r)
 		{
 			EnvironmentManager.Instance.Log(false, "ServerConnectionLicense","------ServerLicense check-----", null);
-			// We dont use anything from the actual message, as we simply ask for the license 
+			// We don't use anything from the actual message, as we simply ask for the license 
 			Collection<LicenseInformation> responses =
 				EnvironmentManager.Instance.LicenseManager.GetLicense(ServerConnectionDefinition.ServerConnectionPluginId);
 			if (responses != null)

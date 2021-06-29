@@ -10,7 +10,7 @@ namespace SmartMapController.Client
     /// The ViewItemPlugin is only constructed one time.  
     /// For each ViewItem defined on any view layout, a call to GenerateViewItemManager is performed to create a ViewItemManager. 
     /// This instance of the ViewItemManager is then responsible for the configuration in relation to one viewitem.<br/>
-    /// The ViewItemManager will again generate ViewItemUserContro as appropriate for this viewitem.<br/>
+    /// The ViewItemManager will again generate ViewItemUserControl as appropriate for this viewitem.<br/>
     /// e.g. if a given viewlayout is shown once, then only one ViewItemUserControl is generated.<br/>
     /// Now, if multiple floating windows are opened with SAME viewlayout, and thereby same configuration of a viewitem,
     /// then multiple ViewItemUserControl's may be requested via the same ViewItemManager.<br/>

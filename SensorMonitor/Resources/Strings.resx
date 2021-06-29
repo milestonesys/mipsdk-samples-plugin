@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ACTIVATESENSOR" xml:space="preserve">
-    <value>Activate Sensor</value>
+    <value>Activate sensor</value>
   </data>
   <data name="Controllers" xml:space="preserve">
     <value>Controllers</value>
   </data>
   <data name="DEACTIVATESENSOR" xml:space="preserve">
-    <value>Deactive Sensor</value>
+    <value>Deactivate sensor</value>
   </data>
   <data name="POWEROFF" xml:space="preserve">
     <value>Power controller off</value>
@@ -136,10 +136,10 @@
     <value>Sensors</value>
   </data>
   <data name="STARTREC" xml:space="preserve">
-    <value>Start Recording</value>
+    <value>Start recording</value>
   </data>
   <data name="STOPREC" xml:space="preserve">
-    <value>Stop Recording</value>
+    <value>Stop recording</value>
   </data>
   <data name="TRIGGEREVENT" xml:space="preserve">
     <value>Trigger event</value>
