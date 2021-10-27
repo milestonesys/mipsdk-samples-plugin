@@ -2,22 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CameraPlaybackControl.Background;
+using SCImageViewerAddOnSample.Background;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 
-namespace CameraPlaybackControl.Client
+namespace SCImageViewerAddOnSample.Client
 {
     /// <summary>
     /// The SidePanelPlugin defines a plugin that resides in the live or playback side panel in the Smart Client.
     /// Is it only created once during startup/login and never disposed.
     /// This class can be instantiated directly without making your own inherited class
     /// </summary>
-    public class CameraPlaybackControlSidePanelPlugin : SidePanelPlugin
+    public class SCImageViewerAddOnSampleSidePanelPlugin : SidePanelPlugin
     {
-        private CameraPlaybackControlBackgroundPlugin _backgroundPlugin;
+        private SCImageViewerAddOnSampleBackgroundPlugin _backgroundPlugin;
 
-        public CameraPlaybackControlSidePanelPlugin(CameraPlaybackControlBackgroundPlugin backgroundPlugin)
+        public SCImageViewerAddOnSampleSidePanelPlugin(SCImageViewerAddOnSampleBackgroundPlugin backgroundPlugin)
         {
             _backgroundPlugin = backgroundPlugin;
         }
@@ -44,7 +44,7 @@ namespace CameraPlaybackControl.Client
         /// <returns></returns>
         public override SidePanelWpfUserControl GenerateWpfUserControl()
         {
-            return new CameraPlaybackControlSidePanelWpfUserControl(_backgroundPlugin);
+            return new SCImageViewerAddOnSampleSidePanelWpfUserControl(_backgroundPlugin);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace CameraPlaybackControl.Client
         /// </summary>
         public override Guid Id
         {
-            get { return CameraPlaybackControlDefinition.CameraPlaybackControlSidePanel; }
+            get { return SCImageViewerAddOnSampleDefinition.SCImageViewerAddOnSampleSidePanel; }
         }
 
 
@@ -61,7 +61,7 @@ namespace CameraPlaybackControl.Client
         /// </summary>
         public override string Name
         {
-            get { return "CameraPlaybackControl"; }
+            get { return "SCImageViewerAddOnSample"; }
         }
 
         /// <summary>

@@ -1,22 +1,9 @@
-using AddUserSample.ConfigApi;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Security.Principal;
-using System.ServiceModel;
-using System.ServiceModel.Channels;
-using System.ServiceModel.Security;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml;
-using VideoOS.ConfigurationAPI;
-using VideoOS.ConfigurationAPI.ConfigurationFaultException;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
-using VideoOS.Platform.Messaging;
+using VideoOS.Platform.ConfigurationItems;
+using VideoOS.Platform.Login;
 
 namespace AddUserSample.Client
 {
@@ -28,13 +15,9 @@ namespace AddUserSample.Client
     /// </summary>
     public partial class AddUserSampleSidePanelUserControl : SidePanelUserControl
     {
-        private UserController userController = new UserController();
-        private RoleController roleController = new RoleController();
-
         public AddUserSampleSidePanelUserControl()
         {
             InitializeComponent();
-
         }
 
         public override void Init()
@@ -44,13 +27,13 @@ namespace AddUserSample.Client
 
         private void QueryRoles()
         {
-
             try
             {
-                var roles = roleController.QueryRoles();
+                var roleFolder = new RoleFolder();
+                var roles = roleFolder.Roles;
 
-                rolesCombobox.DisplayMember = "Key";
-                rolesCombobox.ValueMember = "Value";
+                rolesCombobox.DisplayMember = nameof(Role.DisplayName);
+                rolesCombobox.ValueMember = nameof(Role.Path);
                 rolesCombobox.DataSource = roles.ToArray();
             }
             catch(ArgumentException ex)
@@ -72,39 +55,30 @@ namespace AddUserSample.Client
             {
                 var rolePath = rolesCombobox.SelectedValue;
                 var userName = userNameTextBox.Text;
-                var password = passwordTextBox.Text;
+                var password = Util.ToSecureString(passwordTextBox.Text);
 
                 if (rolePath == null)
                 {
                     printMessage("Please select a role");
                     return;
                 }
-                var success = userController.CreateAndAuthorizeUser(userName, password, rolePath.ToString());
-
-                if (success)
+                var folder = new BasicUserFolder();
+                var addTask = folder.AddBasicUser(userName, "User created by AddUserWithConfigApi sample", password);
+                if (addTask.State != StateEnum.Success)
+                {
+                    printMessage("Failed to create basic user with error: " + addTask.ErrorText);
+                    return;
+                }
+                var newUser = new BasicUser(EnvironmentManager.Instance.CurrentSite.ServerId, addTask.Path);
+                var role = new Role(EnvironmentManager.Instance.CurrentSite.ServerId, rolePath as string);
+                var result = role.UserFolder.AddRoleMember(newUser.Sid);
+                if (result.State == StateEnum.Success)
                 {
                     printMessage(String.Format("User '{0}' is successfully created and added to role '{1}'.", userName, rolesCombobox.Text));
                 }
-            }
-            catch (FaultException<ArgumentNullExceptionFault> ex)
-            {
-                if (ex.Message.Contains("VMO62002"))
+                else
                 {
-                    if (ex.Message.Contains("password"))
-                    {
-                        printMessage("Please provide a password.");
-                    }
-                    else if (ex.Message.Contains("name"))
-                    {
-                        printMessage("Please provide a user name.");
-                    }
-                }
-            }
-            catch (FaultException<ArgumentExceptionFault> ex)
-            {
-                if (ex.Message.Contains("Could not create the basic user.") && ex.Message.Contains("already exist."))
-                {
-                    printMessage(String.Format("User '{0}' username already exists. Please choose another name.", userNameTextBox.Text));
+                    printMessage("Operation failed with error: " + result.ErrorText);
                 }
             }
             catch (Exception ex)

@@ -58,7 +58,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <PackageReference Include="MilestoneSystems.VideoOS.ConfigurationAPI" Version="*" />
     <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*" />
   </ItemGroup>
   <ItemGroup>
@@ -72,9 +71,6 @@
     <Compile Include="Client\AddUserSampleSidePanelUserControl.Designer.cs">
       <DependentUpon>AddUserSampleSidePanelUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConfigApi\ConfigApiClient.cs" />
-    <Compile Include="ConfigApi\RoleController.cs" />
-    <Compile Include="ConfigApi\UserController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

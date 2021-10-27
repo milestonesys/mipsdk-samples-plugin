@@ -206,12 +206,16 @@ namespace VideoReplay.Client
 
 		private object SelectedCameraChangedHandler(VideoOS.Platform.Messaging.Message message, FQID destination, FQID source)
 		{
-			_selectedItem = Configuration.Instance.GetItem(message.RelatedFQID);
-			if (_selectedItem!=null)
+			if (message.RelatedFQID != null)
 			{
-				label1.Text = "Camera: " + _selectedItem.Name;
-				_previousSelectedName = _selectedItem.Name;
-			} 
+				var selectedItem = Configuration.Instance.GetItem(message.RelatedFQID);
+				if (selectedItem != null)
+				{
+					_selectedItem = selectedItem;
+					label1.Text = "Camera: " + _selectedItem.Name;
+					_previousSelectedName = _selectedItem.Name;
+				}
+			}
 			_stop = true;
 			return null;
 		}
@@ -242,7 +246,7 @@ namespace VideoReplay.Client
 		    source.SetKeepAspectRatio(true, true);
             source.Init();
             var interval = TimeSpan.FromSeconds(VideoIntervalSeconds);
-			List<object> resultList = source.Get(DateTime.Now - interval, interval, 150);
+			List<object> resultList = source.Get(DateTime.UtcNow - interval, interval, 150);
 
 			_stop = true;
 			if (resultList != null)

@@ -35,7 +35,6 @@ namespace AddUserSample.Client
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.commitButton = new System.Windows.Forms.Button();
@@ -43,20 +42,21 @@ namespace AddUserSample.Client
             this.rolesCombobox = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.resultTextBox = new System.Windows.Forms.TextBox();
+            this.passwordTextBox = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.passwordTextBox);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.commitButton);
             this.groupBox1.Controls.Add(this.userNameTextBox);
             this.groupBox1.Controls.Add(this.rolesCombobox);
-            this.groupBox1.ForeColor = System.Drawing.SystemColors.Control;
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox1.Location = new System.Drawing.Point(14, 13);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(218, 202);
@@ -72,14 +72,6 @@ namespace AddUserSample.Client
             this.label3.Size = new System.Drawing.Size(69, 16);
             this.label3.TabIndex = 6;
             this.label3.Text = "Password:";
-            // 
-            // passwordTextBox
-            // 
-            this.passwordTextBox.Location = new System.Drawing.Point(10, 85);
-            this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.PasswordChar = '*';
-            this.passwordTextBox.Size = new System.Drawing.Size(202, 22);
-            this.passwordTextBox.TabIndex = 5;
             // 
             // label2
             // 
@@ -104,7 +96,7 @@ namespace AddUserSample.Client
             this.commitButton.Location = new System.Drawing.Point(120, 167);
             this.commitButton.Name = "commitButton";
             this.commitButton.Size = new System.Drawing.Size(92, 23);
-            this.commitButton.TabIndex = 2;
+            this.commitButton.TabIndex = 4;
             this.commitButton.Text = "Commit";
             this.commitButton.UseVisualStyleBackColor = true;
             this.commitButton.Click += new System.EventHandler(this.commitButton_Click);
@@ -122,7 +114,7 @@ namespace AddUserSample.Client
             this.rolesCombobox.Location = new System.Drawing.Point(10, 129);
             this.rolesCombobox.Name = "rolesCombobox";
             this.rolesCombobox.Size = new System.Drawing.Size(202, 23);
-            this.rolesCombobox.TabIndex = 0;
+            this.rolesCombobox.TabIndex = 3;
             // 
             // groupBox2
             // 
@@ -142,6 +134,14 @@ namespace AddUserSample.Client
             this.resultTextBox.Name = "resultTextBox";
             this.resultTextBox.Size = new System.Drawing.Size(206, 150);
             this.resultTextBox.TabIndex = 0;
+            // 
+            // passwordTextBox
+            // 
+            this.passwordTextBox.Location = new System.Drawing.Point(10, 86);
+            this.passwordTextBox.Name = "passwordTextBox";
+            this.passwordTextBox.PasswordChar = '*';
+            this.passwordTextBox.Size = new System.Drawing.Size(202, 22);
+            this.passwordTextBox.TabIndex = 2;
             // 
             // AddUserSampleSidePanelUserControl
             // 
@@ -169,9 +169,8 @@ namespace AddUserSample.Client
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox resultTextBox;
-
+        private System.Windows.Forms.MaskedTextBox passwordTextBox;
     }
 }

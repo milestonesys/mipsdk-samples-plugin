@@ -7,19 +7,19 @@ using VideoOS.Platform;
 using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
 
-namespace CameraPlaybackControl.Background
+namespace SCImageViewerAddOnSample.Background
 {
     /// <summary>
     /// This class is used to keep track of the active ImageViewerAddons. It is useful to use a BackgroundPlugin class for this purpose, 
     /// since it will stay active not matter which workspace or window the user opens.
     /// </summary>
-    public class CameraPlaybackControlBackgroundPlugin : BackgroundPlugin
+    public class SCImageViewerAddOnSampleBackgroundPlugin : BackgroundPlugin
     {
         private List<ImageViewerAddOn> _imageViewers;
 
-        public override Guid Id => CameraPlaybackControlDefinition.CameraPlaybackControlBackgroundPlugin;
+        public override Guid Id => SCImageViewerAddOnSampleDefinition.SCImageViewerAddOnSampleBackgroundPlugin;
 
-        public override string Name => "StorageBackgroundPlugin";
+        public override string Name => "SCImageViewerAddOnSampleBackgroundPlugin";
 
         public override List<EnvironmentType> TargetEnvironments => new List<EnvironmentType>() { EnvironmentType.SmartClient };
 
@@ -64,8 +64,10 @@ namespace CameraPlaybackControl.Background
         {
             lock (_imageViewers)
             {
-                // We use the property "IsSelected" to get the ImageViewerAddon which are currently selected
-                return _imageViewers.FirstOrDefault(x => x.IsSelected);
+                // We use the property "IsGlobalSelected" to get the ImageViewerAddon which is currently selected. Note that this won't work with detached windows,
+                // because the control is located in the main window, thus clicking on it will always move the global selection back to the main window. Doing this in code that
+                // doesn't depend on a button in the main window, however, will work.
+                return _imageViewers.FirstOrDefault(x => x.IsGlobalSelected);
             }
         }
     }

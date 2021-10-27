@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 
@@ -9,13 +7,12 @@ namespace AddUserSample.Client
 {
     /// <summary>
     /// The SidePanelPlugin defines a plugin that resides in the live or playback side panel in the Smart Client.
-    /// Is it only created once during startup/login and never disposed.
-    /// This class can be instantiated directly without making your own inherited class
+    /// It is only created once during startup/login and never disposed.
     /// </summary>
     public class AddUserSampleSidePanelPlugin : SidePanelPlugin
     {
         /// <summary>
-        /// This method is called when the Environment is up and configuration is loaded.
+        /// This method is called when the Environment is ready and configuration is loaded.
         /// This method is called once every time the user logins in.
         /// </summary>
         public override void Init()
@@ -47,7 +44,6 @@ namespace AddUserSample.Client
             get { return AddUserSampleDefinition.AddUserSampleSidePanel; }
         }
 
-
         /// <summary>
         /// Name of panel - displayed on top of user control
         /// </summary>
@@ -71,6 +67,5 @@ namespace AddUserSample.Client
 				};
             }
         }
-
     }
 }

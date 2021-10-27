@@ -1,5 +1,6 @@
-﻿using DemoAccessControlPlugin.Client;
-using System.Linq;
+﻿using System.Linq;
+using DemoAccessControlPlugin.Client;
+using System.Text.RegularExpressions;
 using VideoOS.Platform.AccessControl.Alarms;
 using VideoOS.Platform.AccessControl.Plugin;
 
@@ -38,7 +39,7 @@ namespace DemoAccessControlPlugin.Managers
             // Close all corresponding alarms in the VMS
             var vmsAlarms = _alarmRepository.GetAlarmsForSource(e.DoorId, e.EventTypeId, false);
 
-            foreach(var alarm in vmsAlarms)
+            foreach (var alarm in vmsAlarms)
             {
                 _alarmRepository.UpdateAlarm(alarm.Id, new ACAlarmUpdateRequest { State = BuiltInAlarmStates.Closed });
             }
@@ -61,7 +62,9 @@ namespace DemoAccessControlPlugin.Managers
             {
                 try
                 {
-                    await _client.CloseAlarmAsync(doorId, eventTypeId);
+                    var doorExternalSourceId = GetDoorExternalSourceId(doorId);
+
+                    await _client.CloseAlarmAsync(doorExternalSourceId, eventTypeId);
                 }
                 catch (DemoApplicationClientException ex)
                 {
@@ -70,5 +73,29 @@ namespace DemoAccessControlPlugin.Managers
                 }
             }
         }
+
+        /// <summary>
+        /// 1- If the alarm has been raised by the AC Demo application then the door's externalSourceId is equal to the parameter doorId.
+        /// Ie, doorId in the AC System.
+        /// 2- If the alarm has been raised from XPCO then we need to extract the door's externalSourceId. Ie, the parameter doorId holds
+        /// the internal XPCO doorId. 
+        /// </summary>
+        /// <param name="doorId">The door identifier.</param>
+        private string GetDoorExternalSourceId(string doorId)
+        {
+            string doorExternalSourceId = doorId;
+
+            var doorIdValueGroup = "DoorId";
+
+            var doorIdRegex = new Regex($@"(?<AcDemoPluginPrefix>.*)_(?<{doorIdValueGroup}>.*)");
+            var doorIdMatch = doorIdRegex.Match(doorId);
+            if (doorIdMatch.Success)
+            {
+                doorExternalSourceId = doorIdMatch.Groups[doorIdValueGroup].Value;
+            }
+
+            return doorExternalSourceId;
+        }
+
     }
 }

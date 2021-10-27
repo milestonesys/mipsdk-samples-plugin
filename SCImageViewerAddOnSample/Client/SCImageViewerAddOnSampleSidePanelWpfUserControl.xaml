@@ -1,0 +1,73 @@
+﻿<platformclient:SidePanelWpfUserControl x:Class="SCImageViewerAddOnSample.Client.SCImageViewerAddOnSampleSidePanelWpfUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SCImageViewerAddOnSample.Client"
+             xmlns:platformclient="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+             mc:Ignorable="d" 
+             Height="463.522" Width="248">
+    <StackPanel Orientation="Vertical">
+        <Grid>
+            <Button x:Name="buttonDisable" Content="Disable Playback" HorizontalAlignment="Left" Margin="10,16,0,0" IsEnabled="False" VerticalAlignment="Top" Width="110" Click="ButtonDisable_Click"/>
+            <Button x:Name="buttonEnable" Content="Enable Playback" HorizontalAlignment="Left" Margin="133,16,0,0" IsEnabled="False" VerticalAlignment="Top" Width="110" Click="ButtonEnable_Click"/>
+            <Button x:Name="buttonStartPlayback" Content="Start Playback" HorizontalAlignment="Left" IsEnabled="False" Margin="10,41,0,0" VerticalAlignment="Top" Width="110" Click="ButtonStartPlayback_Click"/>
+            <Button x:Name="buttonStopPlayback" Content="Stop Playback" HorizontalAlignment="Left" IsEnabled="False" Margin="133,41,0,0" VerticalAlignment="Top" Width="110" Click="ButtonStopPlayback_Click"/>
+            <Label x:Name="labelPlaybackTime" Content="Not Available" HorizontalAlignment="Left" Margin="128,61,0,0" VerticalAlignment="Top"/>
+            <Label Content="Playback Time:" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top"/>
+        </Grid>
+        <GroupBox Header="Digital Zoom">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="buttonZoomEnable" Content="Enable" Grid.Column="0" Grid.Row="0" Margin="2" IsEnabled="False" Width="50" HorizontalContentAlignment="Center" Click="ButtonZoomEnable_Click" />
+                <Button x:Name="buttonZoomDisable" Content="Disable" Grid.Column="1" Grid.Row="0" Margin="2" IsEnabled="False" Width="50" HorizontalContentAlignment="Center" Click="ButtonZoomDisable_Click" />
+                <Button x:Name="buttonZoomIn" Content="+" Grid.Column="1" Grid.Row="1" Margin="2" IsEnabled="False" Width="20" HorizontalContentAlignment="Center" Click="ButtonZoomIn_Click"/>
+                <Button x:Name="buttonZoomOut" Content="-" Grid.Column="0" Grid.Row="1" Margin="2" IsEnabled="False" Width="20" HorizontalContentAlignment="Center" Click="ButtonZoomOut_Click"/>
+                <Button x:Name="buttonZoomMoveUp" Content="↑" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="2" IsEnabled="False" HorizontalAlignment="Center" Width="20" HorizontalContentAlignment="Center" Click="ButtonZoomMoveUp_Click"/>
+                <Button x:Name="buttonZoomMoveUpLeft" Content="↖" Grid.Column="0" Grid.Row="3" Margin="2" IsEnabled="False" Width="20" HorizontalContentAlignment="Center" Click="ButtonZoomMoveUpLeft_Click"/>
+                <Button x:Name="buttonZoomMoveUpRight" Content="↗" Grid.Column="1" Grid.Row="3" Margin="2" IsEnabled="False" Width="20" HorizontalContentAlignment="Center" Click="ButtonZoomMoveUpRight_Click"/>
+                <Button x:Name="buttonZoomMoveLeft" Content="←" Grid.Column="0" Grid.Row="4" Margin="2" IsEnabled="False" Width="20" HorizontalContentAlignment="Center" Click="ButtonZoomMoveLeft_Click"/>
+                <Button x:Name="buttonZoomMoveRight" Content="→" Grid.Column="1" Grid.Row="4" Margin="2" IsEnabled="False" Width="20" HorizontalContentAlignment="Center" Click="ButtonZoomMoveRight_Click"/>
+                <Button x:Name="buttonZoomMoveDownLeft" Content="↙" Grid.Column="0" Grid.Row="5" Margin="2" IsEnabled="False" Width="20" HorizontalContentAlignment="Center" Click="ButtonZoomMoveDownLeft_Click"/>
+                <Button x:Name="buttonZoomMoveDownRight" Content="↘" Grid.Column="1" Grid.Row="5" Margin="2" IsEnabled="False" Width="20" HorizontalContentAlignment="Center" Click="ButtonZoomMoveDownRight_Click"/>
+                <Button x:Name="buttonZoomMoveDown" Content="↓" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="2" IsEnabled="False" HorizontalAlignment="Center" Width="20" HorizontalContentAlignment="Center" Click="ButtonZoomMoveDown_Click"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Digital Zoom Rectangle">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    <TextBox x:Name="txtZoomUp" AcceptsReturn="False" Width="50" />
+                    <Label x:Name="lblZoomUp">Upper edge</Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    <TextBox x:Name="txtZoomDown" AcceptsReturn="False" Width="50" />
+                    <Label x:Name="lblZoomDown">Lower edge</Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    <TextBox x:Name="txtZoomLeft" AcceptsReturn="False" Width="50" />
+                    <Label x:Name="lblZoomLeft">Left edge</Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="2">
+                    <TextBox x:Name="txtZoomRight" AcceptsReturn="False" Width="50" />
+                    <Label x:Name="lblZoomRight">Right edge</Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="buttonZoomGetRectangle" Content="Get" IsEnabled="False" Click="ButtonZoomGetRectangle_Click" Margin="2"/>
+                    <Button x:Name="buttonZoomSetRectangle" Content="Set" IsEnabled="False" Click="ButtonZoomSetRectangle_Click" Margin="2"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
+</platformclient:SidePanelWpfUserControl>

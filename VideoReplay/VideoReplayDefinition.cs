@@ -6,7 +6,6 @@ using System.Windows.Forms;
 using VideoReplay.Client;
 using VideoOS.Platform;
 using VideoOS.Platform.Admin;
-using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
 
 namespace VideoReplay
@@ -19,20 +18,15 @@ namespace VideoReplay
 		internal static Guid VideoReplayKind = new Guid("9c16cd76-6226-422c-bd55-4973f3497fa7");
 		internal static Guid VideoReplaySidePanel = new Guid("b5d2f61b-0d4a-49e9-8d07-d4d81cef03fb");
 		internal static Guid VideoReplayViewItemPlugin = new Guid("7b951f40-6600-46fe-9d5b-3eb494c80923");
-		internal static Guid VideoReplayOptionsDialog = new Guid("dc285fe9-715a-4bf4-8554-d60e7c1befd9");
 
 		#region Private fields
-
 
 		//
 		// Note that all the plugin are constructed during application start, and the constructors
 		// should only contain code that references their own dll, e.g. resource load.
 
-		private List<BackgroundPlugin> _backgroundPlugins = new List<BackgroundPlugin>();
-		private List<OptionsDialogPlugin> _optionsDialogPlugins = new List<OptionsDialogPlugin>();
 		private List<ViewItemPlugin> _viewItemPlugin = new List<ViewItemPlugin>();
 		private List<ItemNode> _itemNodes = new List<ItemNode>();
-		private List<SidePanelPlugin> _sidePanelPlugins = new List<SidePanelPlugin>();
 		private List<String> _messageIdStrings = new List<string>();
 		private List<SecurityAction> _securityActions = new List<SecurityAction>();
 
@@ -68,13 +62,11 @@ namespace VideoReplay
 		{
 			// Populate all relevant lists with your plugins etc.
 			_viewItemPlugin.Add(new VideoReplayViewItemPlugin());
-			_optionsDialogPlugins.Add(new VideoReplayOptionsDialogPlugin());
 		}
 
 		public override void Close()
 		{
 			_viewItemPlugin = new List<ViewItemPlugin>();
-			_optionsDialogPlugins = new List<OptionsDialogPlugin>();
 		}
 
 		/// <summary>
@@ -202,26 +194,6 @@ namespace VideoReplay
 		public override List<ViewItemPlugin> ViewItemPlugins
 		{
 			get { return _viewItemPlugin; }
-		}
-
-		/// <summary>
-		/// An extention plugin running in the Smart Client to add more choices on the Options dialog.
-		/// </summary>
-		public override List<OptionsDialogPlugin> OptionsDialogPlugins
-		{
-			get { return _optionsDialogPlugins; }
-		}
-
-		public override List<SidePanelPlugin> SidePanelPlugins
-		{
-			get { return _sidePanelPlugins; }
-		}
-		/// <summary>
-		/// Create and returns the background task.
-		/// </summary>
-		public override List<VideoOS.Platform.Background.BackgroundPlugin> BackgroundPlugins
-		{
-			get { return _backgroundPlugins; }
 		}
 
 		#endregion

@@ -1,6 +1,6 @@
 ---
 description: The AddUserWithConfigApi plugin demonstrates how the
-  configuration API can be used from a Smart Client plugin. It enables a
+  strongly typed configuration API classes can be used from a Smart Client plugin. It enables a
   Smart Client operator to create a new basic user and add it to a
   chosen role.
 keywords:
@@ -12,7 +12,7 @@ title: Smart Client Add User
 
 # Smart Client Add User
 
-The AddUserWithConfigApi plugin demonstrates how the configuration API
+The AddUserWithConfigApi plugin demonstrates how the strongly typed configuration API classes
 can be used from a Smart Client plugin. It enables a Smart Client
 operator to create a new basic user and add it to a chosen role.
 
@@ -31,13 +31,9 @@ operator to create a new basic user and add it to a chosen role.
 
 ## Using
 
--   Configuration API resources:
-    -   /BasicUserFolder
-    -   /Role\[...\]/UserFolder
-    -   /RoleFolder
--   VideoOS.ConfigurationAPI.ItemTypes
--   VideoOS.ConfigurationAPI.ConfigurationItem
--   VideoOS.ConfigurationAPI.IConfigurationService
+-   VideoOS.Platform.ConfigurationItems.RoleFolder
+-   VideoOS.Platform.ConfigurationItems.BasicUserFolder
+-   VideoOS.Platform.ConfigurationItems.Role
 
 ## Visual Studio C\# project
 

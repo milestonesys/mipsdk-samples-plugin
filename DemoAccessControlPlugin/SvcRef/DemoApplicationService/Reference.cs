@@ -515,7 +515,9 @@ namespace DemoAccessControlPlugin.DemoApplicationService {
     [System.Runtime.Serialization.DataContractAttribute(Name="BaseEvent", Namespace="http://schemas.datacontract.org/2004/07/DemoACServerApplication")]
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DemoApplicationService.DoorStatusEvent))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DemoApplicationService.EventTypeEnabledStatusEvent))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DemoApplicationService.DoorControllerEvent))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DemoApplicationService.DoorEnabledStatusEvent))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DemoApplicationService.CredentialHolderChangedEvent))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DemoApplicationService.UserChangedEvent))]
     public partial class BaseEvent : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -609,6 +611,45 @@ namespace DemoAccessControlPlugin.DemoApplicationService {
                 if ((object.ReferenceEquals(this.StatusField, value) != true)) {
                     this.StatusField = value;
                     this.RaisePropertyChanged("Status");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EventTypeEnabledStatusEvent", Namespace="http://schemas.datacontract.org/2004/07/DemoACServerApplication")]
+    [System.SerializableAttribute()]
+    public partial class EventTypeEnabledStatusEvent : DemoApplicationService.BaseEvent {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid EventTypeIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsEnabledField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid EventTypeId {
+            get {
+                return this.EventTypeIdField;
+            }
+            set {
+                if ((this.EventTypeIdField.Equals(value) != true)) {
+                    this.EventTypeIdField = value;
+                    this.RaisePropertyChanged("EventTypeId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsEnabled {
+            get {
+                return this.IsEnabledField;
+            }
+            set {
+                if ((this.IsEnabledField.Equals(value) != true)) {
+                    this.IsEnabledField = value;
+                    this.RaisePropertyChanged("IsEnabled");
                 }
             }
         }
@@ -712,6 +753,45 @@ namespace DemoAccessControlPlugin.DemoApplicationService {
                 if ((object.ReferenceEquals(this.VmsUserNameField, value) != true)) {
                     this.VmsUserNameField = value;
                     this.RaisePropertyChanged("VmsUserName");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DoorEnabledStatusEvent", Namespace="http://schemas.datacontract.org/2004/07/DemoACServerApplication")]
+    [System.SerializableAttribute()]
+    public partial class DoorEnabledStatusEvent : DemoApplicationService.BaseEvent {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid DoorIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsEnabledField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid DoorId {
+            get {
+                return this.DoorIdField;
+            }
+            set {
+                if ((this.DoorIdField.Equals(value) != true)) {
+                    this.DoorIdField = value;
+                    this.RaisePropertyChanged("DoorId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsEnabled {
+            get {
+                return this.IsEnabledField;
+            }
+            set {
+                if ((this.IsEnabledField.Equals(value) != true)) {
+                    this.IsEnabledField = value;
+                    this.RaisePropertyChanged("IsEnabled");
                 }
             }
         }

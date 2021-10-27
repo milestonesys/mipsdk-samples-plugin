@@ -68,6 +68,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="DoorStatus" nillable="true" type="tns:DoorStatus" />
+  <xs:complexType name="EventTypeEnabledStatusEvent">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="EventTypeId" type="ser:guid" />
+          <xs:element minOccurs="0" name="IsEnabled" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="EventTypeEnabledStatusEvent" nillable="true" type="tns:EventTypeEnabledStatusEvent" />
   <xs:complexType name="DoorControllerEvent">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseEvent">
@@ -83,6 +94,17 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="DoorControllerEvent" nillable="true" type="tns:DoorControllerEvent" />
+  <xs:complexType name="DoorEnabledStatusEvent">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEvent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DoorId" type="ser:guid" />
+          <xs:element minOccurs="0" name="IsEnabled" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DoorEnabledStatusEvent" nillable="true" type="tns:DoorEnabledStatusEvent" />
   <xs:complexType name="CredentialHolderChangedEvent">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BaseEvent">

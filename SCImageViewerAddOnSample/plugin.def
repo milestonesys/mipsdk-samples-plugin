@@ -1,0 +1,4 @@
+<plugin>
+  <file name="SCImageViewerAddOnSample.dll"/>
+  <load env="SmartClient"/>
+</plugin>

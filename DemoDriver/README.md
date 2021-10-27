@@ -46,7 +46,7 @@ To try out the Demo Driver sample:
 1.  If you have just now installed the MIP SDK, restart the Recording
     Server Service to make the Demo Driver available.
 2.  Run
-    `%ProgramFiles%\Milestone\MIPSDK\DriverSamples\DemoDriver\DemoDriverDevice\DemoDriverDevice.exe`
+    `%ProgramFiles%\Milestone\MIPSDK\PluginSamples\DemoDriver\DemoDriverDevice\DemoDriverDevice.exe`
     **as Administrator**.
 3.  By default, the device will use the credentials `root:pass`, the
     port `22222`, and the MAC address `DE:AD:CO:DE:56:78`. Specify the

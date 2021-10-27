@@ -1,4 +1,4 @@
-using CameraPlaybackControl.Background;
+using SCImageViewerAddOnSample.Background;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,34 +9,50 @@ using VideoOS.Platform;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.Messaging;
 
-namespace CameraPlaybackControl.Client
+namespace SCImageViewerAddOnSample.Client
 {
 
     /// <summary>
     /// This class handles the logic of our SidePanel. It ensures to enable/disable the right buttons and update the UI with the correct information
     /// </summary>
-    public partial class CameraPlaybackControlSidePanelWpfUserControl : SidePanelWpfUserControl
+    public partial class SCImageViewerAddOnSampleSidePanelWpfUserControl : SidePanelWpfUserControl
     {
         const string TimeFormat = "HH:mm:ss:fff";
 
         object _itemViewChanged;
-        CameraPlaybackControlBackgroundPlugin _backgroundPlugin;
+        SCImageViewerAddOnSampleBackgroundPlugin _backgroundPlugin;
         ImageViewerAddOn _currentImageViewer;
-  
+        private double _refWidth = Int16.MaxValue;
+        private double _refHeight = Int16.MaxValue;
+        private Timer _timer;
+
         /// <summary>
         /// The constructor of our SidePanel
         /// </summary>
         /// <param name="backgroundPlugin">A reference to the background plugin where we can access the ImageViewerAddons</param>
-        public CameraPlaybackControlSidePanelWpfUserControl(CameraPlaybackControlBackgroundPlugin backgroundPlugin)
+        public SCImageViewerAddOnSampleSidePanelWpfUserControl(SCImageViewerAddOnSampleBackgroundPlugin backgroundPlugin)
         {
             InitializeComponent();
             _backgroundPlugin = backgroundPlugin;
         }
-       
+
         public override void Init()
         {
             // We subscribe to messages from the SmartClient which informs us the a new ViewItem has been selected.
             _itemViewChanged = EnvironmentManager.Instance.RegisterReceiver(MessageReceived, new MessageIdFilter(MessageId.SmartClient.SelectedViewItemChangedIndication));
+            if (_timer == null)
+            {
+                _timer = new Timer(1000);
+                _timer.AutoReset = true;
+                _timer.Elapsed += Timer_Elapsed;
+                _timer.Enabled = true;
+            }
+        }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            //We poll here to check whether digital zoom state has been changed via the Smart Client default UI.
+            SetDigitalZoomButtonState();
         }
 
         private object MessageReceived(Message message, FQID destination, FQID sender)
@@ -46,11 +62,8 @@ namespace CameraPlaybackControl.Client
             ResetButtons();
 
             ChangeCurrentImageViewer(selectedImageViewAddon);
-            if (_currentImageViewer == null)
-            {
-                return null;
-            }
-            else
+
+            if (_currentImageViewer?.IndependentPlaybackController != null)
             {
                 SetEnableDisableButtonsState(_currentImageViewer.IndependentPlaybackEnabled);
                 SetPlaybackButtonState(_currentImageViewer.IndependentPlaybackController.PlaybackMode);
@@ -75,6 +88,8 @@ namespace CameraPlaybackControl.Client
 
         private void SetPlaybackButtonState(PlaybackController.PlaybackModeType playbackMode)
         {
+            SetDigitalZoomButtonState();
+
             if(!_currentImageViewer.IndependentPlaybackEnabled)
             {
                 buttonStartPlayback.IsEnabled = false;
@@ -93,6 +108,28 @@ namespace CameraPlaybackControl.Client
             }
         }
 
+        private void SetDigitalZoomButtonState()
+        {
+            bool enable = _currentImageViewer != null && _currentImageViewer.DigitalZoomEnabled;
+            this.Dispatcher.Invoke(() =>
+            {
+                buttonZoomEnable.IsEnabled = !enable;
+                buttonZoomDisable.IsEnabled = enable;
+                buttonZoomIn.IsEnabled = enable;
+                buttonZoomOut.IsEnabled = enable;
+                buttonZoomMoveDown.IsEnabled = enable;
+                buttonZoomMoveDownLeft.IsEnabled = enable;
+                buttonZoomMoveDownRight.IsEnabled = enable;
+                buttonZoomMoveLeft.IsEnabled = enable;
+                buttonZoomMoveRight.IsEnabled = enable;
+                buttonZoomMoveUpLeft.IsEnabled = enable;
+                buttonZoomMoveUpRight.IsEnabled = enable;
+                buttonZoomMoveUp.IsEnabled = enable;
+                buttonZoomGetRectangle.IsEnabled = enable;
+                buttonZoomSetRectangle.IsEnabled = enable;
+            });
+        }
+
         private void ChangeCurrentImageViewer(ImageViewerAddOn selectedImageViewAddon)
         {
             if (_currentImageViewer == null && selectedImageViewAddon != null)
@@ -107,7 +144,7 @@ namespace CameraPlaybackControl.Client
                 _currentImageViewer = selectedImageViewAddon;
             }
 
-            if (_currentImageViewer != null)
+            if (_currentImageViewer?.IndependentPlaybackController != null)
             {
                 SetupNewIndependentPlaybackEvents(_currentImageViewer);
             }
@@ -167,7 +204,14 @@ namespace CameraPlaybackControl.Client
             {
                 EnvironmentManager.Instance.UnRegisterReceiver(_itemViewChanged);
             }
-            
+
+            if(_timer != null)
+            {
+                _timer.Stop();
+                _timer.Dispose();
+                _timer = null;
+            }
+
             if (_currentImageViewer != null && _currentImageViewer.IndependentPlaybackEnabled)
             {
                 _currentImageViewer.IndependentPlaybackController.PlaybackTimeChangedEvent -= PlaybackTimeChangedEvent;
@@ -216,6 +260,93 @@ namespace CameraPlaybackControl.Client
                 playbackTime = _currentImageViewer.IndependentPlaybackController.PlaybackTime.ToLocalTime().ToString(TimeFormat);
             }
             labelPlaybackTime.Content = playbackTime;
+        }
+
+        private void ButtonZoomIn_Click(object sender, RoutedEventArgs e)
+        {
+            _currentImageViewer.DigitalZoomMove(PTZMoveCommandData.ZoomIn);
+        }
+
+        private void ButtonZoomOut_Click(object sender, RoutedEventArgs e)
+        {
+            _currentImageViewer.DigitalZoomMove(PTZMoveCommandData.ZoomOut);
+        }
+
+        private void ButtonZoomMoveUp_Click(object sender, RoutedEventArgs e)
+        {
+            _currentImageViewer.DigitalZoomMove(PTZMoveCommandData.Up);
+        }
+
+        private void ButtonZoomMoveUpLeft_Click(object sender, RoutedEventArgs e)
+        {
+            _currentImageViewer.DigitalZoomMove(PTZMoveCommandData.UpLeft);
+        }
+
+        private void ButtonZoomMoveUpRight_Click(object sender, RoutedEventArgs e)
+        {
+            _currentImageViewer.DigitalZoomMove(PTZMoveCommandData.UpRight);
+        }
+
+        private void ButtonZoomMoveLeft_Click(object sender, RoutedEventArgs e)
+        {
+            _currentImageViewer.DigitalZoomMove(PTZMoveCommandData.Left);
+        }
+
+        private void ButtonZoomMoveRight_Click(object sender, RoutedEventArgs e)
+        {
+            _currentImageViewer.DigitalZoomMove(PTZMoveCommandData.Right);
+        }
+
+        private void ButtonZoomMoveDownLeft_Click(object sender, RoutedEventArgs e)
+        {
+            _currentImageViewer.DigitalZoomMove(PTZMoveCommandData.DownLeft);
+        }
+
+        private void ButtonZoomMoveDownRight_Click(object sender, RoutedEventArgs e)
+        {
+            _currentImageViewer.DigitalZoomMove(PTZMoveCommandData.DownRight);
+        }
+
+        private void ButtonZoomMoveDown_Click(object sender, RoutedEventArgs e)
+        {
+            _currentImageViewer.DigitalZoomMove(PTZMoveCommandData.Down);
+        }
+
+        private void ButtonZoomGetRectangle_Click(object sender, RoutedEventArgs e)
+        {
+            //This code gets the current imageViewerAddOn digital zoom rectangle
+            var data = _currentImageViewer.DigitalZoomRectangle;
+            _refWidth = data.RefWidth;
+            _refHeight = data.RefHeight;
+            txtZoomLeft.Text = Convert.ToString(data.Left);
+            txtZoomRight.Text = Convert.ToString(data.Right);
+            txtZoomDown.Text = Convert.ToString(data.Bottom);
+            txtZoomUp.Text = Convert.ToString(data.Top);
+        }
+
+        private void ButtonZoomSetRectangle_Click(object sender, RoutedEventArgs e)
+        {
+            //This code zooms to a specific rectangle in the imageViewerAddOn.
+            var data = new PTZRectangleCommandData();
+            data.Bottom = Convert.ToDouble(string.IsNullOrEmpty(txtZoomDown.Text) ? "0" : txtZoomDown.Text);
+            data.Top = Convert.ToDouble(string.IsNullOrEmpty(txtZoomUp.Text) ? "0" : txtZoomUp.Text);
+            data.Left = Convert.ToDouble(string.IsNullOrEmpty(txtZoomLeft.Text) ? "0" : txtZoomLeft.Text);
+            data.Right = Convert.ToDouble(string.IsNullOrEmpty(txtZoomRight.Text) ? "0" : txtZoomRight.Text);
+            data.RefHeight = _refHeight;
+            data.RefWidth = _refWidth;
+            _currentImageViewer.DigitalZoomRectangle = data;
+        }
+
+        private void ButtonZoomEnable_Click(object sender, RoutedEventArgs e)
+        {
+            _currentImageViewer.DigitalZoomEnabled = true;
+            SetDigitalZoomButtonState();
+        }
+
+        private void ButtonZoomDisable_Click(object sender, RoutedEventArgs e)
+        {
+            _currentImageViewer.DigitalZoomEnabled = false;
+            SetDigitalZoomButtonState();
         }
     }
 }

@@ -75,13 +75,6 @@
     <Compile Include="..\src\CommonSamples.cs">
       <Link>CommonSamples.cs</Link>
     </Compile>
-    <Compile Include="Client\VideoReplayOptionsDialogPlugin.cs" />
-    <Compile Include="Client\VideoReplayOptionsDialogUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\VideoReplayOptionsDialogUserControl.Designer.cs">
-      <DependentUpon>VideoReplayOptionsDialogUserControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Client\VideoReplayViewItemPlugin.cs" />
     <Compile Include="Client\VideoReplayViewItemUserControl.cs">
       <SubType>UserControl</SubType>
@@ -123,11 +116,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Client\VideoReplayOptionsDialogUserControl.resx">
-      <DependentUpon>VideoReplayOptionsDialogUserControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
