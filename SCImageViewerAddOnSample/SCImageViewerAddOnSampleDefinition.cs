@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Reflection;
-using System.Windows.Forms;
 using SCImageViewerAddOnSample.Background;
 using SCImageViewerAddOnSample.Client;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using VideoOS.Platform;
-using VideoOS.Platform.Admin;
 using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
 
@@ -23,8 +19,8 @@ namespace SCImageViewerAddOnSample
     /// </summary>
     public class SCImageViewerAddOnSampleDefinition : PluginDefinition
     {
-        private static System.Drawing.Image _treeNodeImage;
-        private static System.Drawing.Image _topTreeNodeImage;
+        private static Image _treeNodeImage;
+        private static Image _topTreeNodeImage;
 
         internal static Guid SCImageViewerAddOnSamplePluginId = new Guid("1af24d85-a483-405d-aa9f-28e6a9b207cc");
         internal static Guid SCImageViewerAddOnSampleKind = new Guid("68957ccb-0ef0-480a-821e-582c2c0b3649");
@@ -153,7 +149,7 @@ namespace SCImageViewerAddOnSample
         /// <summary>
         /// Icon to be used on top level - e.g. a product or company logo
         /// </summary>
-        public override System.Drawing.Image Icon
+        public override Image Icon
         {
             get { return _topTreeNodeImage; }
         }

@@ -194,7 +194,6 @@ namespace SensorMonitor.Admin
 				_userControl.FillContent(CurrentItem);
 			}
 			Configuration.Instance.SaveItemConfiguration(SensorMonitorDefinition.SensorMonitorPluginId, CurrentItem);
-			SecurityAccess.RegisterItem(CurrentItem);
 			//Send message to get the Sensor Tree display updated with the Sensors parent node (The controller) updated
 			EnvironmentManager.Instance.SendMessage(
 				new VideoOS.Platform.Messaging.Message(VideoOS.Platform.Messaging.MessageId.System.ApplicationRefreshTreeViewCommand) { Data = SensorMonitorDefinition.SensorMonitorSensorKind });
@@ -210,7 +209,6 @@ namespace SensorMonitor.Admin
 			if (item != null)
 			{
 				Configuration.Instance.DeleteItemConfiguration(SensorMonitorDefinition.SensorMonitorPluginId, item);
-				SecurityAccess.UnregisterItem(item);
 				//Send message to get the Sensor Tree display updated with the Sensor's parent node (The controller) updated
 				EnvironmentManager.Instance.SendMessage(
 					new VideoOS.Platform.Messaging.Message(VideoOS.Platform.Messaging.MessageId.System.ApplicationRefreshTreeViewCommand) { Data = SensorMonitorDefinition.SensorMonitorSensorKind });

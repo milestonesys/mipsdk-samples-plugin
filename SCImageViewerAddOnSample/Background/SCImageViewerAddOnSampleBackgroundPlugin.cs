@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VideoOS.Platform;
 using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
@@ -60,7 +58,7 @@ namespace SCImageViewerAddOnSample.Background
             }
         }
 
-        public ImageViewerAddOn FindSelectedImageViewAddOn()
+        public ImageViewerAddOn FindSelectedImageViewerAddOn()
         {
             lock (_imageViewers)
             {

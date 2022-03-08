@@ -1,8 +1,7 @@
-﻿using System;
+﻿using SCToolbarPlugin.Client;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-using SCToolbarPlugin.Client;
+using System.Windows.Media;
 using VideoOS.Platform;
 using VideoOS.Platform.Admin;
 using VideoOS.Platform.Client;
@@ -15,7 +14,7 @@ namespace SCToolbarPlugin
 
         public class ColorMessageData
         {
-            public Color Color { get; set; }
+            public SolidColorBrush Color { get; set; }
             public FQID ViewItemInstanceFQID { get; set; }
             public FQID WindowFQID { get; set; }
         }
@@ -35,10 +34,10 @@ namespace SCToolbarPlugin
 
         #region Initialization
 
-        #endregion
 
         /// <summary>
         /// This method is called when the environment is up and running.
+        /// This method sets the colors for View Item and Work Space toolbar plugins.
         /// Registration of Messages via RegisterReceiver can be done at this point.
         /// </summary>
         public override void Init()
@@ -46,18 +45,18 @@ namespace SCToolbarPlugin
             if (EnvironmentManager.Instance.EnvironmentType == EnvironmentType.SmartClient)
             {
                 _viewItemToolbarPlugins.Add(new ShowCameraNameViewItemToolbarPlugin());
-                _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorViewItemToolbarPlugin(Color.Red));
-                _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorViewItemToolbarPlugin(Color.Green));
-                _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorViewItemToolbarPlugin(Color.Blue));
+                _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorViewItemToolbarPlugin(new SolidColorBrush(Colors.Red)));
+                _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorViewItemToolbarPlugin(new SolidColorBrush(Colors.Green)));
+                _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorViewItemToolbarPlugin(new SolidColorBrush(Colors.Blue)));
 
-                _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorWorkSpaceToolbarPlugin(Color.Red));
-                _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorWorkSpaceToolbarPlugin(Color.Green));
-                _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorWorkSpaceToolbarPlugin(Color.Blue));
+                _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorWorkSpaceToolbarPlugin(new SolidColorBrush(Colors.Red)));
+                _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorWorkSpaceToolbarPlugin(new SolidColorBrush(Colors.Green)));
+                _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorWorkSpaceToolbarPlugin(new SolidColorBrush(Colors.Blue)));
 
                 _viewItemPlugins.Add(new BackgroundColorViewItemPlugin());
             }
         }
-
+        #endregion
         /// <summary>
         /// The main application is about to be in an undetermined state, either logging off or exiting.
         /// You can release resources at this point, it should match what you acquired during Init, so additional call to Init() will work.
@@ -100,9 +99,9 @@ namespace SCToolbarPlugin
             get { return PluginSamples.Common.SampleNodeName; }
         }
 
-        public override Image Icon
+        public override System.Drawing.Image Icon
         {
-			get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.SDK_VSIx]; }
+            get { return null; }
         }
 
         /// <summary>
@@ -147,12 +146,6 @@ namespace SCToolbarPlugin
         }
 
         #endregion
-
-        public override UserControl GenerateUserControl()
-        {
-            return null;
-        }
-
         public override List<ItemNode> ItemNodes
         {
             get { return new List<ItemNode>(); }

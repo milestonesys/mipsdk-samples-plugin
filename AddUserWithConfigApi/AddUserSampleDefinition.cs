@@ -1,12 +1,8 @@
+using AddUserSample.Client;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Reflection;
-using System.Windows.Forms;
-using AddUserSample.Client;
 using VideoOS.Platform;
-using VideoOS.Platform.Admin;
-using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
 
 namespace AddUserSample
@@ -21,57 +17,15 @@ namespace AddUserSample
     /// </summary>
     public class AddUserSampleDefinition : PluginDefinition
     {
-        private static System.Drawing.Image _treeNodeImage;
-        private static System.Drawing.Image _topTreeNodeImage;
-
+        
         internal static Guid AddUserSamplePluginId = new Guid("8cb8fc5f-0b02-46a5-9c95-184dbbf9fb0f");
         internal static Guid AddUserSampleSidePanel = new Guid("32cf5561-2413-48bd-88c5-4c17a23116b7");
 
 
         #region Private fields
 
-        //
-        // Note that all the plugin are constructed during application start, and the constructors
-        // should only contain code that references their own dll, e.g. resource load.
-
-        private List<BackgroundPlugin> _backgroundPlugins = new List<BackgroundPlugin>();
-        private List<OptionsDialogPlugin> _optionsDialogPlugins = new List<OptionsDialogPlugin>();
-        private List<ViewItemPlugin> _viewItemPlugin = new List<ViewItemPlugin>();
-        private List<ItemNode> _itemNodes = new List<ItemNode>();
         private List<SidePanelPlugin> _sidePanelPlugins = new List<SidePanelPlugin>();
-        private List<String> _messageIdStrings = new List<string>();
-        private List<SecurityAction> _securityActions = new List<SecurityAction>();
-        private List<WorkSpacePlugin> _workSpacePlugins = new List<WorkSpacePlugin>();
-
-        #endregion
-
-        #region Initialization
-
-        /// <summary>
-        /// Load resources 
-        /// </summary>
-        static AddUserSampleDefinition()
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string name = assembly.GetName().Name;
-
-            System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.AddUserSample.bmp");
-            if (pluginStream != null)
-                _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-            System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-            if (configStream != null)
-                _topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
-        }
-
-
-        /// <summary>
-        /// Get the icon for the plugin
-        /// </summary>
-        internal static Image TreeNodeImage
-        {
-            get { return _treeNodeImage; }
-        }
-
+        
         #endregion
 
         /// <summary>
@@ -83,7 +37,7 @@ namespace AddUserSample
             if (EnvironmentManager.Instance.EnvironmentType == EnvironmentType.SmartClient)
             {
                 _sidePanelPlugins.Add(new AddUserSampleSidePanelPlugin());
-            }            
+            }         
         }
 
         /// <summary>
@@ -92,39 +46,7 @@ namespace AddUserSample
         /// </summary>
         public override void Close()
         {
-            _itemNodes.Clear();
             _sidePanelPlugins.Clear();
-            _viewItemPlugin.Clear();
-            _optionsDialogPlugins.Clear();
-            _backgroundPlugins.Clear();
-            _workSpacePlugins.Clear();
-        }
-        /// <summary>
-        /// Return any new messages that this plugin can use in SendMessage or PostMessage,
-        /// or has a Receiver set up to listen for.
-        /// The suggested format is: "YourCompany.Area.MessageId"
-        /// </summary>
-        public override List<string> PluginDefinedMessageIds
-        {
-            get
-            {
-                return _messageIdStrings;
-            }
-        }
-
-        /// <summary>
-        /// If authorization is to be used, add the SecurityActions the entire plugin 
-        /// would like to be available.  E.g. Application level authorization.
-        /// </summary>
-        public override List<SecurityAction> SecurityActions
-        {
-            get
-            {
-                return _securityActions;
-            }
-            set
-            {
-            }
         }
 
         #region Identification Properties
@@ -186,40 +108,11 @@ namespace AddUserSample
         /// <summary>
         /// Icon to be used on top level - e.g. a product or company logo
         /// </summary>
-        public override System.Drawing.Image Icon
+        public override Image Icon
         {
-            get { return _topTreeNodeImage; }
+            get { return null; }
         }
 
-        #endregion
-
-
-        #region Administration properties
-
-        /// <summary>
-        /// A list of server side configuration items in the administrator
-        /// </summary>
-        public override List<ItemNode> ItemNodes
-        {
-            get { return _itemNodes; }
-        }
-
-        /// <summary>
-        /// A user control to display when the administrator clicks on the top TreeNode
-        /// </summary>
-        public override UserControl GenerateUserControl()
-        {
-            return new UserControl();
-        }
-
-        /// <summary>
-        /// This property can be set to true, to be able to display your own help UserControl on the entire panel.
-        /// When this is false - a standard top and left side is added by the system.
-        /// </summary>
-        public override bool UserControlFillEntirePanel
-        {
-            get { return false; }
-        }
         #endregion
 
         #region Client related methods and properties

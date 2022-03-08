@@ -57,31 +57,17 @@
     </Compile>
     <Compile Include="Client\SCThemeViewItemManager.cs" />
     <Compile Include="Client\SCThemeViewItemPlugin.cs" />
-    <Compile Include="Client\SCThemeViewItemUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\SCThemeViewItemUserControl.Designer.cs">
-      <DependentUpon>SCThemeViewItemUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\WindowsFormsUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\WindowsFormsUserControl.Designer.cs">
-      <DependentUpon>WindowsFormsUserControl.cs</DependentUpon>
+    <Compile Include="Client\SCThemeViewItemWpfUserControl.xaml.cs">
+      <DependentUpon>SCThemeViewItemWpfUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Client\WpfUserControl.xaml.cs">
       <DependentUpon>WpfUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Client\WpfUserControl1.xaml.cs">
+      <DependentUpon>WpfUserControl1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCThemeDefinition.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Client\SCThemeViewItemUserControl.resx">
-      <DependentUpon>SCThemeViewItemUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\WindowsFormsUserControl.resx">
-      <DependentUpon>WindowsFormsUserControl.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="plugin.def">
@@ -90,7 +76,15 @@
     <EmbeddedResource Include="Resources\SCTheme.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Client\SCThemeViewItemWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Client\WpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\WpfUserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

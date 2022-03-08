@@ -1,8 +1,6 @@
+using SCImageViewerAddOnSample.Background;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SCImageViewerAddOnSample.Background;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 

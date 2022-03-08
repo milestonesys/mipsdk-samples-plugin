@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using VideoOS.Platform.Messaging;
 
 namespace SCMessageAreaMessageTester.Client
@@ -48,6 +47,7 @@ namespace SCMessageAreaMessageTester.Client
             }
         }
 
+        //Priority is currently not in use by the Smart Client
         public List<SmartClientMessageDataPriority> Priorities
         {
             get { return Enum.GetValues(typeof(SmartClientMessageDataPriority)).Cast<SmartClientMessageDataPriority>().ToList(); }
@@ -100,7 +100,6 @@ namespace SCMessageAreaMessageTester.Client
         {
             get { return Enum.GetValues(typeof(SmartClientMessageDataTaskState)).Cast<SmartClientMessageDataTaskState>().ToList(); }
         }
-
 
         private SmartClientMessageDataTaskState _taskState;
         public SmartClientMessageDataTaskState TaskState
@@ -164,6 +163,5 @@ namespace SCMessageAreaMessageTester.Client
         {
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
 }

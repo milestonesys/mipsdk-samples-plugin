@@ -1,7 +1,5 @@
 using SCImageViewerAddOnSample.Background;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Timers;
 using System.Windows;
 using System.Windows.Threading;
@@ -17,13 +15,13 @@ namespace SCImageViewerAddOnSample.Client
     /// </summary>
     public partial class SCImageViewerAddOnSampleSidePanelWpfUserControl : SidePanelWpfUserControl
     {
-        const string TimeFormat = "HH:mm:ss:fff";
+        private const string TimeFormat = "HH:mm:ss:fff";
 
-        object _itemViewChanged;
-        SCImageViewerAddOnSampleBackgroundPlugin _backgroundPlugin;
-        ImageViewerAddOn _currentImageViewer;
-        private double _refWidth = Int16.MaxValue;
-        private double _refHeight = Int16.MaxValue;
+        private object _viewItemChanged;
+        private SCImageViewerAddOnSampleBackgroundPlugin _backgroundPlugin;
+        private ImageViewerAddOn _currentImageViewer;
+        private double _refWidth = short.MaxValue;
+        private double _refHeight = short.MaxValue;
         private Timer _timer;
 
         /// <summary>
@@ -34,12 +32,14 @@ namespace SCImageViewerAddOnSample.Client
         {
             InitializeComponent();
             _backgroundPlugin = backgroundPlugin;
+            UpdateImageViewerAddOn();
         }
 
         public override void Init()
         {
-            // We subscribe to messages from the SmartClient which informs us the a new ViewItem has been selected.
-            _itemViewChanged = EnvironmentManager.Instance.RegisterReceiver(MessageReceived, new MessageIdFilter(MessageId.SmartClient.SelectedViewItemChangedIndication));
+            // We subscribe to messages from the SmartClient which informs us when a new ViewItem has been selected.
+            _viewItemChanged = EnvironmentManager.Instance.RegisterReceiver(SelectedViewItemChangedReceived, new MessageIdFilter(MessageId.SmartClient.SelectedViewItemChangedIndication));
+
             if (_timer == null)
             {
                 _timer = new Timer(1000);
@@ -49,28 +49,43 @@ namespace SCImageViewerAddOnSample.Client
             }
         }
 
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        public override void Close()
         {
-            //We poll here to check whether digital zoom state has been changed via the Smart Client default UI.
-            SetDigitalZoomButtonState();
+            if (_viewItemChanged != null)
+            {
+                EnvironmentManager.Instance.UnRegisterReceiver(_viewItemChanged);
+            }
+
+            if (_timer != null)
+            {
+                _timer.Stop();
+                _timer.Dispose();
+                _timer = null;
+            }
+
+            if (_currentImageViewer != null && _currentImageViewer.IndependentPlaybackEnabled)
+            {
+                _currentImageViewer.IndependentPlaybackController.PlaybackTimeChangedEvent -= PlaybackTimeChangedEvent;
+            }
+
+            base.Close();
         }
 
-        private object MessageReceived(Message message, FQID destination, FQID sender)
+        private void UpdateImageViewerAddOn()
         {
-            var selectedImageViewAddon = _backgroundPlugin.FindSelectedImageViewAddOn();
+            var selectedImageViewerAddon = _backgroundPlugin.FindSelectedImageViewerAddOn();
 
             ResetButtons();
 
-            ChangeCurrentImageViewer(selectedImageViewAddon);
+            ChangeCurrentImageViewer(selectedImageViewerAddon);
 
             if (_currentImageViewer?.IndependentPlaybackController != null)
             {
                 SetEnableDisableButtonsState(_currentImageViewer.IndependentPlaybackEnabled);
                 SetPlaybackButtonState(_currentImageViewer.IndependentPlaybackController.PlaybackMode);
 
-                if(_currentImageViewer.IndependentPlaybackEnabled)
+                if (_currentImageViewer.IndependentPlaybackEnabled)
                 {
-                    SetPlaybackButtonState(_currentImageViewer.IndependentPlaybackController.PlaybackMode);
                     labelPlaybackTime.Content = _currentImageViewer.IndependentPlaybackController.PlaybackTime.ToLocalTime().ToString(TimeFormat);
                 }
                 else
@@ -78,6 +93,17 @@ namespace SCImageViewerAddOnSample.Client
                     labelPlaybackTime.Content = "Not Available";
                 }
             }
+        }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            //We poll here to check whether digital zoom state has been changed via the Smart Client default UI.
+            SetDigitalZoomButtonState();
+        }
+
+        private object SelectedViewItemChangedReceived(Message message, FQID destination, FQID sender)
+        {
+            UpdateImageViewerAddOn();
             return null;
         }
 
@@ -111,7 +137,7 @@ namespace SCImageViewerAddOnSample.Client
         private void SetDigitalZoomButtonState()
         {
             bool enable = _currentImageViewer != null && _currentImageViewer.DigitalZoomEnabled;
-            this.Dispatcher.Invoke(() =>
+            Dispatcher.Invoke(() =>
             {
                 buttonZoomEnable.IsEnabled = !enable;
                 buttonZoomDisable.IsEnabled = enable;
@@ -130,18 +156,18 @@ namespace SCImageViewerAddOnSample.Client
             });
         }
 
-        private void ChangeCurrentImageViewer(ImageViewerAddOn selectedImageViewAddon)
+        private void ChangeCurrentImageViewer(ImageViewerAddOn selectedImageViewerAddon)
         {
-            if (_currentImageViewer == null && selectedImageViewAddon != null)
+            if (_currentImageViewer == null && selectedImageViewerAddon != null)
             {
-                _currentImageViewer = selectedImageViewAddon;
+                _currentImageViewer = selectedImageViewerAddon;
                 _currentImageViewer.IndependentPlaybackModeChangedEvent += IndependentPlaybackModeChangedHandler;
             }
 
-            if (_currentImageViewer != null && selectedImageViewAddon != _currentImageViewer)
+            if (_currentImageViewer != null && selectedImageViewerAddon != _currentImageViewer)
             {
                 RemoveIndependentPlaybackEvents(_currentImageViewer);
-                _currentImageViewer = selectedImageViewAddon;
+                _currentImageViewer = selectedImageViewerAddon;
             }
 
             if (_currentImageViewer?.IndependentPlaybackController != null)
@@ -196,28 +222,6 @@ namespace SCImageViewerAddOnSample.Client
                 buttonDisable.IsEnabled = false;
                 buttonEnable.IsEnabled = true;
             }
-        }
-
-        public override void Close()
-        {
-            if (_itemViewChanged != null)
-            {
-                EnvironmentManager.Instance.UnRegisterReceiver(_itemViewChanged);
-            }
-
-            if(_timer != null)
-            {
-                _timer.Stop();
-                _timer.Dispose();
-                _timer = null;
-            }
-
-            if (_currentImageViewer != null && _currentImageViewer.IndependentPlaybackEnabled)
-            {
-                _currentImageViewer.IndependentPlaybackController.PlaybackTimeChangedEvent -= PlaybackTimeChangedEvent;
-            }
-
-            base.Close();
         }
 
         private void ButtonDisable_Click(object sender, RoutedEventArgs e)

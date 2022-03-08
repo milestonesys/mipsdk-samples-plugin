@@ -9,37 +9,36 @@ namespace TimelineViewItem.Client
     /// the defined data folder in the ExportParameters.
     /// </summary>
     public class TimelineViewItemExportManager : ExportManager
-	{
-		public TimelineViewItemExportManager(ExportParameters exportParameters)
-			: base(exportParameters)
-		{
-			
-		}
+    {
+        public TimelineViewItemExportManager(ExportParameters exportParameters)
+            : base(exportParameters)
+        { 
+        }
 
-		public override void ExportCancelled()
-		{
-		}
+        public override void ExportCancelled()
+        {
+        }
 
-		public override void ExportComplete()
-		{
-		}
+        public override void ExportComplete()
+        {
+        }
 
-		public override void ExportFailed()
-		{
-		}
+        public override void ExportFailed()
+        {
+        }
 
-		public override void ExportStarting()
-		{
-		}
+        public override void ExportStarting()
+        {
+        }
 
-		public override string LastErrorMessage
-		{
-			get { return ""; }
-		}
+        public override string LastErrorMessage
+        {
+            get { return ""; }
+        }
 
-		public override int Progress
-		{
-			get { return 100; }
-		}
-	}
+        public override int Progress
+        {
+            get { return 100; }
+        }
+    }
 }

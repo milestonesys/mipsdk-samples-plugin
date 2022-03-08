@@ -19,18 +19,20 @@ analytics.
 
 ## MIP Environment - Smart Client
 
-In this sample, you can place an overlay (either a square or a line) on
-top of live images and define where this overlay should be placed.
+In this sample, you can place an overlay on top of live images.
+When "Draw Line" is enabled, start by pushing the left mouse button, 
+then drag it and release to finish the line.
 
-The placement of an overlay can be different depending on the
-application being implemented. For example, if you want the overlay to
-scale together with the video image, or if you have some text on an
-overlay and you want it to be placed in the upper left corner.
+Other features of the ImageViewerWpfControl are also demonstrated: 
+Choose camera and stream, show time information, show header with 
+camera name, digitally zoom etc.
 
-This sample has a few buttons and dropdowns to demonstrate the different
-placement options.
+Note: The sample uses WPF. This is also the general recommendations for 
+Smart Client plug-ins.
+ImageViewerControl uses WinForms and ImageViewerWpfControl uses WPF
+but otherwise the two controls are very similar.
 
-![Video Preview in Smart Client](videopreview_smartclient.jpg)
+![Video Preview in Smart Client](videopreview_smartclient.PNG)
 
 ## MIP Environment - Administrators
 
@@ -51,13 +53,13 @@ Use the Playback and Live buttons to stop or restart the live streaming.
 -   Selection of a single camera
 -   Placing an overlay on top of an ImageViewerControl initiated by the
     plug-in.
--   Placement of the overlay
+-	How to redraw the overlay when changing the size of the control.
 -   How to get the last showed image as a .NET bitmap
 -   How to retrieve the LivePackage XML out of a live stream
 
 ## Using
 
--   VideoOS.Platform.Client.ImageViewerControl
+-   VideoOS.Platform.Client.ImageViewerWpfControl
 -   VideoOS.Platform.Admin.AdminImageViewerControl
 
 ## Environment

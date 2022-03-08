@@ -33,9 +33,9 @@ namespace SCWorkSpace.Client
         {
         }
 
-        public override SidePanelUserControl GenerateUserControl()
+        public override SidePanelWpfUserControl GenerateWpfUserControl()
         {
-            return new SCWorkSpaceSidePanelUserControl() { };
+            return new SCWorkSpaceSidePanelWpfUserControl() { };
         }
 
         public override List<SidePanelPlaceDefinition> SidePanelPlaceDefinitions

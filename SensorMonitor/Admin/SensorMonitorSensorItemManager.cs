@@ -305,7 +305,6 @@ namespace SensorMonitor.Admin
 				_userControl.FillContent(CurrentItem);
 			}
 			Configuration.Instance.SaveItemConfiguration(SensorMonitorDefinition.SensorMonitorPluginId, CurrentItem);
-			SecurityAccess.RegisterItem(CurrentItem);
 			return CurrentItem;
 		}
 
@@ -318,7 +317,6 @@ namespace SensorMonitor.Admin
 			if (item != null)
 			{
 				Configuration.Instance.DeleteItemConfiguration(SensorMonitorDefinition.SensorMonitorPluginId, item);
-				SecurityAccess.UnregisterItem(item);
 			}
 
 		}

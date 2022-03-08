@@ -42,24 +42,11 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="UIAutomationProvider" />
     <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*" />
     <Reference Include="WindowsBase" />
-    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\src\CommonSamples.cs">
@@ -71,21 +58,12 @@
     <Compile Include="Client\TimelineMarkerSource.cs" />
     <Compile Include="Client\TimelineRibbonSource.cs" />
     <Compile Include="Client\TimelineViewItemViewItemPlugin.cs" />
-    <Compile Include="Client\TimelineViewItemViewItemUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\TimelineViewItemViewItemUserControl.Designer.cs">
-      <DependentUpon>TimelineViewItemViewItemUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\TimelineViewItemPropertiesUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\TimelineViewItemPropertiesUserControl.Designer.cs">
-      <DependentUpon>TimelineViewItemPropertiesUserControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Client\TimelineViewItemViewItemManager.cs" />
     <Compile Include="Client\MarkerPreviewUserControl.xaml.cs">
       <DependentUpon>MarkerPreviewUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Client\TimelineViewItemViewItemWpfUserControl.xaml.cs">
+      <DependentUpon>TimelineViewItemViewItemWpfUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -94,14 +72,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="TimelineViewItemDefinition.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Client\TimelineViewItemViewItemUserControl.resx">
-      <DependentUpon>TimelineViewItemViewItemUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\TimelineViewItemPropertiesUserControl.resx">
-      <DependentUpon>TimelineViewItemPropertiesUserControl.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Server.png" />
@@ -125,6 +95,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Client\MarkerPreviewUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\TimelineViewItemViewItemWpfUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

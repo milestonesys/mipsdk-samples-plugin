@@ -10,20 +10,19 @@ title: Smart Client Theme
 
 # Smart Client Theme
 
-The SCTheme sample illustrates how user controls are being changed when
+The SCTheme sample illustrates how the appearance of user controls change when
 a theme is applied.
 
 The sample also demonstrates how a MIP plug-in can change the selected
 theme.
 
-![](SCTheme1.png)
+![](SCTheme.png)
 
-The background in this sample has been selected to NOT be adjusted by
-any theme changes, while the left hand black box (within the top View
-Item), contains a WinForms set of controls, and the right hand black box
-contains a WPF set of controls. Both of these will be themed during
+WPF Element 2 will not be adjusted by
+any theme changes, while the appearance of the rest of the sample
+ will change depending on the theme. The sample will be themed during
 initialization and when the user toggles the theme selection button on
-the top, or via this samples theme select dropdown.
+the top, or via the theme select dropdown in this sample.
 
 ## The sample demonstrates
 
@@ -34,9 +33,9 @@ the top, or via this samples theme select dropdown.
 
 ## Using
 
--   VideoOS.Platform.ClientControl.Theme
--   VideoOS.Platform.ClientControl.RegisterUIControlForAutoTheming
--   VideoOS.Platform.Messaging.MessageId.Client.SmartClient.ThemeChangedIndication
+-   VideoOS.Platform.Client.ViewItemWpfControl
+-   VideoOS.Platform.Messaging.MessageId.SmartClient.ChangeThemeCommand
+
 
 ## Environment
 

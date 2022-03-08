@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Reflection;
-using System.Windows.Forms;
 using VideoReplay.Client;
 using VideoOS.Platform;
 using VideoOS.Platform.Admin;
@@ -48,7 +46,7 @@ namespace VideoReplay
 		/// <summary>
 		/// Get the icon for the plugin
 		/// </summary>
-		internal static Image TreeNodeImage
+		internal static System.Drawing.Image TreeNodeImage
 		{
 			get { return _treeNodeImage; }
 		}
@@ -125,15 +123,15 @@ namespace VideoReplay
 		/// </summary>
 		public override string Name
 		{
-            get { return "Video Replay"; }
-        }
+			get { return "Video Replay"; }
+		}
 
-        /// <summary>
-        /// Top level name
-        /// </summary>
-        public override string SharedNodeName
-        {
-            get { return PluginSamples.Common.SampleNodeName; }
+		/// <summary>
+		/// Top level name
+		/// </summary>
+		public override string SharedNodeName
+		{
+			get { return PluginSamples.Common.SampleNodeName; }
 		}
 
 		/// <summary>
@@ -179,13 +177,7 @@ namespace VideoReplay
 			get { return _itemNodes; }
 		}
 
-		/// <summary>
-		/// A user control to display when the administrator clicks on the top TreeNode
-		/// </summary>
-		public override UserControl GenerateUserControl()
-		{
-			return null;
-		}
+		
 
 		#endregion
 

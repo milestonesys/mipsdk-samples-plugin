@@ -8,7 +8,7 @@ using VideoOS.Platform.Client;
 namespace SCIndependentPlayback.Client
 {
     /// <summary>
-    /// SCIndependentPlaybackViewItemWpfUserControl uses the WPF version of the PlaybackWpfUserControl, winforms version of ImageViewerControl, AudioPlayerControl
+    /// SCIndependentPlaybackViewItemWpfUserControl uses the WPF versions of the PlaybackWpfUserControl, ImageViewerWpfControl, winforms version of AudioPlayerControl
     /// </summary>
     public partial class SCIndependentPlaybackViewItemWpfUserControl : ViewItemWpfUserControl
     {
@@ -34,7 +34,6 @@ namespace SCIndependentPlayback.Client
             _viewItemManager = viewItemManager;
 
             InitializeComponent();
-
         }
 
         private void SetUpApplicationEventListeners()
@@ -124,7 +123,6 @@ namespace SCIndependentPlayback.Client
 
         void _imageViewerControl_DoubleClickEvent(object sender, EventArgs e)
         {
-            //Forward the double click event to the Smart Client, to let it handle maximize / restore the view layout
             FireDoubleClickEvent();
         }
 
@@ -236,6 +234,19 @@ namespace SCIndependentPlayback.Client
                 base.Print("MyName", "Some Information", _viewItemManager.SelectedCamera.Name);
             else
                 base.Print("MyName", "Some Information");
+        }
+
+        public override bool Selected
+        {
+            get => base.Selected;
+            set
+            {
+                if (_imageViewerControl != null)
+                {
+                    _imageViewerControl.Selected = value;
+                }
+                base.Selected = value;
+            }
         }
 
         #endregion

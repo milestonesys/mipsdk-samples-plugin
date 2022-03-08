@@ -9,12 +9,12 @@ lang: en-US
 title: Smart Client message area tester
 ---
 
-# Smart Client message area tester
+# Smart Client Message Area Tester
 
 The SCMessageAreaMessageTester tool illustrates how messages in the
 message area in the Smart Client can be controlled through MIP.
 
-![](SCMessageAreaMessageTester.png)
+![](SCMessageAreaMessageTester1.png)
 
 The tool is displayed as a side panel plugin in the Smart Client, where
 messages for the Smart Client messages area can be created and updated.

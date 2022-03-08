@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using System.Threading;
-using System.Windows.Forms;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.Util;
 
@@ -69,7 +68,7 @@ namespace TimelineViewItem.Client
             var results = new List<TimelineSourceQueryResult>();
             foreach(var interval in intervals)
             {
-                // we will just fake som data here - in real scenario data should of course come from a real source
+                // adding some fake data - in a real scenario data should come from a real source
                 results.Add(new TimelineSourceQueryResult(interval) { Sequences = GetOneResult(interval) });
             }
             OnSequencesRetrieved(results);

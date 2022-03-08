@@ -2,7 +2,7 @@
 description: Each time an alarm is selected in the alarm list, a MIP
   message is sent within the Smart Client, to notify all plug-ins about
   the new alarm being selected. To see the dynamic view, you need to
-  have a an alarm list which sends messages.
+  have an alarm list which sends messages.
 keywords: Plug-in integration
 lang: en-US
 title: Smart Client Dynamic View

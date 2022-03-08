@@ -1,26 +1,28 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Threading;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.Messaging;
 using Message = VideoOS.Platform.Messaging.Message;
-using Timer = System.Windows.Forms.Timer;
 
 namespace SCWorkSpace.Client
 {
-	public class SCWorkSpacePlugin : WorkSpacePlugin
-	{
+    public class SCWorkSpacePlugin : WorkSpacePlugin
+    {
         public static Guid SCWorkSpacePluginId = new Guid("D347FA08-E941-4C64-B0F1-CED8E98DC564");
 
         private static readonly int MAX_MAX_CAMERA_COUNT = 10;
 
-	    private List<object> _messageRegistrationObjects = new List<object>();
+        private List<object> _messageRegistrationObjects = new List<object>();
 
-        private Timer _updateInformationTimer;
+        private DispatcherTimer _updateInformationTimer;
 
         private bool _workSpaceSelected = false;
         private bool _workSpaceViewSelected = false;
+
+        bool _viewInitialized = false;
 
         public override Guid Id
         {
@@ -52,7 +54,7 @@ namespace SCWorkSpace.Client
             List<Rectangle> rectangles = new List<Rectangle>();
             for (int i = 0; i < MAX_MAX_CAMERA_COUNT; i++)
             {
-                rectangles.Add(new Rectangle((1000 / MAX_MAX_CAMERA_COUNT) * i, (1000 / MAX_MAX_CAMERA_COUNT) * i, (1000 / MAX_MAX_CAMERA_COUNT), (1000 / MAX_MAX_CAMERA_COUNT)));
+                rectangles.Add(new Rectangle(1000 / MAX_MAX_CAMERA_COUNT * i, 1000 / MAX_MAX_CAMERA_COUNT * i, 1000 / MAX_MAX_CAMERA_COUNT, 1000 / MAX_MAX_CAMERA_COUNT));
             }
             rectangles.Add(new Rectangle(700, 0, 300, 300));
             rectangles.Add(new Rectangle(0, 600, 400, 400));
@@ -82,22 +84,21 @@ namespace SCWorkSpace.Client
             ViewAndLayoutItem.InsertViewItemPlugin(rectangles.Count - 1, new SCWorkSpaceViewItemPlugin2(), new Dictionary<string, string>());
 
             //create and start _updateInformationTimer
-            _updateInformationTimer = new Timer();
-            _updateInformationTimer.Interval = 1000;
+            _updateInformationTimer = new DispatcherTimer();
+            _updateInformationTimer.Interval = new TimeSpan(0, 0, 1);
             _updateInformationTimer.Tick += new EventHandler(_updateInformationTimer_Tick);
             _updateInformationTimer.Start();
         }
 
-	    public override void Close()
+        public override void Close()
         {
             _updateInformationTimer.Stop();
-            _updateInformationTimer.Dispose();
-	        _updateInformationTimer = null;
+            _updateInformationTimer = null;
 
-	        foreach (object messageRegistrationObject in _messageRegistrationObjects)
-	        {
+            foreach (object messageRegistrationObject in _messageRegistrationObjects)
+            {
                 EnvironmentManager.Instance.UnRegisterReceiver(messageRegistrationObject);
-	        }
+            }
             _messageRegistrationObjects.Clear();
         }
 
@@ -130,20 +131,24 @@ namespace SCWorkSpace.Client
 
         private object WorkSpaceStateChangedReceiver(Message message, FQID sender, FQID related)
         {
-            if (_workSpaceSelected && ((WorkSpaceState)message.Data) == WorkSpaceState.Normal )
+            if (_workSpaceSelected && ((WorkSpaceState)message.Data) == WorkSpaceState.Normal)
             {
                 UpdateCameras();
             }
             return null;
         }
-        
+
 
         private object SelectedViewChangedReceiver(Message message, FQID sender, FQID related)
         {
             if (message.Data is Item && ((Item)message.Data).FQID.ObjectId == ViewAndLayoutItem.FQID.ObjectId)
             {
                 _workSpaceViewSelected = true;
-                UpdateCameras();
+                if (!_viewInitialized)
+                {
+                    _viewInitialized = true;
+                    UpdateCameras();
+                }
             }
             else
             {
@@ -155,7 +160,7 @@ namespace SCWorkSpace.Client
 
         private object ShuffleCamerasReceiver(Message message, FQID sender, FQID related)
         {
-            if(_workSpaceViewSelected)
+            if (_workSpaceViewSelected)
             {
                 UpdateCameras();
             }
@@ -199,44 +204,45 @@ namespace SCWorkSpace.Client
 
         private void UpdateCameras()
         {
-			try
-			{
-				List<Item> cameraItems = new List<Item>();
-				FindAllCameras(Configuration.Instance.GetItemsByKind(Kind.Camera), cameraItems);
+            try
+            {
+                List<Item> cameraItems = new List<Item>();
+                FindAllCameras(Configuration.Instance.GetItemsByKind(Kind.Camera), cameraItems);
 
-				cameraItems = ShuffleList(cameraItems);
+                cameraItems = ShuffleList(cameraItems);
 
-				for (int i = 0; i < MAX_MAX_CAMERA_COUNT; i++)
-				{
-					Message setCameraMessage;
-					if (i < SCWorkSpaceDefinition.MaxCameras && i < cameraItems.Count)
-					{
-						setCameraMessage = new Message(MessageId.SmartClient.SetCameraInViewCommand,
-						                               new SetCameraInViewCommandData() {Index = i, CameraFQID = cameraItems[i].FQID});
-					}
-					else
-					{
-						setCameraMessage = new Message(MessageId.SmartClient.SetCameraInViewCommand,
-						                               new SetCameraInViewCommandData() {Index = i, CameraFQID = null});
-					}
-					EnvironmentManager.Instance.SendMessage(setCameraMessage);
-				}
-			} catch (Exception ex)
-			{
-				EnvironmentManager.Instance.ExceptionDialog("SCWorkSpace:UpdateCameras", ex);
-			}
+                for (int i = 0; i < MAX_MAX_CAMERA_COUNT; i++)
+                {
+                    Message setCameraMessage;
+                    if (i < SCWorkSpaceDefinition.MaxCameras && i < cameraItems.Count)
+                    {
+                        setCameraMessage = new Message(MessageId.SmartClient.SetCameraInViewCommand,
+                                                       new SetCameraInViewCommandData() { Index = i, CameraFQID = cameraItems[i].FQID });
+                    }
+                    else
+                    {
+                        setCameraMessage = new Message(MessageId.SmartClient.SetCameraInViewCommand,
+                                                       new SetCameraInViewCommandData() { Index = i, CameraFQID = null });
+                    }
+                    EnvironmentManager.Instance.SendMessage(setCameraMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                EnvironmentManager.Instance.ExceptionDialog("SCWorkSpace:UpdateCameras", ex);
+            }
         }
 
         private void FindAllCameras(List<Item> searchItems, List<Item> foundCameraItems)
         {
             foreach (Item searchItem in searchItems)
             {
-                if(searchItem.FQID.Kind == Kind.Camera && searchItem.FQID.FolderType == FolderType.No)
+                if (searchItem.FQID.Kind == Kind.Camera && searchItem.FQID.FolderType == FolderType.No)
                 {
                     bool cameraAlreadyFound = false;
                     foreach (Item foundCameraItem in foundCameraItems)
                     {
-                        if(foundCameraItem.FQID.Equals(searchItem.FQID))
+                        if (foundCameraItem.FQID.Equals(searchItem.FQID))
                         {
                             cameraAlreadyFound = true;
                             break;
@@ -260,11 +266,11 @@ namespace SCWorkSpace.Client
             int randomIndex = 0;
             while (inputList.Count > 0)
             {
-                randomIndex = r.Next(0, inputList.Count); //Choose a random object in the list
-                randomList.Add(inputList[randomIndex]); //add it to the new, random list
-                inputList.RemoveAt(randomIndex); //remove to avoid duplicates
-            } 
-            return randomList; //return the new random list
+                randomIndex = r.Next(0, inputList.Count);       //Choose a random object in the list
+                randomList.Add(inputList[randomIndex]);         //add it to the new, random list
+                inputList.RemoveAt(randomIndex);                //remove to avoid duplicates
+            }
+            return randomList;                                  //return the new random list
         }
     }
 }

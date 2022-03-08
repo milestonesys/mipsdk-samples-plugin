@@ -18,7 +18,6 @@ namespace DataExport.Client
             get { return DataExportDefinition.DataExportViewItemPlugin; }
         }
 
-
         public override System.Drawing.Image Icon
         {
             get { return DataExportDefinition.TreeNodeImage; }
@@ -33,7 +32,5 @@ namespace DataExport.Client
         {
             return new DataExportViewItemManager();
         }
-
     }
-
 }

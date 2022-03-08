@@ -9,9 +9,6 @@ using UserControl = System.Windows.Controls.UserControl;
 
 namespace SCMessageAreaMessageTester.Client
 {
-    /// <summary>
-    /// Interaction logic for SidePanelPluginContentUserControl.xaml
-    /// </summary>
     public partial class MessageListUserControl : UserControl
     {
         private readonly List<object> _messageRegistrationObjects = new List<object>();
@@ -107,7 +104,7 @@ namespace SCMessageAreaMessageTester.Client
                 smartClientMessageData.MessageId = messageModel.MessageId;
                 smartClientMessageData.Message = string.IsNullOrWhiteSpace(messageModel.Message) ? "[Empty]" : messageModel.Message;
                 smartClientMessageData.MessageType = messageModel.MessageType;
-                smartClientMessageData.Priority = messageModel.Priority;
+                smartClientMessageData.Priority = messageModel.Priority;        // not in use by the Smart Client
                 smartClientMessageData.IsClosable = messageModel.IsClosable;
                 smartClientMessageData.ButtonText = messageModel.ButtonText;
                 smartClientMessageData.TaskState = messageModel.TaskState;

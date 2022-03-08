@@ -1,29 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using VideoOS.Platform;
-using VideoOS.Platform.Client;
+﻿using VideoOS.Platform.Client;
 
 namespace SCToolbarPlugin.Client
 {
-	public class BackgroundColorViewItemManager : ViewItemManager
+    public class BackgroundColorViewItemManager : ViewItemManager
 	{
         public BackgroundColorViewItemManager()
             : base("BackgroundColorViewItemManager")
         {
         }
 
-		public override ViewItemUserControl GenerateViewItemUserControl()
+		public override ViewItemWpfUserControl GenerateViewItemWpfUserControl()
 		{
-            return new BackgroundColorViewItemUserControl(this);
+            return new BackgroundColorViewItemWpfUserControl(this);
 		}
 
-		public override PropertiesUserControl GeneratePropertiesUserControl()
+		public override PropertiesWpfUserControl GeneratePropertiesWpfUserControl()
 		{
-			return new PropertiesUserControl(); //no special properties
+			return new PropertiesWpfUserControl(); //no special properties
 		}
-
     }
 }

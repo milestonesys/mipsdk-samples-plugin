@@ -51,6 +51,10 @@ become active.
 
 -   Smart Client MIP Environment
 
+## Requirements
+
+- Smart Client 2021R2 is required
+
 ## Visual Studio C\# project
 
 -   [SCImageViewerAddOnSample.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCImageViewerAddOnSample\\\\SCImageViewerAddOnSample.csproj');)

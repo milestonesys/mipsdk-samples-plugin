@@ -8,7 +8,7 @@ lang: en-US
 title: Smart Client view item export
 ---
 
-# Smart Client view item export
+# Smart Client View Item Export
 
 This sample demonstrates how to write a plug-in that can export view
 items. It is important to note that the export format is entirely

@@ -32,12 +32,12 @@ is possible for quick setup.
 
 ![User Role definition for Sensor Monitor](sensormonitor_2.jpg)
 
-In the Smart Client Alarm Manager work space, when in setup mode, the
-puzzle icon is selected for dragging plug-in items to the MAP.
+In the Smart Client, when in setup mode, the
+puzzle icon is selected for dragging plug-in items to the map.
 
 ![Smart Client tool box](SCToolBox.png)
 
-In normal mode the plug-in items will display the current state, as
+In the Smart Client, when in normal mode, the plug-in items will display the current state, as
 received by the plug-in in the event Server, and context menu can be
 opened by a right mouse click -- as seen below.
 
@@ -104,5 +104,6 @@ a \"Start controller\" action that can be utilized in the rules.
 
 ## Special notes
 
-Please note that Smart Map is only available on XProtect Expert and
-Corporate.
+-   Smart Map is only available on XProtect Expert and
+Corporate
+-   Restart Event Server if controller created in Management Client is not available in setup mode of Smart Client

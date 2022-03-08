@@ -1,28 +1,21 @@
+using SCIndependentPlayback.Client;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
-using System.Windows.Forms;
-using SCIndependentPlayback.Client;
-using SCIndependentPlayback.Client2;
 using VideoOS.Platform;
-using VideoOS.Platform.Admin;
-using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
 
 namespace SCIndependentPlayback
 {
-	/// <summary>
-	/// </summary>
 	public class SCIndependentPlaybackDefinition : PluginDefinition
 	{
-		private static System.Drawing.Image _treeNodeImage;
-		private static System.Drawing.Image _topTreeNodeImage;
+		private static Image _treeNodeImage;
+		private static Image _topTreeNodeImage;
 
 		internal static Guid SCIndependentPlaybackPluginId = new Guid("83e83d08-5df0-4ff6-bb69-37bef5c33ccc");
 		internal static Guid SCIndependentPlaybackKind = new Guid("c0cc6dc0-a75f-4058-bdea-6a3e7ff002e6");
 		internal static Guid SCIndependentPlaybackViewItemPlugin = new Guid("271b944f-0c0e-4872-b664-e44e81bb2d62");
-		internal static Guid SCIndependentPlayback2ViewItemPlugin = new Guid("271b944f-0c0e-4872-b664-e44e81bb2d67");
 
 		#region Private fields
 
@@ -39,16 +32,11 @@ namespace SCIndependentPlayback
 		{
 			Assembly assembly = Assembly.GetExecutingAssembly();
 			string name = assembly.GetName().Name;
-
-			//System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.SCIndependentPlayback.bmp");
-			//if (pluginStream != null)
-			//	_treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
 			_treeNodeImage = Properties.Resources.SCIndependentPlayback;
 			System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
 			if (configStream != null)
-				_topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
+				_topTreeNodeImage = Image.FromStream(configStream);
 		}
-
 
 		/// <summary>
 		/// Get the icon for the plugin
@@ -65,7 +53,6 @@ namespace SCIndependentPlayback
 		public override void Init()
 		{
 			_viewItemPlugin.Add(new SCIndependentPlaybackViewItemPlugin());
-			_viewItemPlugin.Add(new SCIndependentPlayback2ViewItemPlugin());
 		}
 
 		/// <summary>
@@ -107,15 +94,15 @@ namespace SCIndependentPlayback
 		/// </summary>
 		public override string Name
 		{
-            get { return "SCIndependentPlayback"; }
-        }
+			get { return "SCIndependentPlayback"; }
+		}
 
-        /// <summary>
-        /// Top level name
-        /// </summary>
-        public override string SharedNodeName
-        {
-            get { return PluginSamples.Common.SampleNodeName; }
+		/// <summary>
+		/// Top level name
+		/// </summary>
+		public override string SharedNodeName
+		{
+			get { return PluginSamples.Common.SampleNodeName; }
 		}
 
 		/// <summary>
@@ -143,7 +130,7 @@ namespace SCIndependentPlayback
 		/// <summary>
 		/// Icon to be used on top level - e.g. a product or company logo
 		/// </summary>
-		public override System.Drawing.Image Icon
+		public override Image Icon
 		{
 			get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.SDK_VSIx]; }
 		}

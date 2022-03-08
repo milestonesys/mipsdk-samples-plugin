@@ -8,33 +8,31 @@ title: Smart Client Timeline Population Plug-in
 
 # Smart Client Timeline Population Plug-in
 
-This sample shows how to populate the Smart Client timeline from a MIP
+This sample illustrates how to populate the Smart Client timeline from a MIP
 plugin utilizing the TimelineSequenceSource class.
 
-The included view item will itself provide two sources for the timeline
-- one adding ribbon data and another adding markers to the timeline.
+The included view item will itself provide two sources for the timeline - one adding ribbon data and another adding markers to the timeline.
 
-Additionally the sample demonstrates how to populate the timeline for a
+Additionally, the sample demonstrates how to populate the timeline for a
 build-in camera item, by utilizing the RegisterTimelineSequenceSource
 method on the ImageViewerAddOn class. Please note that the sample just
-populates for items showing the first camera it sees, which in a real
-scenario should of course be a more intelligent way of selecting the
-camera.
+populates for items showing the first camera it sees. In a real
+scenario the way of selecting the camera should be improved.
 
-For the marker source the sample also demonstrates how to implement a
-preview function for each marker (shown when hovering the mouse on the
-marker) - in this case by just showing the ID of the marker in a simple
+The sample also demonstrates how to implement a marker
+preview function for each marker (shown while the mouse is hovering over the
+marker) - in this case by showing the ID of the marker in a simple
 control.
 
-Please note that in order to have the timeline data shown you need to
+Please note that in order to have the timeline data shown you must
 enable the \'Timeline\'-\>\'Additional data\' option in the Smart Client
-application settings for showing ribbon data and the
+application settings for showing ribbon data, and the
 \'Timeline\'-\>\'Additional markers\' for showing markers.
 
-Also note that timeline population is only supported from Smart Client
+Timeline population is only supported from Smart Client
 2017 R1.
 
-![](SCTimeline.png)
+![](timelineviewitem.png)
 
 ## The sample demonstrates
 

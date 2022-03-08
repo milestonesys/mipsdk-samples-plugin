@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+using System.Windows;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 
@@ -53,8 +50,6 @@ namespace SCToolbarPlugin.Client
                 MessageBox.Show("Failed to look up current camera.");
             }
         }
-
-
 
         public override void Close()
         {

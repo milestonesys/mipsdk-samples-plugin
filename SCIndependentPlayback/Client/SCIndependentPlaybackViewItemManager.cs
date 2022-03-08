@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Xml;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 

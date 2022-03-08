@@ -36,18 +36,11 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
     <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*" />
     <Reference Include="WindowsBase" />
-    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\src\CommonSamples.cs">
@@ -61,11 +54,8 @@
     </Compile>
     <Compile Include="Client\MessageModel.cs" />
     <Compile Include="Client\SCMessageAreaMessageTesterSidePanelPlugin.cs" />
-    <Compile Include="Client\SCMessageAreaMessageTesterSidePanelUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\SCMessageAreaMessageTesterSidePanelUserControl.Designer.cs">
-      <DependentUpon>SCMessageAreaMessageTesterSidePanelUserControl.cs</DependentUpon>
+    <Compile Include="Client\SCMessageAreaMessageTesterSidePanelWpfUserControl.xaml.cs">
+      <DependentUpon>SCMessageAreaMessageTesterSidePanelWpfUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCMessageAreaMessageTesterDefinition.cs" />
@@ -84,11 +74,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Client\SCMessageAreaMessageTesterSidePanelUserControl.resx">
-      <DependentUpon>SCMessageAreaMessageTesterSidePanelUserControl.cs</DependentUpon>
-    </EmbeddedResource>
+    <Page Include="Client\SCMessageAreaMessageTesterSidePanelWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

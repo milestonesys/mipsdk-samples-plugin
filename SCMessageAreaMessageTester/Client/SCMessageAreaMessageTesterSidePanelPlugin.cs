@@ -33,9 +33,9 @@ namespace SCMessageAreaMessageTester.Client
         {
         }
 
-        public override SidePanelUserControl GenerateUserControl()
+        public override SidePanelWpfUserControl GenerateWpfUserControl()
         {
-            return new SCMessageAreaMessageTesterSidePanelUserControl() { };
+            return new SCMessageAreaMessageTesterSidePanelWpfUserControl() { };
         }
 
         public override List<SidePanelPlaceDefinition> SidePanelPlaceDefinitions

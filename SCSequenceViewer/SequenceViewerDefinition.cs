@@ -1,10 +1,8 @@
+using SequenceViewer.Client;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Windows.Forms;
-using SequenceViewer.Client;
 using VideoOS.Platform;
-using VideoOS.Platform.Admin;
 using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
 
@@ -14,9 +12,8 @@ namespace SequenceViewer
 	{
 		internal protected static System.Drawing.Image _treeNodeImage;
 		internal protected static System.Drawing.Image _topTreeNodeImage;
-
-        internal static Guid DataSourcePluginId = new Guid("D253F7D6-5FC7-4952-A266-0D1569193FC2");
-        internal static Guid DataSourceKind = new Guid("BA24FF40-8410-45E3-BC7E-230D3DF088E1");
+		internal static Guid DataSourcePluginId = new Guid("D253F7D6-5FC7-4952-A266-0D1569193FC2");
+		internal static Guid DataSourceKind = new Guid("BA24FF40-8410-45E3-BC7E-230D3DF088E1");
 
 		#region Private fields
 
@@ -68,15 +65,15 @@ namespace SequenceViewer
 		/// </summary>
 		public override string Name
 		{
-            get { return "Data Source"; }
-        }
+			get { return "Data Source"; }
+		}
 
-        /// <summary>
-        /// Top level name
-        /// </summary>
-        public override string SharedNodeName
-        {
-            get { return PluginSamples.Common.SampleNodeName; }
+		/// <summary>
+		/// Top level name
+		/// </summary>
+		public override string SharedNodeName
+		{
+			get { return PluginSamples.Common.SampleNodeName; }
 		}
 
 		/// <summary>
@@ -86,8 +83,8 @@ namespace SequenceViewer
 		{
 			get
 			{
-                return PluginSamples.Common.ManufacturerName;
-            }
+				return PluginSamples.Common.ManufacturerName;
+			}
 		}
 
 		/// <summary>
@@ -111,29 +108,6 @@ namespace SequenceViewer
 
 		#endregion
 
-
-		#region Administration properties
-
-		/// <summary>
-		/// A list of server side configuration items in the administrator
-		/// </summary>
-		public override List<ItemNode> ItemNodes
-		{
-			get
-			{
-				return null;
-			}
-		}
-
-		/// <summary>
-		/// A user control to display when the administrator clicks on the top TreeNode
-		/// </summary>
-		public override UserControl GenerateUserControl()
-		{
-			return null;
-		}
-
-		#endregion
 
 		#region Client related methods and properties
 

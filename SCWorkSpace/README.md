@@ -16,7 +16,7 @@ title: Smart Client Workspace
 
 This sample shows how to create and operate work spaces in the Smart
 Client. The work space is represented as a new tab in the Smart Client
-main window that contains a custom view. The view contains view items
+main window that contains a custom view. The view has view items
 including both built-in view items and MIP view items. Side panel MIP
 plugins can be shown in the left side panel associated with the work
 space.
@@ -31,12 +31,12 @@ space view.
 All the tabs on the top have specific work space ids, and can be
 selected by user click, or by sending the appropriate MIP message.
 
-Each work space can be in normal mode or in setup mode, and this is also
+Each work space can be either in normal or setup mode, and this is also
 available from user selection or via MIP Messages.
 
-![](SCWorkSpace1.png)
+![](SCWorkspace.png)
 
-A home made ViewLayout does not have to fill everything -- in this (not
+A homemade ViewLayout does not have to fill everything -- in this (not
 so useful) sample -- only a diagonal and right hand top is used.
 
 ## The sample demonstrates
@@ -47,7 +47,7 @@ so useful) sample -- only a diagonal and right hand top is used.
 -   Update the work space notification
 -   Create a side panel plugin and show it for the workspace
 -   Create a view item plugin
--   Communication between MIP plugins
+-   Communicate between MIP plugins
 
 ## Using
 

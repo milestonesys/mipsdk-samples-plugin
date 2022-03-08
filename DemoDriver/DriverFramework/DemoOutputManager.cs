@@ -11,6 +11,7 @@ namespace DemoDriver
     public class DemoOutputManager : OutputManager
     {
         private readonly HashSet<TriggerTimerMap> _triggerTimers = new HashSet<TriggerTimerMap>();
+        private bool _activated = false;
 
         private new DemoContainer Container => base.Container as DemoContainer;
 
@@ -20,7 +21,11 @@ namespace DemoDriver
 
         public override bool? IsActivated(string deviceId)
         {
-            return null;
+            if (new Guid(deviceId) == Constants.Output1)
+            {
+                return _activated; // in real driver this should be queried from the device
+            }
+            throw new MIPDriverException("Device does not support Output commands");
         }
 
         public override void TriggerOutput(string deviceId, int durationMs)
@@ -29,7 +34,7 @@ namespace DemoDriver
             if (new Guid(deviceId) == Constants.Output1)
             {
                 Container.EventManager.NewEvent(deviceId, EventId.OutputActivated);
-
+                _activated = true;
                 TriggerTimerMap map = new TriggerTimerMap()
                 {
                     DeviceId = deviceId
@@ -47,6 +52,7 @@ namespace DemoDriver
             if (new Guid(deviceId) == Constants.Output1)
             {
                 Container.EventManager.NewEvent(deviceId, EventId.OutputActivated);
+                _activated = true;
                 return;
             }
             throw new MIPDriverException("Device does not support Output commands");
@@ -58,6 +64,7 @@ namespace DemoDriver
             if (new Guid(deviceId) == Constants.Output1)
             {
                 Container.EventManager.NewEvent(deviceId, EventId.OutputDeactivated, null);
+                _activated = false;
                 return;
             }
             throw new MIPDriverException("Device does not support Output commands");
@@ -69,6 +76,7 @@ namespace DemoDriver
             if (map == null) throw new Exception("Map state unknown");
 
             Container.EventManager.NewEvent(map.DeviceId, EventId.OutputDeactivated);
+            _activated = false;
             _triggerTimers.Remove(map);
             map.TriggerTimer.Dispose();
         }

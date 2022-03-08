@@ -34,7 +34,6 @@ analytics.
 
 -   MIP Environment for XProtect Smart Client
 -   MIP Environment for XProtect Management Client
--   MIP Environment for XProtect Event Server
 
 ## Visual Studio C\# project
 

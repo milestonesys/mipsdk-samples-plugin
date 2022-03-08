@@ -5,11 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Button Content="Button" Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
-        <CheckBox Content="CheckBox" Height="16" HorizontalAlignment="Left" Margin="12,49,0,0" Name="checkBox1" VerticalAlignment="Top" />
-        <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="12,71,0,0" Name="label1" VerticalAlignment="Top" />
-        <RadioButton Content="RadioButton" Height="16" HorizontalAlignment="Left" Margin="12,105,0,0" Name="radioButton1" VerticalAlignment="Top" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="12,135,0,0" Name="textBox1" VerticalAlignment="Top" Width="120" />
-    </Grid>
+    <GroupBox>
+        <Grid>
+            <Button Content="Button" Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
+            <CheckBox Content="CheckBox" Height="16" HorizontalAlignment="Left" Margin="12,49,0,0" Name="checkBox1" VerticalAlignment="Top" />
+            <Label Content="Label" Height="28" HorizontalAlignment="Left" Margin="12,71,0,0" Name="label1" VerticalAlignment="Top" />
+            <RadioButton Content="RadioButton" Height="16" HorizontalAlignment="Left" Margin="12,105,0,0" Name="radioButton1" VerticalAlignment="Top" />
+            <TextBox Height="23" HorizontalAlignment="Left" Margin="12,135,0,0" Name="textBox1" VerticalAlignment="Top" Width="120" />
+        </Grid>
+    </GroupBox>
 </UserControl>

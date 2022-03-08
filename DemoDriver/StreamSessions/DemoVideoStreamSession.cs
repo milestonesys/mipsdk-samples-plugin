@@ -35,7 +35,7 @@ namespace DemoDriver
         private void UpdateFrameRateOnDevice()
         {
             var setting = _settingsManager.GetSetting(new StreamSetting(Constants.FPS, _deviceId, _streamId, ""));
-            if (setting.Value != _fps)
+            if (setting != null && setting.Value != _fps)
             {
                 _demoConnectionManager.ChangeSetting(Channel, DemoDriverDevice.DemoDeviceConstants.DeviceSettingFPS, setting.Value);
                 _fps = setting.Value;

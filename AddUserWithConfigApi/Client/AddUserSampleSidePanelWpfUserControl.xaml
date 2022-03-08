@@ -1,0 +1,27 @@
+﻿<platformclient:SidePanelWpfUserControl x:Class="AddUserSample.Client.AddUserSampleSidePanelWpfUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:platformclient="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+             mc:Ignorable="d" 
+             d:DesignHeight="410" d:DesignWidth="240">
+    <Grid>
+        <GroupBox Header="Add user " HorizontalAlignment="Left" Height="200" Margin="10,5,0,0" VerticalAlignment="Top" Width="220">
+            <StackPanel>
+                <Label Content="User name:" HorizontalAlignment="Left" VerticalAlignment="Top"  Height="24" Margin="5,0,0,0"/>
+                <TextBox x:Name="userNameTextBox" Height="23" Margin="5, 0"/>
+                <Label Content="Password:" HorizontalAlignment="Left" VerticalAlignment="Top"  Height="24" Margin="5,0,0,0" />
+                <PasswordBox x:Name="passwordTextBox" Height="23" Margin="5, 0"/>
+                <Label Content="Role:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Margin="5,0,0,0" />
+                <ComboBox x:Name="rolesCombobox" Margin="5, 0"/>
+                <Button x:Name="CommitButton" Content="Commit" Margin="0, 10, 5, 0" Width="80"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="CommitButton_Click" />
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Header="Result" HorizontalAlignment="Left" VerticalAlignment="Top" Height="180" Width="220" Margin="10,220,0,0" >
+            <TextBox x:Name="resultTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap"/>
+        </GroupBox>
+        
+    </Grid>
+</platformclient:SidePanelWpfUserControl>

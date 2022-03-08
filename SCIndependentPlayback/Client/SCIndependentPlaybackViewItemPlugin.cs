@@ -1,6 +1,4 @@
 using System;
-using System.Windows.Forms;
-using System.Xml;
 using VideoOS.Platform.Client;
 
 namespace SCIndependentPlayback.Client
@@ -19,7 +17,6 @@ namespace SCIndependentPlayback.Client
 	/// </summary>
 	public class SCIndependentPlaybackViewItemPlugin : ViewItemPlugin
 	{
-
 		public SCIndependentPlaybackViewItemPlugin()
 		{
 		}
@@ -48,7 +45,6 @@ namespace SCIndependentPlayback.Client
 			get { return SCIndependentPlaybackDefinition.SCIndependentPlaybackViewItemPlugin; }
 		}
 
-
 		public override System.Drawing.Image Icon
 		{
 			get { return SCIndependentPlaybackDefinition.TreeNodeImage; }
@@ -70,7 +66,5 @@ namespace SCIndependentPlayback.Client
 		{
 			return new SCIndependentPlaybackViewItemManager();
 		}
-
 	}
-
 }

@@ -1,13 +1,10 @@
 using System;
-using System.Windows.Forms;
-using System.Xml;
 using VideoOS.Platform.Client;
 
 namespace SequenceViewer.Client
 {
 	public class SequenceViewerViewItemPlugin : ViewItemPlugin
 	{
-
 		public SequenceViewerViewItemPlugin()
 		{
 		}
@@ -40,5 +37,4 @@ namespace SequenceViewer.Client
 		{
 		}
 	}
-
 }

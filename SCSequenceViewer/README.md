@@ -22,7 +22,7 @@ asynchronous. These can be individually activated from the buttons in
 the UI. You can also implement data sources if you create new Items that
 have some specific data associated with them.
 
-![Sequence Viewer](sequenceSource.png)
+![Sequence Viewer](SequenceViewerImg.png)
 
 ## The sample demonstrates
 

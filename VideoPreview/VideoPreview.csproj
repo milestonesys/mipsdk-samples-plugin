@@ -58,12 +58,15 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -73,6 +76,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\src\CommonSamples.cs">
@@ -98,19 +102,10 @@
       <DependentUpon>VideoPreviewUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Client\VideoPreviewViewItemPlugin.cs" />
-    <Compile Include="Client\VideoPreviewViewItemUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\VideoPreviewViewItemUserControl.Designer.cs">
-      <DependentUpon>VideoPreviewViewItemUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\VideoPreviewPropertiesUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\VideoPreviewPropertiesUserControl.Designer.cs">
-      <DependentUpon>VideoPreviewPropertiesUserControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Client\VideoPreviewViewItemManager.cs" />
+    <Compile Include="Client\VideoPreviewWpfUserControl.xaml.cs">
+      <DependentUpon>VideoPreviewWpfUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -118,14 +113,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="VideoPreviewDefinition.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Client\VideoPreviewViewItemUserControl.resx">
-      <DependentUpon>VideoPreviewViewItemUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\VideoPreviewPropertiesUserControl.resx">
-      <DependentUpon>VideoPreviewPropertiesUserControl.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Server.png" />
@@ -174,6 +161,12 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Page Include="Client\VideoPreviewWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -183,7 +176,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>rem xcopy /y "$(TargetPath)" "C:\Program Files\Milestone\MIPPlugins\$(TargetName)"</PostBuildEvent>
   </PropertyGroup>
 </Project>

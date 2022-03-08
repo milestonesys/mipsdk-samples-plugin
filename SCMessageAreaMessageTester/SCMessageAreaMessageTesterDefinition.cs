@@ -2,10 +2,7 @@ using PluginSamples;
 using SCMessageAreaMessageTester.Client;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
 using VideoOS.Platform;
-using VideoOS.Platform.Admin;
 using VideoOS.Platform.Client;
 
 namespace SCMessageAreaMessageTester
@@ -74,7 +71,7 @@ namespace SCMessageAreaMessageTester
             get { return Common.SampleNodeName; }
 		}
 
-	    public override Image Icon
+	    public override System.Drawing.Image Icon
 	    {
 			get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.SDK_VSIx]; }
 	    }
@@ -111,16 +108,6 @@ namespace SCMessageAreaMessageTester
             get { return _sidePanelPlugins; }
         }
 
-		#endregion
-
-        public override UserControl GenerateUserControl()
-        {
-            return null;
-        }
-
-        public override List<ItemNode> ItemNodes
-        {
-            get { return new List<ItemNode>(); }
-        }
-	}
+        #endregion
+    }
 }

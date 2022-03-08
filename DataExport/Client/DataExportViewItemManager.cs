@@ -40,16 +40,16 @@ namespace DataExport.Client
             return "Note - " + DateTime.Now.ToString("O").Replace(':', '-');
         }
 
-        public override ViewItemUserControl GenerateViewItemUserControl()
+        public override PropertiesWpfUserControl GeneratePropertiesWpfUserControl()
         {
-            return new DataExportViewItemUserControl(this);
+            return new DataExportPropertiesWpfUserControl(this);
         }
 
-        public override PropertiesUserControl GeneratePropertiesUserControl()
+        public override ViewItemWpfUserControl GenerateViewItemWpfUserControl()
         {
-            return new DataExportPropertiesUserControl(this);
+            return new DataExportViewItemWpfUserControl(this);
         }
-
+       
         #endregion
 
         public string NoteName

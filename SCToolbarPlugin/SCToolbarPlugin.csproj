@@ -34,16 +34,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Xaml" />
     <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\src\CommonSamples.cs">
@@ -51,12 +48,10 @@
     </Compile>
     <Compile Include="Client\BackgroundColorViewItemPlugin.cs" />
     <Compile Include="Client\BackgroundColorViewItemManager.cs" />
-    <Compile Include="Client\BackgroundColorViewItemUserControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Client\BackgroundColorViewItemWpfUserControl.xaml.cs">
+      <DependentUpon>BackgroundColorViewItemWpfUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\BackgroundColorViewItemUserControl.Designer.cs">
-      <DependentUpon>BackgroundColorViewItemUserControl.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Client\ColorConverter.cs" />
     <Compile Include="Client\SetViewItemBackgroundColorWorkSpaceToolbarPlugin.cs" />
     <Compile Include="Client\SetViewItemBackgroundColorViewItemToolbarPlugin.cs" />
     <Compile Include="Client\ShowCameraNameViewItemToolbarPlugin.cs" />
@@ -69,9 +64,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Client\BackgroundColorViewItemUserControl.resx">
-      <DependentUpon>BackgroundColorViewItemUserControl.cs</DependentUpon>
-    </EmbeddedResource>
+    <Page Include="Client\BackgroundColorViewItemWpfUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

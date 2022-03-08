@@ -9,6 +9,7 @@ using VideoOS.Platform.DriverFramework.Utilities;
 namespace DemoDriver
 {
     /// <summary>
+    /// This manager provides data to the VMS for remote retrieval and remote playback.
     /// In this sample we assume we have video in all odd-minutes and no video in even minutes,
     /// Also sequences follow this as well.
     /// </summary>
@@ -25,6 +26,12 @@ namespace DemoDriver
             base.MaxParallelDevices = 2;
         }
 
+        /// <summary>
+        /// Creates a playback session for a device. Note, the recording server can create and destroy sessions for any number of reasons, do not assume
+        /// a session will exist for the duration of a playback sequence.
+        /// </summary>
+        /// <param name="deviceId">The device to start a playback session for.</param>
+        /// <returns>A new session id for the created playback session.</returns>
         public override Guid Create(string deviceId)
         {
             if (deviceId != Constants.Camera1.ToString() && deviceId != Constants.Camera2.ToString())
@@ -39,6 +46,10 @@ namespace DemoDriver
             }
         }
 
+        /// <summary>
+        /// Destroys a playback session.
+        /// </summary>
+        /// <param name="playbackId">The playback session id of the session to be destroyed.</param>
         public override void Destroy(Guid playbackId)
         {
             lock (_playbackLockObj)
@@ -50,6 +61,18 @@ namespace DemoDriver
             }
         }
 
+        /// <summary>
+        /// Called to get a list of available sequences in a time window. Called by recording server to provide data to clients when device is set to 
+        /// play back recordings directly from the device.
+        /// </summary>
+        /// <param name="playbackId">Id of the current playback session</param>
+        /// <param name="sequenceType">Whether to search for recordings or motion</param>
+        /// <param name="dateTime">The central point of the playback window</param>
+        /// <param name="maxTimeBefore">Sequences wholly outside this time should not be included.</param>
+        /// <param name="maxCountBefore">Maximum number of preceding sequences to include.</param>
+        /// <param name="maxTimeAfter">Sequences wholly outside this time should not be included.</param>
+        /// <param name="maxCountAfter">Maximum number of following sequences to include.</param>
+        /// <returns></returns>
         public override ICollection<SequenceEntry> GetSequences(Guid playbackId, SequenceType sequenceType, DateTime dateTime, TimeSpan maxTimeBefore, int maxCountBefore, TimeSpan maxTimeAfter, int maxCountAfter)
         {
             // Note that current time is NOT updated in this method
@@ -81,6 +104,16 @@ namespace DemoDriver
             return result;
         }
 
+        /// <summary>
+        /// Moves the playback cursor to a specific time. Should attempt to hit an actual frame time.
+        /// </summary>
+        /// <param name="playbackId">The id of the playback session</param>
+        /// <param name="dateTime">The datetime to move to</param>
+        /// <param name="moveCriteria">Search criteria specifying how to find the target time:
+        /// Before/After: Will look for the first frame before or after, but not at, the initial datetime
+        /// AtOrBefore/AtOrAfter: Will include a frame that is exactly at the specified time.
+        /// </param>
+        /// <returns></returns>
         public override bool MoveTo(Guid playbackId, DateTime dateTime, MoveCriteria moveCriteria)
         {
             lock (_playbackLockObj)
@@ -136,6 +169,19 @@ namespace DemoDriver
             return true;
         }
 
+        /// <summary>
+        /// Moves the playback cursor in a specified direction. Behavior is undefined if a MoveTo has not been called for this playback session.
+        /// </summary>
+        /// <param name="playbackId">The id of the playback session</param>
+        /// <param name="navigateCriteria">Specifies where to navigate:
+        /// First: Moves to the first frame of the first sequence contained on the device.
+        /// Last: Moves to the end of the last sequence contained on the device.
+        /// Previous: Moves to the previous frame (if JPEG) or GOP (if H.264/H.265). If at the start of a sequence, move to the end of the previous sequence.
+        /// Next: Moves to the next frame (if JPEG) or GOP (if H.264/H.265). If at the end of a sequence, move to the start of the next sequence.
+        /// PreviousSequence: Moves to the end of the previous sequence.
+        /// NextSequence: Moves to the start of the next sequence.
+        /// </param>
+        /// <returns></returns>
         public override bool Navigate(Guid playbackId, NavigateCriteria navigateCriteria)
         {
             PlaybackSession session;
@@ -203,6 +249,11 @@ namespace DemoDriver
             return true;
         }
 
+        /// <summary>
+        /// Retrieves the frame (for JPEG) or GOP (for H.264/H.265) at the playback cursor
+        /// </summary>
+        /// <param name="playbackId">The id of the playback session</param>
+        /// <returns>A response containing the frame or GOP data at the current time of the playback cursor.</returns>
         public override PlaybackReadResponse ReadData(Guid playbackId)
         {
             PlaybackSession session;
@@ -235,6 +286,8 @@ namespace DemoDriver
                 // Just as is the case for the live stream, information in a remote playback or remote retrieval scenario
                 // is transferred to the recorder frame by frame (whether that be a video frame or an audio frame, and in the case of e.g.
                 // H.264 or H.265 video, whether it be a P-frame, I-frame, etc.)
+                // Unlike in live streaming, frames for H.264 and H.265 are returned a full GOP at a time in playback mode and when retrieving data
+                // from remote device.
                 VideoHeader jpegHeader = new VideoHeader();
                 jpegHeader.CodecType = VideoCodecType.JPEG;
                 jpegHeader.SyncFrame = true; // Only set this to true for key frames.
@@ -255,7 +308,7 @@ namespace DemoDriver
                     SequenceNumber = session.SequenceNumber,
                     Next = next,
                     Previous = prev,
-                    Frames = new[] { frame },
+                    Frames = new[] { frame }, //Note, this array should contain all frames in the GOP for H.264/H.265
                 };
             }
             catch (Exception e)

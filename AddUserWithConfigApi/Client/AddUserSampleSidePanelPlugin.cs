@@ -28,12 +28,11 @@ namespace AddUserSample.Client
 
         /// <summary>
         /// Creates a new UserControl to be placed on the specified panel place.
-        /// Size of this panel is limited and can not be wider than 188 pixels.
         /// </summary>
         /// <returns></returns>
-        public override SidePanelUserControl GenerateUserControl()
+        public override SidePanelWpfUserControl GenerateWpfUserControl()
         {
-            return new AddUserSampleSidePanelUserControl();
+            return new AddUserSampleSidePanelWpfUserControl();
         }
 
         /// <summary>
@@ -61,8 +60,8 @@ namespace AddUserSample.Client
             {
                 return new List<SidePanelPlaceDefinition>() { 
 					new SidePanelPlaceDefinition() { 
-						WorkSpaceId = VideoOS.Platform.ClientControl.LiveBuildInWorkSpaceId, 
-						WorkSpaceStates = new List<WorkSpaceState>() { VideoOS.Platform.WorkSpaceState.Normal }
+						WorkSpaceId = ClientControl.LiveBuildInWorkSpaceId, 
+						WorkSpaceStates = new List<WorkSpaceState>() { WorkSpaceState.Normal }
 					} 
 				};
             }

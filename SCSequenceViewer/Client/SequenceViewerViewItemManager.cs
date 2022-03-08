@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Xml;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 
@@ -28,14 +27,9 @@ namespace SequenceViewer.Client
 			}
 		}
 
-		public override ViewItemUserControl GenerateViewItemUserControl()
+		public override ViewItemWpfUserControl GenerateViewItemWpfUserControl()
 		{
-			return new SequenceViewerViewItemUserControl(this);
-		}
-
-		public override PropertiesUserControl GeneratePropertiesUserControl()
-		{
-			return new SequenceViewerPropertiesUserControl(this);
+			return new SequenceViewerViewItemWpfUserControl(this);
 		}
 
 		#endregion

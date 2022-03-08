@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
+using System.Windows.Media;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.Messaging;
@@ -12,12 +12,12 @@ namespace SCToolbarPlugin.Client
     {
         private List<object> _messageRegistrationObjects = new List<object>();
 
-        private Color _color;
+        private SolidColorBrush _color;
         private Image _icon;
         private Item _viewItemInstance;
         private Item _window;
 
-        public SetViewItemBackgroundColorViewItemToolbarPluginInstance(Color color, Image icon)
+        public SetViewItemBackgroundColorViewItemToolbarPluginInstance(SolidColorBrush color, Image icon)
         {
             _color = color;
             _icon = icon;
@@ -28,8 +28,9 @@ namespace SCToolbarPlugin.Client
             _viewItemInstance = viewItemInstance;
             _window = window;
 
-            Title = "Set view item background color to " + _color.Name;
-            Tooltip = "Click to set view item background color to " + _color.Name;
+            string currentColor = ColorConverter.ConvertColorToCommonName(_color.Color);
+            Title = "Set view item background color to " + currentColor;
+            Tooltip = "Click to set view item background color to " + currentColor;
             Icon = _icon;
 
             _messageRegistrationObjects.Add(EnvironmentManager.Instance.RegisterReceiver(ViewItemBackgroundColorChangedReceiver, new MessageIdFilter(SCToolbarPluginDefinition.ViewItemBackgroundColorChanged)));
@@ -37,8 +38,8 @@ namespace SCToolbarPlugin.Client
 
         public override void Activate()
         {
-            VideoOS.Platform.Messaging.Message message = new VideoOS.Platform.Messaging.Message(SCToolbarPluginDefinition.SetViewItemBackgroundColor);
-            message.Data = new SCToolbarPluginDefinition.ColorMessageData() {Color = _color, ViewItemInstanceFQID = _viewItemInstance.FQID, WindowFQID = _window.FQID};
+            Message message = new Message(SCToolbarPluginDefinition.SetViewItemBackgroundColor);
+            message.Data = new SCToolbarPluginDefinition.ColorMessageData() { Color = _color, ViewItemInstanceFQID = _viewItemInstance.FQID, WindowFQID = _window.FQID };
             EnvironmentManager.Instance.SendMessage(message);
         }
 
@@ -51,7 +52,7 @@ namespace SCToolbarPlugin.Client
             _messageRegistrationObjects.Clear();
         }
 
-        private object ViewItemBackgroundColorChangedReceiver(VideoOS.Platform.Messaging.Message message, FQID sender, FQID related)
+        private object ViewItemBackgroundColorChangedReceiver(Message message, FQID sender, FQID related)
         {
             SCToolbarPluginDefinition.ColorMessageData colorMessageData = message.Data as SCToolbarPluginDefinition.ColorMessageData;
             if (colorMessageData != null)
@@ -75,18 +76,16 @@ namespace SCToolbarPlugin.Client
     class SetViewItemBackgroundColorViewItemToolbarPlugin : ViewItemToolbarPlugin
     {
         private static readonly Guid PluginId = new Guid("8A4E43A9-B181-4689-8B4F-BCE331173FE7");
-
-        private Color _color;
+        private SolidColorBrush _solidColorBrush;
         private Image _icon;
 
-        public SetViewItemBackgroundColorViewItemToolbarPlugin(Color color)
+        public SetViewItemBackgroundColorViewItemToolbarPlugin(SolidColorBrush solidColorBrush)
         {
-            _color = color;
-
-            _icon = new Bitmap(16, 16, PixelFormat.Format32bppArgb);
+            _solidColorBrush = solidColorBrush;
+            _icon = new Bitmap(16, 16, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             using (Graphics g = Graphics.FromImage(_icon))
             {
-                g.FillRectangle(new SolidBrush(_color), 0, 0, _icon.Width, _icon.Height);
+                g.FillRectangle(new SolidBrush(ColorConverter.ConvertMediaColorToDrawingColor(solidColorBrush.Color)), 0, 0, _icon.Width, _icon.Height);
             }
         }
 
@@ -118,7 +117,7 @@ namespace SCToolbarPlugin.Client
 
         public override ViewItemToolbarPluginInstance GenerateViewItemToolbarPluginInstance()
         {
-            return new SetViewItemBackgroundColorViewItemToolbarPluginInstance(_color, _icon);
+            return new SetViewItemBackgroundColorViewItemToolbarPluginInstance(_solidColorBrush, _icon);
         }
     }
 }
