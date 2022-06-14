@@ -1,15 +1,10 @@
 using System;
-using System.Windows.Forms;
-using System.Xml;
 using VideoOS.Platform.Client;
 
 namespace Property.Client
 {
-    /// <summary>
-    /// </summary>
     public class PropertyViewItemPlugin : ViewItemPlugin
     {
-
         public PropertyViewItemPlugin()
         {
         }
@@ -38,7 +33,6 @@ namespace Property.Client
             get { return PropertyDefinition.PropertyViewItemPlugin; }
         }
 
-
         public override System.Drawing.Image Icon
         {
             get { return PropertyDefinition.TreeNodeImage; }
@@ -60,7 +54,5 @@ namespace Property.Client
         {
             return new PropertyViewItemManager();
         }
-
     }
-
 }

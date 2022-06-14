@@ -14,7 +14,7 @@ sent, and trace the messages that are actually sent.
 Select a command in the upper part of the pane; the destination is where
 it should be received, for example, a camera. When a message has been
 selected additional control might appear requesting needed parameters
-for the command. When the minimum prameter have been entered you can
+for the command. When the minimum parameters have been entered you can
 click the Send Message button to send it.
 
 The lower part traces all messages being sent.

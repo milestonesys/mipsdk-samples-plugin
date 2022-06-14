@@ -1,18 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 
 namespace Property.Client
 {
-    /// <summary>
-    /// </summary>
     public class PropertySidePanelPlugin : SidePanelPlugin
     {
-        //private PropertySidePanelUserControl _myUserControl;
         private string _myProp;
         private string _priProp;
         private string _gloProp;
@@ -38,9 +32,9 @@ namespace Property.Client
         /// Size of this panel is limited and can not be wider than 188 pixels.
         /// </summary>
         /// <returns></returns>
-        public override SidePanelUserControl GenerateUserControl()
+        public override SidePanelWpfUserControl GenerateWpfUserControl()
         {
-            return new PropertySidePanelUserControl(this); 
+            return new PropertySidePanelWpfUserControl(this);
         }
 
         /// <summary>
@@ -50,7 +44,6 @@ namespace Property.Client
         {
             get { return PropertyDefinition.PropertySidePanel; }
         }
-
 
         /// <summary>
         /// Name of panel - displayed on top of user control
@@ -62,17 +55,18 @@ namespace Property.Client
 
         public string MyPropValue
         {
-            set { 
+            set
+            {
                 _myProp = value ?? "";
                 SetProperty("MyProp", _myProp);
                 SaveProperties(true);
-                 }
+            }
             get { return _myProp; }
         }
         public string MyPropShareGlobal
         {
-            set 
-            { 
+            set
+            {
                 _gloProp = value ?? "";
                 // SaveOptionsConfiguration - Global
                 VideoOS.Platform.Configuration.Instance.SaveOptionsConfiguration(
@@ -86,9 +80,10 @@ namespace Property.Client
                 return _gloProp;
             }
         }
+
         public string MyPropSharePrivate
         {
-            set 
+            set
             {
                 _priProp = value ?? "";
                 // SaveOptionsConfiguration - Private
@@ -103,7 +98,7 @@ namespace Property.Client
                 return _priProp;
             }
         }
-        
+
         /// <summary>
         /// Where to place this panel.
         /// </summary>
@@ -111,18 +106,17 @@ namespace Property.Client
         {
             get
             {
-                return new List<SidePanelPlaceDefinition>() { 
-					new SidePanelPlaceDefinition() { 
-						WorkSpaceId = VideoOS.Platform.ClientControl.LiveBuildInWorkSpaceId, 
-						WorkSpaceStates = new List<WorkSpaceState>() { VideoOS.Platform.WorkSpaceState.Normal }
-					} ,
-                    new SidePanelPlaceDefinition() { 
-						WorkSpaceId = VideoOS.Platform.ClientControl.PlaybackBuildInWorkSpaceId, 
-						WorkSpaceStates = new List<WorkSpaceState>() { VideoOS.Platform.WorkSpaceState.Normal }
-					}
-				};
+                return new List<SidePanelPlaceDefinition>() {
+                    new SidePanelPlaceDefinition() {
+                        WorkSpaceId = VideoOS.Platform.ClientControl.LiveBuildInWorkSpaceId,
+                        WorkSpaceStates = new List<WorkSpaceState>() { VideoOS.Platform.WorkSpaceState.Normal }
+                    } ,
+                    new SidePanelPlaceDefinition() {
+                        WorkSpaceId = VideoOS.Platform.ClientControl.PlaybackBuildInWorkSpaceId,
+                        WorkSpaceStates = new List<WorkSpaceState>() { VideoOS.Platform.WorkSpaceState.Normal }
+                    }
+                };
             }
         }
-
     }
 }

@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RGBVideoEnhancement</RootNamespace>
     <AssemblyName>RGBVideoEnhancement</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -41,41 +41,29 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Xaml" />
     <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\src\CommonSamples.cs">
       <Link>CommonSamples.cs</Link>
     </Compile>
     <Compile Include="Client\RGBVideoEnhancementExportManager.cs" />
+    <Compile Include="Client\RGBVideoEnhancementPropertiesWpfUserControl.xaml.cs">
+      <DependentUpon>RGBVideoEnhancementPropertiesWpfUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Client\RGBVideoEnhancementViewItemPlugin.cs" />
-    <Compile Include="Client\RGBVideoEnhancementViewItemUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\RGBVideoEnhancementViewItemUserControl.Designer.cs">
-      <DependentUpon>RGBVideoEnhancementViewItemUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\RGBVideoEnhancementPropertiesUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\RGBVideoEnhancementPropertiesUserControl.Designer.cs">
-      <DependentUpon>RGBVideoEnhancementPropertiesUserControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Client\RGBVideoEnhancementViewItemManager.cs" />
+    <Compile Include="Client\RGBVideoEnhancementViewItemWpfUserControl.cs">
+      <DependentUpon>RGBVideoEnhancementViewItemWpfUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -83,14 +71,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RGBVideoEnhancementDefinition.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Client\RGBVideoEnhancementViewItemUserControl.resx">
-      <DependentUpon>RGBVideoEnhancementViewItemUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\RGBVideoEnhancementPropertiesUserControl.resx">
-      <DependentUpon>RGBVideoEnhancementPropertiesUserControl.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Server.png" />
@@ -110,6 +90,16 @@
       <Project>{82ae2413-f082-4e0c-91f0-4aed972f105e}</Project>
       <Name>RGBEnhancement</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Client\RGBVideoEnhancementPropertiesWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\RGBVideoEnhancementViewItemWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

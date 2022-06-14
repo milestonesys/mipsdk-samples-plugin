@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using VideoOS.Platform.Client;
 
 namespace Property.Client
@@ -10,7 +7,6 @@ namespace Property.Client
     public class PropertyWorkSpaceViewItemPlugin : ViewItemPlugin
     {
         private static System.Drawing.Image _treeNodeImage;
-
         public PropertyWorkSpaceViewItemPlugin()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -53,7 +49,5 @@ namespace Property.Client
         public override void Close()
         {
         }
-
-
     }
 }

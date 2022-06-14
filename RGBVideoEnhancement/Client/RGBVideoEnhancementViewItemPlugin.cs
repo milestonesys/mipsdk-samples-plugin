@@ -65,7 +65,5 @@ namespace RGBVideoEnhancement.Client
 		{
 			return new RGBVideoEnhancementViewItemManager();
 		}
-
 	}
-
 }

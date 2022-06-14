@@ -75,6 +75,7 @@ namespace MessageTester.Client
             _dicData.Add(MessageId.SmartClient.SmartClientMessageCommand, new MessageDataControls.SmartClientMessageCommandUserControl());
             _dicData.Add(MessageId.Control.TriggerCommand, new MessageDataControls.TriggerCommandUserControl());
             _dicData.Add(MessageId.SmartClient.SetCameraInViewCommand, new MessageDataControls.InformationOnlyUserControl("No support implemented.\nPlease note that the Smart Client Insert Camera plugin sample Will show the use of this command."));
+            _dicData.Add(MessageId.SmartClient.AddToExportCommand, new MessageDataControls.AddToExportCommandUserControl());
             ShownInSmartMapControl();
             ShownInSCViewAndWindow();
             ShownInVideoWallController();

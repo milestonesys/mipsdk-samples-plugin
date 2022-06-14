@@ -19,29 +19,29 @@ locations.
 
 ## Management Client
 
-![Management Client](PropertyMgt.png)
+![Management Client](PropertyMC.png)
 
 ## Smart Client
 
 ### View Item
 
-![Smart Client View Item](PropertyViewItem.png)
+![Smart Client View Item](propViewItem.png)
 
-### View Item
+### Side Panel
 
-![Smart Client View Item](Propertysidepanel.png)
+![Smart Client View Item](Propertysidep.png)
 
 ### WorkSpace
 
-![Smart Client WorkSpace](PropertyWorkspace.png)
+![Smart Client WorkSpace](PropWorkspace.png)
 
 ### Options
 
-![Smart Client Options](PropertyOptions.png)
+![Smart Client Options](Propertysettings.png)
 
 ### Setup Properties
 
-![Smart Client Setup Properties](PropertySetup.png)
+![Smart Client Setup Properties](Propertyproperties.png)
 
 ## All MIP environments background plugin
 

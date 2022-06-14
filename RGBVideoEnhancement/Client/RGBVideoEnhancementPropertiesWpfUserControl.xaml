@@ -1,0 +1,13 @@
+﻿<external:PropertiesWpfUserControl
+             x:Class="RGBVideoEnhancement.Client.RGBVideoEnhancementPropertiesWpfUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:external="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+             mc:Ignorable="d" 
+             d:DesignHeight="60" d:DesignWidth="200">
+    <Grid>
+        <Button x:Name="buttonSelect" Content="Select Camera..." HorizontalAlignment="Stretch" Margin="5,20,5,0" VerticalAlignment="Top" Click="OnSourceSelected"/>
+    </Grid>
+</external:PropertiesWpfUserControl>

@@ -3,8 +3,6 @@ using VideoOS.Platform.Client;
 
 namespace Property.Client
 {
-    /// <summary>
-    /// </summary>
     public class PropertyViewItemManager : ViewItemManager
     {
         private string _myProp;
@@ -31,38 +29,38 @@ namespace Property.Client
         /// Generate the UserControl containing the Actual ViewItem Content
         /// </summary>
         /// <returns></returns>
-        public override ViewItemUserControl GenerateViewItemUserControl()
+        public override ViewItemWpfUserControl GenerateViewItemWpfUserControl()
         {
-            return new PropertyViewItemUserControl(this);
+            return new PropertyViewItemWpfUserControl(this);
         }
 
         /// <summary>
         /// Generate the UserControl containing the property configuration.
         /// </summary>
         /// <returns></returns>
-        public override PropertiesUserControl GeneratePropertiesUserControl()
+        public override PropertiesWpfUserControl GeneratePropertiesWpfUserControl()
         {
-            return new PropertyPropertiesUserControl(this);
+            return new PropertyPropertiesWpfUserControl(this);
         }
 
         #endregion
 
-        
+
         public string MyPropValue
         {
-            set 
-            { 
+            set
+            {
                 _myProp = value ?? "";
                 SetProperty("MyProp", _myProp);
                 SaveProperties();
             }
             get { return _myProp; }
         }
-        
+
         public string MyPropShareGlobal
         {
-            set 
-            { 
+            set
+            {
                 _gloProp = value ?? "";
                 // SaveOptionsConfiguration - Global
                 VideoOS.Platform.Configuration.Instance.SaveOptionsConfiguration(
@@ -77,10 +75,10 @@ namespace Property.Client
                 return _gloProp;
             }
         }
-        
+
         public string MyPropSharePrivate
         {
-            set 
+            set
             {
                 _priProp = value ?? "";
                 // SaveOptionsConfiguration - Private

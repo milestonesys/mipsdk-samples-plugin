@@ -21,12 +21,12 @@ licenses and trial expiry dates.
 The sample has no entry fields, but displays the status of the license
 on the plug-in's overview page.
 
-Within the Smart Client, the Options menu displays the current license
+Within the Smart Client, the Settings panel displays the current license
 status:
 
-![](SiteLic3.png)
+![](SiteLicense.png)
 
-This is to demonstrate how to access and validate the license from
+This demonstrates how to access and validate the license from
 within the Smart Client.
 
 The implementation of this check is performed in the

@@ -5,6 +5,7 @@ namespace Property.Client
 {
     public class PropertyWorkSpaceViewItemManager : ViewItemManager
     {
+        private string _myProp;
         private string _gloProp;
         private string _priProp;
 
@@ -14,17 +15,22 @@ namespace Property.Client
         }
         public override void PropertiesLoaded()
         {
-            
         }
 
-        public override ViewItemUserControl GenerateViewItemUserControl()
+        public override ViewItemWpfUserControl GenerateViewItemWpfUserControl()
         {
-            return new PropertyWorkSpaceViewItemUserControl(this);
+            return new PropertyWorkSpaceViewItemWpfUserControl(this);
         }
 
-        public override PropertiesUserControl GeneratePropertiesUserControl()
+        public string MyPropValue
         {
-            return new PropertiesUserControl(); //no special properties
+            set
+            {
+                _myProp = value ?? "";
+                SetProperty("MyProp", _myProp);
+                SaveProperties();
+            }
+            get { return _myProp; }
         }
 
         public string MyPropShareGlobal

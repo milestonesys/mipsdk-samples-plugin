@@ -20,11 +20,16 @@ This could be used to configure which items in your total configuration
 should use which server. For example, for distributed processing for
 analytics.
 
-![Service Test](servicetest.png)
+![Service Test](ServiceTestManager.png)
+
+
+
+![Service Test SC](ServiceTestSmart.png)
 
 ## The sample demonstrates
 
 -   How to access the registered services list
+
 
 ## Using
 
@@ -39,6 +44,3 @@ analytics.
 
 -   [ServiceTest.csproj](javascript:openLink('..\\\\PluginSamples\\\\ServiceTest\\\\ServiceTest.csproj');)
 
-## Special notes
-
-The sample also works in the Smart Client.

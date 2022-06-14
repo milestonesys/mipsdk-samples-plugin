@@ -39,7 +39,6 @@ namespace Property.Admin
             get { return Property.PropertyDefinition.PropertyToolsOptionsDialog; }
         }
 
-
         public override ToolsOptionsDialogUserControl GenerateUserControl()
         {
             _myUserControl = new Property.Admin.PropertyToolsOptionDialogUserControl();

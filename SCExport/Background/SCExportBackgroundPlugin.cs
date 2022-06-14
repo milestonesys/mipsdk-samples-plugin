@@ -175,7 +175,7 @@ namespace SCExport.Background
 					}
 					if (_exporter.LastError != 0)
 					{
-						ShowStatus("Error:" + _exporter.LastErrorString, 0);
+						ShowStatus($"Error ({_exporter.LastError}): {_exporter.LastErrorString}", 0);
 						Thread.Sleep(5000);
 					}
 

@@ -34,7 +34,7 @@ namespace AnalyticsOverlay
 
         #endregion
 
-        #region Options menu configuration
+        #region Settings panel configuration
         public static FQID WatchCameraFQID
         {
             get
@@ -59,7 +59,7 @@ namespace AnalyticsOverlay
                         try
                         {
                             if (!Instance._stop) // Just in case we are stopping down in the middle of this loop
-                                                 //Clear overlay
+                                                         //Clear overlay
                             {
                                 Instance.ClearOverlay(addOn);
                             }
@@ -74,7 +74,7 @@ namespace AnalyticsOverlay
         }
         #endregion
 
-        #region abstract class implementation
+        #region Abstract class implementation
 
         public override Guid Id
         {
@@ -87,12 +87,12 @@ namespace AnalyticsOverlay
             _watchCameraFQID = null;
             try
             {
-                // Reading the configuration belonging to the Options Dialog
-                System.Xml.XmlNode result = VideoOS.Platform.Configuration.Instance.GetOptionsConfiguration(AnalyticsOverlayDefinition.AnalyticsOverlayOptionDialog, true);
+                // Reading the configuration belonging to the Settings Panel
+                XmlNode result = Configuration.Instance.GetOptionsConfiguration(AnalyticsOverlayDefinition.AnalyticsOverlaySettingsPanel, true);
                 if (result != null)
                 {
                     XmlNode childNode = result.FirstChild;
-                    String id = childNode.Attributes["value"].Value;
+                    string id = childNode.Attributes["value"].Value;
                     if (id != null)
                     {
                         Guid guid = new Guid(id);
@@ -174,7 +174,7 @@ namespace AnalyticsOverlay
         /// A new ImageViewer has been created
         /// </summary>
         /// <param name="imageViewerAddOn"></param>
-        void NewImageViewerControlEvent(VideoOS.Platform.Client.ImageViewerAddOn imageViewerAddOn)
+        void NewImageViewerControlEvent(ImageViewerAddOn imageViewerAddOn)
         {
             lock (_activeImageViewerAddOns)
             {
@@ -218,8 +218,8 @@ namespace AnalyticsOverlay
         }
 
         /// <summary>
-        /// Some property has changed on the cameraview item (or hotspot or ...)
-        /// Lets check that the camera id is the one we watch for.
+        /// Some property has changed on the camera View Item (or hotspot etc.)
+        /// Let's check that the camera id is the one we watch for.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -322,7 +322,7 @@ namespace AnalyticsOverlay
 
         #region Background thread
         /// <summary>
-        /// Draw overlay for live mode ImageViewerControls.  Only one overlay per second in this sample
+        /// Draw overlay for live mode ImageViewerControls.
         /// </summary>
         void Run()
         {
@@ -367,10 +367,10 @@ namespace AnalyticsOverlay
 
         private bool CameraMatch(ImageViewerAddOn addOn)
         {
-            return (addOn.CameraFQID != null &&
+            return addOn.CameraFQID != null &&
                     addOn.CameraFQID.ObjectId != Guid.Empty &&
                     WatchCameraFQID != null &&
-                    addOn.CameraFQID.ObjectId == WatchCameraFQID.ObjectId);
+                    addOn.CameraFQID.ObjectId == WatchCameraFQID.ObjectId;
         }
 
 
@@ -383,9 +383,9 @@ namespace AnalyticsOverlay
                     try
                     {
                         // number between 0 and 100 -counting 1/10 of seconds
-                        int s = (dateTime.Second % 10) * 10 + dateTime.Millisecond / 100;
+                        int s = dateTime.Second % 10 * 10 + dateTime.Millisecond / 100;
                         List<Shape> shapes = new List<Shape>();
-                        shapes.Add(CreateBoxShape(addOn.PaintSize, s * 50 / _sampleRateOfOverlay, s * 50 / _sampleRateOfOverlay, 300, 300, Colors.Yellow, 0.7));
+                        shapes.Add(CreateBoxShape(addOn.PaintSize, s * 50 / _sampleRateOfOverlay, s * 50 / _sampleRateOfOverlay, 100, 200, Colors.Yellow, 0.7));
                         shapes.Add(CreateTextShape(addOn.PaintSize, s.ToString(), s * 50 / _sampleRateOfOverlay, s * 50 / _sampleRateOfOverlay, 100, Colors.Red));
 
                         if (!_dictShapes.ContainsKey(addOn))
@@ -417,28 +417,28 @@ namespace AnalyticsOverlay
         /// <param name="scaleFontSize"></param>
         /// <param name="color"></param>
         /// <returns></returns>
-        private Shape CreateTextShape(Size size, string text, double scaleX, double scaleY, double scaleFontSize, System.Windows.Media.Color color)
+        private Shape CreateTextShape(Size size, string text, double scaleX, double scaleY, double scaleFontSize, Color color)
         {
-            double x = (size.Width * scaleX) / 1000;
-            double y = (size.Height * scaleY) / 1000;
-            double fontsize = (size.Height * scaleFontSize) / 1000;
+            double x = size.Width * scaleX / 1000;
+            double y = size.Height * scaleY / 1000;
+            double fontsize = size.Height * scaleFontSize / 1000;
 
             return CreateTextShape(text, x, y, fontsize, color);
         }
 
-        private Shape CreateTextShape(string text, double placeX, double placeY, double fontSize, System.Windows.Media.Color color)
+        private Shape CreateTextShape(string text, double placeX, double placeY, double fontSize, Color color)
         {
             Shape textShape;
             System.Windows.Media.FontFamily fontFamily = new System.Windows.Media.FontFamily("Times New Roman");
             Typeface typeface = new Typeface(fontFamily, FontStyles.Normal, FontWeights.Bold, new FontStretch());
             Path path = new Path();
 
-            FormattedText fText = new FormattedText(text, CultureInfo.CurrentCulture, System.Windows.FlowDirection.LeftToRight, 
+            FormattedText fText = new FormattedText(text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight,
                 typeface, fontSize, System.Windows.Media.Brushes.Black, System.Windows.Media.VisualTreeHelper.GetDpi(path).PixelsPerDip);
 
-            System.Windows.Point textPosition1;
-            textPosition1 = new System.Windows.Point(placeX, placeY);
-            
+            Point textPosition1;
+            textPosition1 = new Point(placeX, placeY);
+
             path.Data = fText.BuildGeometry(textPosition1);
             path.Fill = new SolidColorBrush(color);
             textShape = path;
@@ -458,10 +458,10 @@ namespace AnalyticsOverlay
         /// <returns></returns>
         private Shape CreateBoxShape(Size size, int scaleX, int scaleY, int scaleWidth, int scaleHeight, Color color, double opacity)
         {
-            int x = (size.Width * scaleX) / 1000;
-            int y = (size.Height * scaleY) / 1000;
-            int width = (size.Width * scaleWidth) / 1000;
-            int height = (size.Height * scaleHeight) / 1000;
+            int x = size.Width * scaleX / 1000;
+            int y = size.Height * scaleY / 1000;
+            int width = size.Width * scaleWidth / 1000;
+            int height = size.Height * scaleHeight / 1000;
 
             return CreateBoxShape(x, y, width, height, color, opacity);
         }
@@ -469,7 +469,7 @@ namespace AnalyticsOverlay
         {
             Shape boxShape;
             Path path2 = new Path();
-            path2.Data = new RectangleGeometry(new Rect(new System.Windows.Point(x, y), new System.Windows.Size(width, height)));
+            path2.Data = new RectangleGeometry(new Rect(new Point(x, y), new System.Windows.Size(width, height)));
             path2.Stroke = new SolidColorBrush(color);
             path2.Fill = new SolidColorBrush(color);
             path2.Fill.Opacity = opacity;

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.Messaging;
@@ -11,15 +9,10 @@ namespace Property.Client
 {
     public class PropertyWorkSpacePlugin : WorkSpacePlugin
     {
-
         private List<object> _messageRegistrationObjects = new List<object>();
-
         private bool _workSpaceSelected = false;
         private bool _workSpaceViewSelected = false;
 
-        /// <summary>
-        /// The Id.
-        /// </summary>
         public override Guid Id
         {
             get { return PropertyDefinition.PropertyWorkSpacePluginId; }
@@ -118,7 +111,6 @@ namespace Property.Client
             }
             return null;
         }
-
 
         /// <summary>
         /// Keep track of what workspace is selected, if this is selected the _workSpaceViewSelected is true.

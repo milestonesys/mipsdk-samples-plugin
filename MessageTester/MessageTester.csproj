@@ -68,6 +68,9 @@
     <Compile Include="Client\MessageTesterViewItemWpfUserControl.xaml.cs">
       <DependentUpon>MessageTesterViewItemWpfUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MessageDataControls\AddToExportCommandUserControl.xaml.cs">
+      <DependentUpon>AddToExportCommandUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MessageDataControls\ApplicationControlCommandUserControl.xaml.cs">
       <DependentUpon>ApplicationControlCommandUserControl.xaml</DependentUpon>
     </Compile>
@@ -107,6 +110,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Client\MessageTesterViewItemWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MessageDataControls\AddToExportCommandUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

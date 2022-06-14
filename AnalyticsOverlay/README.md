@@ -16,17 +16,17 @@ displayed in which view item. When the selected camera becomes active in
 any view item (Camera, Carrousel, Hotspot, or other) the sample places
 an overlay with a yellow square on top of the displayed video.
 
-In the Options menu, which you select from the top right corner of the
-Smart Client window, click Overlay setup and select the camera you want
+In the Settings panel, which you select from the top right corner of the
+Smart Client window, click AnalyticsOverlay sample and select the camera you want
 to place the overlay on.
 
-![Overlay Setup](analyticoverlay2.png)
+![Overlay Setup](AnalyticsSettings.png)
 
-When a view is selected that contains a camera view item with this
-camera, the yellow square is displayed in a position based on the second
+When a view that contains a view item with the selected camera is opened, a 
+yellow square is displayed in a position based on the second
 within the current minute.
 
-![Yellow Square in Camera View](analyticoverlay1.png)
+![Yellow Square in Camera View](AnalyticsOverlayViewItem.png)
 
 To secure synchronization with a real analytics server, it is necessary
 to pay attention to the current mode of operation and the play time.
