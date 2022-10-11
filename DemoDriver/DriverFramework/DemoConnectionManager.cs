@@ -14,7 +14,6 @@ namespace DemoDriver
     {
         private DeviceDriverProxy _proxy;
         private InputPoller _inputPoller;
-        private ISettingsManager _settingsManager;
 
         private Uri _uri;
         private DateTime _lastConnectCheck = DateTime.MinValue;
@@ -45,6 +44,15 @@ namespace DemoDriver
             _userName = userName;
             _scrambledPassword = password;
             BuildBaseProxy();
+            ConnectToServer();
+            if (_authenticationIssue)
+            {
+                throw new AuthenticationException();
+            }
+            else if (!_connected)
+            {
+                throw new ConnectionLostException(_connectMessage);
+            }
             _inputPoller = new InputPoller(Container.EventManager, this);
             _inputPoller.Start();
         }

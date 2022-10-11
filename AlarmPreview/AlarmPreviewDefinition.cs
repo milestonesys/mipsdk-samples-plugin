@@ -25,9 +25,6 @@ namespace AlarmPreview
             System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.AlarmPreview.bmp");
             if (pluginStream != null)
                 _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-            System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-            if (configStream != null)
-                _topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
         }
 
         /// <summary>
@@ -46,7 +43,7 @@ namespace AlarmPreview
         /// </summary>
         public override void Init()
         {
-
+            _topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
         }
 
         /// <summary>

@@ -5,7 +5,7 @@ namespace Property.Client
 {
     public class PropertyWorkSpaceViewItemManager : ViewItemManager
     {
-        private string _myProp;
+        internal const string WorkspacePropertyKey = "MyProp";
         private string _gloProp;
         private string _priProp;
 
@@ -24,13 +24,8 @@ namespace Property.Client
 
         public string MyPropValue
         {
-            set
-            {
-                _myProp = value ?? "";
-                SetProperty("MyProp", _myProp);
-                SaveProperties();
-            }
-            get { return _myProp; }
+            set { SetProperty(WorkspacePropertyKey, value ?? ""); SaveProperties(); }
+            get { return GetProperty(WorkspacePropertyKey); }
         }
 
         public string MyPropShareGlobal

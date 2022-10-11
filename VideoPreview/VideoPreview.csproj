@@ -115,9 +115,6 @@
     <Compile Include="VideoPreviewDefinition.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Server.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\Strings.resx" />
   </ItemGroup>
   <ItemGroup>
@@ -142,7 +139,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Resources\VideoPreview.png" />
-    <EmbeddedResource Include="Resources\SDK_VS.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

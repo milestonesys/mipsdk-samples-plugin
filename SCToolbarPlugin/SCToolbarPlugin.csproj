@@ -51,10 +51,20 @@
     <Compile Include="Client\BackgroundColorViewItemWpfUserControl.xaml.cs">
       <DependentUpon>BackgroundColorViewItemWpfUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Client\CameraNameResolver.cs" />
+    <Compile Include="Client\SetViewItemBackgroundColorUserControlViewItemToolbarPlugin.cs" />
+    <Compile Include="Client\SetViewItemsBackgroundColorToolbarPluginWpfUserControl.xaml.cs">
+      <DependentUpon>SetViewItemsBackgroundColorToolbarPluginWpfUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Client\ShowCameraNameToolbarPluginWpfUserControl.xaml.cs">
+      <DependentUpon>ShowCameraNameToolbarPluginWpfUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Client\ColorConverter.cs" />
-    <Compile Include="Client\SetViewItemBackgroundColorWorkSpaceToolbarPlugin.cs" />
-    <Compile Include="Client\SetViewItemBackgroundColorViewItemToolbarPlugin.cs" />
-    <Compile Include="Client\ShowCameraNameViewItemToolbarPlugin.cs" />
+    <Compile Include="Client\SetViewItemBackgroundColorUserControlWorkSpaceToolbarPlugin.cs" />
+    <Compile Include="Client\SetViewItemBackgroundColorActionWorkSpaceToolbarPlugin.cs" />
+    <Compile Include="Client\SetViewItemBackgroundColorActionViewItemToolbarPlugin.cs" />
+    <Compile Include="Client\ShowCameraNameUserControlViewItemToolbarPlugin.cs" />
+    <Compile Include="Client\ShowCameraNameActionViewItemToolbarPlugin.cs" />
     <Compile Include="SCToolbarPluginDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -67,6 +77,14 @@
     <Page Include="Client\BackgroundColorViewItemWpfUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Client\SetViewItemsBackgroundColorToolbarPluginWpfUserControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Client\ShowCameraNameToolbarPluginWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

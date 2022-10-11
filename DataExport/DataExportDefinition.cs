@@ -11,7 +11,7 @@ namespace DataExport
     public class DataExportDefinition : PluginDefinition
     {
         private static readonly Image _treeNodeImage;
-        private static readonly Image _topTreeNodeImage;
+        private Image _topTreeNodeImage;
 
         internal static Guid DataExportPluginId = new Guid("bd4ef35e-995e-4718-a3be-c2f006133f51");
         internal static Guid DataExportKind = new Guid("49c46102-9c13-4db9-8345-3a1f57f19450");
@@ -37,9 +37,6 @@ namespace DataExport
             System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.DataExport.bmp");
             if (pluginStream != null)
                 _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-            System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-            if (configStream != null)
-                _topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
         }
 
 
@@ -52,6 +49,7 @@ namespace DataExport
 
         public override void Init()
         {
+            _topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
             if (EnvironmentManager.Instance.EnvironmentType == EnvironmentType.SmartClient)
             {
                 _viewItemPlugin.Add(new DataExportViewItemPlugin());

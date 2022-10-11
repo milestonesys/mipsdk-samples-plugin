@@ -40,21 +40,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\src\CommonSamples.cs">
@@ -71,19 +66,9 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Admin\ChatItemNodeUserControl.Designer.cs" />
-    <Compile Include="Client\ChatOptionsDialogPlugin.cs" />
-    <Compile Include="Client\ChatOptionsDialogUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\ChatOptionsDialogUserControl.Designer.cs">
-      <DependentUpon>ChatOptionsDialogUserControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Client\ChatSidePanelPlugin.cs" />
-    <Compile Include="Client\ChatSidePanelUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\ChatSidePanelUserControl.Designer.cs">
-      <DependentUpon>ChatSidePanelUserControl.cs</DependentUpon>
+    <Compile Include="Client\ChatSidePanelWpfUserControl.xaml.cs">
+      <DependentUpon>ChatSidePanelWpfUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -96,8 +81,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Admin\ChatItemNodeUserControl.resx">
       <DependentUpon>ChatItemNodeUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Server.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Admin\ChatHelpPage.resx">
@@ -109,19 +94,20 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Client\ChatOptionsDialogUserControl.resx">
-      <DependentUpon>ChatOptionsDialogUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\ChatSidePanelUserControl.resx">
-      <DependentUpon>ChatSidePanelUserControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Chat.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="plugin.def" />
+    <Content Include="plugin.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Resources\GreenArrow.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Client\ChatSidePanelWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

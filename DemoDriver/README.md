@@ -21,6 +21,11 @@ application, Demo Driver Device, that acts like a device:
 
 ![Demo Driver Device application](DemoDriverDevice.png)
 
+Note, that Demo Driver Device is using screen capturing and that operation is known for high CPU usage.
+It means that the actual FPS on the device depends on how much CPU is available on the machine where it is running,
+and the higher FPS is set, the more CPU is needed. If there is not enough CPU available,
+the actual FPS can be significantly lower than the value set in the camera settings.
+
 ## The sample demonstrates
 
 -   Implementing a device driver using the MIP Driver Framework
@@ -43,10 +48,10 @@ To build the Demo Driver, open and build this project:
 
 To try out the Demo Driver sample:
 
-1.  If you have just now installed the MIP SDK, restart the Recording
-    Server Service to make the Demo Driver available.
+1.  If you have just deployed the Demo Driver, restart the Recording
+    Server Service to make the driver available.
 2.  Run
-    `%ProgramFiles%\Milestone\MIPSDK\PluginSamples\DemoDriver\DemoDriverDevice\DemoDriverDevice.exe`
+    `mipsdk-samples-plugin\DemoDriver\DemoDriverDevice\DemoDriverDevice.exe`
     **as Administrator**.
 3.  By default, the device will use the credentials `root:pass`, the
     port `22222`, and the MAC address `DE:AD:CO:DE:56:78`. Specify the

@@ -81,7 +81,7 @@ namespace SCSearchAgent
         /// <summary>
         /// Icon to be used on top level - e.g. a product or company logo.
         /// </summary>
-        public override Image Icon => VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.SDK_VSIx];
+        public override Image Icon => VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
 
         /// <summary>
         /// Extension plug-ins running in the Smart Client for adding custom search agents.

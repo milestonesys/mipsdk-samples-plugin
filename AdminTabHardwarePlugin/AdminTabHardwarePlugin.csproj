@@ -78,7 +78,6 @@
     <EmbeddedResource Include="Admin\AdminTabHardwareUserControl.resx">
       <DependentUpon>AdminTabHardwareUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Server.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

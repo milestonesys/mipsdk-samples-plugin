@@ -7,13 +7,13 @@ lang: en-US
 title: Server Side Carousel
 ---
 
-# Server Side Carousel
+# Server Side Carrousel
 
-The server side carousel demonstrates how one configuration can be
+The server side carrousel demonstrates how one configuration can be
 created in the administrator and shared among many Smart Clients.
 
 In this sample, a set of cameras and presets can be selected and saved
-under a name. Multiple configurations of carousels can be defined.
+under a name. Multiple configurations of carrousels can be defined.
 
 The configurations are stored on the server containing the camera
 configuration, and Smart Client plug-ins can then get access to these
@@ -44,12 +44,12 @@ configurations via the MIP Environment in the Smart Client.
 
 ## Special notes
 
-![Smart Client plug-in in Setup mode](carrouselconfig_sc.jpg)
+![Smart Client plug-in in Setup mode](Carrousel_sc.png)
 
 Smart Client plug-in in Setup mode: Select one of the server side
 defined configurations in the Properties pane on the left.
 
-![Smart Client in Live mode](carrouselconfig_sc2.jpg)
+![Smart Client in Live mode](Carrousel_sc2.png)
 
-Smart Client in Live mode: The selected carousel configuration is
+Smart Client in Live mode: The selected carrousel configuration is
 displayed, indicated by a green border around the position in the view.

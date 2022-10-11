@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 
@@ -34,9 +32,9 @@ namespace SCAviSequenceExport.Client
         /// Size of this panel is limited and can not be wider than 188 pixels.
         /// </summary>
         /// <returns></returns>
-        public override SidePanelUserControl GenerateUserControl()
+        public override SidePanelWpfUserControl GenerateWpfUserControl()
         {
-            return new SCAviSequenceExportSidePanelUserControl();
+            return new SCAviSequenceExportSidePanelWpfUserControl();
         }
 
         /// <summary>
@@ -46,7 +44,6 @@ namespace SCAviSequenceExport.Client
         {
             get { return SCAviSequenceExportDefinition.SCAviSequenceExportSidePanel; }
         }
-
 
         /// <summary>
         /// Name of panel - displayed on top of user control
@@ -75,6 +72,5 @@ namespace SCAviSequenceExport.Client
                 };
             }
         }
-
     }
 }

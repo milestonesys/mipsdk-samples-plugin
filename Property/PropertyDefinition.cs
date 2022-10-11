@@ -60,9 +60,6 @@ namespace Property
             System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.Property.bmp");
             if (pluginStream != null)
                 _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-            System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-            if (configStream != null)
-                _topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
         }
 
         /// <summary>
@@ -81,6 +78,7 @@ namespace Property
         /// </summary>
         public override void Init()
         {
+            _topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
             if (EnvironmentManager.Instance.EnvironmentType == EnvironmentType.SmartClient)
             {
                 _workSpacePlugins.Add(new PropertyWorkSpacePlugin());

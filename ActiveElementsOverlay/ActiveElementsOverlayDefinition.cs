@@ -18,8 +18,8 @@ namespace ActiveElementsOverlay
     /// </summary>
     public class ActiveElementsOverlayDefinition : PluginDefinition
     {
-        private static System.Drawing.Image _treeNodeImage;
-        private static System.Drawing.Image _topTreeNodeImage;
+        private static Image _treeNodeImage;
+        private Image _topTreeNodeImage;
 
         internal static Guid ActiveElementsOverlayPluginId = new Guid("b815600b-904e-438d-9e68-3633741f0e84");
         internal static Guid ActiveElementsOverlayBackgroundPlugin = new Guid("ad2abd0d-d522-42aa-80b5-bc945b69bcc3");
@@ -38,7 +38,6 @@ namespace ActiveElementsOverlay
         static ActiveElementsOverlayDefinition()
         {
             _treeNodeImage = Properties.Resources.DummyItem;
-            _topTreeNodeImage = Properties.Resources.Server;
         }
 
         /// <summary>
@@ -57,6 +56,8 @@ namespace ActiveElementsOverlay
         /// </summary>
         public override void Init()
         {
+            _topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
+
             // Populate all relevant lists with your plugins etc.
             if (EnvironmentManager.Instance.EnvironmentType == EnvironmentType.SmartClient)
             {

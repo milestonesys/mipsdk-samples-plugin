@@ -46,7 +46,6 @@ namespace SCImageViewerAddOnSample
         static SCImageViewerAddOnSampleDefinition()
         {
             _treeNodeImage = Properties.Resources.DummyItem;
-            _topTreeNodeImage = Properties.Resources.Server;
         }
 
 
@@ -66,6 +65,7 @@ namespace SCImageViewerAddOnSample
         /// </summary>
         public override void Init()
         {
+            _topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
             // Populate all relevant lists with your plugins etc.
             if (EnvironmentManager.Instance.EnvironmentType == EnvironmentType.SmartClient)
             {

@@ -18,7 +18,6 @@ namespace SCExport
 	public class SCExportDefinition : PluginDefinition
 	{
 		private static System.Drawing.Image _treeNodeImage;
-		private static System.Drawing.Image _topTreeNodeImage;
 
 		internal static Guid SCExportPluginId = new Guid("afc84565-3e6a-4a3f-aed5-51976f50bfd1");
 		internal static Guid SCExportSidePanel = new Guid("250b2a9a-7384-4aba-a855-33f2523e8a54");
@@ -49,9 +48,6 @@ namespace SCExport
 			System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.SCExport.bmp");
 			if (pluginStream != null)
 				_treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-			System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-			if (configStream != null)
-				_topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
 		}
 
 
@@ -181,7 +177,7 @@ namespace SCExport
 		/// </summary>
 		public override System.Drawing.Image Icon
 		{
-			get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.SDK_VSIx]; }
+			get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx]; }
 		}
 
 		#endregion

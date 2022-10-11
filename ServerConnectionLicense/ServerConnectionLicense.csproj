@@ -95,9 +95,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Server.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Admin\ServerConnectionHelpPage.resx">
       <DependentUpon>ServerConnectionHelpPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -113,7 +110,9 @@
     <EmbeddedResource Include="Resources\ServerConnection.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="plugin.def" />
+    <Content Include="plugin.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

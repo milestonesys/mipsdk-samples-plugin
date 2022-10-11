@@ -107,9 +107,6 @@
     <Compile Include="WebService\WebServiceManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Server.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\Strings.resx" />
   </ItemGroup>
   <ItemGroup>

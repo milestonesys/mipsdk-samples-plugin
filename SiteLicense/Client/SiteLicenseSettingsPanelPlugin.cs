@@ -7,8 +7,6 @@ namespace SiteLicense.Client
 
     public class SiteLicenseSettingsPanelPlugin : SettingsPanelPlugin
     {
-        private UserControl _userControl;
-
         public override Guid Id { get { return SiteLicenseDefinition.SiteLicensePluginId; } }
 
         public override string Title { get { return "SiteLicense sample"; } }
@@ -19,7 +17,6 @@ namespace SiteLicense.Client
 
         public override void CloseUserControl()
         {
-            _userControl = null;
         }
 
         public override UserControl GenerateUserControl()

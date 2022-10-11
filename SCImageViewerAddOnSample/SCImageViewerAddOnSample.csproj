@@ -64,6 +64,7 @@
       <Link>CommonSamples.cs</Link>
     </Compile>
     <Compile Include="Background\SCImageViewerAddOnSampleBackgroundPlugin.cs" />
+    <Compile Include="Client\Effects\ThresholdEffect.cs" />
     <Compile Include="Client\SCImageViewerAddOnSampleSidePanelPlugin.cs" />
     <Compile Include="Client\SCImageViewerAddOnSampleSidePanelWpfUserControl.xaml.cs">
       <DependentUpon>SCImageViewerAddOnSampleSidePanelWpfUserControl.xaml</DependentUpon>
@@ -77,9 +78,6 @@
     <Compile Include="SCImageViewerAddOnSampleDefinition.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Server.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -89,6 +87,9 @@
     <Content Include="plugin.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Client\Effects\Shaders\ThresholdEffect.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <EmbeddedResource Include="Resources\DummyItem.bmp" />
     <EmbeddedResource Include="Resources\WorkSpaceIcon.bmp" />
   </ItemGroup>
@@ -98,7 +99,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Client\Effects\Shaders\ThresholdEffect.ps">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

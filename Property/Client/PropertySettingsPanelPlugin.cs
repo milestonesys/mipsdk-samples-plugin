@@ -86,7 +86,7 @@ namespace Property.Client
             VideoOS.Platform.Configuration.Instance.SaveOptionsConfiguration(
                 Property.PropertyDefinition.MyPropertyId, true, Utility.ToXml("SharedProperty", _myUserControl.MyPropSharedPrivate));
             }
-            catch (Exception ex) 
+            catch (Exception) 
             {
                 errorMessage = "Error occurred";
                 return false;

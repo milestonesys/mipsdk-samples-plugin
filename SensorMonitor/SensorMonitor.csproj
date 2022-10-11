@@ -128,7 +128,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="plugin.def" />
+    <Content Include="plugin.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\SensorActivated.ico" />
   </ItemGroup>
   <ItemGroup>

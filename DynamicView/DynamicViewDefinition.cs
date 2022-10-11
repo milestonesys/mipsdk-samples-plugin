@@ -17,7 +17,6 @@ namespace DynamicView
     public class DynamicViewDefinition : PluginDefinition
     {
         private static System.Drawing.Image _treeNodeImage;
-        private static System.Drawing.Image _topTreeNodeImage;
 
         internal static Guid DynamicViewPluginId = new Guid("5A428269-B268-421E-BA94-FB2E941CCCDF");
         internal static Guid DynamicViewBackgroundPlugin = new Guid("216CC523-CA0A-4D14-BCE9-4089BE64D374");
@@ -38,11 +37,6 @@ namespace DynamicView
             if (pluginStream != null)
             {
                 _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-            }
-            System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-            if (configStream != null)
-            {
-                _topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
             }
         }
 
@@ -126,7 +120,7 @@ namespace DynamicView
         /// </summary>
         public override System.Drawing.Image Icon
         {
-            get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.SDK_VSIx]; }
+            get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx]; }
         }
 
         #endregion

@@ -97,7 +97,7 @@ namespace SCExport.Background
 
                     if (_currentJob.AVIexport)
 					{
-                        VideoOS.Platform.Data.AVIExporter aviExporter = new VideoOS.Platform.Data.AVIExporter() { Width = 320, Height = 240, Filename = _currentJob.FileName, AutoSplitExportFile = true, MaxAVIFileSize = 512 * 1024 * 1024 };   // 512 MB
+                        VideoOS.Platform.Data.AVIExporter aviExporter = new VideoOS.Platform.Data.AVIExporter() { Filename = _currentJob.FileName };   
 
                         if (_currentJob.OverlayImage != null)
                         {

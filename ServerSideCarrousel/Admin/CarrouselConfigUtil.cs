@@ -6,21 +6,21 @@ namespace ServerSideCarrousel.Admin
 {
     internal delegate void CarrouselHandlerDelegate(List<CarrouselTreeNode> list);
 
-	internal class CarrouselConfigUtil
-	{
-		/// <summary>
-		/// </summary>
-		/// <param name="node"></param>
-		/// <param name="carrouselHandler"></param>
-		internal static void BuildCarrouselList(Item item, CarrouselHandlerDelegate carrouselHandler)
-		{
-			if (item.Properties.ContainsKey("SelectedDevices"))
-			{
+    internal class CarrouselConfigUtil
+    {
+        /// <summary>
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="carrouselHandler"></param>
+        internal static void BuildCarrouselList(Item item, CarrouselHandlerDelegate carrouselHandler)
+        {
+            if (item.Properties.ContainsKey("SelectedDevices"))
+            {
                 string selectedList = item.Properties["SelectedDevices"];
-				XmlDocument doc = new XmlDocument();
-				doc.InnerXml = selectedList;
-				List<CarrouselTreeNode> list = new List<CarrouselTreeNode>();
-				XmlNode selectedNode = doc.SelectSingleNode("SelectedDevices");
+                XmlDocument doc = new XmlDocument();
+                doc.InnerXml = selectedList;
+                List<CarrouselTreeNode> list = new List<CarrouselTreeNode>();
+                XmlNode selectedNode = doc.SelectSingleNode("SelectedDevices");
                 foreach (XmlNode itemNode in selectedNode.SelectNodes("Item"))
                 {
                     FQID fqiditem = new FQID(itemNode.SelectSingleNode("FQID"));
@@ -43,7 +43,7 @@ namespace ServerSideCarrousel.Admin
                     
                 }
                 carrouselHandler(list);
-			}
-		}
-	}
+            }
+        }
+    }
 }

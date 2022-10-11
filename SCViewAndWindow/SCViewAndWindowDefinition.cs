@@ -93,7 +93,7 @@ namespace SCViewAndWindow
 		/// </summary>
 		public override System.Drawing.Image Icon
 		{
-			get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.SDK_ToolIx]; }
+			get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx]; }
 		}
 
 		#endregion

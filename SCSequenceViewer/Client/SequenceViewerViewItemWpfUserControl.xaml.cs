@@ -195,10 +195,7 @@ namespace SequenceViewer.Client
                 buttonShowSeq.IsEnabled = true;
                 buttonShowMD.IsEnabled = true;
                 buttonShowMDAsync.IsEnabled = true;
-                if (_item.FQID.ServerId.ServerType != ServerId.EnterpriseServerType)
-                {
-                    buttonShowTypes.IsEnabled = true;
-                }
+                buttonShowTypes.IsEnabled = true;
             }
         }
 

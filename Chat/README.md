@@ -21,7 +21,7 @@ Please note that the clients can be different applications, e.g. a
 Management Client can send messages to Smart Clients. The client can
 even be without UI, like the event server.
 
-![](ChatSample.jpg)
+![](ChatSC1.png)	![](ChatMC1.png)
 
 There are no configurations necessary in the application.
 
@@ -30,6 +30,7 @@ There are no configurations necessary in the application.
 -   How to communicate data from one application to another.
 -   How to send messages.
 -   How to set up event handlers.
+-   How to host a WPF user control in Windows Forms
 
 ## Using
 

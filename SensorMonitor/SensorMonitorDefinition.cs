@@ -48,7 +48,7 @@ namespace SensorMonitor
 
 		public override void Init()
 		{
-			_topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.SDK_VSIx];
+			_topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
 
 			List<SecurityAction> securityActionsCtrl = new List<SecurityAction>
 			                                       	{

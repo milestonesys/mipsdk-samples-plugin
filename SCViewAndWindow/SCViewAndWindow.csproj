@@ -193,7 +193,6 @@
     <EmbeddedResource Include="Client\WorkspaceUserControl.resx">
       <DependentUpon>WorkspaceUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Server.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Strings.resx" />

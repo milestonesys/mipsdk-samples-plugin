@@ -25,7 +25,7 @@ Component Integration application.
 The plugin requires Smart Client 2017 R3 or later to work, as the
 sequential AVI export is only supported from that version.
 
-![](SCAviSequenceExport.png)
+![](AviSequenceExport.png)
 
 ## The sample demonstrates
 

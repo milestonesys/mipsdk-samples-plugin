@@ -10,16 +10,16 @@ using VideoOS.Platform.UI;
 namespace ConfigDump.Admin
 {
     public class DumpConfigurationUserControl : UserControl
-	{
-		private TreeView treeView1;
-		private Label label1;
-		private Label label2;
-		private Label label3;
-		private Label label4;
-		private TreeView treeViewDetail;
-		private TreeView treeViewItems;
-		private Button button1;
-		private ListBox listBox1;
+    {
+        private TreeView treeView1;
+        private Label label1;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private TreeView treeViewDetail;
+        private TreeView treeViewItems;
+        private Button button1;
+        private ListBox listBox1;
         private Button buttonMultiSite;
         private Button button2;
         private Item _selectedItem=null;
@@ -29,8 +29,8 @@ namespace ConfigDump.Admin
             InitializeComponent();
         }
 
-		public void FillContent()
-		{
+        public void FillContent()
+        {
             try
             {
                 treeViewItems.Nodes.Clear();
@@ -55,60 +55,60 @@ namespace ConfigDump.Admin
                     treeViewItems.Nodes.Add(tn2);
                 }
 
-				treeView1.Nodes.Clear();
-				Item site = EnvironmentManager.Instance.GetSiteItem(EnvironmentManager.Instance.MasterSite);
-				TreeNode tn = new TreeNode(site.Name);
-				tn.Tag = site;
-				treeView1.Nodes.Add(tn);
-				FillRecursive(tn);
-			} catch (Exception e)
-			{
-				EnvironmentManager.Instance.ExceptionDialog("FillContent", e);
-			}
-		}
+                treeView1.Nodes.Clear();
+                Item site = EnvironmentManager.Instance.GetSiteItem(EnvironmentManager.Instance.MasterSite);
+                TreeNode tn = new TreeNode(site.Name);
+                tn.Tag = site;
+                treeView1.Nodes.Add(tn);
+                FillRecursive(tn);
+            } catch (Exception e)
+            {
+                EnvironmentManager.Instance.ExceptionDialog("FillContent", e);
+            }
+        }
 
-		private void AsyncItemsHandler(List<Item> list, object callerref)
-		{
-			if (list != null)
-				FillNodes(list, treeViewItems.Nodes);
+        private void AsyncItemsHandler(List<Item> list, object callerref)
+        {
+            if (list != null)
+                FillNodes(list, treeViewItems.Nodes);
 
-		}
+        }
 
-		private void FillNodes(List<Item> list, TreeNodeCollection treeNodeCollection)
-		{
-			foreach (Item item in list)
-			{
-				TreeNode tn = new TreeNode(item.Name);
-				tn.ImageIndex = tn.SelectedImageIndex = VideoOS.Platform.UI.Util.BuiltInItemToImageIndex(item);
-				tn.Tag = item;
-				if (item.HasChildren != VideoOS.Platform.HasChildren.No)
-				{
-					tn.Nodes.Add("...");
-				}
-				treeNodeCollection.Add(tn);
-			}
-		}
+        private void FillNodes(List<Item> list, TreeNodeCollection treeNodeCollection)
+        {
+            foreach (Item item in list)
+            {
+                TreeNode tn = new TreeNode(item.Name);
+                tn.ImageIndex = tn.SelectedImageIndex = VideoOS.Platform.UI.Util.BuiltInItemToImageIndex(item);
+                tn.Tag = item;
+                if (item.HasChildren != VideoOS.Platform.HasChildren.No)
+                {
+                    tn.Nodes.Add("...");
+                }
+                treeNodeCollection.Add(tn);
+            }
+        }
 
 
-		private void FillRecursive(TreeNode tn)
-		{
-			Item siteItem = (Item)tn.Tag;
-			List<Item> childs = siteItem.GetChildren();
-			if (childs!=null && childs.Count>0)
-			{
-				foreach (Item site in childs)
-				{
-					TreeNode child = new TreeNode(site.Name);
-					child.Tag = site;
-					tn.Nodes.Add(child);
-					FillRecursive(child);					
-				}
-			}
-		}
+        private void FillRecursive(TreeNode tn)
+        {
+            Item siteItem = (Item)tn.Tag;
+            List<Item> childs = siteItem.GetChildren();
+            if (childs!=null && childs.Count>0)
+            {
+                foreach (Item site in childs)
+                {
+                    TreeNode child = new TreeNode(site.Name);
+                    child.Tag = site;
+                    tn.Nodes.Add(child);
+                    FillRecursive(child);					
+                }
+            }
+        }
 
-		#region Designer generated code
+        #region Designer generated code
 
-		private void InitializeComponent()
+        private void InitializeComponent()
         {
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -262,146 +262,146 @@ namespace ConfigDump.Admin
             this.PerformLayout();
 
         }
-		#endregion
+        #endregion
 
 
-		#region user click event handling
+        #region user click event handling
 
-		private void OnNodeClick(object sender, TreeNodeMouseClickEventArgs e)
-		{
-			listBox1.Items.Clear();
-			Item item = e.Node.Tag as Item;
-			if (item != null)
-			{
-				Item item2 = EnvironmentManager.Instance.GetSiteItem(item.FQID);
-				if (item2 != null)
-				{
-					foreach (String p in item2.Properties.Keys)
-					{
-						listBox1.Items.Add(p + " = " + item2.Properties[p]);
-					}
+        private void OnNodeClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            listBox1.Items.Clear();
+            Item item = e.Node.Tag as Item;
+            if (item != null)
+            {
+                Item item2 = EnvironmentManager.Instance.GetSiteItem(item.FQID);
+                if (item2 != null)
+                {
+                    foreach (String p in item2.Properties.Keys)
+                    {
+                        listBox1.Items.Add(p + " = " + item2.Properties[p]);
+                    }
 
-				}
-			}
-		}
+                }
+            }
+        }
 
-		private void OnAfterSelect(object sender, TreeViewEventArgs e)
-		{
-			Item item = e.Node.Tag as Item;
+        private void OnAfterSelect(object sender, TreeViewEventArgs e)
+        {
+            Item item = e.Node.Tag as Item;
             _selectedItem = item;
             if (item != null)
             {
-				treeViewDetail.Nodes.Clear();
-				TreeNode tn = new TreeNode(item.Name);
-				DumpFQID(item, tn);
-				DumpFields(item, tn);
-				DumpProperties(item, tn);
-				DumpAuthorization(item, tn);
-				DumpRelated(item, tn);
-				DumpDataVersion(item, tn);
-				treeViewDetail.Nodes.Add(tn);
-				tn.ExpandAll();
-			}
-		}
+                treeViewDetail.Nodes.Clear();
+                TreeNode tn = new TreeNode(item.Name);
+                DumpFQID(item, tn);
+                DumpFields(item, tn);
+                DumpProperties(item, tn);
+                DumpAuthorization(item, tn);
+                DumpRelated(item, tn);
+                DumpDataVersion(item, tn);
+                treeViewDetail.Nodes.Add(tn);
+                tn.ExpandAll();
+            }
+        }
 
-		private void OnBeforeExpand(object sender, TreeViewCancelEventArgs e)
-		{
-			// If this is the first time we expand, get the children
-			if (e.Node.Nodes.Count == 1 && e.Node.Nodes[0].Tag == null)
-			{
-				e.Node.Nodes.Clear();					// Skip the dummy entry
-				Item item = e.Node.Tag as Item;
-				if (item != null)
-				{
-					try
-					{
-						FillNodes(item.GetChildren(), e.Node.Nodes);						
-					} catch (Exception ex)
-					{
-						EnvironmentManager.Instance.ExceptionDialog("OnBeforeExpand", ex);
-					}
-				}
-			}
-		}
+        private void OnBeforeExpand(object sender, TreeViewCancelEventArgs e)
+        {
+            // If this is the first time we expand, get the children
+            if (e.Node.Nodes.Count == 1 && e.Node.Nodes[0].Tag == null)
+            {
+                e.Node.Nodes.Clear();					// Skip the dummy entry
+                Item item = e.Node.Tag as Item;
+                if (item != null)
+                {
+                    try
+                    {
+                        FillNodes(item.GetChildren(), e.Node.Nodes);						
+                    } catch (Exception ex)
+                    {
+                        EnvironmentManager.Instance.ExceptionDialog("OnBeforeExpand", ex);
+                    }
+                }
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region the detail dump methods
+        #region the detail dump methods
 
-	    private void DumpDataVersion(Item item, TreeNode tn)
-	    {
-		    long dataVersion = Configuration.Instance.GetItemConfigurationDataVersion(item.FQID.Kind);
-			TreeNode fqidNode = new TreeNode("DataVersion = "+dataVersion, 1, 1);
-			tn.Nodes.Add(fqidNode);
-	    }
+        private void DumpDataVersion(Item item, TreeNode tn)
+        {
+            long dataVersion = Configuration.Instance.GetItemConfigurationDataVersion(item.FQID.Kind);
+            TreeNode fqidNode = new TreeNode("DataVersion = "+dataVersion, 1, 1);
+            tn.Nodes.Add(fqidNode);
+        }
 
-		private void DumpFQID(Item item, TreeNode tn)
-		{
-			TreeNode fqidNode = new TreeNode("FQID", 1, 1);
-			tn.Nodes.Add(fqidNode);
-			fqidNode.Nodes.Add(new TreeNode("FQID.Kind: " + item.FQID.Kind + " (" + Kind.DefaultTypeToNameTable[item.FQID.Kind] + ")", 1, 1));
-			fqidNode.Nodes.Add(new TreeNode("FQID.ServerId.ServerType: " + item.FQID.ServerId.ServerType, 1, 1));
-			fqidNode.Nodes.Add(new TreeNode("FQID.ServerId.Id: " + item.FQID.ServerId.Id, 1, 1));
-			fqidNode.Nodes.Add(new TreeNode("FQID.ServerId.ServerHostname: " + item.FQID.ServerId.ServerHostname, 1, 1));
-			fqidNode.Nodes.Add(new TreeNode("FQID.ServerId.Serverport: " + item.FQID.ServerId.Serverport, 1, 1));
+        private void DumpFQID(Item item, TreeNode tn)
+        {
+            TreeNode fqidNode = new TreeNode("FQID", 1, 1);
+            tn.Nodes.Add(fqidNode);
+            fqidNode.Nodes.Add(new TreeNode("FQID.Kind: " + item.FQID.Kind + " (" + Kind.DefaultTypeToNameTable[item.FQID.Kind] + ")", 1, 1));
+            fqidNode.Nodes.Add(new TreeNode("FQID.ServerId.ServerType: " + item.FQID.ServerId.ServerType, 1, 1));
+            fqidNode.Nodes.Add(new TreeNode("FQID.ServerId.Id: " + item.FQID.ServerId.Id, 1, 1));
+            fqidNode.Nodes.Add(new TreeNode("FQID.ServerId.ServerHostname: " + item.FQID.ServerId.ServerHostname, 1, 1));
+            fqidNode.Nodes.Add(new TreeNode("FQID.ServerId.Serverport: " + item.FQID.ServerId.Serverport, 1, 1));
             fqidNode.Nodes.Add(new TreeNode("FQID.ServerId.ServerScheme: " + item.FQID.ServerId.ServerScheme, 1, 1));
             fqidNode.Nodes.Add(new TreeNode("FQID.ParentId: " + item.FQID.ParentId, 1, 1));
-			fqidNode.Nodes.Add(new TreeNode("FQID.ObjectId: " + item.FQID.ObjectId, 1, 1));
-			fqidNode.Nodes.Add(new TreeNode("FQID.ObjectIdString: " + item.FQID.ObjectIdString, 1, 1));
-			fqidNode.Nodes.Add(new TreeNode("FQID.FolderType: " + item.FQID.FolderType, 1, 1));
-		}
+            fqidNode.Nodes.Add(new TreeNode("FQID.ObjectId: " + item.FQID.ObjectId, 1, 1));
+            fqidNode.Nodes.Add(new TreeNode("FQID.ObjectIdString: " + item.FQID.ObjectIdString, 1, 1));
+            fqidNode.Nodes.Add(new TreeNode("FQID.FolderType: " + item.FQID.FolderType, 1, 1));
+        }
 
-		private void DumpProperties(Item item, TreeNode tn)
-		{
-			TreeNode propNode = new TreeNode("Properties", 1, 1);
-			tn.Nodes.Add(propNode);
-			if (item.Properties != null)
-			{
-				foreach (string key in item.Properties.Keys)
-				{
-					if (key.ToLower().Contains("password"))
-						propNode.Nodes.Add(key + " = " + "**********");
-					else
-						propNode.Nodes.Add(key + " = " + item.Properties[key]);
-				}
-			}
-		}
+        private void DumpProperties(Item item, TreeNode tn)
+        {
+            TreeNode propNode = new TreeNode("Properties", 1, 1);
+            tn.Nodes.Add(propNode);
+            if (item.Properties != null)
+            {
+                foreach (string key in item.Properties.Keys)
+                {
+                    if (key.ToLower().Contains("password"))
+                        propNode.Nodes.Add(key + " = " + "**********");
+                    else
+                        propNode.Nodes.Add(key + " = " + item.Properties[key]);
+                }
+            }
+        }
 
-		private void DumpAuthorization(Item item, TreeNode tn)
-		{
-			TreeNode propNode = new TreeNode("Authorization");
-			tn.Nodes.Add(propNode);
-			if (item.Authorization != null)
-			{
-				foreach (string key in item.Authorization.Keys)
-				{
-					propNode.Nodes.Add(new TreeNode(key + " = " + item.Authorization[key]));
-				}
-			}
-		}
+        private void DumpAuthorization(Item item, TreeNode tn)
+        {
+            TreeNode propNode = new TreeNode("Authorization");
+            tn.Nodes.Add(propNode);
+            if (item.Authorization != null)
+            {
+                foreach (string key in item.Authorization.Keys)
+                {
+                    propNode.Nodes.Add(new TreeNode(key + " = " + item.Authorization[key]));
+                }
+            }
+        }
 
-		private void DumpRelated(Item item, TreeNode tn)
-		{
-			TreeNode relatedNode = new TreeNode("Related");
-			tn.Nodes.Add(relatedNode);
-			List<Item> related = item.GetRelated();
-			if (related != null)
-			{
-				foreach (Item rel in related)
-				{
-					TreeNode relNode = new TreeNode(rel.Name);
-					relNode.ImageIndex = relNode.SelectedImageIndex = VideoOS.Platform.UI.Util.KindToImageIndex[rel.FQID.Kind];
-					relatedNode.Nodes.Add(relNode);
-				}
-			}
-		}
+        private void DumpRelated(Item item, TreeNode tn)
+        {
+            TreeNode relatedNode = new TreeNode("Related");
+            tn.Nodes.Add(relatedNode);
+            List<Item> related = item.GetRelated();
+            if (related != null)
+            {
+                foreach (Item rel in related)
+                {
+                    TreeNode relNode = new TreeNode(rel.Name);
+                    relNode.ImageIndex = relNode.SelectedImageIndex = VideoOS.Platform.UI.Util.KindToImageIndex[rel.FQID.Kind];
+                    relatedNode.Nodes.Add(relNode);
+                }
+            }
+        }
 
-		private void DumpFields(Item item, TreeNode tn)
-		{
-			TreeNode fields = new TreeNode("Fields");
-			tn.Nodes.Add(fields);
-			fields.Nodes.Add("HasRelated : " + item.HasRelated);
-			fields.Nodes.Add("HasChildren: " + item.HasChildren);
+        private void DumpFields(Item item, TreeNode tn)
+        {
+            TreeNode fields = new TreeNode("Fields");
+            tn.Nodes.Add(fields);
+            fields.Nodes.Add("HasRelated : " + item.HasRelated);
+            fields.Nodes.Add("HasChildren: " + item.HasChildren);
             if (item.PositioningInformation == null)
             {
                 fields.Nodes.Add("No PositioningInformation");
@@ -417,13 +417,13 @@ namespace ConfigDump.Admin
         #endregion
 
         private void button1_Click(object sender, EventArgs e)
-		{
-			ItemPickerForm form = new ItemPickerForm();
+        {
+            ItemPickerForm form = new ItemPickerForm();
             if (_selectedItem!=null)
                 form.KindFilter = _selectedItem.FQID.Kind;
-			form.Init();
-			form.ShowDialog();
-		}
+            form.Init();
+            form.ShowDialog();
+        }
 
         internal static Guid CameraPropertiesAnalyticsPluginId = new Guid("e919b772-74ee-43a2-8a56-fe0c08abcc84");
         internal static Guid CameraPropertiesAnalyticsKind = new Guid("dd1152b9-3eec-4dde-ad39-621cbcb96507");

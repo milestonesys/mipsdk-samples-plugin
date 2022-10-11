@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SCImageViewerAddOnSample.Client"
              xmlns:platformclient="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
              mc:Ignorable="d" 
-             Height="463.522" Width="248">
+             Height="520.522" Width="248">
     <StackPanel Orientation="Vertical">
         <Grid>
             <Button x:Name="buttonDisable" Content="Disable Playback" HorizontalAlignment="Left" Margin="10,16,0,0" IsEnabled="False" VerticalAlignment="Top" Width="110" Click="ButtonDisable_Click"/>
@@ -68,6 +68,20 @@
                     <Button x:Name="buttonZoomSetRectangle" Content="Set" IsEnabled="False" Click="ButtonZoomSetRectangle_Click" Margin="2"/>
                 </StackPanel>
             </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Video Effects">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="buttonThresholdEffectEnable" Content="Enable Threshold" Grid.Column="0" Grid.Row="0" Margin="2" IsEnabled="False" Width="120" HorizontalContentAlignment="Center" Click="ButtonThresholdEffectEnable_Click" />
+                <Button x:Name="buttonThresholdEffectDisable" Content="Disable Threshold" Grid.Column="1" Grid.Row="0" Margin="2" IsEnabled="False" Width="120" HorizontalContentAlignment="Center" Click="ButtonThresholdEffectDisable_Click" />
+            </Grid>
         </GroupBox>
     </StackPanel>
 </platformclient:SidePanelWpfUserControl>

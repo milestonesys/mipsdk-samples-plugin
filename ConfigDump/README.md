@@ -27,14 +27,11 @@ The lower half of the window shows if multiple sites in a Milestone
 Federated Architecture (MFA) setup is available and properties for each
 site.
 
-![Configuration dump in Smart Client](ConfigurationDump.png)
+![Configuration dump in Smart Client](Dump.png)
 
-MIP Environment - Administrators
+MIP Environment - Management Client
 
-After creating a new Configuration Dump item, the content of the user
-control will automatically be filled with the entire configuration.
-
-When placed in one of the administrators, the properties for each item
+When placed in the Management Client, the properties for each item
 is filled with a lot of configuration settings, like IP address of the
 cameras, the database information, and information about capabilities.
 At the bottom, a site map is displayed.
@@ -46,7 +43,7 @@ configured on the currently selected site. At the top of the panel, all
 sites are listed, and by clicking on these, the properties for each site
 is displayed in the right pane.
 
-![Configuration dump in Management Client](configurationdump_2.jpg)
+![Configuration dump in Management Client](DumpMC.png)
 
 MIP Environment - Event Server
 

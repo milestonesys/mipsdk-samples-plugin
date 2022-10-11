@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Reflection;
-using System.Windows.Forms;
 using SCAviSequenceExport.Client;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
@@ -122,7 +119,7 @@ namespace SCAviSequenceExport
         /// </summary>
         public override System.Drawing.Image Icon
         {
-            get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.SDK_VSIx]; }
+            get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx]; }
         }
 
         #endregion

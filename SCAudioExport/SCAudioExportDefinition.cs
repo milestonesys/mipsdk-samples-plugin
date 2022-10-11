@@ -35,7 +35,6 @@ namespace SCAudioExport
         /// </summary>
         static SCAudioExportDefinition()
         {
-            _topTreeNodeImage = Properties.Resources.Server;
         }
 
 
@@ -47,6 +46,7 @@ namespace SCAudioExport
         /// </summary>
         public override void Init()
         {
+            _topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
             if (EnvironmentManager.Instance.EnvironmentType == EnvironmentType.SmartClient)
             {
                 _sidePanelPlugins.Add(new SCAudioExportSidePanelPlugin());

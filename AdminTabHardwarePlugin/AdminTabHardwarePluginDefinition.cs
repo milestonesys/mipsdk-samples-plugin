@@ -59,9 +59,6 @@ namespace AdminTabHardwarePlugin
             System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.AdminTabHardwarePlugin.bmp");
             if (pluginStream != null)
                 _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-            System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-            if (configStream != null)
-                _topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
         }
 
 
@@ -81,6 +78,8 @@ namespace AdminTabHardwarePlugin
         /// </summary>
         public override void Init()
         {
+            _topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
+
             if (EnvironmentManager.Instance.EnvironmentType == EnvironmentType.Administration)
             {
                 _tabPlugins.Add(new Admin.AdminTabHardwarePlugin());

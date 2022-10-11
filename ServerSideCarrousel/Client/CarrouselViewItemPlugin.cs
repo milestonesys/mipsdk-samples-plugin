@@ -40,7 +40,5 @@ namespace ServerSideCarrousel.Client
 		public override void Close()
 		{
 		}
-
 	}
-
 }

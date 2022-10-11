@@ -93,6 +93,8 @@ namespace SCImageViewerAddOnSample.Client
                     labelPlaybackTime.Content = "Not Available";
                 }
             }
+
+            SetVideoEffectButtonState();
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -153,6 +155,16 @@ namespace SCImageViewerAddOnSample.Client
                 buttonZoomMoveUp.IsEnabled = enable;
                 buttonZoomGetRectangle.IsEnabled = enable;
                 buttonZoomSetRectangle.IsEnabled = enable;
+            });
+        }
+
+        private void SetVideoEffectButtonState()
+        {
+            bool enable = _currentImageViewer != null && _currentImageViewer.VideoEffect != null;
+            Dispatcher.Invoke(() =>
+            {
+                buttonThresholdEffectEnable.IsEnabled = !enable;
+                buttonThresholdEffectDisable.IsEnabled = enable;
             });
         }
 
@@ -352,5 +364,19 @@ namespace SCImageViewerAddOnSample.Client
             _currentImageViewer.DigitalZoomEnabled = false;
             SetDigitalZoomButtonState();
         }
+
+        private void ButtonThresholdEffectEnable_Click(object sender, RoutedEventArgs e)
+        {
+            var effect = new ThresholdEffect();
+            _currentImageViewer.VideoEffect = effect;
+            SetVideoEffectButtonState();
+        }
+
+        private void ButtonThresholdEffectDisable_Click(object sender, RoutedEventArgs e)
+        {
+            _currentImageViewer.VideoEffect = null;
+            SetVideoEffectButtonState();
+        }
+        
     }
 }

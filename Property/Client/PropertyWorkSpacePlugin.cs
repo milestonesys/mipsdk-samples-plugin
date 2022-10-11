@@ -35,12 +35,10 @@ namespace Property.Client
         }
 
         /// <summary>
-        /// Initializa the plugin
+        /// Initialize the plugin
         /// </summary>
         public override void Init()
         {
-            LoadProperties(true);
-
             //add message listeners
             _messageRegistrationObjects.Add(EnvironmentManager.Instance.RegisterReceiver(ShownWorkSpaceChangedReceiver, new MessageIdFilter(MessageId.SmartClient.ShownWorkSpaceChangedIndication)));
             _messageRegistrationObjects.Add(EnvironmentManager.Instance.RegisterReceiver(WorkSpaceStateChangedReceiver, new MessageIdFilter(MessageId.SmartClient.WorkSpaceStateChangedIndication)));

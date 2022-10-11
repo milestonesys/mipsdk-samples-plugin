@@ -44,14 +44,17 @@ namespace SCToolbarPlugin
         {
             if (EnvironmentManager.Instance.EnvironmentType == EnvironmentType.SmartClient)
             {
-                _viewItemToolbarPlugins.Add(new ShowCameraNameViewItemToolbarPlugin());
-                _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorViewItemToolbarPlugin(new SolidColorBrush(Colors.Red)));
-                _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorViewItemToolbarPlugin(new SolidColorBrush(Colors.Green)));
-                _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorViewItemToolbarPlugin(new SolidColorBrush(Colors.Blue)));
+                _viewItemToolbarPlugins.Add(new ShowCameraNameActionViewItemToolbarPlugin());
+                _viewItemToolbarPlugins.Add(new ShowCameraNameUserControlViewItemToolbarPlugin());
+                _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorActionViewItemToolbarPlugin(new SolidColorBrush(Colors.Red)));
+                _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorActionViewItemToolbarPlugin(new SolidColorBrush(Colors.Green)));
+                _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorActionViewItemToolbarPlugin(new SolidColorBrush(Colors.Blue)));
+                _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorUserControlViewItemToolbarPlugin());
 
-                _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorWorkSpaceToolbarPlugin(new SolidColorBrush(Colors.Red)));
-                _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorWorkSpaceToolbarPlugin(new SolidColorBrush(Colors.Green)));
-                _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorWorkSpaceToolbarPlugin(new SolidColorBrush(Colors.Blue)));
+                _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorActionWorkSpaceToolbarPlugin(new SolidColorBrush(Colors.Red)));
+                _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorActionWorkSpaceToolbarPlugin(new SolidColorBrush(Colors.Green)));
+                _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorActionWorkSpaceToolbarPlugin(new SolidColorBrush(Colors.Blue)));
+                _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorUserControlWorkSpaceToolbarPlugin());
 
                 _viewItemPlugins.Add(new BackgroundColorViewItemPlugin());
             }

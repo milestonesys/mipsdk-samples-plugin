@@ -61,9 +61,9 @@
     <Compile Include="SCMessageAreaMessageTesterDefinition.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="plugin.def">
+    <Content Include="plugin.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Client\MessageDetailsUserControl.xaml">

@@ -1,0 +1,42 @@
+﻿<platformclient:SidePanelWpfUserControl  
+             xmlns:platformclient="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             x:Class="SCAviSequenceExport.Client.SCAviSequenceExportSidePanelWpfUserControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="475" 
+             d:DesignWidth="300">
+    <Grid>
+        <StackPanel>
+            <GroupBox Height="220" VerticalAlignment="Top">
+                <StackPanel>
+                    <Button x:Name="selectCameraButton" Content="Select Camera" HorizontalAlignment="Center" Width="200" Margin="10" Click="selectCameraButton_Click"/>
+                    <Label Content="Start:"/>
+                    <WindowsFormsHost>
+                        <forms:DateTimePicker Format="Time"  x:Name="startDatePicker" ValueChanged="startDatePicker_ValueChanged"/>
+                    </WindowsFormsHost>
+                    <Label Content="End :"/>
+                    <WindowsFormsHost>
+                        <forms:DateTimePicker Format="Time" x:Name="endDatePicker"/>
+                    </WindowsFormsHost>
+                    <Label Content="Overlay:"/>
+                    <TextBox x:Name="overlayTextBox"/>
+                    <Button Content="Add" Name="addButton" Width="100" HorizontalAlignment="Right" Margin="5" Click="addButton_Click"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox VerticalAlignment="Bottom">
+                <StackPanel>
+                    <ListBox Name="exportItemsListBox" Height="120"/>
+                    <CheckBox Name="timestampCheckBox" Content="Timestamp overlay" Margin="0, 3"/>
+                    <Button x:Name="startExportButton" Content="Start Export" Margin="0, 3" Click="startExportButton_Click"/>
+                    <Button x:Name="cancelButton" Content="Cancel" Width="70" HorizontalAlignment="Right" Margin="0, 3" Click="cancelButton_Click"/>
+                    <ProgressBar Name="exportProgressBar" Height="20" Margin="0, 3"/>
+                    <Label Name="errorLabel" Height="30"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</platformclient:SidePanelWpfUserControl>

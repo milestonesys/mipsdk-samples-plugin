@@ -86,7 +86,7 @@ namespace SCToast
         /// </summary>
         public override Image Icon
 		{
-			get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.SDK_VSIx]; }
+			get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx]; }
 		}
 
         #endregion

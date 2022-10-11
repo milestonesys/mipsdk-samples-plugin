@@ -16,30 +16,10 @@ namespace SCHotSpot
     /// </summary>
     public class SCHotSpotDefinition : PluginDefinition
     {
-        private static System.Drawing.Image _topTreeNodeImage;
-
     	internal static Guid SCHotSpotPluginId = new Guid("AFA2AAE6-E6A3-4A48-9100-A42F4723A296");
         internal static Guid SCHotSpotBackgroundPlugin = new Guid("B8C4EDEB-343D-40DC-B665-7F2217C16966");
 
         #region Private fields
-        #endregion
-
-        #region Initialization
-
-        /// <summary>
-        /// Load resources 
-        /// </summary>
-        static SCHotSpotDefinition()
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string name = assembly.GetName().Name;
-            System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-            if (configStream != null)
-            {
-                _topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
-            }
-        }
-
         #endregion
 
         #region Identification Properties
@@ -111,7 +91,7 @@ namespace SCHotSpot
         /// </summary>
         public override System.Drawing.Image Icon
         {
-			get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.SDK_VSIx]; }
+			get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx]; }
         }
 
         #endregion

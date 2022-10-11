@@ -11,7 +11,6 @@ namespace SCIndependentPlayback
 	public class SCIndependentPlaybackDefinition : PluginDefinition
 	{
 		private static Image _treeNodeImage;
-		private static Image _topTreeNodeImage;
 
 		internal static Guid SCIndependentPlaybackPluginId = new Guid("83e83d08-5df0-4ff6-bb69-37bef5c33ccc");
 		internal static Guid SCIndependentPlaybackKind = new Guid("c0cc6dc0-a75f-4058-bdea-6a3e7ff002e6");
@@ -33,9 +32,6 @@ namespace SCIndependentPlayback
 			Assembly assembly = Assembly.GetExecutingAssembly();
 			string name = assembly.GetName().Name;
 			_treeNodeImage = Properties.Resources.SCIndependentPlayback;
-			System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-			if (configStream != null)
-				_topTreeNodeImage = Image.FromStream(configStream);
 		}
 
 		/// <summary>
@@ -132,7 +128,7 @@ namespace SCIndependentPlayback
 		/// </summary>
 		public override Image Icon
 		{
-			get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.SDK_VSIx]; }
+			get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx]; }
 		}
 
 		#endregion

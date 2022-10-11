@@ -20,7 +20,6 @@ namespace SCInsertCamera
     public class SCInsertCameraDefinition : PluginDefinition
     {
         private static System.Drawing.Image _treeNodeImage;
-        private static System.Drawing.Image _topTreeNodeImage;
 
         internal static Guid SCInsertCameraPluginId = new Guid("709842df-aba3-49a7-b7d2-4c1312ebb1d9");
         internal static Guid SCInsertCameraSidePanel = new Guid("dc96fff5-18a3-47ae-b994-5a31bcf211da");
@@ -49,9 +48,6 @@ namespace SCInsertCamera
             System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.SCInsertCamera.bmp");
             if (pluginStream != null)
                 _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-            System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-            if (configStream != null)
-                _topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
         }
 
 
@@ -165,7 +161,7 @@ namespace SCInsertCamera
         /// </summary>
         public override System.Drawing.Image Icon
         {
-            get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.SDK_VSIx]; }
+            get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx]; }
         }
 
         #endregion

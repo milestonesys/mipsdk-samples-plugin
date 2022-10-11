@@ -91,9 +91,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="plugin.def">
+    <Content Include="plugin.def">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Page Include="SCAnimalsSearchAgent\SearchUserControl\AnimalsResultControl.xaml">

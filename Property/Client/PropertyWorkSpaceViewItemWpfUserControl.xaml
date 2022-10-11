@@ -13,7 +13,7 @@
     <Grid>
         <StackPanel>
             <Label Content="Property WorkSpace Value" />
-            <TextBox x:Name="textBoxPropValue" Margin="5" MinWidth="250" HorizontalAlignment="Left" Text="WorkSpace value"/>
+            <TextBox x:Name="textBoxPropValue" Margin="5" MinWidth="250" HorizontalAlignment="Left"/>
             <Label Content="Shared Globally"/>
             <TextBox x:Name="textBoxSharedGlobal" Margin="5" MinWidth="250" HorizontalAlignment="Left" TextChanged="TextBoxSharedGlobal_TextChanged"/>
             <Label Content="Shared User-Private"/>

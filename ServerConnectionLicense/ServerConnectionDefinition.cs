@@ -62,9 +62,6 @@ namespace ServerConnection
 			System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.ServerConnection.bmp");
 			if (pluginStream != null)
 				_treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-			System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-			if (configStream != null)
-				_topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
 		}
 
 
@@ -84,6 +81,8 @@ namespace ServerConnection
 		/// </summary>
 		public override void Init()
 		{
+			_topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
+
 			// We only want this sample to run in the administrators
 			if (EnvironmentManager.Instance.EnvironmentType == EnvironmentType.Administration)
 			{

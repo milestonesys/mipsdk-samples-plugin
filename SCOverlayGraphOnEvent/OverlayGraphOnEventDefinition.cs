@@ -22,7 +22,7 @@ namespace SCOverlayGraphOnEvent
     public class OverlayGraphOnEventDefinition : PluginDefinition
     {
         private static System.Drawing.Image _treeNodeImage;
-        private static System.Drawing.Image _topTreeNodeImage;
+        private System.Drawing.Image _topTreeNodeImage;
 
         internal static Guid OverlayGraphOnEventPluginId = new Guid("946c8ffb-eb9b-43fb-80ad-9c91d6ea7470");
         internal static Guid OverlayGraphOnEventBackgroundPlugin = new Guid("81372ca8-b86f-437c-9073-49c6638b50f5");
@@ -47,9 +47,6 @@ namespace SCOverlayGraphOnEvent
             System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.OverlayGraphOnEvent.bmp");
             if (pluginStream != null)
                 _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-            System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-            if (configStream != null)
-                _topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
         }
 
 
@@ -69,6 +66,7 @@ namespace SCOverlayGraphOnEvent
         /// </summary>
         public override void Init()
         {
+            _topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
             _backgroundPlugins.Add(new OverlayGraphOnEventBackgroundPlugin());
         }
 

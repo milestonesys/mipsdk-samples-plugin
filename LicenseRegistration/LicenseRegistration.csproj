@@ -93,8 +93,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="plugin.def" />
-    <EmbeddedResource Include="Resources\key-icon.png" />
+    <Content Include="plugin.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="Resources\OnlineLicenseRetrieval.png" />
     <EmbeddedResource Include="Resources\SDK_tool.ico" />
   </ItemGroup>

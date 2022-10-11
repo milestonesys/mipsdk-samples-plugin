@@ -20,8 +20,8 @@ namespace TimelineViewItem
     /// </summary>
     public class TimelineViewItemDefinition : PluginDefinition
     {
-        private static System.Drawing.Image _treeNodeImage;
-        private static System.Drawing.Image _topTreeNodeImage;
+        private static Image _treeNodeImage;
+        private Image _topTreeNodeImage;
 
         internal static Guid TimelineViewItemPluginId = new Guid("66875f08-a883-495b-bfd2-5314fde2f597");
         internal static Guid TimelineViewItemKind = new Guid("f266db4a-ff47-483c-87b5-6e97183a256b");
@@ -52,9 +52,6 @@ namespace TimelineViewItem
             System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.TimelineViewItem.bmp");
             if (pluginStream != null)
                 _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-            System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-            if (configStream != null)
-                _topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
         }
 
 
@@ -74,6 +71,8 @@ namespace TimelineViewItem
         /// </summary>
         public override void Init()
         {
+            _topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
+
             // Populate all relevant lists with your plugins etc.
             if (EnvironmentManager.Instance.EnvironmentType == EnvironmentType.SmartClient)
             {

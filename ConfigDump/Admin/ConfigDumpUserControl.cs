@@ -9,12 +9,10 @@ namespace ConfigDump.Admin
 	{
 		internal event EventHandler ConfigurationChangedByUser;
 
-
 		public ConfigDumpUserControl()
 		{
 			InitializeComponent();
 		}
-
 
 		internal void OnUserChange(object sender, EventArgs e)
 		{
@@ -30,6 +28,5 @@ namespace ConfigDump.Admin
 		internal void ClearContent()
 		{
 		}
-
 	}
 }

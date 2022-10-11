@@ -14,7 +14,6 @@ namespace PlatformFileView
     public class PlatformFileViewDefinition : PluginDefinition
     {
         internal protected static System.Drawing.Image _fileImage;
-        internal protected static System.Drawing.Image _topTreeNodeImage;
 		internal protected static System.Drawing.Image _folderImage;
 
         internal static Guid PlatformFileViewPluginId = new Guid("64caa3e7-9df0-40fd-a885-2f42ee611815");
@@ -35,9 +34,6 @@ namespace PlatformFileView
             System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.PlatformFileView.bmp");
             if (pluginStream != null)
                 _fileImage = System.Drawing.Image.FromStream(pluginStream);
-            System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-            if (configStream != null)
-                _topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
 			System.IO.Stream folderStream = assembly.GetManifestResourceStream(name + ".Resources.folder_closed.ico");
 			if (folderStream != null)
 			{
@@ -92,7 +88,9 @@ namespace PlatformFileView
 
         public override System.Drawing.Image Icon
         {
-            get { return _topTreeNodeImage; }
+            get {
+                return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];                
+            }
         }
 
         public override UserControl GenerateUserControl()

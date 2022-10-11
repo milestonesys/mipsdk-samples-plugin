@@ -57,9 +57,6 @@ namespace RGBVideoEnhancement
             System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.RGBVideoEnhancement.png");
             if (pluginStream != null)
                 _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-            System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-            if (configStream != null)
-                _topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
         }
 
 
@@ -79,6 +76,7 @@ namespace RGBVideoEnhancement
         /// </summary>
         public override void Init()
         {
+            _topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
             _viewItemPlugin.Add(new RGBVideoEnhancementViewItemPlugin());
         }
 
@@ -191,7 +189,7 @@ namespace RGBVideoEnhancement
         /// </summary>
         public override System.Drawing.Image Icon
         {
-            get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.SDK_VSIx]; }
+            get { return VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx]; }
         }
 
         #endregion

@@ -1,0 +1,9 @@
+﻿<client:ToolbarPluginWpfUserControl x:Class="SCToolbarPlugin.Client.ShowCameraNameToolbarPluginWpfUserControl"
+                                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                    xmlns:client="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+                                    xmlns:controls="clr-namespace:VideoOS.Platform.UI.Controls;assembly=VideoOS.Platform">
+    <Grid>
+        <controls:VideoOSTextBlockBody1 x:Name="_textBlock" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" TextWrapping="Wrap"/>
+    </Grid>
+</client:ToolbarPluginWpfUserControl>

@@ -30,9 +30,11 @@ namespace SequenceViewer
 			System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.SequenceViewer.png");
 			if (pluginStream != null)
 				_treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-			System.IO.Stream configStream = assembly.GetManifestResourceStream(name + ".Resources.Server.png");
-			if (configStream != null)
-				_topTreeNodeImage = System.Drawing.Image.FromStream(configStream);
+		}
+
+        public override void Init()
+        {
+			_topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
 		}
 
 		#endregion
