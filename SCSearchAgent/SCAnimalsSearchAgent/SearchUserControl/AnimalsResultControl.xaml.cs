@@ -21,15 +21,13 @@ namespace SCSearchAgent.SCAnimalsSearchAgent.SearchUserControl
 
         public string Species { get; set; }
 
-        static Random _rnd = new Random();
-
         public override void Init(SearchResultData searchResultData)
         {
             var result = (AnimalsSearchResultData)searchResultData;
             Species = result.Species;
 
             // Load a random image for the given species
-            Image = LoadBitmapImageResource($"{Species}{_rnd.Next(1,3).ToString()}.jpg");
+            Image = LoadBitmapImageResource($"{Species}{Convert.ToByte(result.IsAnimalEating) + 1}.jpg");
 
             OnPropertyChanged(nameof(Image));
             OnPropertyChanged(nameof(Species));

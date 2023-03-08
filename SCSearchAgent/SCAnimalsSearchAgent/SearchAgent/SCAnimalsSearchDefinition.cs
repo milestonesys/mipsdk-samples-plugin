@@ -60,6 +60,9 @@ namespace SCSearchAgent.SCAnimalsSearchAgent.SearchAgent
         private static Guid IdAreaFilter = new Guid("97B9F84D-7E89-414C-8E4B-0C30EEE6FC2C");
         internal static readonly SCAnimalsSearchFilter AreaFilter = new SCAnimalsSearchFilter { Id = IdAreaFilter, Name = "Area to observe" };
 
+        private string[] _mammals = { "Lion", "Elephant", "Giraffe", "Zebra", "Rhino" };
+        private string[] _reptiles = { "Crocodile" };
+
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -110,18 +113,31 @@ namespace SCSearchAgent.SCAnimalsSearchAgent.SearchAgent
 
             var totalSpan = (to - from).TotalMilliseconds;
             var ordinal = 0;
-            var speciesValue = (StringFilterValue)SearchCriteria.GetFilterValues(SpeciesFilter).FirstOrDefault();
-            var activityValue = (BoolFilterValue)SearchCriteria.GetFilterValues(ActivityFilter).FirstOrDefault();
+            var speciesFilterValue = (StringFilterValue)SearchCriteria.GetFilterValues(SpeciesFilter).FirstOrDefault();
+            var activityFilterValue = (BoolFilterValue)SearchCriteria.GetFilterValues(ActivityFilter).FirstOrDefault();
+            var familyFilterValue = (SelectionFilterValue)SearchCriteria.GetFilterValues(FamilyFilter).FirstOrDefault();
+
+            // If family is selected, get the species in that family
+            List<string> speciesList;
+            if (familyFilterValue != null)
+                speciesList = GetSpeciesForSelectedFamilies(familyFilterValue.SelectedIds);
+            else
+                speciesList = GetAllSpecies();
+
+            // If a specific species is selected, verify that it is contained by the available species
+            if (speciesFilterValue != null && !speciesList.Contains(speciesFilterValue.Text))
+                return;
+
             var rnd = new Random(37);
             foreach (Item camera in items)
             {
                 var triggerTime = totalSpan * rnd.NextDouble();
                 const string title = "Animal found!";
                 var endTime = from.AddMilliseconds(triggerTime + totalSpan / 5);
-                var id = GuidUtil.Create(SCAnimalsSearchAgentPlugin.PluginId, 
-                    title, 
-                    camera.FQID.ObjectId.ToString(), 
-                    from.AddMilliseconds(triggerTime).Ticks.ToString(CultureInfo.InvariantCulture), 
+                var id = GuidUtil.Create(SCAnimalsSearchAgentPlugin.PluginId,
+                    title,
+                    camera.FQID.ObjectId.ToString(),
+                    from.AddMilliseconds(triggerTime).Ticks.ToString(CultureInfo.InvariantCulture),
                     endTime.Ticks.ToString(CultureInfo.InvariantCulture));
                 var result = new AnimalsSearchResultData(id)
                 {
@@ -131,25 +147,29 @@ namespace SCSearchAgent.SCAnimalsSearchAgent.SearchAgent
                     BeginTime = from.AddMilliseconds(triggerTime - totalSpan / 10),
                     TriggerTime = from.AddMilliseconds(triggerTime),
                     EndTime = endTime,
-                    WarningText = activityValue != null && activityValue.Value && ordinal == 1 ? $"Animal is eating" : "",
-                    Species = speciesValue != null ? speciesValue.Text : PickRandomSpecies(rnd),
+                    IsAnimalEating = activityFilterValue != null ? activityFilterValue.Value : rnd.Next(0, 2) == 1,
+                    Species = speciesFilterValue != null ? speciesFilterValue.Text : speciesList[rnd.Next(0, speciesList.Count)],
                     Ordinal = ordinal++,
                 };
                 FireSearchResultsReadyEvent(sessionId, new[] { result });
             }
         }
 
-        private string PickRandomSpecies(Random rnd)
+        private List<string> GetAllSpecies()
         {
-            return new []
-            {
-                "Lion",
-                "Elephant",
-                "Giraffe",
-                "Zebra",
-                "Rhino",
-                "Crocodile",
-            }[rnd.Next(0, 6)];
+            return GetSpeciesForSelectedFamilies(new Guid[] { SCAnimalsSearchFilter.GuidFilterMammals, SCAnimalsSearchFilter.GuidFilterReptiles });
+        }
+
+        private List<string> GetSpeciesForSelectedFamilies(IEnumerable<Guid> familyIds)
+        {
+            List<string> selectedSpecies = new List<string>();
+            if (familyIds.Contains(SCAnimalsSearchFilter.GuidFilterMammals))
+                selectedSpecies.AddRange(_mammals);
+
+            if (familyIds.Contains(SCAnimalsSearchFilter.GuidFilterReptiles))
+                selectedSpecies.AddRange(_reptiles);
+
+            return selectedSpecies;
         }
     }
 
@@ -163,13 +183,15 @@ namespace SCSearchAgent.SCAnimalsSearchAgent.SearchAgent
 
         public int Ordinal { get; set; }
         public string Species { get; set; }
+        public bool IsAnimalEating { get; set; }
 
         protected override Task<ICollection<ResultProperty>> GetPropertiesAsync(CancellationToken token)
         {
             var props = new Collection<ResultProperty>()
             {
                 new ResultProperty("Ordinal", Ordinal.ToString()),
-                new ResultProperty("Species", Species)
+                new ResultProperty("Species", Species),
+                new ResultProperty("Animal activity", IsAnimalEating ? "Eating": "Not eating")
             };
             return Task.FromResult<ICollection<ResultProperty>>(props);
         }

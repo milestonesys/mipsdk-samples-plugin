@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using VideoOS.Platform;
 
@@ -55,10 +56,15 @@ namespace ServerSideCarrousel.Admin
             textBoxSeconds.Text = "";
         }
 
-        internal void FillContent()
+        internal async void FillContent()
         {
             treeViewAvailable.Nodes.Clear();
-            List<Item> items = Configuration.Instance.GetItemsByKind(Kind.Camera);
+
+            //Call will communicate with service, this should be called on another thread than the UI thread
+            List<Item> items = await Task<List<Item>>.Run(() =>
+            {
+                return Configuration.Instance.GetItemsByKind(Kind.Camera);
+            });
             foreach (Item item in items)
             {
                 if (item.FQID.Kind == Kind.Camera ||

@@ -12,8 +12,8 @@ namespace SCSearchAgent.SCAnimalsSearchAgent.SearchAgent
     /// </summary>
     public class SCAnimalsSearchFilter : SearchFilter
     {
-        static readonly Guid _guidFilterMammals = Guid.NewGuid();
-        static readonly Guid _guidFilterReptiles = Guid.NewGuid();
+        public static readonly Guid GuidFilterMammals = Guid.NewGuid();
+        public static readonly Guid GuidFilterReptiles = Guid.NewGuid();
 
         public SCAnimalsSearchFilter()
         {
@@ -116,9 +116,9 @@ namespace SCSearchAgent.SCAnimalsSearchAgent.SearchAgent
             {
                 var cfg = new ListSelectionFilterConfiguration();
                 // items could be added using .Add method...
-                cfg.Items.Add(_guidFilterMammals, "Mammals");
+                cfg.Items.Add(GuidFilterMammals, "Mammals");
                 // ... or using indexer
-                cfg.Items[_guidFilterReptiles] = "Reptiles";
+                cfg.Items[GuidFilterReptiles] = "Reptiles";
                 return cfg;
             }
             else if (this == SCAnimalsSearchDefinition.SpeciesFilter)

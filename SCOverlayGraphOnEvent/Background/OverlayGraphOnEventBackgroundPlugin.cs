@@ -391,22 +391,28 @@ namespace SCOverlayGraphOnEvent.Background
         /// <param name="addOn"></param>
         private void DrawGraphOverlay(ImageViewerAddOn addOn)
         {
+            if (addOn.PaintSize.Width == 0 || addOn.PaintSize.Height == 0)
+            {
+                return;
+            }
             OverlayObject oo;
             if (!_dicAddOnOverlayObjects.TryGetValue(addOn, out oo))
             {
                 return;
             }
-
             ClientControl.Instance.CallOnUiThread(() =>
             {
                 List<Shape> shapes = VideoOS.Platform.Util.AnalyticsOverlayBuilder.BuildShapeOverlay(addOn.PaintSize.Width, addOn.PaintSize.Height, (BaseEvent)oo.EventObject);
-
                 UpdateShapeOverlay(addOn, shapes);
             });
         }
 
         private void DrawGraphOverlayPlayback(ImageViewerAddOn addOn, DateTime playbackDatetime)
         {
+            if (addOn.PaintSize.Width == 0 || addOn.PaintSize.Height == 0)
+            {
+                return;
+            }
             CachedOverlayObjects coo;
             if (!_dicAddOnOverlayObjectsPlayback.TryGetValue(addOn, out coo))
             {

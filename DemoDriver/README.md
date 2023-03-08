@@ -53,8 +53,8 @@ To try out the Demo Driver sample:
 2.  Run
     `mipsdk-samples-plugin\DemoDriver\DemoDriverDevice\DemoDriverDevice.exe`
     **as Administrator**.
-3.  By default, the device will use the credentials `root:pass`, the
-    port `22222`, and the MAC address `DE:AD:CO:DE:56:78`. Specify the
+3.  By default, the device will use the credentials `root:pass`, the scheme 'http', 
+    the port `22222`, and the MAC address `DE:AD:CO:DE:56:78`. Specify the
     desired port, MAC address, and credentials, and then select the
     *Start service* button.
 4.  In the Management Client, use the *Add Hardware\...* wizard with the
@@ -64,10 +64,24 @@ To try out the Demo Driver sample:
 5.  A Demo Driver device will now be added to your recording server.
 6.  You can add more Demo Driver devices by starting multiple
     `DemoDriverDevice` applications running on different ports and MAC
-    addresses.
+    addresses. Be aware that only one of them can have express device discovery
+    enabled.
 7.  The demo driver also supports a custom driver command named
     \"DemoCommand\". To try this, you will need to make a plug-in or
     application sending a `Server.DriverCommand` message.
+
+To use the `https` scheme you need to have a certificate available in your personal
+certificate repository on the machine where the DemoDriverDevice.exe is running and
+then execute the following command in a command prompt run with administrative
+privileges:
+
+    netsh http add sslcert ipport=0.0.0.0:<PORT> appid={<APPID>} certhash=<CERTHASH>
+
+`<PORT>` should be replaced with the port chosen in the application, `<APPID>` is any guid
+(e.g. `F86EEB0F-4FDB-4C67-A6D6-C9E910C10E66` - it does not need to correspond to anything) and `<CERTHASH>` is the thumbprint of the 
+certificate. The latter can be found in the 'Manage Computer Certificates' control panel,
+if you navigate to the installed certificate, double-click it and then you will find the 
+thumbprint in the 'Thumbprint' field on the 'Details' tab.
 
 ## Deploying
 
@@ -84,3 +98,9 @@ To deploy the Demo Driver:
 If the \"Demo Driver\" does not appear in the driver list for manual
 setup in Management Client, make sure the user which is running
 \"Recording Server\" has access to the \"MIPDrivers\" folder.
+
+From XProtect 2023 R1 MIP driver framework drivers are included in the
+express hardware scan process and the DemoDriverDevice has thus been updated.
+This will, however, mean that it might also be detected by the ONVIF device
+driver on previous versions of XProtect, but as it is not ONVIF compliant it 
+will not work with the ONVIF device driver.

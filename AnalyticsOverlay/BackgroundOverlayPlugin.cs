@@ -377,13 +377,17 @@ namespace AnalyticsOverlay
         private delegate void DrawOverlayDelegate(ImageViewerAddOn addOn, DateTime dateTime);
         private void DrawOverlay(ImageViewerAddOn addOn, DateTime dateTime)
         {
+            if (addOn.PaintSize.Width == 0 || addOn.PaintSize.Height == 0)
+            {
+                return;
+            }
             // We need to be on the UI thread for setting the overlay
             ClientControl.Instance.CallOnUiThread(() =>
                 {
                     try
                     {
-                        // number between 0 and 100 -counting 1/10 of seconds
-                        int s = dateTime.Second % 10 * 10 + dateTime.Millisecond / 100;
+                            // number between 0 and 100 -counting 1/10 of seconds
+                            int s = dateTime.Second % 10 * 10 + dateTime.Millisecond / 100;
                         List<Shape> shapes = new List<Shape>();
                         shapes.Add(CreateBoxShape(addOn.PaintSize, s * 50 / _sampleRateOfOverlay, s * 50 / _sampleRateOfOverlay, 100, 200, Colors.Yellow, 0.7));
                         shapes.Add(CreateTextShape(addOn.PaintSize, s.ToString(), s * 50 / _sampleRateOfOverlay, s * 50 / _sampleRateOfOverlay, 100, Colors.Red));

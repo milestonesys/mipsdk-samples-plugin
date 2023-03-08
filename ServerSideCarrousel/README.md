@@ -21,17 +21,30 @@ configurations via the MIP Environment in the Smart Client.
 
 ![Configuration in XProtect Management Client](carrouselconfig.jpg)
 
+## Avoid blocking UI thread
+
+Generally, our samples focus on how to use the MIPSDK. This means that 
+we avoid having to much exception and thread handling which 
+a production ready solution should have. In this sample, we demonstrate
+a way to encapsulate calls to `VideoOS.Platform.Configuration` in seperate threads
+to avoid blocking the UI thread. We use a combination of tasks and async methods to
+accomplish this. 
+
+For basic information about asynchronous programming, read Microsofts introduction 
+to the subject here: [Asynchronous programming](https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/)
+
 ## The sample demonstrates
 
 -   How to work with configuration of plug-in defined items
 -   How to store and get plug-in defined configurations
+-   How to call `VideoOS.Platform.Configuration` asynchronously 
 
 ## Using
 
 -   VideoOS.Platform.Admin.ItemNode
 -   VideoOS.Platform.Admin.ItemManager
 -   VideoOS.Platform.UI.ItemPickerUserControl
--   Get and SetConfiguration on VideoOS.Platform.Configuration
+-   Get and SetConfiguration on `VideoOS.Platform.Configuration`
 
 ## Environment
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Xml;
 using VideoOS.Platform;
 
@@ -12,7 +13,7 @@ namespace ServerSideCarrousel.Admin
         /// </summary>
         /// <param name="node"></param>
         /// <param name="carrouselHandler"></param>
-        internal static void BuildCarrouselList(Item item, CarrouselHandlerDelegate carrouselHandler)
+        internal async static void BuildCarrouselList(Item item, CarrouselHandlerDelegate carrouselHandler)
         {
             if (item.Properties.ContainsKey("SelectedDevices"))
             {
@@ -28,7 +29,13 @@ namespace ServerSideCarrousel.Admin
                     int sortix = 1;
                     int.TryParse(itemNode.SelectSingleNode("Seconds").InnerText, out seconds);
                     int.TryParse(itemNode.SelectSingleNode("Sort").InnerText, out sortix);
-                    Item cameraItem = Configuration.Instance.GetItem(fqiditem);
+
+                    //Call will communicate with service, this should be called on another thread than the UI thread
+                    Item cameraItem = await Task<Item>.Run(() =>
+                    {
+                        return Configuration.Instance.GetItem(fqiditem);
+                    }); 
+
                     if (cameraItem != null) // Ignore items the user has no access to, or has been disabled/deleted
                     {
                         int listIndex = 0;

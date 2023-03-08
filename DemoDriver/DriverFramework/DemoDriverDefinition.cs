@@ -7,6 +7,7 @@ using VideoOS.Platform.DriverFramework;
 using System.Security;
 using VideoOS.Platform.DriverFramework.Data.Settings;
 using VideoOS.Platform.DriverFramework.Definitions;
+using VideoOS.Platform.DriverFramework.DeviceDiscovery;
 
 namespace DemoDriver
 {
@@ -30,6 +31,7 @@ namespace DemoDriver
             
             //MaxHardwarePerProcess has been added in release 2020 R3 - if driver is used with older versions, MaxHardwarePerProcess won't work and should be removed. 
             driverInfo.MaxHardwarePerProcess = 10;
+            driverInfo.SupportedSchemes.Add(new ONVIFScheme() { NameRegex = "Demo", HardwareRegex = "DemoDriverDevice" });
             return driverInfo;
         }
     }

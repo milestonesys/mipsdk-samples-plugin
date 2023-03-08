@@ -49,7 +49,9 @@ namespace Property.Client
             rectangles.Add(new Rectangle(000, 000, 1000, 1000));		// Index 0 = Used by a camera below
             ViewAndLayoutItem.Layout = rectangles.ToArray();
             ViewAndLayoutItem.Name = Name;
-            ViewAndLayoutItem.InsertViewItemPlugin(0, new PropertyWorkSpaceViewItemPlugin(), new Dictionary<string, string>());
+            Dictionary<String, String> customProperties = new Dictionary<string, string>();
+            customProperties.Add("MyPropertyPPV", "propValue");
+            ViewAndLayoutItem.InsertViewItemPlugin(0, new PropertyWorkSpaceViewItemPlugin(), customProperties);
         }
 
         /// <summary>

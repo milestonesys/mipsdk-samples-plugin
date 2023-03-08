@@ -185,6 +185,11 @@ namespace SiteLicense
             get { return _topTreeNodeImage; }
         }
 
+        /// <summary>
+        /// License type name to be shown in the License information tab of the Management Client instead of the one from <see cref="VideoOS.Platform.License.LicenseInformation" />.
+        /// </summary>
+        public override string CustomLicenseType { get { return "Generic Site License"; } }
+
         #endregion
 
 

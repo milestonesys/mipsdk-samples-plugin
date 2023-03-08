@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
@@ -16,9 +17,13 @@ namespace ServerSideCarrousel.Client
             _carrouselViewItemManager = carrouselViewItemManager;
         }
 
-        private void OnLoad(object sender, System.Windows.RoutedEventArgs e)
+        private async void OnLoad(object sender, System.Windows.RoutedEventArgs e)
         {
-            List<Item> items = Configuration.Instance.GetItemConfigurations(ServerSideCarrouselDefinition.CarrouselPluginId, null, ServerSideCarrouselDefinition.CarrouselKind);
+            //Call will communicate with service, this should be called on another thread than the UI thread
+            List<Item> items = await Task<List<Item>>.Run(() =>
+            {
+                return Configuration.Instance.GetItemConfigurations(ServerSideCarrouselDefinition.CarrouselPluginId, null, ServerSideCarrouselDefinition.CarrouselKind);
+            });
             FillContent(items, _carrouselViewItemManager.SelectedCarrouselId);
         }
 

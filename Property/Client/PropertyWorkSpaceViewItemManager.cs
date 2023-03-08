@@ -1,4 +1,5 @@
 using System;
+using System.Windows;
 using VideoOS.Platform.Client;
 
 namespace Property.Client
@@ -15,6 +16,8 @@ namespace Property.Client
         }
         public override void PropertiesLoaded()
         {
+            var s = GetProperty("MyPropertyPPV");
+            MessageBox.Show("s is: " + s);
         }
 
         public override ViewItemWpfUserControl GenerateViewItemWpfUserControl()
