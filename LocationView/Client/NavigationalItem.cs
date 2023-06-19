@@ -1,14 +1,16 @@
 ﻿using GMap.NET;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
+using GMap.NET.WindowsPresentation;
 using LocationView.Client.Config;
 using System;
 using System.Globalization;
 using System.Text;
+using System.Windows;
+using System.Windows.Controls;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.Data;
 using VideoOS.Platform.Metadata;
+using ToolTip = System.Windows.Controls.ToolTip;
 
 namespace LocationView.Client
 {
@@ -16,7 +18,7 @@ namespace LocationView.Client
     {
         private readonly MetadataSupplier _metadataSupplier;
 
-        private GMapMarker _mapMarker = new GMarkerGoogle(new PointLatLng(0, 0), GMarkerGoogleType.arrow);
+        private GMapMarker _mapMarker;
 
         private Marker _marker;
 
@@ -26,7 +28,7 @@ namespace LocationView.Client
 
         public delegate Item ItemRetriever(Guid itemId);
 
-        public NavigationalItem(Config.Config config, Marker marker, int dataTimeoutS, WindowInformation windowInformation)
+        public NavigationalItem(Config.Config config, Marker marker, WindowInformation windowInformation)
         {
             _config = config;
             var item = Configuration.Instance.GetItem(marker.DeviceId, Kind.Metadata);
@@ -41,8 +43,7 @@ namespace LocationView.Client
         private void InitMarker(Marker marker)
         {
             _marker = marker;
-            _mapMarker = MarkerFactory.CreateMarker(_marker.MarkerType);
-            _mapMarker.IsVisible = false;
+            _mapMarker = MarkerFactory.CreateMarker(_marker.MarkerType, _config.ToolTip.Appearance);
         }
 
         public void StartSupplier()
@@ -64,10 +65,23 @@ namespace LocationView.Client
             }
         }
 
+        private void HideMarker()
+        {
+            if (!_mapMarker.Shape.CheckAccess())
+            {
+                _mapMarker.Shape.Dispatcher.Invoke(() => HideMarker());
+            }
+            else
+            {
+                _mapMarker.Shape.Visibility = System.Windows.Visibility.Hidden;
+            }
+        }
+
         private void _metadataSupplier_MetadataInvalidatedEvent(object sender, MetadataSupplierMetadataInvalidatedEventArgs e)
         {
-            _mapMarker.IsVisible = false;
+            HideMarker();
         }
+
         public void StopSupplier()
         {
             _metadataSupplier.NewMetadataEvent -= _metadataSupplier_NewMetadataEvent;
@@ -79,27 +93,28 @@ namespace LocationView.Client
 
         private void OnNavigationalData(NavigationalData navigationalData)
         {
-//            if (this.InvokeRequired)
-//            {
-//                this.BeginInvoke(new Action<NavigationalData>(OnNavigationalData), new object[] { navigationalData });
-//            }
-//            else
+            if (!_mapMarker.Shape.CheckAccess())
             {
-                if ((null != navigationalData) &&
-                    (true == navigationalData.Latitude.HasValue) &&
-                    (true == navigationalData.Longitude.HasValue))
+                _mapMarker.Shape.Dispatcher.Invoke(new Action<NavigationalData>(OnNavigationalData), new object[] { navigationalData });
+            }
+            else
+            {
+                if (null != navigationalData &&
+                    navigationalData.Latitude.HasValue &&
+                    navigationalData.Longitude.HasValue)
                 {
                     var position = new PointLatLng(navigationalData.Latitude.Value, navigationalData.Longitude.Value);
                     _mapMarker.Position = position;
 
-                    _mapMarker.ToolTipMode = ToolTipAppearanceHelper.GetMarkerTooltipMode(_config.ToolTip.Appearance);
-                    if (_mapMarker.ToolTipMode != MarkerTooltipMode.Never)
-                        _mapMarker.ToolTipText = BuildToolTipText(navigationalData);
-                    _mapMarker.IsVisible = true;
+                    if (_config.ToolTip.Appearance != ToolTipAppearanceTypes.Never)
+                    {
+                        ((_mapMarker.Shape as StackPanel).Children[1] as Label).Content = BuildToolTipText(navigationalData);
+                    }
+                    _mapMarker.Shape.Visibility = System.Windows.Visibility.Visible;
                 }
                 else
                 {
-                    _mapMarker.IsVisible = false;
+                    _mapMarker.Shape.Visibility = System.Windows.Visibility.Hidden;
                 }
             }
         }
@@ -130,6 +145,5 @@ namespace LocationView.Client
         }
 
         #endregion
-
     }
 }

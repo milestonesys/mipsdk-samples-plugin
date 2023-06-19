@@ -36,19 +36,18 @@ Timeline population is only supported from Smart Client
 
 ## The sample demonstrates
 
--   Provide timeline ribbon data for a MIP view item
--   Provide timeline marker data for a MIP view item
--   Provide timeline ribbon data for a camera view item from a
-    background plugin
+- Provide timeline ribbon data for a MIP view item
+- Provide timeline marker data for a MIP view item
+- Provide timeline ribbon data for a camera view item from a background plugin
 
 ## Using
 
--   VideoOS.Platform.Client.TimelineSequenceSource
+- VideoOS.Platform.Client.TimelineSequenceSource
 
 ## Environment
 
--   Smart Client MIP Environment
+- Smart Client MIP Environment
 
 ## Visual Studio C\# project
 
--   [TimelineViewItem.csproj](javascript:openLink('..\\\\PluginSamples\\\\TimelineViewItem\\\\TimelineViewItem.csproj');)
+- [TimelineViewItem.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

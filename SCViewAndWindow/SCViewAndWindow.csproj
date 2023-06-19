@@ -55,12 +55,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -70,102 +74,57 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\src\CommonSamples.cs">
       <Link>CommonSamples.cs</Link>
     </Compile>
-    <Compile Include="Client\AUXUserControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Client\AUXWpfUserControl.xaml.cs">
+      <DependentUpon>AUXWpfUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\AUXUserControl.Designer.cs">
-      <DependentUpon>AUXUserControl.cs</DependentUpon>
+    <Compile Include="Client\DumpWpfUserControl.xaml.cs">
+      <DependentUpon>DumpWpfUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\IndicatorAndAppUserControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Client\IndicatorAndAppWpfUserControl.xaml.cs">
+      <DependentUpon>IndicatorAndAppWpfUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\IndicatorAndAppUserControl.Designer.cs">
-      <DependentUpon>IndicatorAndAppUserControl.cs</DependentUpon>
+    <Compile Include="Client\LensWpfUserControl.xaml.cs">
+      <DependentUpon>LensWpfUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\LensUserControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Client\MultiWindowWpfUserControl.xaml.cs">
+      <DependentUpon>MultiWindowWpfUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\LensUserControl.Designer.cs">
-      <DependentUpon>LensUserControl.cs</DependentUpon>
+    <Compile Include="Client\PlaybackWpfUserControl.xaml.cs">
+      <DependentUpon>PlaybackWpfUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\MapSelectForm.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Client\PTZAbsoluteWpfUserControl.xaml.cs">
+      <DependentUpon>PTZAbsoluteWpfUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\MapSelectForm.Designer.cs">
-      <DependentUpon>MapSelectForm.cs</DependentUpon>
+    <Compile Include="Client\PTZWpfUserControl.xaml.cs">
+      <DependentUpon>PTZWpfUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\MultiWindowUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\MultiWindowUserControl.Designer.cs">
-      <DependentUpon>MultiWindowUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\PlaybackUControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\PlaybackUControl.Designer.cs">
-      <DependentUpon>PlaybackUControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\PTZAbsolutUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\PTZAbsolutUserControl.Designer.cs">
-      <DependentUpon>PTZAbsolutUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\PTZUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\PTZUserControl.Designer.cs">
-      <DependentUpon>PTZUserControl.cs</DependentUpon>
+    <Compile Include="Client\SCViewAndWindowPropertiesWpfUserControl.xaml.cs">
+      <DependentUpon>SCViewAndWindowPropertiesWpfUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Client\SCViewAndWindowViewItemPlugin.cs" />
-    <Compile Include="Client\SCViewAndWindowViewItemUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\SCViewAndWindowViewItemUserControl.Designer.cs">
-      <DependentUpon>SCViewAndWindowViewItemUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\SCViewAndWindowPropertiesUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\SCViewAndWindowPropertiesUserControl.Designer.cs">
-      <DependentUpon>SCViewAndWindowPropertiesUserControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Client\SCViewAndWindowViewItemManager.cs" />
-    <Compile Include="Client\ViewCommandUserControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Client\SCViewAndWindowViewItemWpfUserControl.xaml.cs">
+      <DependentUpon>SCViewAndWindowViewItemWpfUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\ViewCommandUserControl.Designer.cs">
-      <DependentUpon>ViewCommandUserControl.cs</DependentUpon>
+    <Compile Include="Client\ViewCommandWpfUserControl.xaml.cs">
+      <DependentUpon>ViewCommandWpfUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\ViewCreateUserControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="Client\ViewCreateWpfUserControl.xaml.cs">
+      <DependentUpon>ViewCreateWpfUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\ViewCreateUserControl.Designer.cs">
-      <DependentUpon>ViewCreateUserControl.cs</DependentUpon>
+    <Compile Include="Client\ViewEditWpfUserControl.xaml.cs">
+      <DependentUpon>ViewEditWpfUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Client\ViewDumpUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\ViewDumpUserControl.Designer.cs">
-      <DependentUpon>ViewDumpUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\ViewEditUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\ViewEditUserControl.Designer.cs">
-      <DependentUpon>ViewEditUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Client\WorkspaceUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Client\WorkspaceUserControl.Designer.cs">
-      <DependentUpon>WorkspaceUserControl.cs</DependentUpon>
+    <Compile Include="Client\WorkspaceWpfUserControl.xaml.cs">
+      <DependentUpon>WorkspaceWpfUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -174,25 +133,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SCViewAndWindowDefinition.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Client\MapSelectForm.resx">
-      <DependentUpon>MapSelectForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\SCViewAndWindowViewItemUserControl.resx">
-      <DependentUpon>SCViewAndWindowViewItemUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\SCViewAndWindowPropertiesUserControl.resx">
-      <DependentUpon>SCViewAndWindowPropertiesUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Client\ViewDumpUserControl.resx">
-      <DependentUpon>ViewDumpUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\WorkspaceUserControl.resx">
-      <DependentUpon>WorkspaceUserControl.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Strings.resx" />
@@ -204,42 +144,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Client\AUXUserControl.resx">
-      <DependentUpon>AUXUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\IndicatorAndAppUserControl.resx">
-      <DependentUpon>IndicatorAndAppUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\LensUserControl.resx">
-      <DependentUpon>LensUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\MultiWindowUserControl.resx">
-      <DependentUpon>MultiWindowUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\PlaybackUControl.resx">
-      <DependentUpon>PlaybackUControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\PTZAbsolutUserControl.resx">
-      <DependentUpon>PTZAbsolutUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\PTZUserControl.resx">
-      <DependentUpon>PTZUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\ViewCommandUserControl.resx">
-      <DependentUpon>ViewCommandUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="plugin.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\SCVAWTool.ico" />
-    <EmbeddedResource Include="Client\ViewCreateUserControl.resx">
-      <DependentUpon>ViewCreateUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Client\ViewEditUserControl.resx">
-      <DependentUpon>ViewEditUserControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\UnknownLayout.png" />
   </ItemGroup>
   <ItemGroup>
@@ -259,6 +167,70 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Page Include="Client\AUXWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\DumpWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\IndicatorAndAppWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\LensWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\MultiWindowWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\PlaybackWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\PTZAbsoluteWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\PTZWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\SCViewAndWindowPropertiesWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\SCViewAndWindowViewItemWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\ViewCommandWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\ViewCreateWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\ViewEditWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Client\WorkspaceWpfUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SCTheme\SCTheme.csproj">
+      <Project>{D5838717-44BA-4A92-A14A-387E57580450}</Project>
+      <Name>SCTheme</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -268,9 +240,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>rem mkdir "C:\Program Files\Milestone\MIPPlugins\SCViewAndWindow\"
-rem xcopy /y "$(TargetDir)SCViewAndWindow.dll" "C:\Program Files\Milestone\MIPPlugins\SCViewAndWindow"
-rem xcopy /y "$(TargetDir)plugin.def" "C:\Program Files\Milestone\MIPPlugins\SCViewAndWindow"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

@@ -217,7 +217,7 @@ namespace SequenceViewer.Client
             }
         }
 
-        private void OnRefreshSeqAsync(object sender, EventArgs e)
+        private void OnRefreshSeqAsync(object sender, System.Windows.RoutedEventArgs e)
         {
             if (_item != null)
             {
@@ -241,7 +241,7 @@ namespace SequenceViewer.Client
             }
         }
 
-        private void OnRefreshMDAsync(object sender, EventArgs e)
+        private void OnRefreshMDAsync(object sender, System.Windows.RoutedEventArgs e)
         {
             if (_item != null)
             {
@@ -252,18 +252,18 @@ namespace SequenceViewer.Client
 
         private void AsyncSeqHandler(object result, object asyncState)
         {
-            _ = new MethodInvoker(() =>
-              {
-                  ListBox.Items.Clear();
-                  if (result != null && result is SequenceData[])
-                  {
-                      foreach (SequenceData sd in (SequenceData[])result)
-                      {
-                          ListBox.Items.Add(sd.EventHeader.Class + " " + sd.EventHeader.Name + "  " +
-                                             sd.EventHeader.Timestamp.ToLocalTime().ToShortTimeString());
-                      }
-                  }
-              });
+            new MethodInvoker(() =>
+            {
+                ListBox.Items.Clear();
+                if (result != null && result is SequenceData[])
+                {
+                    foreach (SequenceData sd in (SequenceData[])result)
+                    {
+                        ListBox.Items.Add(sd.EventHeader.Class + " " + sd.EventHeader.Name + "  " +
+                                            sd.EventHeader.Timestamp.ToLocalTime().ToShortTimeString());
+                    }
+                }
+            }).Invoke();
         }
 
 

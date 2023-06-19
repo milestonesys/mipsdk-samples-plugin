@@ -28,6 +28,7 @@ namespace SCToolbarPlugin
 
         private List<ViewItemToolbarPlugin> _viewItemToolbarPlugins = new List<ViewItemToolbarPlugin>();
         private List<WorkSpaceToolbarPlugin> _workSpaceToolbarPlugins = new List<WorkSpaceToolbarPlugin>();
+        private List<WorkSpaceToolbarPluginGroup> _workSpaceToolbarPluginGroups = new List<WorkSpaceToolbarPluginGroup>();
         private List<ViewItemPlugin> _viewItemPlugins = new List<ViewItemPlugin>();
 
         #endregion
@@ -56,6 +57,8 @@ namespace SCToolbarPlugin
                 _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorActionWorkSpaceToolbarPlugin(new SolidColorBrush(Colors.Blue)));
                 _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorUserControlWorkSpaceToolbarPlugin());
 
+                _workSpaceToolbarPluginGroups.Add(new SetViewItemBackgroundColorWorkspaceToolbarPluginGroup());
+
                 _viewItemPlugins.Add(new BackgroundColorViewItemPlugin());
             }
         }
@@ -68,6 +71,7 @@ namespace SCToolbarPlugin
         {
             _viewItemToolbarPlugins.Clear();
             _workSpaceToolbarPlugins.Clear();
+            _workSpaceToolbarPluginGroups.Clear();
             _viewItemPlugins.Clear();
         }
 
@@ -146,6 +150,11 @@ namespace SCToolbarPlugin
         public override List<WorkSpaceToolbarPlugin> WorkSpaceToolbarPlugins
         {
             get { return _workSpaceToolbarPlugins; }
+        }
+
+        public override List<WorkSpaceToolbarPluginGroup> WorkSpaceToolbarPluginGroups
+        {
+            get { return _workSpaceToolbarPluginGroups; }
         }
 
         #endregion

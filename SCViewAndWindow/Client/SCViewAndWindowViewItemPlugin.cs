@@ -39,7 +39,5 @@ namespace SCViewAndWindow.Client
 		public override void Close()
 		{
 		}
-
 	}
-
 }

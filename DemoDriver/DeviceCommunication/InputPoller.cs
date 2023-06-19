@@ -98,6 +98,8 @@ namespace DemoDriver
             {
                 Toolbox.Log.Trace("Device event. MotionDetectStart(HW)");
                 _eventManager.NewEvent(Constants.Camera1.ToString(), EventId.MotionStartedDriver);
+                // if you want to provide a motion detection window name to be used in e.g. "Event is from <window>" condition for rules you can do it like this:
+                // _eventManager.NewEvent(Constants.Camera1.ToString(), EventId.MotionStartedDriver, new Dictionary<string, string> { { "EventMotionWindow", "1" } });
             });
             _eventHandlers.Add(DemoDeviceConstants.DeviceEventMotionDetectionStop, eventId =>
             {

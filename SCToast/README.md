@@ -25,22 +25,22 @@ where toasts can be created, updated and removed.
 
 ## The sample demonstrates
 
--   How to create, update and remove toasts using a plug-in running in
-    the Smart Client.
--   How to receive callbacks when the user interacts with a displayed
-    toast.
+- How to create, update and remove toasts using a plug-in running in
+  the Smart Client.
+- How to receive callbacks when the user interacts with a displayed
+  toast.
 
 ## Using
 
--   VideoOS.Platform.Messaging.MessageId.SmartClient.ToastShowCommand
--   VideoOS.Platform.Messaging.MessageId.SmartClient.ToastHideCommand
--   VideoOS.Platform.Messaging.SmartClientToastData
--   VideoOS.Platform.Messaging.SmartClientTextToastData
+- VideoOS.Platform.Messaging.MessageId.SmartClient.ToastShowCommand
+- VideoOS.Platform.Messaging.MessageId.SmartClient.ToastHideCommand
+- VideoOS.Platform.Messaging.SmartClientToastData
+- VideoOS.Platform.Messaging.SmartClientTextToastData
 
 ## Environment
 
--   Smart Client MIP Environment
+- Smart Client MIP Environment
 
 ## Visual Studio C\# project
 
--   [SCToast.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCToast\\\\SCToast.csproj');)
+- [SCToast.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

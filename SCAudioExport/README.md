@@ -28,16 +28,16 @@ non-finished export jobs.
 
 ## The sample demonstrates
 
--   How to perform WAV export from within the Smart Client
+- How to perform WAV export from within the Smart Client
 
 ## Using
 
--   VideoOS.Platform.Data.WAVExporter
+- VideoOS.Platform.Data.WAVExporter
 
 ## Environment
 
--   Smart Client MIP Environment
+- Smart Client MIP Environment
 
 ## Visual Studio C\# project
 
--   [SCAudioExport.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCAudioExport\\\\SCAudioExport.csproj');)
+- [SCAudioExport.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

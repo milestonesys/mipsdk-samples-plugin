@@ -127,7 +127,7 @@ namespace VideoPreview.Admin
 				return;
 
 			DisplayName = item.Name;
-			if (item.Properties.ContainsKey("FQID"))		// Get the FQID of previous selected camera
+			if (item.Properties.ContainsKey("CameraId"))		// Get the FQID of previous selected camera
 			{
                 Guid streamId = Guid.Empty;
                 if (item.Properties.ContainsKey("StreamId"))
@@ -135,11 +135,11 @@ namespace VideoPreview.Admin
                     Guid.TryParse(item.Properties["StreamId"], out streamId);
                 }
 
-				_selectedCameraItem = Configuration.Instance.GetItem(new FQID(item.Properties["FQID"]));
+				_selectedCameraItem = Configuration.Instance.GetItem(new FQID(item.Properties["CameraId"]));
                 if (_selectedCameraItem == null)
                 {
                     // Device deleted 
-                    item.Properties.Remove("FQID");
+                    item.Properties.Remove("CameraId");
                     item.Name += " (Camera deleted)";
                     _ignoreChanges = false;
                     return;
@@ -197,7 +197,7 @@ namespace VideoPreview.Admin
 			item.Name = DisplayName;
 			if (_selectedCameraItem != null)
 			{
-				item.Properties["FQID"] = _selectedCameraItem.FQID.ToXmlNode().OuterXml;
+				item.Properties["CameraId"] = _selectedCameraItem.FQID.ToXmlNode().OuterXml;
                 item.Properties["StreamId"] = _bitmapSource.StreamId.ToString();
 			}
 		}

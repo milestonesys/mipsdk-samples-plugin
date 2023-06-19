@@ -22,28 +22,28 @@ Export view items and the exported data imported back again.
 
 ## How to use this sample
 
--   Make sure the Smart Client has access to the sample
--   Start the Smart Client and log in
--   Create a view and add the DataExport view item to it
--   Write some text in the sample view
--   Start an export and add the Data Export view item to the export
--   When the export is complete, open the exported project
--   See that the text written is displayed in offline mode
+- Make sure the Smart Client has access to the sample
+- Start the Smart Client and log in
+- Create a view and add the DataExport view item to it
+- Write some text in the sample view
+- Start an export and add the Data Export view item to the export
+- When the export is complete, open the exported project
+- See that the text written is displayed in offline mode
 
 ## The sample demonstrates
 
--   How to export data from a view item
--   How to load the exported data back in while in offline mode
+- How to export data from a view item
+- How to load the exported data back in while in offline mode
 
 ## Using
 
--   VideoOS.Platform.Client.ExportManager
--   VideoOS.Platform.Client.ExportParameters
+- VideoOS.Platform.Client.ExportManager
+- VideoOS.Platform.Client.ExportParameters
 
 ## Environment
 
--   Smart Client MIP Environment
+- Smart Client MIP Environment
 
 ## Visual Studio C\# project
 
--   [DataExport.csproj](javascript:openLink('..\\\\PluginSamples\\\\DataExport\\\\DataExport.csproj');)
+- [DataExport.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

@@ -3,7 +3,7 @@ using GMap.NET.MapProviders;
 
 namespace LocationView.Client.Config
 {
-    internal enum MapTypes
+    public enum MapTypes
     {
         BingMap = 0,
         BingSattelite,
@@ -14,20 +14,7 @@ namespace LocationView.Client.Config
         GoogleHybrid,
         GoogleTerrain,
 
-        OviMap,
-        OviSattelite,
-        OviHybrid,
-        OviTerrain,
-
-        WikiMapiaMap,
-
-        YahooMap,
-        YahooSattelite,
-        YahooHybrid,
-
-        YandexMap,
-        YandexSattelite,
-        YandexHybrid,
+        WikiMapiaMap
     }
 
     internal class MapProviderFactory
@@ -61,41 +48,8 @@ namespace LocationView.Client.Config
                     result = GoogleTerrainMapProvider.Instance;
                     break;
 
-                case MapTypes.OviMap:
-                    result = OviMapProvider.Instance;
-                    break;
-                case MapTypes.OviSattelite:
-                    result = OviSatelliteMapProvider.Instance;
-                    break;
-                case MapTypes.OviHybrid:
-                    result = OviHybridMapProvider.Instance;
-                    break;
-                case MapTypes.OviTerrain:
-                    result = OviTerrainMapProvider.Instance;
-                    break;
-
                 case MapTypes.WikiMapiaMap:
                     result = WikiMapiaMapProvider.Instance;
-                    break;
-
-                case MapTypes.YahooMap:
-                    result = YahooMapProvider.Instance;
-                    break;
-                case MapTypes.YahooSattelite:
-                    result = YahooSatelliteMapProvider.Instance;
-                    break;
-                case MapTypes.YahooHybrid:
-                    result = YahooHybridMapProvider.Instance;
-                    break;
-
-                case MapTypes.YandexMap:
-                    result = YandexMapProvider.Instance;
-                    break;
-                case MapTypes.YandexSattelite:
-                    result = YandexSatelliteMapProvider.Instance;
-                    break;
-                case MapTypes.YandexHybrid:
-                    result = YandexHybridMapProvider.Instance;
                     break;
 
                 default:
@@ -121,20 +75,7 @@ namespace LocationView.Client.Config
                     {MapTypes.GoogleHybrid, "Google Hybrid"},
                     {MapTypes.GoogleTerrain, "Google Terrain"},
 
-                    {MapTypes.OviMap, "Ovi Map"},
-                    {MapTypes.OviSattelite, "Ovi Sattelite"},
-                    {MapTypes.OviHybrid, "Ovi Hybrid"},
-                    {MapTypes.OviTerrain, "Ovi Terrain"},
-
                     {MapTypes.WikiMapiaMap, "Wikimapia Map"},
-
-                    {MapTypes.YahooMap, "Yahoo Map"},
-                    {MapTypes.YahooSattelite, "Yahoo Sattelite"},
-                    {MapTypes.YahooHybrid, "Yahoo Hybrid"},
-
-                    {MapTypes.YandexMap, "Yandex Map"},
-                    {MapTypes.YandexSattelite, "Yandex Sattelite"},
-                    {MapTypes.YandexHybrid, "Yandex Hybrid"},
                 };
 
         public static string GetName(MapTypes type)

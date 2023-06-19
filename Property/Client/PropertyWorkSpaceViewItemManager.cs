@@ -14,11 +14,6 @@ namespace Property.Client
             : base("PropertyWorkSpaceViewItemManager")
         {
         }
-        public override void PropertiesLoaded()
-        {
-            var s = GetProperty("MyPropertyPPV");
-            MessageBox.Show("s is: " + s);
-        }
 
         public override ViewItemWpfUserControl GenerateViewItemWpfUserControl()
         {

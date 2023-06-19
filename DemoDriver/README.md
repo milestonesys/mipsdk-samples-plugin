@@ -28,21 +28,21 @@ the actual FPS can be significantly lower than the value set in the camera setti
 
 ## The sample demonstrates
 
--   Implementing a device driver using the MIP Driver Framework
+- Implementing a device driver using the MIP Driver Framework
 
 ## Using
 
--   VideoOS.Platform.DriverFramework
+- VideoOS.Platform.DriverFramework
 
 ## Environment
 
--   MIP Driver Framework
+- MIP Driver Framework
 
 ## Visual Studio C\# project
 
 To build the Demo Driver, open and build this project:
 
--   [DemoDriver.csproj](javascript:openLink('..\\\\PluginSamples\\\\DemoDriver\\\\DemoDriver.csproj');)
+- [DemoDriver.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)
 
 ## Running
 
@@ -52,7 +52,8 @@ To try out the Demo Driver sample:
     Server Service to make the driver available.
 2.  Run
     `mipsdk-samples-plugin\DemoDriver\DemoDriverDevice\DemoDriverDevice.exe`
-    **as Administrator**.
+    **as administrator**.  
+    **Note:** `DemoDriverDevice.exe` is available here [DemoDriverDevice on GitHub](https://github.com/milestonesys/mipsdk-samples-plugin/tree/main/DemoDriver/DemoDriverDevice)
 3.  By default, the device will use the credentials `root:pass`, the scheme 'http', 
     the port `22222`, and the MAC address `DE:AD:CO:DE:56:78`. Specify the
     desired port, MAC address, and credentials, and then select the
@@ -87,11 +88,11 @@ thumbprint in the 'Thumbprint' field on the 'Details' tab.
 
 To deploy the Demo Driver:
 
-1.  Stop the Recording Server Service
-2.  From project build output, copy the files `DemoDriver.def` and
-    `DemoDriver.dll` (and `DemoDriver.pdb` if debugging) to
-    `%ProgramFiles%\Milestone\MIPDrivers\DemoDriver\`.
-3.  Start the Recording Server Service
+1. Stop the Recording Server Service
+2. From project build output, copy the files `DemoDriver.def` and
+   `DemoDriver.dll` (and `DemoDriver.pdb` if debugging) to
+   `%ProgramFiles%\Milestone\MIPDrivers\DemoDriver\`.
+3. Start the Recording Server Service
 
 ## Troubleshooting
 

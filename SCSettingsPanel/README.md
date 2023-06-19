@@ -19,16 +19,16 @@ allows addition of a WinForms panel.
 
 ## The sample demonstrates
 
--   Create a settings panel plugin
+- Create a settings panel plugin
 
 ## Using
 
--   VideoOS.Platform.Client.SettingsPanelPlugin
+- VideoOS.Platform.Client.SettingsPanelPlugin
 
 ## Environment
 
--   Smart Client MIP Environment
+- Smart Client MIP Environment
 
 ## Visual Studio C\# project
 
--   [SCSettingsPanel.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCSettingsPanel\\\\SCSettingsPanel.csproj');)
+- [SCSettingsPanel.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

@@ -23,17 +23,17 @@ The MIP log of the Event Server seen using the Event Server Manager\'s
 
 ## The sample demonstrates
 
--   How to subscribe to events
+- How to subscribe to events
 
 ## Using
 
--   VideoOS.Platform.Messaging.MessageId.Server.NewEventIndication
--   VideoOS.Platform.Data.BaseEvent
+- VideoOS.Platform.Messaging.MessageId.Server.NewEventIndication
+- VideoOS.Platform.Data.BaseEvent
 
 ## Environment
 
--   MIP Environment for Event Server
+- MIP Environment for Event Server
 
 ## Visual Studio C\# project
 
--   [EventTracer.csproj](javascript:openLink('..\\\\PluginSamples\\\\EventTracer\\\\EventTracer.csproj');)
+- [EventTracer.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

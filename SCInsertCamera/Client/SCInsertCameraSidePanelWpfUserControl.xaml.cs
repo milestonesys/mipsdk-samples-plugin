@@ -67,6 +67,9 @@ namespace SCInsertCamera.Client
                 buttonSelect.Content = _selectedCamera.Name;
                 buttonInsert.IsEnabled = true;
 
+                comboBoxStream.Items.Clear();
+                comboBoxStream.SelectedIndex = 0;
+
                 StreamDataSource streamDataSource = new StreamDataSource(_selectedCamera);
                 List<DataType> streams = streamDataSource.GetTypes();
                 foreach (DataType stream in streams)

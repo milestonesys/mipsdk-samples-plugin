@@ -23,7 +23,7 @@ received.
 The sample listens on a message issued by the Event.Platform plugin when
 the user selects an alarm.
 
-~~~ cs
+~~~cs
              _cameraListReceiver = EnvironmentManager.Instance.RegisterReceiver(
                             new MessageReceiver(CameraListReceiver),
                             new MessageIdFilter("AlarmList.ObjectSelected.Information"));
@@ -34,7 +34,7 @@ space, the id also contains the ObjectId of the work space, e.g. the
 Guid. To receive these alarm selections as well, the following code can
 be used:
 
-~~~ cs
+~~~cs
              _cameraListReceiver = EnvironmentManager.Instance.RegisterReceiver(
                             new  MessageReceiver(CameraListReceiver),
                             new  MessageIdFilter("AlarmList.ObjectSelected.Information*"));
@@ -44,19 +44,19 @@ As the \'\*\' at the end of the message will match any characters.
 
 ## The sample demonstrates
 
--   How to receive MIP messages from the Alarm List plug-in
--   How to create temporary views and view groups
--   How to create floating windows
+- How to receive MIP messages from the Alarm List plug-in
+- How to create temporary views and view groups
+- How to create floating windows
 
 ## Using
 
--   VideoOS.Platform.ClientControl
--   VideoOS.Platform.Messaging
+- VideoOS.Platform.ClientControl
+- VideoOS.Platform.Messaging
 
 ## Environment
 
--   MIP .NET library
+- MIP .NET library
 
 ## Visual Studio C\# project
 
--   [DynamicView.csproj](javascript:openLink('..\\\\PluginSamples\\\\DynamicView\\\\DynamicView.csproj');)
+- [DynamicView.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

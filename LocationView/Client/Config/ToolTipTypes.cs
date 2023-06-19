@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using GMap.NET.WindowsForms;
 
 namespace LocationView.Client.Config
 {
-    internal enum ToolTipAppearanceTypes
+    public enum ToolTipAppearanceTypes
     {
         Always = 0,
         Never,
@@ -13,28 +11,12 @@ namespace LocationView.Client.Config
     }
 
     [Flags]
-    internal enum ToolTipTextTypes
+    public enum ToolTipTextTypes
     {
         Name = 0x01,
         Location = 0x02,
 
         NameAndLocation = Name | Location,
-    }
-
-    internal class ToolTipAppearanceHelper
-    {
-        public static readonly Dictionary<ToolTipAppearanceTypes, MarkerTooltipMode> Markers =
-            new Dictionary<ToolTipAppearanceTypes, MarkerTooltipMode>()
-            {
-                {ToolTipAppearanceTypes.Always, MarkerTooltipMode.Always},
-                {ToolTipAppearanceTypes.Never, MarkerTooltipMode.Never},
-                {ToolTipAppearanceTypes.OnMouse, MarkerTooltipMode.OnMouseOver},
-            };
-
-        public static MarkerTooltipMode GetMarkerTooltipMode(ToolTipAppearanceTypes appearanceType)
-        {
-            return TypesHelper.GetName(Markers, appearanceType);
-        }
     }
 
     internal class ToolTipAppearanceNames
@@ -58,7 +40,6 @@ namespace LocationView.Client.Config
         }
     }
 
-
     internal class ToolTipTextNames
     {
         private static readonly Dictionary<ToolTipTextTypes, string> Names =
@@ -79,7 +60,6 @@ namespace LocationView.Client.Config
             return TypesHelper.GetType(Names, name);
         }
     }
-
 
     internal class ToolTipTextHelper
     {

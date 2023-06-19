@@ -36,20 +36,20 @@ actual video being displayed.
 
 ## The sample demonstrates
 
--   How to identify which cameras are being displayed where
--   How to place time-specific overlays on top of video
+- How to identify which cameras are being displayed where
+- How to place time-specific overlays on top of video
 
 ## Using
 
--   VideoOS.Platform.Background.BackgroundPlugin
--   VideoOS.Platform.ClientControl.NewImageViewerControlEvent
--   VideoOS.Platform.Client.ImageViewerAddOn
--   VideoOS.Platform.Client.ImageViewerAddOn.ShapesOverlayAdd
+- VideoOS.Platform.Background.BackgroundPlugin
+- VideoOS.Platform.ClientControl.NewImageViewerControlEvent
+- VideoOS.Platform.Client.ImageViewerAddOn
+- VideoOS.Platform.Client.ImageViewerAddOn.ShapesOverlayAdd
 
 ## Environment
 
--   MIP Environment for Smart Client
+- MIP Environment for Smart Client
 
 ## Visual Studio C\# project
 
--   [AnalyticsOverlay.csproj](javascript:openLink('..\\\\PluginSamples\\\\AnalyticsOverlay\\\\AnalyticsOverlay.csproj');)
+- [AnalyticsOverlay.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

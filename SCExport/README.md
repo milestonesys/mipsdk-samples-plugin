@@ -32,17 +32,17 @@ display the status in the left pane.
 
 ## The sample demonstrates
 
--   How to perform AVI, MKV and DB export from within the Smart Client
+- How to perform AVI, MKV and DB export from within the Smart Client
 
 ## Using
 
--   VideoOS.Platform.Data.DBExporter
--   VideoOS.Platform.Data.AVIExporter
+- VideoOS.Platform.Data.DBExporter
+- VideoOS.Platform.Data.AVIExporter
 
 ## Environment
 
--   Smart Client MIP Environment
+- Smart Client MIP Environment
 
 ## Visual Studio C\# project
 
--   [SCExport.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCExport\\\\SCExport.csproj');)
+- [SCExport.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

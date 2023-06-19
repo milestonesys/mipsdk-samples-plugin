@@ -29,18 +29,18 @@ sequential AVI export is only supported from that version.
 
 ## The sample demonstrates
 
--   How the AVIExporter can be used to concatenate multiple video
-    sequences into one AVI file.
+- How the AVIExporter can be used to concatenate multiple video
+  sequences into one AVI file.
 
 ## Using
 
--   VideoOS.Platform.Data.AVIExporter
--   VideoOS.Platform.Data.SequenceAviExportElement
+- VideoOS.Platform.Data.AVIExporter
+- VideoOS.Platform.Data.SequenceAviExportElement
 
 ## Environment
 
--   Smart Client MIP Environment
+- Smart Client MIP Environment
 
 ## Visual Studio C\# project
 
--   [SCAviSequenceExport.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCAviSequenceExport\\\\SCAviSequenceExport.csproj');)
+- [SCAviSequenceExport.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

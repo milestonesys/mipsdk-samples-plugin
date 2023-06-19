@@ -31,25 +31,25 @@ visible when the operator has the mouse over the camera item.
 
 ## The sample demonstrates
 
--   How to place WPF controls as interactive overlays on top of video.
--   How to position the controls in different ways.
--   How to handle or avoid handling events.
--   How to follow or ignore digital zooming.
--   How to control whether the controls are always visible or only
-    visible when the operator has the mouse over the camera item.
+- How to place WPF controls as interactive overlays on top of video.
+- How to position the controls in different ways.
+- How to handle or avoid handling events.
+- How to follow or ignore digital zooming.
+- How to control whether the controls are always visible or only
+  visible when the operator has the mouse over the camera item.
 
 ## Using
 
--   VideoOS.Platform.Background.BackgroundPlugin
--   VideoOS.Platform.ClientControl.NewImageViewerControlEvent
--   VideoOS.Platform.Client.ImageViewerAddOn
--   VideoOS.Platform.Client.ImageViewerAddOn.ActiveElementsOverlayAdd
--   VideoOS.Platform.Client.ImageViewerAddOn.ActiveElementsOverlayRemove
+- VideoOS.Platform.Background.BackgroundPlugin
+- VideoOS.Platform.ClientControl.NewImageViewerControlEvent
+- VideoOS.Platform.Client.ImageViewerAddOn
+- VideoOS.Platform.Client.ImageViewerAddOn.ActiveElementsOverlayAdd
+- VideoOS.Platform.Client.ImageViewerAddOn.ActiveElementsOverlayRemove
 
 ## Environment
 
--   MIP Environment for Smart Client
+- MIP Environment for Smart Client
 
 ## Visual Studio C\# project
 
--   [ActiveElementsOverlay.csproj](javascript:openLink('..\\\\PluginSamples\\\\ActiveElementsOverlay\\\\ActiveElementsOverlay.csproj');)
+- [ActiveElementsOverlay.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

@@ -55,17 +55,17 @@ The properties are stored on the server.
 
 ## Using
 
--   GetOptionsConfiguration / SaveOptionsConfiguration
--   LoadProperties -- GetProperty / SetProperty - SaveProperties
--   VideoOS.Platform.Admin.ToolsOptionsDialogPlugin /
-    VideoOS.Platform.Client.OptionsDialogPlugin
--   VideoOS.Platform.Client.ViewItemManager
--   VideoOS.Platform.Client.SidePanelPlugin
+- GetOptionsConfiguration / SaveOptionsConfiguration
+- LoadProperties -- GetProperty / SetProperty - SaveProperties
+- VideoOS.Platform.Admin.ToolsOptionsDialogPlugin /
+  VideoOS.Platform.Client.OptionsDialogPlugin
+- VideoOS.Platform.Client.ViewItemManager
+- VideoOS.Platform.Client.SidePanelPlugin
 
 ## Environment
 
--   The sample is relevant for all MIP environments
+- The sample is relevant for all MIP environments
 
 ## Visual Studio C\# project
 
--   [Property.csproj](javascript:openLink('..\\\\PluginSamples\\\\Property\\\\Property.csproj');)
+- [Property.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

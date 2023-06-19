@@ -25,19 +25,19 @@ another system.
 
 ## The sample demonstrates
 
--   How to use messages to receive notification of selected camera
--   How to create floating windows with own view layout
--   How to insert / replace camera id on existing camera view items
+- How to use messages to receive notification of selected camera
+- How to create floating windows with own view layout
+- How to insert / replace camera id on existing camera view items
 
 ## Using
 
--   MessageId.SmartClient.SelectedCameraChangedIndication
--   MessageId.SmartClient.SetCameraInViewCommand
+- MessageId.SmartClient.SelectedCameraChangedIndication
+- MessageId.SmartClient.SetCameraInViewCommand
 
 ## Environment
 
--   Smart Client MIP Environment
+- Smart Client MIP Environment
 
 ## Visual Studio C\# project
 
--   [SCHotspot.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCHotSpot\\\\SCHotSpot.csproj');)
+- [SCHotspot.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

@@ -22,30 +22,30 @@ component sample to generate metadata.
 
 ## The sample demonstrates
 
--   How to create a Smart Client Plugin
--   How to read metadata in live mode
--   How to read metadata in playback mode
--   How to use location metadata to display the position on a map
+- How to create a Smart Client Plugin
+- How to read metadata in live mode
+- How to read metadata in playback mode
+- How to use location metadata to display the position on a map
 
 ## Using
 
--   VideoOS.Platform.Live.MetadataLiveSource
--   VideoOS.Platform.Live.MetadataLiveContent
--   VideoOS.Platform.Data.MetadataPlaybackSource
--   VideoOS.Platform.Data.MetadataPlaybackData
+- VideoOS.Platform.Live.MetadataLiveSource
+- VideoOS.Platform.Live.MetadataLiveContent
+- VideoOS.Platform.Data.MetadataPlaybackSource
+- VideoOS.Platform.Data.MetadataPlaybackData
 
 ## Environment
 
--   MIP .NET library
+- MIP .NET library
 
 ## Visual Studio C\# project
 
--   [LocationView.csproj](javascript:openLink('..\\\\PluginSamples\\\\LocationView\\\\LocationView.csproj');)
+- [LocationView.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)
 
 > **Please note that the sample utilizes the GMap.NET library for which
 > the following license applies:**
 
-~~~ text
+~~~default
   *** GMap.NET - Great Maps for Windows Forms & Presentation ***
 
   GMap.NET is great and Powerful, Free, cross platform, open source

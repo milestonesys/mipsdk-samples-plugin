@@ -1,7 +1,6 @@
 ---
-description: The server side carousel demonstrates how one
-  configuration can be created in the administrator and shared among
-  many Smart Clients.
+description: The server side carousel demonstrates how one configuration can
+  be created in the Management Client and shared among many Smart Clients.
 keywords: Plug-in integration
 lang: en-US
 title: Server Side Carousel
@@ -10,7 +9,7 @@ title: Server Side Carousel
 # Server Side Carrousel
 
 The server side carrousel demonstrates how one configuration can be
-created in the administrator and shared among many Smart Clients.
+created in the Management Client and shared among many Smart Clients.
 
 In this sample, a set of cameras and presets can be selected and saved
 under a name. Multiple configurations of carrousels can be defined.
@@ -35,25 +34,25 @@ to the subject here: [Asynchronous programming](https://learn.microsoft.com/en-u
 
 ## The sample demonstrates
 
--   How to work with configuration of plug-in defined items
--   How to store and get plug-in defined configurations
--   How to call `VideoOS.Platform.Configuration` asynchronously 
+- How to work with configuration of plug-in defined items
+- How to store and get plug-in defined configurations
+- How to call `VideoOS.Platform.Configuration` asynchronously 
 
 ## Using
 
--   VideoOS.Platform.Admin.ItemNode
--   VideoOS.Platform.Admin.ItemManager
--   VideoOS.Platform.UI.ItemPickerUserControl
--   Get and SetConfiguration on `VideoOS.Platform.Configuration`
+- VideoOS.Platform.Admin.ItemNode
+- VideoOS.Platform.Admin.ItemManager
+- VideoOS.Platform.UI.ItemPickerUserControl
+- Get and SetConfiguration on `VideoOS.Platform.Configuration`
 
 ## Environment
 
--   MIP Environment in XProtect Management Client
--   MIP Environment in XProtect Smart Client
+- MIP Environment in XProtect Management Client
+- MIP Environment in XProtect Smart Client
 
 ## Visual Studio C\# project
 
--   [ServerSideCarrousel.csproj](javascript:openLink('..\\\\PluginSamples\\\\ServerSideCarrousel\\\\ServerSideCarrousel.csproj');)
+- [ServerSideCarrousel.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)
 
 ## Special notes
 

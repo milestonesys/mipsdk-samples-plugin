@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using GMap.NET;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
+using GMap.NET.WindowsPresentation;
 
 namespace LocationView.Client.Config
 {
-    internal enum MarkerTypes
+    public enum MarkerTypes
     {
         Blue,
         Green,
@@ -16,32 +21,64 @@ namespace LocationView.Client.Config
         Red,
         Yellow,
     }
-
+    
     internal class MarkerTypesHelper
     {
-        public static readonly Dictionary<MarkerTypes, GMarkerGoogleType> Markers =
-            new Dictionary<MarkerTypes, GMarkerGoogleType>()
+        public static readonly Dictionary<MarkerTypes, Brush> Markers =
+            new Dictionary<MarkerTypes, Brush>()
             {
-                {MarkerTypes.Blue, GMarkerGoogleType.blue},
-                {MarkerTypes.Green, GMarkerGoogleType.green},
-                {MarkerTypes.LightBlue, GMarkerGoogleType.lightblue},
-                {MarkerTypes.Orange, GMarkerGoogleType.orange},
-                {MarkerTypes.Pink, GMarkerGoogleType.pink},
-                {MarkerTypes.Purple, GMarkerGoogleType.purple},
-                {MarkerTypes.Red, GMarkerGoogleType.red},
-                {MarkerTypes.Yellow, GMarkerGoogleType.yellow},
+                {MarkerTypes.Blue, Brushes.Blue},
+                {MarkerTypes.Green, Brushes.Green},
+                {MarkerTypes.LightBlue, Brushes.LightBlue},
+                {MarkerTypes.Orange, Brushes.Orange},
+                {MarkerTypes.Pink, Brushes.Pink},
+                {MarkerTypes.Purple, Brushes.Purple},
+                {MarkerTypes.Red, Brushes.Red},
+                {MarkerTypes.Yellow, Brushes.Yellow},
             };
     }
-
+    
     internal class MarkerFactory
     {
-        public static GMapMarker CreateMarker(MarkerTypes type, PointLatLng point = new PointLatLng())
+        public static GMapMarker CreateMarker(MarkerTypes type, ToolTipAppearanceTypes toolTipAppearance)
         {
-            var googleType = GMarkerGoogleType.blue;
-            if (MarkerTypesHelper.Markers.ContainsKey(type))
-                googleType = MarkerTypesHelper.Markers[type];
+            var polygon = new Polygon
+            {
+                Points = new PointCollection { new Point(0, 0), new Point(-3, -10), new Point(3, -10), new Point(0, 0) },
+                Stroke = MarkerTypesHelper.Markers[type],
+                StrokeThickness = 1.5,
+                Fill = MarkerTypesHelper.Markers[type]
+            };
+            var label = new Label
+            {
+                Background = Brushes.Gray.Clone(),
+                Opacity = 0.5
+            };
+            if (toolTipAppearance == ToolTipAppearanceTypes.Always)
+            {
+                label.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                var binding = new Binding()
+                {
+                    Source = polygon,
+                    Path = new PropertyPath(FrameworkElement.IsMouseOverProperty),
+                    Converter = new BooleanToVisibilityConverter()
+                };
+                label.SetBinding(FrameworkElement.VisibilityProperty, binding);
+            }
+            var marker =  new GMapMarker(new PointLatLng())
+            {
+                Shape = new StackPanel
+                {
+                    Visibility = Visibility.Hidden,
+                    Orientation = Orientation.Vertical,
+                    Children = { polygon, label }
+                }
+            };
 
-            return new GMarkerGoogle(point, googleType);
+            return marker;
         }
     }
 

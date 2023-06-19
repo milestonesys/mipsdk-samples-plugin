@@ -20,18 +20,18 @@ external sources, but instead auto-generates transaction data.
 
 ## The sample demonstrates
 
--   How to implement a Transact connector plug-in
--   How to feed transaction data into the system
--   How to define custom properties for a connector
+- How to implement a Transact connector plug-in
+- How to feed transaction data into the system
+- How to define custom properties for a connector
 
 ## Using
 
--   VideoOS.Platform.Transact
+- VideoOS.Platform.Transact
 
 ## Environment
 
--   MIP environment for the Event Server
+- MIP environment for the Event Server
 
 ## Visual Studio C\# project
 
--   [TransactConnector.csproj](javascript:openLink('..\\\\PluginSamples\\\\TransactConnector\\\\TransactConnector.csproj');)
+- [TransactConnector.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

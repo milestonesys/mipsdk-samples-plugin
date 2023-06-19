@@ -18,29 +18,27 @@ theme.
 
 ![](SCTheme.png)
 
-WPF Element 2 will not be adjusted by
-any theme changes, while the appearance of the rest of the sample
- will change depending on the theme. The sample will be themed during
-initialization and when the user toggles the theme selection button on
-the top, or via the theme select dropdown in this sample.
+WPF Element 2 will not be adjusted by any theme changes, while the appearance of
+the rest of the sample will change depending on the theme. The sample will be
+themed during initialization and when the user toggles the theme selection button
+on the top, or via the theme select dropdown in this sample.
 
 ## The sample demonstrates
 
--   How well known user controls are being changed during theme change
--   How to select another theme
--   How to access the currently selected theme
--   How to receive notification when a theme has been changed
+- How well-known user controls are being changed during theme change
+- How to select another theme
+- How to access the currently selected theme
 
 ## Using
 
--   VideoOS.Platform.Client.ViewItemWpfControl
--   VideoOS.Platform.Messaging.MessageId.SmartClient.ChangeThemeCommand
+- VideoOS.Platform.Client.ViewItemWpfControl
+- VideoOS.Platform.Messaging.MessageId.SmartClient.ChangeThemeCommand
 
 
 ## Environment
 
--   Smart Client MIP Environment
+- Smart Client MIP Environment
 
 ## Visual Studio C\# project
 
--   [SCTheme.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCTheme\\\\SCTheme.csproj');)
+- [SCTheme.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

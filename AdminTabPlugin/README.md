@@ -33,12 +33,12 @@ that allow basic PTZ operations.
 
 ## This sample illustrates the classes
 
--   VideoOS.Platform.Admin.TabPlugin
--   VideoOS.Platform.Admin.TabUserControl
+- VideoOS.Platform.Admin.TabPlugin
+- VideoOS.Platform.Admin.TabUserControl
 
 The TabPlugin defines how the tab should be exposed, including name and
 icon, and the TabUserControl holds the actual content of the screen.
 
 ## Visual Studio C\# project
 
--   [AdminTabPlugin.csproj](javascript:openLink('..\\\\PluginSamples\\\\AdminTabPlugin\\\\AdminTabPlugin.csproj');)
+- [AdminTabPlugin.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

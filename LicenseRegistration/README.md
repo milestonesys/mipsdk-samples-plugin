@@ -25,17 +25,17 @@ to the document <a href="http://download.milestonesys.com/MIPSDK/MilestoneXProte
 
 ## The sample demonstrates
 
--   How to construct the license description XML for a plug-in
+- How to construct the license description XML for a plug-in
 
 ## Using
 
--   VideoOS.Platform.License.LicenseInformation
--   VideoOS.Platform.PluginDefinition.PluginLicenseRequest
+- VideoOS.Platform.License.LicenseInformation
+- VideoOS.Platform.PluginDefinition.PluginLicenseRequest
 
 ## Environment
 
--   MIP Environment for XProtect Management Client
+- MIP Environment for XProtect Management Client
 
 ## Visual Studio C\# project
 
--   [LicenseRegistration.csproj](javascript:openLink('..\\\\PluginSamples\\\\LicenseRegistration\\\\LicenseRegistration.csproj');)
+- [LicenseRegistration.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

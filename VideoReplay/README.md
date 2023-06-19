@@ -24,23 +24,23 @@ replays the sequence again.
 
 ## The sample demonstrates
 
--   How to get hold of recorded images
--   Listen to currently selected camera in the Smart Client
--   How to understand when the Smart Client changes mode
--   How to make a simple print of currently displayed ViewItem
+- How to get hold of recorded images
+- Listen to currently selected camera in the Smart Client
+- How to understand when the Smart Client changes mode
+- How to make a simple print of currently displayed ViewItem
 
 ## Using
 
--   VideoOS.Platform.Data.JPEGVideoSource
--   VideoOS.Platform.Client.ViewItem.Print method
+- VideoOS.Platform.Data.JPEGVideoSource
+- VideoOS.Platform.Client.ViewItem.Print method
 
 ## Environment
 
--   Smart Client MIP Environment
+- Smart Client MIP Environment
 
 ## Visual Studio C\# project
 
--   [VideoReplay.csproj](javascript:openLink('..\\\\PluginSamples\\\\VideoReplay\\\\VideoReplay.csproj');)
+- [VideoReplay.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)
 
 ## Special notes
 

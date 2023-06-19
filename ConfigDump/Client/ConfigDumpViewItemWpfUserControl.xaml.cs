@@ -171,6 +171,19 @@ namespace ConfigDump.Client
             TreeViewItem tn = new TreeViewItem() { Header = site.Name };
             tn.Tag = site;
             treeViewSites.Items.Add(tn);
+            FillSitesTree(site, tn);
+        }
+
+        private void FillSitesTree(Item site, TreeViewItem treeViewItem)
+        {
+            var children = site.GetChildren();
+            foreach (var child in children) 
+            {
+                TreeViewItem tn = new TreeViewItem() { Header = child.Name };
+                tn.Tag = child;
+                treeViewItem.Items.Add(tn);
+                FillSitesTree(child, tn);
+            }
         }
 
 
@@ -373,7 +386,7 @@ namespace ConfigDump.Client
 
             if (tvitem != null)
             {
-                Item site = EnvironmentManager.Instance.GetSiteItem(EnvironmentManager.Instance.MasterSite);
+                Item site = EnvironmentManager.Instance.GetSiteItem((tvitem.Tag as Item).FQID.ServerId.Id);
                 if (site != null)
                 {
                     foreach (String p in site.Properties.Keys)

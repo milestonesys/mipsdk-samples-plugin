@@ -18,10 +18,10 @@ any rule.
 
 The BAT file is launced with 3 or more parameters:
 
--   %1 - has the identification of the source (e.g. camera guid)
--   %2 - has the name of the source
--   %3 - has the type of the source
--   %4 and subsequent - has the identification of the camera parameters.
+- %1 - has the identification of the source (e.g. camera guid)
+- %2 - has the name of the source
+- %3 - has the type of the source
+- %4 and subsequent - has the identification of the camera parameters.
 
 The sample.bat file contains:
 
@@ -51,19 +51,19 @@ Log output seen in the resulting log file.
 
 ## The sample demonstrates
 
--   How to execute a MIP action as a result of a rule.
+- How to execute a MIP action as a result of a rule.
 
 ## Using
 
--   VideoOS.Platform.RuleAction.ActionDefinition
--   VideoOS.Platform.RuleAction.ActionElement
--   VideoOS.Platform.RuleAction.ActionManager
--   VideoOS.Platform.RuleAction.ActionTarget
+- VideoOS.Platform.RuleAction.ActionDefinition
+- VideoOS.Platform.RuleAction.ActionElement
+- VideoOS.Platform.RuleAction.ActionManager
+- VideoOS.Platform.RuleAction.ActionTarget
 
 ## Environment
 
--   XProtect Event Server MIP Environment
+- XProtect Event Server MIP Environment
 
 ## Visual Studio C\# project
 
--   [BatAction.csproj](javascript:openLink('..\\\\PluginSamples\\\\BatAction\\\\BatAction.csproj');)
+- [BatAction.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

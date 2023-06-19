@@ -13,13 +13,14 @@ access control system could be handled by a plugin.
 
 NOTE: This plugin uses the *Demo Access Control Server Application* to
 simulate an access control system. It can be found in:
-`Milestone\MIPSDK\PluginSamples\DemoAccessControlPlugin\DemoServerApplication`.
+`mipsdk-samples-plugin-main\mipsdk-samples-plugin-main\DemoAccessControlPlugin\DemoServerApplication`.  
+**Note:** `DemoServerApplication.exe` is available here [DemoServerApplication on GitHub](https://github.com/milestonesys/mipsdk-samples-plugin/tree/main/DemoAccessControlPlugin/DemoServerApplication)
 
 This sample provides among others this set of features:
 
--   Change configuration of doors, card holders and events
--   Drag-n-drop function to simulate people swiping their access card
--   Simulate lock, unlock and REX events
+- Change configuration of doors, card holders and events
+- Drag-n-drop function to simulate people swiping their access card
+- Simulate lock, unlock and REX events
 
 ![Demo App](ac_demoapp.png)
 
@@ -34,11 +35,11 @@ configuration and event handling.
 
 The demo access control plug-in contains a suggested way of handling:
 
--   Configuration handling from remote system (the demo application) -
-    including waits and progress indication
--   Event handling creating
--   Command processing
--   State handling
+- Configuration handling from remote system (the demo application) -
+  including waits and progress indication
+- Event handling creating
+- Command processing
+- State handling
 
 The follow screens become available in the Management Client:
 
@@ -51,16 +52,15 @@ Application:
 
 ![Demo App](ac_demoadded.png)
 
-## How to setup
+## How to set up
 
--   Build the plugin
--   Stop Event Server service
--   Deploy the DemoAccessControlPlugin.dll together with the
-    acplugin.def to the *Milestone\\XProtect Event
-    Server\\MIPPlugins\\DemoAccessControlPlugin*
--   Start Event Server service
--   Start Demo Access Control Server Application
--   Start Management Client and add a new Demo Access Control System
+- Build the plugin
+- Stop Event Server service
+- Deploy `DemoAccessControlPlugin.dll` together with `acplugin.def` to the
+  `Milestone\\XProtect Event Server\\MIPPlugins\\DemoAccessControlPlugin` folder
+- Start Event Server service
+- Start Demo Access Control Server Application
+- Start Management Client and add a new Demo Access Control System
 
 We recommend that you start any new development with using the project
 template for AccessControl, and then review documentation and this
@@ -69,4 +69,4 @@ you may get a GUID conflict when installing at the customers)
 
 ## Visual Studio C\# project
 
--   [DemoAccessControlPlugin.csproj](javascript:openLink('..\\\\PluginSamples\\\\DemoAccessControlPlugin\\\\DemoAccessControlPlugin.csproj');)
+- [DemoAccessControlPlugin.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

@@ -20,29 +20,28 @@ Own user controls can be controlled by the playback user controls,
 e.g. a list of log entries from an access control system or a retail
 system could be displayed in time sync with video being displayed.
 
-A camera can be added by selecting the view item and
-clicking on Select Camera under Properties in the left-hand sidebar or it can simply be dragged and dropped from
-your camera list.
+A camera can be added by selecting the view item and clicking on Select Camera
+under Properties in the left-hand sidebar or it can simply be dragged and
+dropped from your camera list.
 
 ![](SCIndependent1.png)
 
 ## The sample demonstrates
 
--   How the Independent Playback user controls and playback controller
-    can be used to individually control the playing of video from a
-    camera.
+- How the Independent Playback user controls and playback controller can be
+  used to individually control the playing of video from a camera.
 
 ## Using
 
--   VideoOS.Platform.Client.PlaybackController
--   VideoOS.Platform.Client.PlaybackWpfUserControl
--   VideoOS.Platform.Client.ImageViewerWpfUserControl
--   Messaging for controlling the PlaybackController
+- VideoOS.Platform.Client.PlaybackController
+- VideoOS.Platform.Client.PlaybackWpfUserControl
+- VideoOS.Platform.Client.ImageViewerWpfUserControl
+- Messaging for controlling the PlaybackController
 
 ## Environment
 
--   Smart Client MIP Environment
+- Smart Client MIP Environment
 
 ## Visual Studio C\# project
 
--   [SCIndependentPlayback.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCIndependentPlayback\\\\SCIndependentPlayback.csproj');)
+- [SCIndependentPlayback.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

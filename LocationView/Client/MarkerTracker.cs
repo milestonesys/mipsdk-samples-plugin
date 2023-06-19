@@ -1,11 +1,8 @@
-﻿using System;
+﻿using GMap.NET;
+using GMap.NET.WindowsPresentation;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using GMap.NET;
-using GMap.NET.WindowsForms;
-using GMap.NET.WindowsForms.Markers;
 
 namespace LocationView.Client
 {
@@ -24,8 +21,7 @@ namespace LocationView.Client
         {
             try
             {
-                if ((null == markers) ||
-                    (false == markers.Any()))
+                if (null == markers || !markers.Any())
                     return;
 
                 var markerCentered = false;
@@ -47,7 +43,7 @@ namespace LocationView.Client
             _markerIndex %= markers.Count();
 
             var marker = markers.ElementAt(_markerIndex);
-            if (marker.IsVisible)
+            if (marker.Shape.IsVisible)
             {
                 _mapControl.Position = new PointLatLng(marker.Position.Lat, marker.Position.Lng);
 
@@ -55,18 +51,6 @@ namespace LocationView.Client
             }
 
             return result;
-        }
-
-        private void TrackMarker()
-        {
-            throw new NotImplementedException();
-
-            /* TODO later
-            // use these members here
-            var stepLatAbs = _mapControl.ViewArea.HeightLat;
-            var stepLongAbs = _mapControl.ViewArea.WidthLng;
-            */
-            // choice strategy - move in area or center the marker in the screen
         }
     }
 }

@@ -1,14 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using GMap.NET;
 
 namespace LocationView.Client.Config
 {
-    internal class Marker
+    public class Marker : INotifyPropertyChanged
     {
         public Guid DeviceId { get; set; }
-        public string DeviceName { get; set; }
-        public MarkerTypes MarkerType { get; set; }
+
+        private string _deviceName;
+        public string DeviceName 
+        {
+            get => _deviceName;
+            set
+            {
+                _deviceName = value;
+                OnPropertyChanged(nameof(DeviceName));
+            }
+        }
+
+        private MarkerTypes _markerType;
+        public MarkerTypes MarkerType
+        {
+            get => _markerType;
+            set
+            {
+                _markerType = value;
+                OnPropertyChanged(nameof(MarkerType));
+            }
+        }
+
+        protected void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public void InitFrom(Marker other)
         {
@@ -18,7 +49,7 @@ namespace LocationView.Client.Config
         }
     }
 
-    internal class ToolTip
+    public class ToolTip
     {
         public ToolTipAppearanceTypes Appearance { get; set; }
         public ToolTipTextTypes TextType { get; set; }
@@ -40,7 +71,7 @@ namespace LocationView.Client.Config
         internal static string MapZoomFactor = "MapZoomFactor";
     }
 
-    internal class Config
+    public class Config
     {
         public const int MapZoomLevelMinValue = 1;
         public const int MapZoomLevelMaxValue = 20;
@@ -55,7 +86,6 @@ namespace LocationView.Client.Config
                       };
             MapZoomLevel = MapZoomLevelInitialValue;
             MapPosition = new PointLatLng(0, 0);
-            TimeoutInSeconds = 10;
         }
 
         public delegate string PropertyGetter(string name);
@@ -63,17 +93,20 @@ namespace LocationView.Client.Config
 
         public delegate string ItemNameGetter(Guid itemId);
 
-        public readonly List<Marker> Markers = new List<Marker>();
+        public ObservableCollection<Marker> _markers = new ObservableCollection<Marker>();
+        public ObservableCollection<Marker> Markers 
+        { 
+            get { return _markers; } 
+            set { _markers = value; }
+        }
 
         public MapTypes MapType { get; set; }
 
         public ToolTip ToolTip { get; private set; }
 
-        public int TimeoutInSeconds { get; set; }
-
         public bool ShowZoomPanel { get; set; }
 
-        public int MapZoomLevel { get; set; }
+        public double MapZoomLevel { get; set; }
 
         public PointLatLng MapPosition { get; set; }
 
@@ -107,16 +140,6 @@ namespace LocationView.Client.Config
             ToolTip.TextType = ToolTipTextNames.GetType(propertyGetter(Constants.ToolTipText));
             if (ToolTip.TextType < ToolTipTextTypes.Name)
                 ToolTip.TextType = ToolTipTextTypes.Name;
-
-            // read timeout in seconds
-            try
-            {
-                var timeOutSecondsString = propertyGetter(Constants.TimeoutSeconds);
-                if (!string.IsNullOrWhiteSpace(timeOutSecondsString))
-                    TimeoutInSeconds = Convert.ToInt32(timeOutSecondsString);
-            }
-            catch { }
-            
 
             // read show zoom panel
             ShowZoomPanel = (0 == String.Compare(propertyGetter(Constants.ShowZoomPanel),
@@ -166,9 +189,6 @@ namespace LocationView.Client.Config
             // write tooltip
             propertySetter(Constants.ToolTipAppearance, ToolTipAppearanceNames.GetName(ToolTip.Appearance));
             propertySetter(Constants.ToolTipText, ToolTipTextNames.GetName(ToolTip.TextType));
-
-            // write timout in seconds
-            propertySetter(Constants.TimeoutSeconds, TimeoutInSeconds.ToString());
 
             // write show zoom panel
             propertySetter(Constants.ShowZoomPanel, ShowZoomPanel.ToString());

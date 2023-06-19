@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.Messaging;
 
 namespace Property.Client
 {
@@ -19,6 +20,12 @@ namespace Property.Client
         {
             LoadProperties(true);
             MyPropValue = GetProperty("MyProp");
+            EnvironmentManager.Instance.RegisterReceiver(ShownWorkSpaceChangedReceiver, new MessageIdFilter(MessageId.SmartClient.ShownWorkSpaceChangedIndication));
+        }
+        private object ShownWorkSpaceChangedReceiver(Message message, FQID sender, FQID related)
+        {
+
+            return null;
         }
 
         /// <summary>

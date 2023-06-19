@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using GMap.NET.WindowsForms;
+using GMap.NET.WindowsPresentation;
 using VideoOS.Platform.Client;
 
 namespace LocationView.Client
@@ -15,7 +15,7 @@ namespace LocationView.Client
 
             foreach (var marker in config.Markers)
             {
-                var navigationalMarker = new NavigationalItem(config, marker, config.TimeoutInSeconds, windowInformation);
+                var navigationalMarker = new NavigationalItem(config, marker, windowInformation);
                 _navigationalItems.Add(navigationalMarker);
             }
         }

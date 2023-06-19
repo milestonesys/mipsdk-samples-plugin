@@ -21,23 +21,23 @@ messages for the Smart Client messages area can be created and updated.
 
 ## The sample demonstrates
 
--   How to add messages to the Smart Client message area.
--   How to update existing messages in the Smart Client message area.
--   All the properties available on Smart Client messages.
--   How to receive notification when a message button is clicked or the
-    message is closed.
+- How to add messages to the Smart Client message area.
+- How to update existing messages in the Smart Client message area.
+- All the properties available on Smart Client messages.
+- How to receive notification when a message button is clicked or the
+  message is closed.
 
 ## Using
 
--   MessageId.SmartClient.SmartClientMessageButtonClickedIndication
--   MessageId.SmartClient.SmartClientMessageRemovedIndication
--   MessageId.SmartClient.SmartClientMessageCommand
--   VideoOS.Platform.Messaging.SmartClientMessageData
+- MessageId.SmartClient.SmartClientMessageButtonClickedIndication
+- MessageId.SmartClient.SmartClientMessageRemovedIndication
+- MessageId.SmartClient.SmartClientMessageCommand
+- VideoOS.Platform.Messaging.SmartClientMessageData
 
 ## Environment
 
--   Smart Client MIP Environment
+- Smart Client MIP Environment
 
 ## Visual Studio C\# project
 
--   [SCMessageAreaMessageTester.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCMessageAreaMessageTester\\\\SCMessageAreaMessageTester.csproj');)
+- [SCMessageAreaMessageTester.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

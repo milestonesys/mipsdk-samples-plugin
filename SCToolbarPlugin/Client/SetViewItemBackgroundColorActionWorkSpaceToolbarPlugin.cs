@@ -19,7 +19,11 @@ namespace SCToolbarPlugin.Client
         public override void Init(Item window)
         {
             _window = window;
+
+            // In a real-world scenario, localized strings based on CultureInfo.CurrentUICulture
+            // should be provided here.
             Title = ColorConverter.ConvertColorToCommonName(_color.Color);
+            Tooltip = string.Format($"Change background color of view items to {Title}.");
         }
 
         public override void Activate()
@@ -53,6 +57,11 @@ namespace SCToolbarPlugin.Client
         public override string Name
         {
             get { return "Set view item background color action work space toolbar plugin"; }
+        }
+
+        public override Guid? GroupId
+        {
+            get { return SetViewItemBackgroundColorWorkspaceToolbarPluginGroup.PluginGroupId; }
         }
 
         public override ToolbarPluginType ToolbarPluginType

@@ -1,0 +1,16 @@
+﻿<UserControl  
+             x:Class="SCViewAndWindow.Client.WorkspaceWpfUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <StackPanel>
+            <Label Content="Available workspaces: " HorizontalAlignment="Center"/>
+            <ListBox x:Name="listBoxWorkspaces" Height="200" Width="200"/>
+            <Button x:Name="buttonSwitch" Content="Switch Workspaces" Width="200" Margin="10" Click="OnSwitch"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

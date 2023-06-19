@@ -35,12 +35,12 @@ namespace SensorMonitor.Admin
 		internal static Guid EventGroupId = new Guid("D1B0EF93-F728-4D0C-953A-55966AF28C04");
 		internal EventGroup eventGroup = new EventGroup() {ID = EventGroupId, Name = "MIPSDK Sensor Monitor"};
 
-		private Guid IdCtrlUp = new Guid("57F4E0DD-25F6-46E4-A089-E485EE134AC6");
-		private Guid IdCtrlDown = new Guid("EE381C22-F1B7-4F1A-91D2-AEC4DEF805B1");
-		private Guid IdStartRec = new Guid("AB432B06-69AC-4F3C-9A7E-781F50BFBEA4");
-		private Guid IdStopRec = new Guid("50C77C71-87AA-40D1-8A3F-E8A7E43CCC06");
-        private Guid IdSensorActive = new Guid("4D55B393-E982-4935-AB32-80ED9B12CBA5");
-        private Guid IdSensorPassive = new Guid("C7D25F57-B416-4ADD-B1B9-2EADBD978D25");
+		private Guid CtrlUpId = new Guid("57F4E0DD-25F6-46E4-A089-E485EE134AC6");
+		private Guid CtrlDownId = new Guid("EE381C22-F1B7-4F1A-91D2-AEC4DEF805B1");
+		private Guid StartRecId = new Guid("AB432B06-69AC-4F3C-9A7E-781F50BFBEA4");
+		private Guid StopRecId = new Guid("50C77C71-87AA-40D1-8A3F-E8A7E43CCC06");
+        private Guid SensorActiveId = new Guid("4D55B393-E982-4935-AB32-80ED9B12CBA5");
+        private Guid SensorPassiveId = new Guid("C7D25F57-B416-4ADD-B1B9-2EADBD978D25");
 
         private static string ControllerDownMessage = "Controller Down";
         private static string ControllerUpMessage = "Controller Up";
@@ -48,6 +48,12 @@ namespace SensorMonitor.Admin
         private static string StopRecordingMessage = "Stop Recording";
         internal static string SensorActiveMessage = "Sensor Active";
         internal static string SensorPassiveMessage = "Sensor Passive";
+
+        private static Guid ControllerStateGroupId = new Guid("F71C75BB-FE2E-4637-80CD-AC5BB5A560D3");
+        private static Guid RecordingStateGroupId = new Guid("E77B7D00-5086-4A86-8C70-6F060966A7EA");
+        private static Guid SensorStateGroupId = new Guid("A790C8C8-0F95-41D9-969D-07EB987BAAE7");
+
+
 
         #region Constructors
 
@@ -284,45 +290,84 @@ namespace SensorMonitor.Admin
 			       	{
 						new EventType() { 
 							GroupID=EventGroupId, 
-							ID= IdCtrlUp, 
-							DefaultSourceKind=SensorMonitorDefinition.SensorMonitorCtrlKind, 
+							ID= CtrlUpId, 
+							StateGroupID = ControllerStateGroupId,
+							State = "OK",
+                            DefaultSourceKind=SensorMonitorDefinition.SensorMonitorCtrlKind, 
 							Message=ControllerUpMessage, 
 							SourceKinds=new List<Guid>(){SensorMonitorDefinition.SensorMonitorCtrlKind}},
 						new EventType() { 
 							GroupID=EventGroupId, 
-							ID= IdCtrlDown, 
-							DefaultSourceKind=SensorMonitorDefinition.SensorMonitorCtrlKind, 
+							ID= CtrlDownId,
+							State = "Idle",
+                            StateGroupID = ControllerStateGroupId,
+                            DefaultSourceKind=SensorMonitorDefinition.SensorMonitorCtrlKind, 
 							Message=ControllerDownMessage, 
 							SourceKinds=new List<Guid>(){SensorMonitorDefinition.SensorMonitorCtrlKind}},
 						new EventType() { 
 							GroupID=EventGroupId, 
-							ID= IdStartRec, 
-							DefaultSourceKind=SensorMonitorDefinition.SensorMonitorCtrlKind, 
+							ID= StartRecId,
+                            StateGroupID = RecordingStateGroupId,
+							State = "Recording",
+                            DefaultSourceKind=SensorMonitorDefinition.SensorMonitorCtrlKind, 
 							Message=StartRecordingMessage, 
 							SourceKinds=new List<Guid>(){SensorMonitorDefinition.SensorMonitorCtrlKind}},
 						new EventType() { 
 							GroupID=EventGroupId, 
-							ID= IdStopRec, 
-							DefaultSourceKind=SensorMonitorDefinition.SensorMonitorCtrlKind, 
+							ID= StopRecId,
+                            StateGroupID = RecordingStateGroupId,
+							State = "NotRecording",
+                            DefaultSourceKind=SensorMonitorDefinition.SensorMonitorCtrlKind, 
 							Message=StopRecordingMessage, 
 							SourceKinds=new List<Guid>(){SensorMonitorDefinition.SensorMonitorCtrlKind}},
                   		new EventType() { 
 							GroupID=EventGroupId, 
-							ID= IdSensorActive, 
-							DefaultSourceKind=SensorMonitorDefinition.SensorMonitorSensorKind, 
+							ID= SensorActiveId,
+                            StateGroupID = SensorStateGroupId,
+							State = "On",
+                            DefaultSourceKind=SensorMonitorDefinition.SensorMonitorSensorKind, 
 							Message=SensorActiveMessage, 
 							SourceKinds=new List<Guid>(){SensorMonitorDefinition.SensorMonitorSensorKind}},
 						new EventType() { 
 							GroupID=EventGroupId, 
-							ID= IdSensorPassive, 
-							DefaultSourceKind=SensorMonitorDefinition.SensorMonitorSensorKind, 
+							ID= SensorPassiveId,
+                            StateGroupID = SensorStateGroupId,
+							State = "Off",
+                            DefaultSourceKind=SensorMonitorDefinition.SensorMonitorSensorKind, 
 							Message=SensorPassiveMessage, 
 							SourceKinds=new List<Guid>(){SensorMonitorDefinition.SensorMonitorSensorKind}}
 
 			       	};
 		}
 
-		private object TriggerReceiver(VideoOS.Platform.Messaging.Message message, FQID dest, FQID sender)
+		/// <summary>
+		/// Return the event state groups defined and used by this plugin
+		/// </summary>
+		/// <param name="culture"></param>
+		/// <returns></returns>
+        public override Collection<StateGroup> GetKnownStateGroups(CultureInfo culture)
+        {
+			return new Collection<StateGroup>
+			{
+				new StateGroup() { 
+					ID = ControllerStateGroupId,
+					Name = "Controller State", 
+					States = new[] { "OK", "Idle" } 
+				},
+		        new StateGroup() { 
+					ID = RecordingStateGroupId, 
+					Name = "Recording State", 
+					States = new[] { "Recording", "NotRecording" } 
+				},
+				new StateGroup() { 
+					ID = SensorStateGroupId, 
+					Name = "Sensor State", 
+					States = new[] { "On", "Off" } 
+				}
+		    };
+        }
+
+        private object TriggerReceiver(VideoOS.Platform.Messaging.Message message, FQID dest, FQID sender)
 		{
 			try
 			{

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using VideoOS.Platform;
@@ -120,8 +119,7 @@ namespace ServerSideCarrousel.Admin
                     CurrentItem.Properties["SelectedDevices"] = sb.ToString();
                     CurrentItem.Properties["DefaultSeconds"] = _userControl.DefaultSeconds;
                 }
-                //Call will communicate with service, this should be called on another thread than the UI thread
-                Task.Run(() => Configuration.Instance.SaveItemConfiguration(ServerSideCarrouselDefinition.CarrouselPluginId, CurrentItem));
+                Configuration.Instance.SaveItemConfiguration(ServerSideCarrouselDefinition.CarrouselPluginId, CurrentItem);
             } 
             return true;
         }
@@ -144,8 +142,8 @@ namespace ServerSideCarrousel.Admin
                 _userControl.FillContent();
                 _userControl.DefaultSeconds = "10";
             }
-            //Call will communicate with service, this should be called on another thread than the UI thread
-            Task.Run(() => Configuration.Instance.SaveItemConfiguration(ServerSideCarrouselDefinition.CarrouselPluginId, CurrentItem));
+            Configuration.Instance.SaveItemConfiguration(ServerSideCarrouselDefinition.CarrouselPluginId, CurrentItem);
+
             return CurrentItem;
         }
 
@@ -157,8 +155,7 @@ namespace ServerSideCarrousel.Admin
         {
             if (item != null)
             {
-                //Call will communicate with service, this should be called on another thread than the UI thread
-                Task.Run(() => Configuration.Instance.DeleteItemConfiguration(ServerSideCarrouselDefinition.CarrouselPluginId, item));
+                Configuration.Instance.DeleteItemConfiguration(ServerSideCarrouselDefinition.CarrouselPluginId, item);
             }
         }
 
@@ -172,29 +169,19 @@ namespace ServerSideCarrousel.Admin
         /// <returns>A list of items.  Allowed to return null if no Items found.</returns>
         public override List<Item> GetItems()
         {
-            //All items in this sample are stored with the Video, therefor no ServerIs is used.
-            List<Item> items = GetItemsAsync(null).Result;
+            //All items in this sample are stored with the Video, therefor no ServerId is used.
+            List<Item> items = Configuration.Instance.GetItemConfigurations(ServerSideCarrouselDefinition.CarrouselPluginId, null, ServerSideCarrouselDefinition.CarrouselKind);
             return items;
-        }
-
-        //GetItems is overriden, which is why we can't make it async. Our solution is to make a private async method which can be called.
-        //Async is added since call will use a service and this should not be done on the UI thread
-        private async Task<List<Item>> GetItemsAsync(Item parentItem)
-        {
-            return await Task<List<Item>>.Run(() =>
-            {
-                return Configuration.Instance.GetItemConfigurations(ServerSideCarrouselDefinition.CarrouselPluginId, parentItem, ServerSideCarrouselDefinition.CarrouselKind);
-            }).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Returns a list of all Items from a specific server.
         /// </summary>
-        /// <param name="parentItem">Theparent Items</param>
+        /// <param name="parentItem">The parent Items</param>
         /// <returns>A list of items.  Allowed to return null if no Items found.</returns>
         public override List<Item> GetItems(Item parentItem)
         {
-            List<Item> items = GetItemsAsync(parentItem).Result;
+            List<Item> items = Configuration.Instance.GetItemConfigurations(ServerSideCarrouselDefinition.CarrouselPluginId, parentItem, ServerSideCarrouselDefinition.CarrouselKind);
             return items;
         }
 
@@ -205,20 +192,8 @@ namespace ServerSideCarrousel.Admin
         /// <returns>An Item</returns>
         public override Item GetItem(FQID fqid)
         {
-            return GetItemAsync(fqid).Result;
+            return Configuration.Instance.GetItemConfiguration(ServerSideCarrouselDefinition.CarrouselPluginId, _kind, fqid.ObjectId);
         }
-
-        //Async is added since call will use a service and this should not be done on the UI thread
-        private async Task<Item> GetItemAsync(FQID fqid)
-        {
-            return await Task<Item>.Run(() =>
-            {
-                return Configuration.Instance.GetItemConfiguration(ServerSideCarrouselDefinition.CarrouselPluginId, _kind, fqid.ObjectId);
-            }).ConfigureAwait(false);
-        }            
-
-
-
         #endregion
 
     }

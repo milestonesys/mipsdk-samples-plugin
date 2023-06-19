@@ -13,7 +13,7 @@ namespace ServerSideCarrousel.Admin
         /// </summary>
         /// <param name="node"></param>
         /// <param name="carrouselHandler"></param>
-        internal async static void BuildCarrouselList(Item item, CarrouselHandlerDelegate carrouselHandler)
+        internal static void BuildCarrouselList(Item item, CarrouselHandlerDelegate carrouselHandler)
         {
             if (item.Properties.ContainsKey("SelectedDevices"))
             {
@@ -31,10 +31,7 @@ namespace ServerSideCarrousel.Admin
                     int.TryParse(itemNode.SelectSingleNode("Sort").InnerText, out sortix);
 
                     //Call will communicate with service, this should be called on another thread than the UI thread
-                    Item cameraItem = await Task<Item>.Run(() =>
-                    {
-                        return Configuration.Instance.GetItem(fqiditem);
-                    }); 
+                    Item cameraItem = Configuration.Instance.GetItem(fqiditem);
 
                     if (cameraItem != null) // Ignore items the user has no access to, or has been disabled/deleted
                     {

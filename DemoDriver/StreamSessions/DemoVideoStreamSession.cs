@@ -46,7 +46,7 @@ namespace DemoDriver
         {
             header = null;
             data = _demoConnectionManager.GetLiveFrame(Channel, false);
-            if (data.Length == 0)
+            if (data == null || data.Length == 0)
             {
                 return false;
             }

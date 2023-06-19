@@ -13,43 +13,46 @@ the Smart Client.
 
 The areas are divided into tabs:
 
--   Multi Window -- How to work with floating windows
--   PTZ Move -- Controlling cameras
--   PTZ Absolute -- How to get and set / go to a specific absolute
-    position
--   Indicator & App - Smart Client application control
--   Lens Control -- Commands that can be sent to a camera
--   Playback Control -- Smart Client playback control via programming
--   AUX -- Extension to PTZ control for specific devices
--   View Create -- How to create a new view layout and assign views
--   View Control -- Controlling options for a view
--   View Edit -- How to edit an existing view layout
--   View Dump -- Shows a tree view will all known views
--   Workspaces - How to work with workspaces
+- Multi Window - How to work with floating windows
+- PTZ Move - Controlling cameras
+- PTZ Absolute - How to get and set / go to a specific absolute
+  position
+- Indicator & App - Smart Client application control
+- Lens Control - Commands that can be sent to a camera
+- Playback Control - Smart Client playback control via programming
+- AUX - Extension to PTZ control for specific devices
+- View Create - How to create a new view layout and assign views
+- View Control - Controlling options for a view
+- View Edit - How to edit an existing view layout
+- View Dump - Shows a tree view with all known views
+- Workspaces - How to work with workspaces
 
-![Smart Client View and Windows Tool](smartclientview_windowstool.jpg)
+![Smart Client View and Windows Tool](viewandwindow.png)
 
-The current selected tab shows that 6 messages can be sent to control
-the camera blinking LEDs, and 6 messages to control how certain Smart
+The selected tab shows that 6 messages can be sent to control
+the indicators in view or selected camera, and several messages to control how certain Smart
 Client parts should appear.
 
 ## The sample demonstrates
 
--   How to work with messages
--   Assist in developing plug-ins
+- How to work with messages
+- Assists in developing various plug-ins
 
 ## Using
 
--   VideoOS.Platform.EnvironmentManager
--   VideoOS.Platform.Messaging
+- VideoOS.Platform.EnvironmentManager
+- VideoOS.Platform.Messaging
+- VideoOS.Platform.Configuration
+- VideoOS.Platform.UI.ItemPickerUserControl
+- VideoOS.Platform.ClientControl
 
 ## Environment
 
--   MIP Environment for Smart Client
+- MIP Environment for Smart Client
 
 ## Visual Studio C\# project
 
--   [SCViewAndWindow.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCViewAndWindow\\\\SCViewAndWindow.csproj');)
+- [SCViewAndWindow.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)
 
 ## Special notes
 

@@ -1,0 +1,63 @@
+﻿<external:ViewItemWpfUserControl  
+             xmlns:external="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Client1="clr-namespace:SCViewAndWindow.Client"
+             x:Class="SCViewAndWindow.Client.SCViewAndWindowViewItemWpfUserControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" 
+            d:DesignWidth="900" 
+            ClickEvent="OnClick" 
+            MouseDoubleClick="OnDoubleClick">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Content="View and Window tool" Grid.RowSpan="1" />
+        <TabControl Grid.RowSpan="1" Grid.Row="1">
+            <TabItem Header="Command">
+                    <Client1:ViewCommandWpfUserControl VerticalAlignment="Stretch"/>
+            </TabItem>
+            <TabItem Header="Edit">
+                    <Client1:ViewEditWpfUserControl/>
+            </TabItem>
+            <TabItem Header="Dump">
+                    <Client1:DumpWpfUserControl/>
+            </TabItem>
+            <TabItem Header="Workspaces">
+                    <Client1:WorkspaceWpfUserControl/>
+            </TabItem>
+            <TabItem Header="Multi Window">
+                    <Client1:MultiWindowWpfUserControl/>
+            </TabItem>
+            <TabItem Header="PTZ Move">
+                    <Client1:PTZWpfUserControl/>
+            </TabItem>
+            <TabItem Header="PTZ Absolute">
+                    <Client1:PTZAbsoluteWpfUserControl/>
+            </TabItem>
+            <TabItem Header="Indicator App">
+                <Client1:IndicatorAndAppWpfUserControl/>
+            </TabItem>
+            <TabItem Header="Lens">
+                    <Client1:LensWpfUserControl/>
+            </TabItem>
+            <TabItem Header="Playback">
+                    <Client1:PlaybackWpfUserControl/>
+            </TabItem>
+            <TabItem Header="AUX">
+                <Client1:AUXWpfUserControl/>
+            </TabItem>
+            <TabItem Header="Create">
+                    <Client1:ViewCreateWpfUserControl/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</external:ViewItemWpfUserControl>

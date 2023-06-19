@@ -1,7 +1,7 @@
 ---
 description: The video preview sample demonstrates how to embed the
   ImageViewerControl into your own UserControl on a Smart Client view or
-  a UserControl in Administrators.
+  a UserControl in Management Client.
 keywords: Plug-in integration
 lang: en-US
 title: Video Preview
@@ -11,7 +11,7 @@ title: Video Preview
 
 The video preview sample demonstrates how to embed the
 ImageViewerControl into your own UserControl on a Smart Client view or a
-UserControl in Administrators.
+UserControl in Management Client.
 
 The general idea is to provide a simple way of placing overlays or
 configuring video position relevant parameters, for example, tripwire
@@ -34,7 +34,7 @@ but otherwise the two controls are very similar.
 
 ![Video Preview in Smart Client](videopreview_smartclient.PNG)
 
-## MIP Environment - Administrators
+## MIP Environment - Management Client
 
 This sample shows how to place a live video stream on a UserControl for
 configuration purposes.
@@ -50,23 +50,23 @@ Use the Playback and Live buttons to stop or restart the live streaming.
 
 ## The sample demonstrates
 
--   Selection of a single camera
--   Placing an overlay on top of an ImageViewerControl initiated by the
-    plug-in.
--	How to redraw the overlay when changing the size of the control.
--   How to get the last showed image as a .NET bitmap
--   How to retrieve the LivePackage XML out of a live stream
+- Selection of a single camera
+- Placing an overlay on top of an ImageViewerControl initiated by the
+  plug-in.
+- How to redraw the overlay when changing the size of the control.
+- How to get the last showed image as a .NET bitmap
+- How to retrieve the LivePackage XML out of a live stream
 
 ## Using
 
--   VideoOS.Platform.Client.ImageViewerWpfControl
--   VideoOS.Platform.Admin.AdminImageViewerControl
+- VideoOS.Platform.Client.ImageViewerWpfControl
+- VideoOS.Platform.Admin.AdminImageViewerControl
 
 ## Environment
 
--   Smart Client MIP Environment
--   Administrators MIP Environments
+- Smart Client MIP Environment
+- Management Client MIP Environments
 
 ## Visual Studio C\# project
 
--   [VideoPreview.csproj](javascript:openLink('..\\\\PluginSamples\\\\VideoPreview\\\\VideoPreview.csproj');)
+- [VideoPreview.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

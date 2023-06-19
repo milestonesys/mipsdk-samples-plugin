@@ -23,18 +23,18 @@ The lower part traces all messages being sent.
 
 ## The sample demonstrates
 
--   How to work with messages
--   Assist in developing plug-ins
+- How to work with messages
+- Assist in developing plug-ins
 
 ## Using
 
--   VideoOS.Platform.EnvironmentManager
--   VideoOS.Platform.Messaging
+- VideoOS.Platform.EnvironmentManager
+- VideoOS.Platform.Messaging
 
 ## Environment
 
--   MIP Environment for Smart Client
+- MIP Environment for Smart Client
 
 ## Visual Studio C\# project
 
--   [MessageTester.csproj](javascript:openLink('..\\\\PluginSamples\\\\MessageTester\\\\MessageTester.csproj');)
+- [MessageTester.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

@@ -26,23 +26,23 @@ have some specific data associated with them.
 
 ## The sample demonstrates
 
--   Selection of camera
--   Usage of data source for getting information of recorded sequences
--   Usage of asynchronous calls -- shows the different types of
-    sequences available
+- Selection of camera
+- Usage of data source for getting information of recorded sequences
+- Usage of asynchronous calls -- shows the different types of
+  sequences available
 
 ## Using
 
--   VideoOS.Platform.Client.ViewItemUserControl
--   VideoOS.Platform.Data.SequenceDataSource
+- VideoOS.Platform.Client.ViewItemUserControl
+- VideoOS.Platform.Data.SequenceDataSource
 
 ## Environment
 
--   MIP environment in Smart Client
+- MIP environment in Smart Client
 
 ## Visual Studio C\# project
 
--   [SCSequenceViewer.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCSequenceViewer\\\\SCSequenceViewer.csproj');)
+- [SCSequenceViewer.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)
 
 ## Special notes
 

@@ -28,19 +28,19 @@ analytics.
 
 ## The sample demonstrates
 
--   How to access the registered services list
+- How to access the registered services list
 
 
 ## Using
 
--   VideoOS.Platform.Util.ServiceUtil
+- VideoOS.Platform.Util.ServiceUtil
 
 ## Environment
 
--   MIP Environment for XProtect Smart Client
--   MIP Environment for XProtect Management Client
+- MIP Environment for XProtect Smart Client
+- MIP Environment for XProtect Management Client
 
 ## Visual Studio C\# project
 
--   [ServiceTest.csproj](javascript:openLink('..\\\\PluginSamples\\\\ServiceTest\\\\ServiceTest.csproj');)
+- [ServiceTest.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)
 

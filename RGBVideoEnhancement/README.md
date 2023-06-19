@@ -45,26 +45,26 @@ Click on the button to choose a camera to view in the plugin.
 
 ## The sample demonstrates
 
--   Selecting a camera
--   Retrieve live bitmaps
--   Retrieve live status packets
--   Changing between live and playback tab/workspace
--   Synchronizing playback images in playback with specified time
+- Selecting a camera
+- Retrieve live bitmaps
+- Retrieve live status packets
+- Changing between live and playback tab/workspace
+- Synchronizing playback images in playback with specified time
 
 ## Using
 
--   VideoOS.Platform.Live.BitmapLiveSource.cs
--   VideoOS.Platform.Live.LiveSourceBitmapContent.cs
--   VideoOS.Platform.Live.LiveSourceStatus.cs
+- VideoOS.Platform.Live.BitmapLiveSource.cs
+- VideoOS.Platform.Live.LiveSourceBitmapContent.cs
+- VideoOS.Platform.Live.LiveSourceStatus.cs
 
 ## Environment
 
--   Smart Client MIP Environment
--   .Net Library MIP Environment -- (Shown in another sample)
+- Smart Client MIP Environment
+- .NET Library MIP Environment -- (Shown in another sample)
 
 ## Visual Studio C\# project
 
--   [RGBVideoEnhancement.csproj](javascript:openLink('..\\\\PluginSamples\\\\RGBVideoEnhancement\\\\RGBVideoEnhancement.csproj');)
+- [RGBVideoEnhancement.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)
 
 ## Special notes
 

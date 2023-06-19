@@ -31,18 +31,18 @@ on the left, an overview of all license information is displayed:
 
 ## The sample demonstrates
 
--   Integration with the MIP license system
--   Working with license trial expiry dates
--   Reserving licenses for specific items or connections
+- Integration with the MIP license system
+- Working with license trial expiry dates
+- Reserving licenses for specific items or connections
 
 ## Using
 
--   VideoOS.Platform.License.LicenseManager
+- VideoOS.Platform.License.LicenseManager
 
 ## Environment
 
--   Relevant for all MIP Environments
+- Relevant for all MIP Environments
 
 ## Visual Studio C\# project
 
--   [ServerConnectionLicense.csproj](javascript:openLink('..\\\\PluginSamples\\\\ServerConnectionLicense\\\\ServerConnectionLicense.csproj');)
+- [ServerConnectionLicense.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

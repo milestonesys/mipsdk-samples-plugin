@@ -46,29 +46,29 @@ in the sample.
 
 ## The sample demonstrates
 
--   How to listen for new events.
--   How to place overlays on top of video
--   How to utilize the objects embedded in analytics events
--   How to use and administrate the
-    VideoOS.Platform.Client.ImageViewerAddOn class
+- How to listen for new events.
+- How to place overlays on top of video
+- How to utilize the objects embedded in analytics events
+- How to use and administrate the
+  VideoOS.Platform.Client.ImageViewerAddOn class
 
 ## Using
 
--   VideoOS.Platform.Background.BackgroundPlugin
--   VideoOS.Platform.ClientControl.NewImageViewerControlEvent
--   VideoOS.Platform.Client.ImageViewerAddOn
--   VideoOS.Platform.Client.ImageViewerAddOn.ShapesOverlayAdd()
--   VideoOS.Platform.Util.AnalyticsOverlayBuilder.BuildShapeOverlay()
--   VideoOS.Platform.Messaging.Message
--   VideoOS.Platform.Messaging.MessageCommunicationManager
--   VideoOS.Platform.Messaging.CommunicationIdFilter
--   VideoOS.Platform.Data.AnalyticsEvent
--   VideoOS.Platform.Data.AnalyticsObject
+- VideoOS.Platform.Background.BackgroundPlugin
+- VideoOS.Platform.ClientControl.NewImageViewerControlEvent
+- VideoOS.Platform.Client.ImageViewerAddOn
+- VideoOS.Platform.Client.ImageViewerAddOn.ShapesOverlayAdd()
+- VideoOS.Platform.Util.AnalyticsOverlayBuilder.BuildShapeOverlay()
+- VideoOS.Platform.Messaging.Message
+- VideoOS.Platform.Messaging.MessageCommunicationManager
+- VideoOS.Platform.Messaging.CommunicationIdFilter
+- VideoOS.Platform.Data.AnalyticsEvent
+- VideoOS.Platform.Data.AnalyticsObject
 
 ## Environment
 
--   Relevant for the MIP Environment in the Smart Client
+- Relevant for the MIP Environment in the Smart Client
 
 ## Visual Studio C\# project
 
--   [SCOverlayGraphOnEvent.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCOverlayGraphOnEvent\\\\SCOverlayGraphOnEvent.csproj');)
+- [SCOverlayGraphOnEvent.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

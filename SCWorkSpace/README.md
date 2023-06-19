@@ -41,29 +41,29 @@ so useful) sample -- only a diagonal and right hand top is used.
 
 ## The sample demonstrates
 
--   Create a work space
--   Create and populate the work space view
--   Receive and react on work space messages
--   Update the work space notification
--   Create a side panel plugin and show it for the workspace
--   Create a view item plugin
--   Communicate between MIP plugins
+- Create a work space
+- Create and populate the work space view
+- Receive and react on work space messages
+- Update the work space notification
+- Create a side panel plugin and show it for the workspace
+- Create a view item plugin
+- Communicate between MIP plugins
 
 ## Using
 
--   VideoOS.Platform.Client.WorkSpacePlugin
--   VideoOS.Platform.Client.WorkSpaceNotification
--   VideoOS.Platform.Client.SidePanelPlugin
--   VideoOS.Platform.Client.SidePanelPlaceDefinition
--   VideoOS.Platform.Messaging.MessageId.SmartClient.ShownWorkSpaceChangedIndication
--   VideoOS.Platform.Messaging.MessageId.SmartClient.WorkSpaceStateChangedIndication
--   VideoOS.Platform.Messaging.MessageId.SmartClient.SelectedViewChangedIndication
--   VideoOS.Platform.Messaging.MessageId.SmartClient.SetCameraInViewCommand
+- VideoOS.Platform.Client.WorkSpacePlugin
+- VideoOS.Platform.Client.WorkSpaceNotification
+- VideoOS.Platform.Client.SidePanelPlugin
+- VideoOS.Platform.Client.SidePanelPlaceDefinition
+- VideoOS.Platform.Messaging.MessageId.SmartClient.ShownWorkSpaceChangedIndication
+- VideoOS.Platform.Messaging.MessageId.SmartClient.WorkSpaceStateChangedIndication
+- VideoOS.Platform.Messaging.MessageId.SmartClient.SelectedViewChangedIndication
+- VideoOS.Platform.Messaging.MessageId.SmartClient.SetCameraInViewCommand
 
 ## Environment
 
--   Smart Client MIP Environment
+- Smart Client MIP Environment
 
 ## Visual Studio C\# project
 
--   [SCWorkSpace.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCWorkSpace\\\\SCWorkSpace.csproj');)
+- [SCWorkSpace.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

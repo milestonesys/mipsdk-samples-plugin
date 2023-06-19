@@ -56,7 +56,7 @@ plug-in. The plug-in can also issue commands to control a camera. You
 will have to modify the code to insert correct camera GUIDs or other
 relevant code to select a camera. The sequence is:
 
-~~~ cs
+~~~cs
 retry:
     Thread.Sleep(5000);
     Item outputItem = Configuration.Instance.GetItem(new Guid("bf98e470-701c-44ea-b4b0-45d937833563"), Kind.Output);
@@ -77,24 +77,24 @@ retry:
 
 ## The sample demonstrates
 
--   How to get configuration items from the MIP environment
--   What properties exist for each item in the MIP environment
--   How to control cameras (preset, recording on/off) from Event Server
-    background plug-in
+- How to get configuration items from the MIP environment
+- What properties exist for each item in the MIP environment
+- How to control cameras (preset, recording on/off) from Event Server
+  background plug-in
 
 ## Using
 
--   VideoOS.Platform.Configuration
--   VideoOS.Platform.UI.ItemPickerUserControl
--   VideoOS.Platform.Messaging
--   Triggering of output and start/stop of recording
+- VideoOS.Platform.Configuration
+- VideoOS.Platform.UI.ItemPickerUserControl
+- VideoOS.Platform.Messaging
+- Triggering of output and start/stop of recording
 
 ## Environment
 
--   MIP environment for Smart Client
--   MIP environment for XProtect Management Client
--   MIP environment for the Event Server
+- MIP environment for Smart Client
+- MIP environment for XProtect Management Client
+- MIP environment for the Event Server
 
 ## Visual Studio C\# project
 
--   [ConfigDump.csproj](javascript:openLink('..\\\\PluginSamples\\\\ConfigDump\\\\ConfigDump.csproj');)
+- [ConfigDump.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

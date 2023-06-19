@@ -40,24 +40,24 @@ empty state - ready to be filled with a camera later.
 
 ## The sample demonstrates
 
--   How to create a new view layout.
--   How to insert a selected camera most effectively on an existing view
-    layout.
--   Replace a ViewItem with a new one.
--   How to identify what type of view item is currently located at a
-    given index.
+- How to create a new view layout.
+- How to insert a selected camera most effectively on an existing view
+  layout.
+- Replace a ViewItem with a new one.
+- How to identify what type of view item is currently located at a
+  given index.
 
 ## Using
 
--   VideoOS.Platform.ClientControl.Instance.GetViewGroupItems()
--   VideoOS.Platform.Client.ViewAndLayoutItem
--   VideoOS.Platform.Client.ViewAndLayoutItem.InsertBuiltinViewItem
--   VideoOS.Platform.Messaging.MessageId.SmartClient.SetCameraInViewCommand
+- VideoOS.Platform.ClientControl.Instance.GetViewGroupItems()
+- VideoOS.Platform.Client.ViewAndLayoutItem
+- VideoOS.Platform.Client.ViewAndLayoutItem.InsertBuiltinViewItem
+- VideoOS.Platform.Messaging.MessageId.SmartClient.SetCameraInViewCommand
 
 ## Environment
 
--   Relevant for the MIP Environment in the Smart Client
+- Relevant for the MIP Environment in the Smart Client
 
 ## Visual Studio C\# project
 
--   [SCInsertCamera.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCInsertCamera\\\\SCInsertCamera.csproj');)
+- [SCInsertCamera.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

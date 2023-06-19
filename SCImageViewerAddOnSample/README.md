@@ -66,4 +66,4 @@ become active.
 
 ## Visual Studio C\# project
 
-- [SCImageViewerAddOnSample.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCImageViewerAddOnSample\\\\SCImageViewerAddOnSample.csproj');)
+- [SCImageViewerAddOnSample.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

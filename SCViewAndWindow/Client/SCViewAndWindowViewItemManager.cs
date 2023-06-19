@@ -27,14 +27,14 @@ namespace SCViewAndWindow.Client
 			}
 		}
 
-		public override ViewItemUserControl GenerateViewItemUserControl()
+		public override ViewItemWpfUserControl GenerateViewItemWpfUserControl()
 		{
-			return new SCViewAndWindowViewItemUserControl(this);
+			return new SCViewAndWindowViewItemWpfUserControl(this);
 		}
 
-		public override PropertiesUserControl GeneratePropertiesUserControl()
+		public override PropertiesWpfUserControl GeneratePropertiesWpfUserControl()
 		{
-			return new SCViewAndWindowPropertiesUserControl(this);
+			return new SCViewAndWindowPropertiesWpfUserControl(this);
 		}
 
 		public List<Item> Config

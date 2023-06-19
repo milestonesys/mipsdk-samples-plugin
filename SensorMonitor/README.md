@@ -1,6 +1,6 @@
 ---
 description: The SensorMonitor sample involves configuration in the
-  XProtect Management Client, loading in the event server, and display
+  XProtect Management Client, loading in the Event Server, and display
   and navigation in the Smart Client\'s Map and Smart Map view items.
   The sample does not carry out any real communication with a device.
 keywords: Plug-in integration
@@ -11,7 +11,7 @@ title: Sensor Monitor
 # Sensor Monitor
 
 The SensorMonitor sample involves configuration in the XProtect
-Management Client, loading in the event server, and display and
+Management Client, loading in the Event Server, and display and
 navigation in the Smart Client\'s Map and Smart Map view items. The
 sample does not carry out any real communication with a device.
 
@@ -26,7 +26,7 @@ Apart from the name of the item itself, we have not added any other
 configuration.
 
 When these items have been configured, select Security \> Roles, and
-configure role settings for each relevant role. The Server Monitor items
+configure role settings for each relevant role. The Sensor Monitor items
 will be individually selectable for each role in the system. Inheritance
 is possible for quick setup.
 
@@ -38,7 +38,7 @@ puzzle icon is selected for dragging plug-in items to the map.
 ![Smart Client tool box](SCToolBox.png)
 
 In the Smart Client, when in normal mode, the plug-in items will display the current state, as
-received by the plug-in in the event Server, and context menu can be
+received by the plug-in in the Event Server, and context menu can be
 opened by a right mouse click -- as seen below.
 
 ![Access Control in Smart Client](sensormonitor_3.png)
@@ -81,29 +81,29 @@ a \"Start controller\" action that can be utilized in the rules.
 
 ## The sample demonstrates
 
--   How to create a plug-in for the event server for integration of
-    external devices such as sensors.
--   How to issue context menu commands from the map to the plug-in.
--   How to provide translations for Smart Map.
--   How to implement plug-in rule actions.
--   Authorization of plug-in defined items.
+- How to create a plug-in for the Event Server for integration of
+  external devices such as sensors.
+- How to issue context menu commands from the map to the plug-in.
+- How to provide translations for Smart Map.
+- How to implement plug-in rule actions.
+- Authorization of plug-in defined items.
 
 ## Using
 
--   VideoOS.Platform.Background.BackgroundPlugin
--   VideoOS.Platform.ItemManager
--   VideoOS.Platform.Messaging.Message
+- VideoOS.Platform.Background.BackgroundPlugin
+- VideoOS.Platform.ItemManager
+- VideoOS.Platform.Messaging.Message
 
 ## Environment
 
--   MIP environment for event server and administration
+- MIP environment for Event Server and administration
 
 ## Visual Studio C\# project
 
--   [SensorMonitor.csproj](javascript:openLink('..\\\\PluginSamples\\\\SensorMonitor\\\\SensorMonitor.csproj');)
+- [SensorMonitor.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)
 
 ## Special notes
 
--   Smart Map is only available on XProtect Expert and
+- Smart Map is only available on XProtect Expert and
 Corporate
--   Restart Event Server if controller created in Management Client is not available in setup mode of Smart Client
+- Restart Event Server if controller created in Management Client is not available in setup mode of Smart Client

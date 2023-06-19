@@ -34,18 +34,18 @@ SiteLicenseHandler.cs file.
 
 ## The sample demonstrates
 
--   Integration with MIP License system
--   Working with license trial expiry dates
--   How to check licenses from within the Smart Client
+- Integration with MIP License system
+- Working with license trial expiry dates
+- How to check licenses from within the Smart Client
 
 ## Using
 
--   VideoOS.Platform.License.LicenseManager
+- VideoOS.Platform.License.LicenseManager
 
 ## Environment
 
--   Relevant for all MIP Environments
+- Relevant for all MIP Environments
 
 ## Visual Studio C\# project
 
--   [SiteLicense.csproj](javascript:openLink('..\\\\PluginSamples\\\\SiteLicense\\\\SiteLicense.csproj');)
+- [SiteLicense.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

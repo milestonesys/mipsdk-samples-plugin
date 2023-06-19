@@ -56,7 +56,7 @@ To display the Search workspace, you need to add a registry key
 `HKEY_CURRENT_USER\Software\Milestone\Surveillance\SmartClient`. You can
 use this registry script:
 
-~~~ default
+~~~default
 Windows Registry Editor Version 5.00
 
 [HKEY_CURRENT_USER\Software\Milestone\Surveillance\SmartClient]
@@ -65,14 +65,14 @@ Windows Registry Editor Version 5.00
 
 ## Visual Studio C\# project
 
--   [SCSearchAgent.csproj](javascript:openLink('..\\\\PluginSamples\\\\SCSearchAgent\\\\SCSearchAgent.csproj');)
+- [SCSearchAgent.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)
 
 ## Deploying
 
 To deploy the sample Search agent:
 
-1.  Copy these files from project build output `plugin.def` and
-    `SCSearchAgent.dll` (and `SCSearchAgent.pdb` if
-    debugging) to
-    `%ProgramFiles%\Milestone\MIPPlugins\SCSearchAgent\`
-2.  Restart the Smart Client
+1. Copy these files from project build output `plugin.def` and
+   `SCSearchAgent.dll` (and `SCSearchAgent.pdb` if
+   debugging) to
+   `%ProgramFiles%\Milestone\MIPPlugins\SCSearchAgent\`
+2. Restart the Smart Client

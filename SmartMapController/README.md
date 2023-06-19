@@ -30,19 +30,19 @@ window\" when user panning or zooming the map.
 
 ## The sample demonstrates
 
--   Control Smart Map via messages
--   Get Location item from Item Picker Form
+- Control Smart Map via messages
+- Get Location item from Item Picker Form
 
 ## Using
 
--   VideoOS.Platform.Messaging.MessageId.SmartClient
--   VideoOS.Platform.UI.ItemPickerForm
--   VideoOS.Platform.Client.ViewItemPlugin
+- VideoOS.Platform.Messaging.MessageId.SmartClient
+- VideoOS.Platform.UI.ItemPickerForm
+- VideoOS.Platform.Client.ViewItemPlugin
 
 ## Environment
 
--   Smart Client MIP Environment
+- Smart Client MIP Environment
 
 ## Visual Studio C\# project
 
--   [SmartMapController.csproj](javascript:openLink('..\\\\PluginSamples\\\\SmartMapController\\\\SmartMapController.csproj');)
+- [SmartMapController.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-plugin','src/PluginSamples.sln');)

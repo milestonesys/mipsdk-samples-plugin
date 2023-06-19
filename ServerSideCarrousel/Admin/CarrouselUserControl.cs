@@ -60,11 +60,7 @@ namespace ServerSideCarrousel.Admin
         {
             treeViewAvailable.Nodes.Clear();
 
-            //Call will communicate with service, this should be called on another thread than the UI thread
-            List<Item> items = await Task<List<Item>>.Run(() =>
-            {
-                return Configuration.Instance.GetItemsByKind(Kind.Camera);
-            });
+            List<Item> items = Configuration.Instance.GetItemsByKind(Kind.Camera);
             foreach (Item item in items)
             {
                 if (item.FQID.Kind == Kind.Camera ||
