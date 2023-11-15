@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
@@ -55,13 +57,16 @@ namespace RGBVideoEnhancement.Client
 
         private void OnSourceSelected(object sender, EventArgs e)
         {
-            ItemPickerForm form = new ItemPickerForm();
-            form.KindFilter = Kind.Camera;
-            form.AutoAccept = true;
-            form.Init(Configuration.Instance.GetItems());
-            if (form.ShowDialog() == DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                _viewItemManager.SelectedCamera = form.SelectedItem;
+                KindsFilter = new List<Guid>() { Kind.Camera },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                Items = Configuration.Instance.GetItems()
+            };
+            form.ShowDialog();
+            if(form.SelectedItems != null && form.SelectedItems.Any())
+            {
+                _viewItemManager.SelectedCamera = form.SelectedItems.First();
                 buttonSelect.Content = _viewItemManager.SelectedCamera.Name;
             }
         }

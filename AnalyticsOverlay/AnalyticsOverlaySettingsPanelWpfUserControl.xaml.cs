@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using VideoOS.Platform;
 using VideoOS.Platform.UI;
 
@@ -28,18 +30,26 @@ namespace AnalyticsOverlay
 
         private void OnSelectCamera(object sender, System.Windows.RoutedEventArgs e)
         {
-            ItemPickerForm form = new ItemPickerForm();
-            form.KindFilter = Kind.Camera;
-            form.SelectedItem = _selectedCameraItem;
-            form.AutoAccept = true;
-            form.Init();
-            if (form.ShowDialog() == DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
+            {  
+                KindsFilter = new List<Guid>() { Kind.Camera },
+                SelectionMode = SelectionModeOptions.SingleSelect,
+                SelectedItems = new List<Item>() { _selectedCameraItem },
+                Items = Configuration.Instance.GetItemsByKind(Kind.Camera),
+            };
+            form.ShowDialog();
+            var val = form.SelectedItems;
+            if(val != null)
             {
-                _selectedCameraItem = form.SelectedItem;
-                buttonCameraSelect.Content = "";
-                if (_selectedCameraItem != null)
+                if (val.Any())
                 {
-                    buttonCameraSelect.Content = _selectedCameraItem.Name;
+                    _selectedCameraItem = val.First();
+                    buttonCameraSelect.Content = _selectedCameraItem?.Name;
+                }
+                else
+                {
+                    _selectedCameraItem = null;
+                    buttonCameraSelect.Content = "";
                 }
             }
         }

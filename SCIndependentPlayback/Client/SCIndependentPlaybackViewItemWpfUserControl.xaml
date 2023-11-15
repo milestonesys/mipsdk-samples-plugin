@@ -7,10 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="312" d:DesignWidth="477">
     <Grid>
-    <DockPanel>
+        <DockPanel>
             <Grid x:Name="canvasPlaybackControl" DockPanel.Dock="Bottom"/>
             <Grid x:Name="canvasVideo"/>
-    </DockPanel>
-        <WindowsFormsHost x:Name="_audioPlayerControlHost" Height="1" Width="1"/>
+        </DockPanel>
     </Grid>
 </external:ViewItemWpfUserControl>

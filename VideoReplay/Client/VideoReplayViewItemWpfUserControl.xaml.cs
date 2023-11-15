@@ -48,11 +48,11 @@ namespace VideoReplay.Client
             //set up ApplicationController events
             _selectedCameraChangedReceiver = EnvironmentManager.Instance.RegisterReceiver(new MessageReceiver(SelectedCameraChangedHandler),
                                                          new MessageIdFilter(MessageId.SmartClient.SelectedCameraChangedIndication));
-            Image imageClear = new Bitmap(320, 240);
+            var imageClear = new Bitmap(320, 240);
             Graphics g = Graphics.FromImage(imageClear);
             g.FillRectangle(System.Drawing.Brushes.Black, 0, 0, 320, 240);
             g.Dispose();
-            Dispatcher.BeginInvoke(new SetImageDelegate(SetImage), new[] { imageClear });
+            Dispatcher.BeginInvoke(new SetImageDelegate(SetImage), new[] { ToWpfBitmap(imageClear) });
         }
 
         private void RemoveApplicationEventListeners()
@@ -247,44 +247,36 @@ namespace VideoReplay.Client
         /// </summary>
         private void ShowReplay()
         {
-            Image imageClear = new Bitmap(320, 240);
+            var imageClear = new Bitmap(320, 240);
             Graphics g = Graphics.FromImage(imageClear);
             g.FillRectangle(System.Drawing.Brushes.Black, 0, 0, 320, 240);
             g.Dispose();
-            Dispatcher.BeginInvoke(new SetImageDelegate(SetImage), new[] { imageClear });
+            Dispatcher.BeginInvoke(new SetImageDelegate(SetImage), new[] { ToWpfBitmap(imageClear) });
             BitmapVideoSource source = new BitmapVideoSource(_selectedItem);
             source.SetKeepAspectRatio(true, true);
             source.Init();
             var interval = TimeSpan.FromSeconds(VideoIntervalSeconds);
             List<object> resultList = source.Get(DateTime.Now - interval, interval, 150);
 
-
-            if (resultList.Count == 0)
+            if (!resultList.Any())
             {
-                Dispatcher.BeginInvoke(new Action(delegate () { label2.Content = "Number of frames: " + resultList.Count; }));
+                Dispatcher.BeginInvoke(new Action(delegate () { label2.Content = "Number of frames: 0"; }));
             }
-            else if (resultList.Any())
+            else
             {
                 var first = resultList.First() as BitmapData;
                 var last = resultList.Last() as BitmapData;
                 var resultInterval = last.DateTime - first.DateTime;
-
-                _stop = true;
-                if (resultList != null)
-                {
-                    Dispatcher.BeginInvoke(new Action(delegate () { label2.Content = "Number of frames: " + resultList.Count; }));
-                    if (resultList.Count > 0)
-                    {
-                        _stop = false;
-                    }
-                }
-
+                List<System.Windows.Media.Imaging.BitmapSource> wpfResultList = resultList.Cast<BitmapData>().Select(bmp => ToWpfBitmap(bmp.GetBitmap())).ToList();
+                resultList.Clear();
+                Dispatcher.BeginInvoke(new Action(delegate () { label2.Content = "Number of frames: " + wpfResultList.Count; }));
+                _stop = false;
                 while (!_stop)
                 {
-                    int avgInterval = 1000 * (int)resultInterval.TotalSeconds / (resultList.Count * ReplaySpeedFactor);
-                    foreach (BitmapData bitmap in resultList)
+                    int avgInterval = 1000 * (int)resultInterval.TotalSeconds / (wpfResultList.Count * ReplaySpeedFactor);
+                    foreach (System.Windows.Media.Imaging.BitmapSource bitmap in wpfResultList)
                     {
-                        Dispatcher.BeginInvoke(new SetImageDelegate(SetImage), new[] { bitmap.GetBitmap() });
+                        Dispatcher.BeginInvoke(new SetImageDelegate(SetImage), new[] { bitmap });
                         Thread.Sleep(avgInterval);
                         if (_stop)
                             break;
@@ -310,17 +302,18 @@ namespace VideoReplay.Client
                 result.StreamSource = stream;
                 result.EndInit();
                 result.Freeze();
+                bitmap.Dispose();
                 return result;
             }
         }
 
-        private delegate void SetImageDelegate(Bitmap bitmap);
+        private delegate void SetImageDelegate(System.Windows.Media.Imaging.BitmapSource bitmap);
 
         /// <summary>
         /// Sets imageWindow size according to the size of the source.
         /// </summary>
         /// <param name="bitmap"></param>
-        private void SetImage(Bitmap bitmap)
+        private void SetImage(System.Windows.Media.Imaging.BitmapSource bitmap)
         {
             if (imageWindowContainer.IsVisible && imageWindowContainer.ActualHeight > 0)
             {
@@ -337,11 +330,9 @@ namespace VideoReplay.Client
                 {
                     h = w / ratioNew;
                 }
-                var imgSource = ToWpfBitmap(bitmap);
                 imageWindow.Width = w;
                 imageWindow.Height = h;
-                imageWindow.Source = imgSource;
-                bitmap.Dispose();
+                imageWindow.Source = bitmap;
             }
         }
 

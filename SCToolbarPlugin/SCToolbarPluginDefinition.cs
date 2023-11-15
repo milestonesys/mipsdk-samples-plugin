@@ -47,6 +47,14 @@ namespace SCToolbarPlugin
             {
                 _viewItemToolbarPlugins.Add(new ShowCameraNameActionViewItemToolbarPlugin());
                 _viewItemToolbarPlugins.Add(new ShowCameraNameUserControlViewItemToolbarPlugin());
+                _viewItemToolbarPlugins.Add(new ShowCameraNameToggleViewItemToolbarPlugin());
+                _viewItemToolbarPlugins.Add(new ShowCameraNameHoldViewItemToolbarPlugin());
+
+                _workSpaceToolbarPlugins.Add(new ShowCameraNamesActionWorkSpaceToolbarPlugin());
+                _workSpaceToolbarPlugins.Add(new ShowCameraNamesUserControlWorkSpaceToolbarPlugin());
+                _workSpaceToolbarPlugins.Add(new ShowCameraNamesToggleWorkSpaceToolbarPlugin());
+                _workSpaceToolbarPlugins.Add(new ShowCameraNamesHoldWorkSpaceToolbarPlugin());
+
                 _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorActionViewItemToolbarPlugin(new SolidColorBrush(Colors.Red)));
                 _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorActionViewItemToolbarPlugin(new SolidColorBrush(Colors.Green)));
                 _viewItemToolbarPlugins.Add(new SetViewItemBackgroundColorActionViewItemToolbarPlugin(new SolidColorBrush(Colors.Blue)));
@@ -58,6 +66,7 @@ namespace SCToolbarPlugin
                 _workSpaceToolbarPlugins.Add(new SetViewItemBackgroundColorUserControlWorkSpaceToolbarPlugin());
 
                 _workSpaceToolbarPluginGroups.Add(new SetViewItemBackgroundColorWorkspaceToolbarPluginGroup());
+                _workSpaceToolbarPluginGroups.Add(new ShowCameraNamesWorkspaceToolbarPluginGroup());
 
                 _viewItemPlugins.Add(new BackgroundColorViewItemPlugin());
             }

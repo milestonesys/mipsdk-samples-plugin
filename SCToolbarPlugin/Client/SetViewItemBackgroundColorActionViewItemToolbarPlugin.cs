@@ -76,16 +76,16 @@ namespace SCToolbarPlugin.Client
     class SetViewItemBackgroundColorActionViewItemToolbarPlugin : ViewItemToolbarPlugin
     {
         private static readonly Guid PluginId = new Guid("8A4E43A9-B181-4689-8B4F-BCE331173FE7");
-        private SolidColorBrush _solidColorBrush;
+        private SolidColorBrush _color;
         private Image _icon;
 
-        public SetViewItemBackgroundColorActionViewItemToolbarPlugin(SolidColorBrush solidColorBrush)
+        public SetViewItemBackgroundColorActionViewItemToolbarPlugin(SolidColorBrush color)
         {
-            _solidColorBrush = solidColorBrush;
+            _color = color;
             _icon = new Bitmap(16, 16, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             using (Graphics g = Graphics.FromImage(_icon))
             {
-                g.FillRectangle(new SolidBrush(ColorConverter.ConvertMediaColorToDrawingColor(solidColorBrush.Color)), 0, 0, _icon.Width, _icon.Height);
+                g.FillRectangle(new SolidBrush(ColorConverter.ConvertMediaColorToDrawingColor(color.Color)), 0, 0, _icon.Width, _icon.Height);
             }
         }
 
@@ -122,7 +122,7 @@ namespace SCToolbarPlugin.Client
 
         public override ViewItemToolbarPluginInstance GenerateViewItemToolbarPluginInstance()
         {
-            return new SetViewItemBackgroundColorActionViewItemToolbarPluginInstance(_solidColorBrush, _icon);
+            return new SetViewItemBackgroundColorActionViewItemToolbarPluginInstance(_color, _icon);
         }
     }
 }

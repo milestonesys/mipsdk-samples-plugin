@@ -41,13 +41,13 @@ The demo access control plug-in contains a suggested way of handling:
 - Command processing
 - State handling
 
-The follow screens become available in the Management Client:
+The following screens become available in the Management Client:
 
-When adding a new Access Control system:
+- When adding a new Access Control system:
 
 ![Demo App](ac_demonew.png)
 
-After plug-in has received a new configuration from the Demo
+- After plug-in has received a new configuration from the Demo
 Application:
 
 ![Demo App](ac_demoadded.png)

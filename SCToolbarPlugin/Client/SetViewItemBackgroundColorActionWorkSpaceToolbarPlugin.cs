@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace SCToolbarPlugin.Client
 {
     class SetViewItemBackgroundColorActionWorkSpaceToolbarPluginInstance : WorkSpaceToolbarPluginInstance
     {
         private SolidColorBrush _color;
+        private VideoOSIconSourceBase _icon;
         private Item _window;
 
-        public SetViewItemBackgroundColorActionWorkSpaceToolbarPluginInstance(SolidColorBrush color)
+        public SetViewItemBackgroundColorActionWorkSpaceToolbarPluginInstance(SolidColorBrush color, VideoOSIconSourceBase icon)
         {
             _color = color;
+            _icon = icon;
         }
 
         public override void Init(Item window)
@@ -24,6 +28,7 @@ namespace SCToolbarPlugin.Client
             // should be provided here.
             Title = ColorConverter.ConvertColorToCommonName(_color.Color);
             Tooltip = string.Format($"Change background color of view items to {Title}.");
+            IconSource = _icon;
         }
 
         public override void Activate()
@@ -43,10 +48,13 @@ namespace SCToolbarPlugin.Client
         private static readonly Guid PluginId = new Guid("EC586601-240C-4433-9F75-65A993113A06");
 
         private SolidColorBrush _color;
+        private VideoOSIconSourceBase _icon;
 
         public SetViewItemBackgroundColorActionWorkSpaceToolbarPlugin(SolidColorBrush color)
         {
             _color = color;
+            System.Windows.Media.Imaging.BitmapSource bitmapSource = System.Windows.Media.Imaging.BitmapSource.Create(16, 16, 96, 96, PixelFormats.Indexed1, new BitmapPalette(new List<Color>() { color.Color }), new byte[16 * 16], 16 / 8);
+            _icon = new VideoOSIconBitmapSource() { BitmapSource = bitmapSource };
         }
 
         public override Guid Id
@@ -81,7 +89,7 @@ namespace SCToolbarPlugin.Client
 
         public override WorkSpaceToolbarPluginInstance GenerateWorkSpaceToolbarPluginInstance()
         {
-            return new SetViewItemBackgroundColorActionWorkSpaceToolbarPluginInstance(_color);
+            return new SetViewItemBackgroundColorActionWorkSpaceToolbarPluginInstance(_color, _icon);
         }
     }
 }

@@ -51,7 +51,8 @@ namespace DemoDriver
         {
             return new Dictionary<string, string>()
             {
-                { Constants.BandwidthLimit, "5000" }
+                { Constants.BandwidthLimit, "5000" },
+                { Setting.FirmwareUpgradeSupported, Setting.SettingValueYes } // will tell the VMS that firmware upgrade is supported. If set, then ConnectionManager.StartFirmwareUpgrade and ConnnectionManager.GetFirmwareUpgradeStatus must be implemented as well
             };
         }
 
@@ -199,7 +200,7 @@ namespace DemoDriver
             {
                 DisplayName = "First camera",
                 DeviceId = Constants.Camera1.ToString(),
-                DeviceEvents = BuildDeviceEvents(),
+                DeviceEvents = BuildCameraEvents(),
                 Settings = new Dictionary<string, string>()
                 {
                     { Constants.SomeField, "has value 25" },
@@ -214,7 +215,7 @@ namespace DemoDriver
             {
                 DisplayName = "Second camera",
                 DeviceId = Constants.Camera2.ToString(),
-                DeviceEvents = BuildDeviceEvents(),
+                DeviceEvents = BuildCameraEvents(),
                 Settings = new Dictionary<string, string>()
                 {
                     { Constants.SomeField, "has value 20" },
@@ -231,12 +232,14 @@ namespace DemoDriver
                 DisplayName = "Bounding box & GPS",
                 DeviceId = Constants.Metadata1.ToString(),
                 Streams = BuildMetadataStreams(),
+                DeviceEvents = BuildMetadataEvents(),
             });
             devices.Add(new MetadataDeviceDefinition()
             {
                 DisplayName = "Bounding box & GPS (2)",
                 DeviceId = Constants.Metadata2.ToString(),
                 Streams = BuildMetadataStreams(),
+                DeviceEvents = BuildMetadataEvents()
             });
 
             devices.Add(new MicrophoneDeviceDefinition()
@@ -244,6 +247,7 @@ namespace DemoDriver
                 DisplayName = "Built-in microphone",
                 DeviceId = Constants.Audio1.ToString(),
                 Streams = BuildAudioStream(),
+                DeviceEvents = BuildMicrophoneEvents()
             });
 
             devices.Add(new OutputDeviceDefinition()
@@ -369,7 +373,53 @@ namespace DemoDriver
         }
 
 
-        private static ICollection<EventDefinition> BuildDeviceEvents()
+        private static ICollection<EventDefinition> BuildMicrophoneEvents()
+        {
+            //Note - microphone events are not triggered in this sample. They are just a demonstration
+            var metaDataEvents = new List<EventDefinition>();
+
+            metaDataEvents.Add(new EventDefinition()
+            {
+                ReferenceId = Constants.SoundActivatedEventReferenceId,
+                DisplayName = "Sound activated (Demo)",
+                NameReferenceId = Constants.ResourceSoundActivatedEventNameReferenceId,
+                CounterReferenceId = Constants.SoundDeactivatedEventReferenceId,
+            });
+            metaDataEvents.Add(new EventDefinition()
+            {
+                ReferenceId = Constants.SoundDeactivatedEventReferenceId,
+                DisplayName = "Sound deactivated (Demo)",
+                NameReferenceId = Constants.ResourceSoundDeactivatedEventNameReferenceId,
+                CounterReferenceId = Constants.SoundActivatedEventReferenceId,
+            });
+            return metaDataEvents;
+
+        }
+
+        private static ICollection<EventDefinition> BuildMetadataEvents()
+        {
+            //Note - metadata events are not triggered in this sample. They are just a demonstration
+            var metaDataEvents = new List<EventDefinition>();
+
+            metaDataEvents.Add(new EventDefinition()
+            {
+                ReferenceId = Constants.MetadataInputActivated,
+                DisplayName = "Metadata input activated (Demo)",
+                NameReferenceId = Constants.ResourceInputActivatedEventNameReferenceId,
+                CounterReferenceId = Constants.MetadataInputDeactivated,
+               
+            });
+            metaDataEvents.Add(new EventDefinition()
+            {
+                ReferenceId = Constants.MetadataInputDeactivated,
+                DisplayName = "Metadata input deactivated (Demo)",
+                NameReferenceId = Constants.ResourceInputDeactivatedEventNameReferenceId,
+                CounterReferenceId = Constants.MetadataInputActivated,
+            });
+            return metaDataEvents;
+        }
+
+        private static ICollection<EventDefinition> BuildCameraEvents()
         {
             var deviceEvents = new List<EventDefinition>();
 

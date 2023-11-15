@@ -193,38 +193,42 @@ namespace SmartMapController.Client
         }
         private void GoToLocationClick(object sender, RoutedEventArgs e)
         {
-            ItemPickerForm form = new ItemPickerForm();
-            form.AutoAccept = true;
-            form.Init(Configuration.Instance.GetItemsByKind(Kind.GisMapLocation));
-            if (form.ShowDialog() == DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                Item locationItem = form.SelectedItem;
-                EnvironmentManager.Instance.PostMessage(new VideoOS.Platform.Messaging.Message(MessageId.SmartClient.SmartMapGoToLocationCommand,
-                    new SmartMapGoToLocationCommandData
-                    {
-                        Location = locationItem.FQID,
-                        Window = _windowComboBox.SelectedItem != null ? ((Item)_windowComboBox.SelectedItem).FQID : null,
-                        Index = int.Parse(_indexBox.Text, CultureInfo.InvariantCulture)
-                    }));
+                Items = Configuration.Instance.GetItemsByKind(Kind.GisMapLocation),
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect
+            };
+            form.ShowDialog();
+            if(form.SelectedItems != null && form.SelectedItems.Any())
+            {
+                var item = form.SelectedItems.First();
+                EnvironmentManager.Instance.PostMessage(new VideoOS.Platform.Messaging.Message(MessageId.SmartClient.SmartMapGoToLocationCommand, new SmartMapGoToLocationCommandData
+                {
+                    Location = item.FQID,
+                    Window = ((Item)_windowComboBox.SelectedItem)?.FQID ?? null,
+                    Index = int.Parse(_indexBox.Text, CultureInfo.InvariantCulture)
+                }));
             }
         }
 
         private void GoToItemClick(object sender, RoutedEventArgs e)
         {
-            ItemPickerForm form = new ItemPickerForm();
-            form.AutoAccept = false;
-            form.Init();
-            if (form.ShowDialog() == DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                Item item = form.SelectedItem;
-                EnvironmentManager.Instance.PostMessage(new VideoOS.Platform.Messaging.Message(MessageId.SmartClient.SmartMapSelectItemCommand,
-                    new SmartMapSelectItemCommandData
-                    {
-                        Item = item.FQID,
-                        Window = _windowComboBox.SelectedItem != null ? ((Item)_windowComboBox.SelectedItem).FQID : null,
-                        Index = int.Parse(_indexBox.Text, CultureInfo.InvariantCulture)
-                    }));
-            }
+                Items = Configuration.Instance.GetItems(),
+                SelectionMode = SelectionModeOptions.SingleSelect
+            };
+            form.ShowDialog();
+            if(form.SelectedItems == null || form.SelectedItems.Any())
+            {
+                var item = form.SelectedItems.First();
+                EnvironmentManager.Instance.PostMessage(new VideoOS.Platform.Messaging.Message(MessageId.SmartClient.SmartMapSelectItemCommand, new SmartMapSelectItemCommandData
+                {
+                    Item = item.FQID,
+                    Window = ((Item)_windowComboBox.SelectedItem)?.FQID ?? null,
+                    Index = int.Parse(_indexBox.Text, CultureInfo.InvariantCulture)
+                }));
+            };
         }
 
         private object MapPositionChangedEventHandler(VideoOS.Platform.Messaging.Message message, FQID destination, FQID sender)

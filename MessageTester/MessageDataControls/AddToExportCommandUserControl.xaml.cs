@@ -48,19 +48,17 @@ namespace MessageTester.MessageDataControls
 
         private static Item ShowItemPickerForm()
         {
-            var form = new ItemPickerForm
+            var form = new ItemPickerWpfWindow
             {
-                KindFilter = Kind.Camera,
-                AutoAccept = true
+                Items = Configuration.Instance.GetItemsByKind(Kind.Camera),
+                KindsFilter = new List<Guid> { Kind.Camera },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect
             };
-
-            form.Init();
-
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            form.ShowDialog();
+            if(form.SelectedItems != null && form.SelectedItems.Any())
             {
-                return form.SelectedItem;
+                return form.SelectedItems.First();
             }
-
             return null;
         }
 

@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Forms;
 using VideoOS.Platform;
 using VideoOS.Platform.Messaging;
@@ -18,13 +21,17 @@ namespace SCViewAndWindow.Client
 
         private void OnSelectCamera(object sender, RoutedEventArgs e)
         {
-            ItemPickerForm form = new ItemPickerForm();
-            form.AutoAccept = true;
-            form.KindFilter = Kind.Camera;
-            form.Init();
-            if (form.ShowDialog() == DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                _selectedCamera = form.SelectedItem;
+                KindsFilter = new List<Guid>() { Kind.Camera },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                Items = Configuration.Instance.GetItemsByKind(Kind.Camera),
+            };
+            form.ShowDialog();
+
+            if(form.SelectedItems != null && form.SelectedItems.Any())
+            {
+                _selectedCamera = form.SelectedItems.First();
                 buttonCamera.Content = _selectedCamera.Name;
             }
             else

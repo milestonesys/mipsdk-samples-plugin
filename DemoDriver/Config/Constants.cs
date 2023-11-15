@@ -31,6 +31,14 @@ namespace DemoDriver
         public static readonly Guid ResourceAnalyticsEventNameReferenceId = new Guid("0B5075FD-98A0-4D7B-9CFB-7B1CD5AC19DC");
         public static readonly Guid MotionStartedEventNameReferenceId = new Guid("3E70039B-6998-49FC-A145-F37425251D0E");
         public static readonly Guid MotionStoppedEventNameReferenceId = new Guid("0BF2ADF1-A432-47D7-A4C1-36A4B5295A6A");
+        public static readonly Guid SoundActivatedEventReferenceId = new Guid("BF848E2D-44BA-4242-94CF-51C379B1F761");
+        public static readonly Guid SoundDeactivatedEventReferenceId = new Guid("B5F00CCB-142F-44CC-AAFB-1D996797355B");
+        public static readonly Guid MetadataInputActivated = new Guid("28B62600-BC3C-46FC-8E65-DA1F48DA4998");
+        public static readonly Guid MetadataInputDeactivated = new Guid("C480E40D-AB06-4520-94E1-AA76AFFEB120");
+        public static readonly Guid ResourceSoundActivatedEventNameReferenceId = new Guid("275420C3-6093-446C-BEA2-2E8CA7EA1170");
+        public static readonly Guid ResourceSoundDeactivatedEventNameReferenceId = new Guid("AFDEAA2B-3EA0-4288-A886-7E2B6EC81917");
+        public static readonly Guid ResourceInputActivatedEventNameReferenceId = new Guid("53CEC1C4-E06A-468F-8C8E-F0E3F7010AC9");
+        public static readonly Guid ResourceInputDeactivatedEventNameReferenceId = new Guid("7BB60311-6772-4D59-A519-BB78620AE42A");
 
         public static readonly Guid CodecRefId = new Guid("1D7711B4-B278-487B-A0D1-5C9621D3885B");
         public static readonly Guid FPSRefId = new Guid("6527C12A-06F1-4F58-A2FE-6640C61707E0");

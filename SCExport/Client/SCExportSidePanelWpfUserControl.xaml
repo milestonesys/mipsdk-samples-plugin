@@ -1,0 +1,103 @@
+﻿<platformClient:SidePanelWpfUserControl x:Class="SCExport.Client.SCExportSidePanelWpfUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SCExport.Client"
+             xmlns:platformUiControls="clr-namespace:VideoOS.Platform.UI.Controls;assembly=VideoOS.Platform"
+             xmlns:platformClient="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+             mc:Ignorable="d" Height="Auto">
+    <StackPanel Margin="5" Orientation="Vertical">
+        <platformUiControls:VideoOSTextBoxMedium
+            Text="{Binding CurrentItemName}"
+            Margin="2"
+            Grid.Row="0"
+            IsReadOnly="True" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <platformUiControls:VideoOSButtonPrimaryMedium 
+                IsEnabled="{Binding ButtonsEnabled}"
+                Click="OnMKVExport_Click"
+                Margin="3" 
+                Content="Export MKV" 
+                Grid.Row="0" 
+                Grid.Column="0" />
+            <platformUiControls:VideoOSButtonPrimaryMedium 
+                IsEnabled="{Binding ButtonsEnabled}"
+                Click="OnDBExport_Click"
+                Margin="3" 
+                Content="Export DB" 
+                Grid.Row="0" 
+                Grid.Column="1" />
+            <platformUiControls:VideoOSButtonPrimaryMedium 
+                IsEnabled="{Binding ButtonsEnabled}"
+                Click="OnAVIExport_Click"
+                Margin="3" 
+                Content="Export AVI" 
+                Grid.Row="1" 
+                Grid.Column="0" />
+        </Grid>
+        <Grid Margin="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <platformUiControls:VideoOSCheckBoxMedium 
+                x:Name="PreventReExport" 
+                Grid.Column="0" 
+                Grid.Row="0" 
+                Margin="0, 3" />
+            <platformUiControls:VideoOSTextBlockLabel
+                Grid.Column="1" 
+                Grid.Row="0" 
+                Margin="5, 3, 0, 3" 
+                Text="Prevent re-export (DB only)" 
+                HorizontalAlignment="Stretch" />
+            <platformUiControls:VideoOSCheckBoxMedium 
+                x:Name="SignExport" 
+                Grid.Column="0" 
+                Grid.Row="1" 
+                Margin="0, 3" />
+            <platformUiControls:VideoOSTextBlockLabel 
+                Grid.Column="1" 
+                Grid.Row="1" 
+                Margin="5, 3, 0, 3" 
+                Text="Sign export (DB only)" 
+                HorizontalAlignment="Stretch" />
+            <platformUiControls:VideoOSCheckBoxMedium 
+                x:Name="IncludeOverlayImage" 
+                Grid.Column="0" 
+                Grid.Row="2" 
+                Margin="0, 3" />
+            <platformUiControls:VideoOSTextBlockLabel 
+                Grid.Column="1" 
+                Grid.Row="2" 
+                Margin="5, 3, 0, 3" 
+                Text="Include overlay image (AVI only)" 
+                HorizontalAlignment="Stretch" />
+        </Grid>
+        <platformUiControls:VideoOSButtonPrimaryMedium 
+            x:Name="OverlayImage" 
+            Margin="15, 10" 
+            Content="Select" 
+            Click="OverlayImage_Click"
+            HorizontalAlignment="Stretch" />
+        <platformUiControls:VideoOSProgressBar Value="{Binding ProgressBar}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" />
+        <platformUiControls:VideoOSTextBoxMedium
+            Text="{Binding ProgressBarText}"
+            Margin="2"
+            IsReadOnly="True" />
+    </StackPanel>
+    </platformClient:SidePanelWpfUserControl>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Windows.Forms;
@@ -182,14 +183,16 @@ namespace SequenceViewer.Client
 
         private void OnSelectCamera(object sender, EventArgs e)
         {
-
-            ItemPickerForm form = new ItemPickerForm();
-            form.KindFilter = Kind.Camera;
-            form.AutoAccept = true;
-            form.Init(Configuration.Instance.GetItems());
-            if (form.ShowDialog() == DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                _item = form.SelectedItem;
+                KindsFilter = new List<Guid>() { Kind.Camera },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                Items = Configuration.Instance.GetItems()
+            };
+            form.ShowDialog();
+            if(form.SelectedItems != null && form.SelectedItems.Any())
+            {
+                _item = form.SelectedItems.First();
                 buttonSelectCamera.Content = _item.Name;
                 buttonShowSeqAsync.IsEnabled = true;
                 buttonShowSeq.IsEnabled = true;
@@ -252,7 +255,7 @@ namespace SequenceViewer.Client
 
         private void AsyncSeqHandler(object result, object asyncState)
         {
-            new MethodInvoker(() =>
+            Dispatcher.Invoke(() =>
             {
                 ListBox.Items.Clear();
                 if (result != null && result is SequenceData[])
@@ -263,9 +266,8 @@ namespace SequenceViewer.Client
                                             sd.EventHeader.Timestamp.ToLocalTime().ToShortTimeString());
                     }
                 }
-            }).Invoke();
+            });
         }
-
 
         private void OnGetSeqType(object sender, EventArgs e)
         {

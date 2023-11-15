@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Forms;
 using VideoOS.Platform;
 using VideoOS.Platform.Messaging;
 using VideoOS.Platform.UI;
@@ -56,13 +56,16 @@ namespace SCViewAndWindow.Client
 
         private void OnSelectView(object sender, RoutedEventArgs e)
         {
-            ItemPickerForm form = new ItemPickerForm();
-            form.AutoAccept = false;
-            form.KindFilter = Kind.View;
-            form.Init(ClientControl.Instance.GetViewGroupItems());
-            if (form.ShowDialog() == DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                _selectedView = form.SelectedItem;
+                KindsFilter = new List<Guid>() { Kind.View },
+                SelectionMode = SelectionModeOptions.SingleSelect,
+                Items = ClientControl.Instance.GetViewGroupItems()
+            };
+            form.ShowDialog();
+            if(form.SelectedItems != null && form.SelectedItems.Any())
+            {
+                _selectedView = form.SelectedItems.First();
                 buttonSelect.Content = _selectedView.Name;
             }
         }

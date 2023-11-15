@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Media;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace SCToolbarPlugin.Client
 {
@@ -22,6 +22,7 @@ namespace SCToolbarPlugin.Client
             // should be provided here.
             Title = "Select color";
             Tooltip = "Select a color for changing background color of the view items to.";
+            IconSource = new VideoOSIconBuiltInSource() {Icon = VideoOSIconBuiltInSource.Icons.Selection_Hand};
         }
 
         public override ToolbarPluginWpfUserControl GenerateWpfUserControl()

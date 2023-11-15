@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
@@ -31,13 +32,16 @@ namespace SCAviSequenceExport.Client
 
         private void selectCameraButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            ItemPickerForm form = new ItemPickerForm();
-            form.KindFilter = Kind.Camera;
-            form.AutoAccept = true;
-            form.Init(Configuration.Instance.GetItems(ItemHierarchy.SystemDefined));
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                _selectedCamera = form.SelectedItem;
+                KindsFilter = new List<Guid>() { Kind.Camera },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                Items = Configuration.Instance.GetItems(ItemHierarchy.SystemDefined)
+            };
+            form.ShowDialog();
+            if(form.SelectedItems != null && form.SelectedItems.Any())
+            {
+                _selectedCamera = form.SelectedItems.First();
                 selectCameraButton.Content = _selectedCamera.Name;
                 EnableAddButton();
             }

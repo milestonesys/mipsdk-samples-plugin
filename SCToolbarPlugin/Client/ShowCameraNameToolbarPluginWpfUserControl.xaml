@@ -4,6 +4,6 @@
                                     xmlns:client="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
                                     xmlns:controls="clr-namespace:VideoOS.Platform.UI.Controls;assembly=VideoOS.Platform">
     <Grid>
-        <controls:VideoOSTextBlockBody1 x:Name="_textBlock" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" TextWrapping="Wrap"/>
+        <controls:VideoOSTextBlockBodyMedium x:Name="_textBlock" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10" TextWrapping="Wrap"/>
     </Grid>
 </client:ToolbarPluginWpfUserControl>

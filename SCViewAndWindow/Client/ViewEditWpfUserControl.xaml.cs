@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -8,6 +9,8 @@ using VideoOS.Platform;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.Messaging;
 using VideoOS.Platform.UI;
+
+using VideoOS.Platform.UI.ItemPicker.Utilities;
 
 namespace SCViewAndWindow.Client
 {
@@ -96,34 +99,29 @@ namespace SCViewAndWindow.Client
         {
             try
             {
-                ItemPickerForm form = new ItemPickerForm();
-                form.Init(ClientControl.Instance.GetViewGroupItems());
-                form.AutoAccept = false;
-                form.ValidateSelectionEvent += new ItemPickerForm.ValidateSelectionHandler(ValidateSelectionHandler);
-
-                if (form.ShowDialog() == DialogResult.OK)
+                var form = new ItemPickerWpfWindow()
                 {
-                    _groupItem = (ConfigItem)form.SelectedItem;
+                    Items = ClientControl.Instance.GetViewGroupItems(),
+                    SelectionMode = SelectionModeOptions.SingleSelect
+                };
+                form.ShowDialog();
+                if(form.SelectedItems != null && form.SelectedItems.Any())
+                {
+                    _groupItem = (ConfigItem)form.SelectedItems.First();
                     buttonSelectGroup.Content = _groupItem.Name;
                 }
                 else
                 {
                     buttonSelectGroup.Content = "Select View or Group";
                     _groupItem = null;
-
                 }
-                form.ValidateSelectionEvent -= new ItemPickerForm.ValidateSelectionHandler(ValidateSelectionHandler);
+                form.IsValidSelectionCallback = null;
             }
             catch (Exception ex)
             {
                 EnvironmentManager.Instance.ExceptionDialog("OnSelectGroup", ex);
             }
 
-        }
-
-        private void ValidateSelectionHandler(ItemPickerForm.ValidateEventArgs e)
-        {
-            e.AcceptSelection = true;
         }
 
         /// <summary>
@@ -501,15 +499,18 @@ namespace SCViewAndWindow.Client
         {
             try
             {
-                ItemPickerForm form = new ItemPickerForm();
-                form.Init(ClientControl.Instance.GetViewGroupItems());
-                form.AutoAccept = true;
-                form.KindFilter = Kind.View;
-                if (form.ShowDialog() == DialogResult.OK)
+                var form = new ItemPickerWpfWindow()
                 {
-                    _viewAndLayoutItem = (ViewAndLayoutItem)form.SelectedItem;
+                    Items = ClientControl.Instance.GetViewGroupItems(),
+                    KindsFilter = new List<Guid>() { Kind.View },
+                    SelectionMode = SelectionModeOptions.AutoCloseOnSelect
+                };
+                form.ShowDialog();
+                if(form.SelectedItems != null && form.SelectedItems.Any())
+                {
+                    _viewAndLayoutItem = (ViewAndLayoutItem)form.SelectedItems.First();
                     buttonSelectView.Content = _viewAndLayoutItem.Name;
-                    textBlockCount.Text = ""+_viewAndLayoutItem.Layout.Length;
+                    textBlockCount.Text = _viewAndLayoutItem.Layout.Length.ToString();
                     _inLoad = true;
                     MakeIXList(_viewAndLayoutItem.Layout.Length);
                     _inLoad = false;
@@ -547,15 +548,18 @@ namespace SCViewAndWindow.Client
         {
             try
             {
-                ItemPickerForm form = new ItemPickerForm();
-                form.KindFilter = Kind.Camera;
-                form.Init();
-                form.AutoAccept = false;
-                if (form.ShowDialog() == DialogResult.OK)
+                var form = new ItemPickerWpfWindow()
                 {
-                    _selectedCameraItem = form.SelectedItem;
+                    Items = Configuration.Instance.GetItemsByKind(Kind.Camera),
+                    KindsFilter = new List<Guid>() { Kind.Camera },
+                    SelectionMode = SelectionModeOptions.SingleSelect
+                };
+                form.ShowDialog();
+                if(form.SelectedItems != null && form.SelectedItems.Any())
+                {
+                    _selectedCameraItem = form.SelectedItems.First();
                     buttonSelectCamera.Content = _selectedCameraItem.Name;
-                    OnSelectedViewItemChanged(null, null);      // Store new Camera Selection
+                    OnSelectedViewItemChanged(null, null); //Store new Camera Selection
                 }
             }
             catch (Exception ex)

@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.UI;
+
+using VideoOS.Platform.UI.ItemPicker.Utilities;
 using Item = VideoOS.Platform.Item;
 
 namespace SCWorkSpace.Client
@@ -11,8 +15,8 @@ namespace SCWorkSpace.Client
     {
         private List<object> _messageRegistrationObjects = new List<object>();
         private ImageViewerWpfControl _imageViewerWpfControl;
-        private AudioPlayerControl _audioPlayerControl;
-        private AudioPlayerControl _audioPlayerControlSpeaker;
+        private AudioPlayer _audioPlayer;
+        private AudioPlayer _audioPlayerSpeaker;
         private Item _selectedCameraItem;
         private FQID _playbackFQID;
         private PlaybackWpfUserControl _playbackWpfUserControl;
@@ -28,13 +32,7 @@ namespace SCWorkSpace.Client
         {
             base.Init();
 
-            // set up microphone
-            _audioPlayerControl = ClientControl.Instance.GenerateAudioPlayerControl(WindowInformation);
-            _audioPlayerControlHost.Child = _audioPlayerControl;
 
-            //set up speaker
-            _audioPlayerControlSpeaker = ClientControl.Instance.GenerateAudioPlayerControl(WindowInformation);
-            _audioPlayerControlSpeakerHost.Child = _audioPlayerControlSpeaker;
 
             //set up camera video
             _imageViewerWpfControl = new ImageViewerWpfControl(WindowInformation);
@@ -51,8 +49,11 @@ namespace SCWorkSpace.Client
             _playbackFQID = ClientControl.Instance.GeneratePlaybackController();
             _playbackWpfUserControl.Init(_playbackFQID);
             _imageViewerWpfControl.PlaybackControllerFQID = _playbackFQID;
-            _audioPlayerControl.PlaybackControllerFQID = _playbackFQID;
-            _audioPlayerControlSpeaker.PlaybackControllerFQID = _playbackFQID;
+            // set up microphone
+            _audioPlayer = new AudioPlayer(_playbackFQID);
+
+            //set up speaker
+            _audioPlayerSpeaker = new AudioPlayer(_playbackFQID);
         }
 
         public override void Close()
@@ -92,15 +93,17 @@ namespace SCWorkSpace.Client
         private void selectCameraBtn_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             _imageViewerWpfControl.Disconnect();
-
-            ItemPickerForm form = new ItemPickerForm();
-            form.KindFilter = Kind.Camera;
-            form.SelectedItem = _selectedCameraItem;
-            form.AutoAccept = true;
-            form.Init();
-            if (form.ShowDialog() == DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                _selectedCameraItem = form.SelectedItem;
+                KindsFilter = new List<Guid>() { Kind.Camera },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                SelectedItems = new List<Item>() { _selectedCameraItem },
+                Items = Configuration.Instance.GetItemsByKind(Kind.Camera),
+            };
+            form.ShowDialog();
+            if (form.SelectedItems != null && form.SelectedItems.Any())
+            {
+                _selectedCameraItem = form.SelectedItems.First();
                 FillCameraSelection();
                 FillMicrophoneSelection();
             }
@@ -125,10 +128,10 @@ namespace SCWorkSpace.Client
 
         private void FillMicrophoneSelection()
         {
-            if (_audioPlayerControl.MicrophoneFQID != null)
-                _audioPlayerControl.Disconnect();
-            if (_audioPlayerControlSpeaker.MicrophoneFQID != null)
-                _audioPlayerControlSpeaker.Disconnect();
+            if (_audioPlayer.MicrophoneFQID != null)
+                _audioPlayer.Disconnect();
+            if (_audioPlayerSpeaker.MicrophoneFQID != null)
+                _audioPlayerSpeaker.Disconnect();
             if (_selectedCameraItem == null)
                 return;
 
@@ -136,15 +139,15 @@ namespace SCWorkSpace.Client
             {
                 if (item.FQID.Kind == Kind.Microphone)
                 {
-                    _audioPlayerControl.MicrophoneFQID = item.FQID;
-                    _audioPlayerControl.Initialize();
-                    _audioPlayerControl.Connect();
+                    _audioPlayer.MicrophoneFQID = item.FQID;
+                    _audioPlayer.Initialize();
+                    _audioPlayer.Connect();
                 }
                 if (item.FQID.Kind == Kind.Speaker)
                 {
-                    _audioPlayerControlSpeaker.MicrophoneFQID = item.FQID;
-                    _audioPlayerControlSpeaker.Initialize();
-                    _audioPlayerControlSpeaker.Connect();
+                    _audioPlayerSpeaker.MicrophoneFQID = item.FQID;
+                    _audioPlayerSpeaker.Initialize();
+                    _audioPlayerSpeaker.Connect();
                 }
             }
         }
@@ -153,8 +156,8 @@ namespace SCWorkSpace.Client
         {
             FQID newPlayback = null;
             _imageViewerWpfControl.PlaybackControllerFQID = newPlayback;
-            _audioPlayerControl.PlaybackControllerFQID = newPlayback;
-            _audioPlayerControlSpeaker.PlaybackControllerFQID = newPlayback;
+            _audioPlayer.PlaybackControllerFQID = newPlayback;
+            _audioPlayerSpeaker.PlaybackControllerFQID = newPlayback;
             canvasPlaybackControlGrid.Visibility = System.Windows.Visibility.Collapsed;
         }
 
@@ -164,8 +167,8 @@ namespace SCWorkSpace.Client
             FQID newPlayback = null;
             newPlayback = _playbackFQID;
             _imageViewerWpfControl.PlaybackControllerFQID = newPlayback;
-            _audioPlayerControl.PlaybackControllerFQID = newPlayback;
-            _audioPlayerControlSpeaker.PlaybackControllerFQID = newPlayback;
+            _audioPlayer.PlaybackControllerFQID = newPlayback;
+            _audioPlayerSpeaker.PlaybackControllerFQID = newPlayback;
             canvasPlaybackControlGrid.Visibility = System.Windows.Visibility.Visible;
         }
     }

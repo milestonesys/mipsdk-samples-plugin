@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using VideoOS.Platform;
 using VideoOS.Platform.UI;
 
@@ -36,18 +26,20 @@ namespace MessageTester.MessageDataControls
         
         private void OnDestPicker(object sender, RoutedEventArgs e)
         {
-            Item selectedItem;
-            ItemPickerForm form = new ItemPickerForm();
-            form.KindFilter = Kind.TriggerEvent;
-            form.AutoAccept = true;
-            form.Init(Configuration.Instance.GetItems());
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                selectedItem = form.SelectedItem;
-                _selectedDestinationItemFQID = selectedItem.FQID;
-                _destinationFQIDLabel.Content = $"The selected destination is \"{selectedItem.Name}\"";
+                KindsFilter = new List<Guid> { Kind.TriggerEvent },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                Items = Configuration.Instance.GetItems()
+            };
+            form.ShowDialog();
+            if(form.SelectedItems != null && form.SelectedItems.Any())
+            {
+                var item = form.SelectedItems.First();
+                _selectedDestinationItemFQID = item.FQID;
+                _destinationFQIDLabel.Content = $"The selected destination is \"{item.Name}\"";
             }
-            if (_selectedDestinationItemFQID != null)
+            if(_selectedDestinationItemFQID != null)
             {
                 IsReadyToSend = true;
             }
@@ -55,17 +47,19 @@ namespace MessageTester.MessageDataControls
 
         private void OnRelatedPicker(object sender, RoutedEventArgs e)
         {
-            Item selectedItem;
-            ItemPickerForm form = new ItemPickerForm();
-            form.KindFilter = Kind.Camera;
-            form.AutoAccept = true;
-            form.Init(Configuration.Instance.GetItems());
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                selectedItem = form.SelectedItem;
-                _selectedRelatedItemFQID = selectedItem.FQID;
-                _relatedFQIDLabel.Content = $"The selected related item is \"{selectedItem.Name}\"";
-            }
+                KindsFilter = new List<Guid>() { Kind.Camera },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                Items = Configuration.Instance.GetItems()
+            };
+            form.ShowDialog();
+            if(form.SelectedItems == null || form.SelectedItems.Any())
+            {
+                var item = form.SelectedItems.First();
+                _selectedDestinationItemFQID = item.FQID;
+                _relatedFQIDLabel.Content = $"The selected related item is \"{ item.Name }\"";
+            };
         }
     }
 }

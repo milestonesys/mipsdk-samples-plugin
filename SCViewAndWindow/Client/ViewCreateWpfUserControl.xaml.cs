@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using System.Linq;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.UI;
@@ -64,19 +64,21 @@ namespace SCViewAndWindow.Client
         {
             try
             {
-                ItemPickerForm form = new ItemPickerForm();
-                form.Init(ClientControl.Instance.GetViewGroupItems());
-                form.AutoAccept = false;
-                form.KindFilter = Kind.View;
-                form.ValidateSelectionEvent += new ItemPickerForm.ValidateSelectionHandler(ValidateSelectionHandler);
-
-                if (form.ShowDialog() == DialogResult.OK)
+                var form = new ItemPickerWpfWindow()
                 {
-                    _groupItem = (ConfigItem)form.SelectedItem;
+                    Items = ClientControl.Instance.GetViewGroupItems(),
+                    KindsFilter = new List<Guid>() { Kind.View },
+                    SelectionMode = SelectionModeOptions.SingleSelect
+                };
+                form.IsValidSelectionCallback = ValidateSelectionHandler;
+                form.ShowDialog();
+                if(form.SelectedItems != null && form.SelectedItems.Any())
+                {
+                    _groupItem = (ConfigItem)form.SelectedItems.First();
                     buttonSelectGroup.Content = _groupItem.Name;
-                    groupBoxView.IsEnabled = true;
+                    groupBoxView.IsEnabled= true;
 
-                    buttonCreateTemp.IsEnabled = false;
+                    buttonCreateTemp.IsEnabled= false;
                 }
                 else
                 {
@@ -84,19 +86,16 @@ namespace SCViewAndWindow.Client
                     _groupItem = null;
                     groupBoxView.IsEnabled = false;
                 }
-
-                form.ValidateSelectionEvent -= new ItemPickerForm.ValidateSelectionHandler(ValidateSelectionHandler);
+                form.IsValidSelectionCallback = null;
             }
             catch (Exception ex)
             {
                 EnvironmentManager.Instance.ExceptionDialog("OnSelectGroup", ex);
             }
         }
-
-        private void ValidateSelectionHandler(ItemPickerForm.ValidateEventArgs e)
+        private bool ValidateSelectionHandler(Item item)
         {
-            if (e.Item.FQID.Kind == Kind.View && e.Item.FQID.FolderType != FolderType.No && e.Item is ConfigItem && e.Item.FQID.ParentId != Guid.Empty)
-                e.AcceptSelection = true;
+            return item != null && item.FQID.Kind == Kind.View && item.FQID.FolderType != FolderType.No && item is ConfigItem && item.FQID.ParentId != Guid.Empty;
         }
 
         private void OnCreateGroup(object sender, System.Windows.RoutedEventArgs e)

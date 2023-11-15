@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
+using VideoOS.Platform.DriverFramework.Data;
 using VideoOS.Platform.DriverFramework.Data.Settings;
 using VideoOS.Platform.DriverFramework.Exceptions;
 using VideoOS.Platform.DriverFramework.Managers;
@@ -63,6 +65,7 @@ namespace DemoDriver
         public override void Close()
         {
             _connected = false;
+            _lastConnectCheck = DateTime.MinValue;
         }
 
         /// <summary>
@@ -82,6 +85,53 @@ namespace DemoDriver
                     return _connected;
                 }
             }
+        }
+
+        /// <summary>
+        /// Is called when a firmware upgrade is started. 
+        /// 
+        /// <see cref="VideoOS.Platform.DriverFramework.Definitions.Setting.FirmwareUpgradeSupported"/> must be added to Dictionary
+        /// returned by <see cref="ConfigurationManager.BuildHardwareSettings"/> with value <see cref="VideoOS.Platform.DriverFramework.Definitions.Setting.SettingValueYes"/>
+        /// for this to be enabled.
+        /// </summary>
+        /// <param name="firmwarePath"></param>
+        /// <returns></returns>
+        public override Guid StartFirmwareUpgrade(string firmwarePath)
+        {
+            ThrowIfNotConnected();
+            if (_proxy != null)
+            {
+                var firmwareContent = File.ReadAllText(firmwarePath); // in this sample only a text file is supported, but for normal firmware files it is of course more likely to be in byte format
+
+                return _proxy.Client.StartFirmwareUpgrade(firmwareContent);
+            }
+            return Guid.Empty;
+        }
+
+        public override FirmwareUpgradeStatus GetFirmwareUpgradeStatus(Guid upgradeSessionId)
+        {
+            var progress = _proxy.Client.GetFirmwareUpgradeProgress(upgradeSessionId);
+            FirmwareUpgradeStatus status = new FirmwareUpgradeStatus();
+            if (progress == 100)
+            {
+                status.NewFirmwareVersion = "1.upgraded"; // normally this would be read from the device
+                status.CompletionPercentage = progress;
+                status.UpgradeStatusCode = UpgradeStatusCode.Completed;
+            }
+            else if (progress >= 0)
+            {
+                status.CompletionPercentage = progress;
+                status.UpgradeStatusCode = UpgradeStatusCode.InProgress;
+            }
+            else if (progress == -1)
+            {
+                status.UpgradeStatusCode = UpgradeStatusCode.ErrorFirmwareRejected;
+            }
+            else
+            {
+                status.UpgradeStatusCode = UpgradeStatusCode.ErrorUnknown;
+            }
+            return status;
         }
 
         public void StartLiveStream(int channel)

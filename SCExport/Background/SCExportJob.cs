@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using SCExport.Client;
 using VideoOS.Platform;
 
 namespace SCExport.Background
 {
-	internal class SCExportJob
+    internal class SCExportJob
 	{
 		internal Item Item { get; set; }
 		internal DateTime StartTime { get; set; }

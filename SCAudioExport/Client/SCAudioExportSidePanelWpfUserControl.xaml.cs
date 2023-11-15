@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -46,18 +47,24 @@ namespace SCAudioExport.Client
 
         private void AddItemByKind(Guid kind)
         {
-            ItemPickerForm form = new ItemPickerForm();
-            form.KindFilter = kind;
-            form.Init();
-            if (form.ShowDialog() == DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                _item = form.SelectedItem;
-                if (!_audioList.Contains(_item))
+                KindsFilter = new List<Guid> { kind },
+                Items = Configuration.Instance.GetItemsByKind(kind),                
+            };
+            form.ShowDialog();
+            if(form.SelectedItems != null && form.SelectedItems.Any())
+            {
+                _item = form.SelectedItems.First();
+                if(!_audioList.Contains(_item))
+                {
                     _audioList.Add(_item);
-
+                }
                 string audioDevicesName = _item.Name;
                 if (!_listBoxAudioDevices.Items.Contains(audioDevicesName))
+                {
                     _listBoxAudioDevices.Items.Add(audioDevicesName);
+                }
             }
         }
 

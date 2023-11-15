@@ -18,7 +18,7 @@ namespace SCIndependentPlayback.Client
         private SCIndependentPlaybackViewItemManager _viewItemManager;
         private PlaybackWpfUserControl _playbackWpfUserControl;
         private ImageViewerWpfControl _imageViewerControl;
-        private AudioPlayerControl _audioPlayerControl;
+        private AudioPlayer _audioPlayer;
         private FQID _playbackFQID;
 
         #endregion
@@ -66,10 +66,6 @@ namespace SCIndependentPlayback.Client
             _playbackWpfUserControl = new PlaybackWpfUserControl();
             canvasPlaybackControl.Children.Add(_playbackWpfUserControl);
 
-            _audioPlayerControl = ClientControl.Instance.GenerateAudioPlayerControl(WindowInformation);
-            _audioPlayerControl.Dock = DockStyle.Fill;
-            _audioPlayerControlHost.Child = _audioPlayerControl;
-
             _imageViewerControl = new ImageViewerWpfControl(WindowInformation);
             _imageViewerControl.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
             _imageViewerControl.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
@@ -81,8 +77,7 @@ namespace SCIndependentPlayback.Client
             _playbackFQID = ClientControl.Instance.GeneratePlaybackController();
             _playbackWpfUserControl.Init(_playbackFQID);
             _imageViewerControl.PlaybackControllerFQID = _playbackFQID;
-
-            _audioPlayerControl.PlaybackControllerFQID = _playbackFQID;
+            _audioPlayer = new AudioPlayer(_playbackFQID);
 
             PlaybackController pc = ClientControl.Instance.GetPlaybackController(_playbackFQID);
             pc.SkipGaps = false;
@@ -105,8 +100,8 @@ namespace SCIndependentPlayback.Client
             _playbackWpfUserControl.Close();
             _imageViewerControl.Disconnect();
             _imageViewerControl.Close();
-            _audioPlayerControl.Disconnect();
-            _audioPlayerControl.Close();
+            _audioPlayer.Disconnect();
+            _audioPlayer.Close();
             ClientControl.Instance.ReleasePlaybackController(_playbackFQID);
             RemoveApplicationEventListeners();
         }
@@ -133,7 +128,7 @@ namespace SCIndependentPlayback.Client
                 _playbackWpfUserControl.SetEnabled(false);
                 _playbackWpfUserControl.IsEnabled = false;
                 _playbackWpfUserControl.Visibility = System.Windows.Visibility.Collapsed;
-                _audioPlayerControl.PlaybackControllerFQID = null;
+                _audioPlayer.PlaybackControllerFQID = null;
                 _imageViewerControl.PlaybackControllerFQID = null;
                 if (WindowInformation.Mode == Mode.ClientLive)
                     _imageViewerControl.StartLive();
@@ -145,7 +140,7 @@ namespace SCIndependentPlayback.Client
                 _playbackWpfUserControl.SetEnabled(true);
                 _playbackWpfUserControl.IsEnabled = true;
                 _playbackWpfUserControl.Visibility = System.Windows.Visibility.Visible;
-                _audioPlayerControl.PlaybackControllerFQID = _playbackFQID;
+                _audioPlayer.PlaybackControllerFQID = _playbackFQID;
                 _imageViewerControl.PlaybackControllerFQID = _playbackFQID;
                 _imageViewerControl.StartBrowse();
             }
@@ -170,14 +165,14 @@ namespace SCIndependentPlayback.Client
                 if (item.FQID.Kind == Kind.Microphone)
                     mic = item;
             }
-            if (_audioPlayerControl.MicrophoneFQID != null)
-                _audioPlayerControl.Disconnect();
+            if (_audioPlayer.MicrophoneFQID != null)
+                _audioPlayer.Disconnect();
 
             if (mic != null)
             {
-                _audioPlayerControl.MicrophoneFQID = mic.FQID;
-                _audioPlayerControl.Initialize();
-                _audioPlayerControl.Connect();
+                _audioPlayer.MicrophoneFQID = mic.FQID;
+                _audioPlayer.Initialize();
+                _audioPlayer.Connect();
             }
         }
 

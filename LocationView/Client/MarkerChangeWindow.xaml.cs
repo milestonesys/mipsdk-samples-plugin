@@ -1,5 +1,7 @@
 ﻿using LocationView.Client.Config;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using VideoOS.Platform;
@@ -85,14 +87,17 @@ namespace LocationView.Client
 
         private void deviceButton_Click(object sender, RoutedEventArgs e)
         {
-            var form = new ItemPickerForm();
-            form.KindFilter = Kind.Metadata;
-            form.SelectedItem = _selectedMetadataItem;
-            form.AutoAccept = true;
-            form.Init();
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                _selectedMetadataItem = form.SelectedItem;
+                KindsFilter = new List<Guid>() { Kind.Metadata },
+                SelectionMode = SelectionModeOptions.SingleSelect,
+                SelectedItems = new List<Item>() { _selectedMetadataItem },
+                Items = Configuration.Instance.GetItemsByKind(Kind.Metadata),
+            };
+            form.ShowDialog();
+            if (form.SelectedItems != null && form.SelectedItems.Any())
+            {
+                _selectedMetadataItem = form.SelectedItems.First();
 
                 _marker.DeviceId = _selectedMetadataItem.FQID.ObjectId;
                 _marker.DeviceName = _selectedMetadataItem.Name;

@@ -2,17 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using VideoOS.Platform;
 using VideoOS.Platform.UI;
 
@@ -63,16 +53,18 @@ namespace MessageTester.MessageDataControls
 
         private void OnPicker(object sender, RoutedEventArgs e)
         {
-            Item selectedItem;
-            ItemPickerForm form = new ItemPickerForm();
-            form.KindFilter = Kind;
-            form.AutoAccept = true;
-            form.Init(Configuration.Instance.GetItems());
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                selectedItem = form.SelectedItem;
-                _selectedItemFQID = selectedItem.FQID;
-                _destinationFQIDLabel.Content = $"The selected destination is \"{selectedItem.Name}\"";
+                KindsFilter = new List<Guid>() { Kind },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                Items = Configuration.Instance.GetItems()
+            };
+            form.ShowDialog();
+            if(form.SelectedItems != null && form.SelectedItems.Any())
+            {
+                var item = form.SelectedItems.First();
+                _selectedItemFQID = item.FQID;
+                _destinationFQIDLabel.Content = $"The selected destination is \"{ item.Name }\"";
                 IsReadyToSend = true;
             }
         }

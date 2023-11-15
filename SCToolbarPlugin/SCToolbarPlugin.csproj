@@ -53,10 +53,17 @@
     </Compile>
     <Compile Include="Client\CameraNameResolver.cs" />
     <Compile Include="Client\SetViewItemBackgroundColorUserControlViewItemToolbarPlugin.cs" />
+    <Compile Include="Client\ShowCameraNamesHoldWorkSpaceToolbarPlugin.cs" />
+    <Compile Include="Client\ShowCameraNamesToggleWorkSpaceToolbarPlugin.cs" />
+    <Compile Include="Client\ShowCameraNamesWorkspaceToolbarPluginGroup.cs" />
     <Compile Include="Client\SetViewItemBackgroundColorWorkspaceToolbarPluginGroup.cs" />
     <Compile Include="Client\SetViewItemsBackgroundColorToolbarPluginWpfUserControl.xaml.cs">
       <DependentUpon>SetViewItemsBackgroundColorToolbarPluginWpfUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Client\ShowCameraNamesUserControlWorkSpaceToolbarPlugin.cs" />
+    <Compile Include="Client\ShowCameraNamesActionWorkSpaceToolbarPlugin.cs" />
+    <Compile Include="Client\ShowCameraNameHoldViewItemToolbarPlugin.cs" />
+    <Compile Include="Client\ShowCameraNameToggleViewItemToolbarPlugin.cs" />
     <Compile Include="Client\ShowCameraNameToolbarPluginWpfUserControl.xaml.cs">
       <DependentUpon>ShowCameraNameToolbarPluginWpfUserControl.xaml</DependentUpon>
     </Compile>

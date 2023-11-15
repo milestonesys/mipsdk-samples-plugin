@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+
 namespace DemoDriverDevice
 {
 
@@ -72,6 +74,12 @@ namespace DemoDriverDevice
 
         [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IDeviceService/ChangeSetting", ReplyAction = "http://tempuri.org/IDeviceService/ChangeSetting")]
         void ChangeSetting(int channel, string key, string data);
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IDeviceService/StartFirmwareUpgrade", ReplyAction = "http://tempuri.org/IDeviceService/StartFirmwareUpgrade")]
+        Guid StartFirmwareUpgrade(string firmwareContent);
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IDeviceService/GetFirmwareUpgradeProgress", ReplyAction = "http://tempuri.org/IDeviceService/GetFirmwareUpgradeProgress")]
+        int GetFirmwareUpgradeProgress(Guid upgradeSessionId);
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
@@ -163,5 +171,14 @@ namespace DemoDriverDevice
             base.Channel.ChangeSetting(channel, key, data);
         }
 
+        public Guid StartFirmwareUpgrade(string firmwareContent)
+        {
+            return base.Channel.StartFirmwareUpgrade(firmwareContent);
+        }
+
+        public int GetFirmwareUpgradeProgress(Guid upgradeSessionId)
+        {
+            return base.Channel.GetFirmwareUpgradeProgress(upgradeSessionId);
+        }
     }
 }

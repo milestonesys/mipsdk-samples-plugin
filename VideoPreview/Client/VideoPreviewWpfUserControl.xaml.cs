@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -10,6 +11,8 @@ using VideoOS.Platform.Client;
 using VideoOS.Platform.Data;
 using VideoOS.Platform.Messaging;
 using VideoOS.Platform.UI;
+
+using VideoOS.Platform.UI.ItemPicker.Utilities;
 using Brushes = System.Windows.Media.Brushes;
 using Point = System.Windows.Point;
 using Size = System.Windows.Size;
@@ -23,7 +26,7 @@ namespace VideoPreview.Client
         private VideoPreviewViewItemManager _viewItemManager;
 
         private Item _selectedCameraItem;
-        private AudioPlayerControl _audioPlayerControl;
+        private AudioPlayer _audioPlayer;
         private bool _lineMode;
         private Point _next;
         private Point _first;
@@ -62,7 +65,7 @@ namespace VideoPreview.Client
             _imageViewer.ImageDisplayed -= IVC_ImageEvent;
             _imageViewer.RecordedImageReceived -= IVC_ImageEvent;
             _imageViewer.ImageOrPaintInfoChanged -= IVC_ImageInfoChangedEvent;
-            
+
             if (chkLiveInfo.IsChecked.Equals(true))
             {
                 _imageViewer.LiveStreamInformationReceived -= IVC_LiveStreamInformationEvent;
@@ -80,7 +83,8 @@ namespace VideoPreview.Client
         /// </summary>
         public override void Init()
         {
-            _audioPlayerControl = ClientControl.Instance.GenerateAudioPlayerControl(WindowInformation);
+
+            _audioPlayer = new AudioPlayer();
             SetupApplicationEventListeners();
 
             string fqidString = _viewItemManager.GetProperty(ClientControl.EmbeddedCameraFQIDProperty);
@@ -210,11 +214,23 @@ namespace VideoPreview.Client
         private void OnSelectCamera(object sender, System.Windows.RoutedEventArgs e)
         {
             _imageViewer.Disconnect();
-            ItemPickerForm form = new ItemPickerForm() { KindFilter = Kind.Camera, SelectedItem = _selectedCameraItem, AutoAccept = true };
-            form.Init();
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                _selectedCameraItem = form.SelectedItem;
+                KindsFilter = new List<Guid>() { Kind.Camera },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                SelectedItems = new List<Item>() { _selectedCameraItem },
+                Items = Configuration.Instance.GetItemsByKind(Kind.Camera),
+            };
+
+            if (_selectedCameraItem != null)
+            {
+                form.SelectedItems = new List<Item> { _selectedCameraItem };
+            }
+
+            form.ShowDialog();
+            if (form.SelectedItems != null && form.SelectedItems.Any())
+            {
+                _selectedCameraItem = form.SelectedItems.First();
             }
             FillCameraSelection();
             FillMicrophoneSelection();
@@ -272,9 +288,9 @@ namespace VideoPreview.Client
 
         private void FillMicrophoneSelection()
         {
-            if (_audioPlayerControl.MicrophoneFQID != null)
+            if (_audioPlayer.MicrophoneFQID != null)
             {
-                _audioPlayerControl.Disconnect();
+                _audioPlayer.Disconnect();
             }
 
             if (_selectedCameraItem == null)
@@ -284,11 +300,12 @@ namespace VideoPreview.Client
 
             Item mic = _selectedCameraItem.GetRelated().Find(x => x.FQID.Kind.Equals(Kind.Microphone));
 
+            var test = _imageViewer.PlaybackControllerFQID;
             if (mic != null)
             {
-                _audioPlayerControl.Initialize();
-                _audioPlayerControl.MicrophoneFQID = mic.FQID;
-                _audioPlayerControl.Connect();
+                _audioPlayer.Initialize();
+                _audioPlayer.MicrophoneFQID = mic.FQID;
+                _audioPlayer.Connect();
             }
         }
 
@@ -296,7 +313,7 @@ namespace VideoPreview.Client
         {
             if (_imageViewer != null)
             {
-                _imageViewer.MaintainImageAspectRatio = chkAspectRatio.IsChecked ?? false; 
+                _imageViewer.MaintainImageAspectRatio = chkAspectRatio.IsChecked ?? false;
                 _imageViewer.Disconnect();
                 _imageViewer.Connect();
             }
@@ -324,6 +341,7 @@ namespace VideoPreview.Client
             _imageViewer.EnableVisibleHeader = chkHeader.IsChecked.Value;
             chkLiveIndicator.IsEnabled = chkHeader.IsChecked.Value;
             _imageViewer.Disconnect();
+            _imageViewer.Initialize();
             _imageViewer.Connect();
         }
 

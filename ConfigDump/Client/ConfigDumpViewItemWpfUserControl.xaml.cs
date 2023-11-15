@@ -26,9 +26,6 @@ namespace ConfigDump.Client
             _viewItemManager = viewItemManager;
             InitializeComponent();
 
-            ItemPickerUserControl itemPickerUserControl = new ItemPickerUserControl();
-            itemPickerUserControl.Init();
-
             _items.Clear();
             _items = Configuration.Instance.GetItems(ItemHierarchy.Both);
             SetUpApplicationEventListeners();
@@ -177,7 +174,7 @@ namespace ConfigDump.Client
         private void FillSitesTree(Item site, TreeViewItem treeViewItem)
         {
             var children = site.GetChildren();
-            foreach (var child in children) 
+            foreach (var child in children)
             {
                 TreeViewItem tn = new TreeViewItem() { Header = child.Name };
                 tn.Tag = child;
@@ -246,7 +243,7 @@ namespace ConfigDump.Client
         private void DumpDataVersion(MipconfigItem item, TreeViewItem tn)
         {
             long dataVersion = Configuration.Instance.GetItemConfigurationDataVersion(item.MipItem.FQID.Kind);
-            TreeViewItem fqidNode = new TreeViewItem() { Header = "DataVersion = "+dataVersion };
+            TreeViewItem fqidNode = new TreeViewItem() { Header = "DataVersion = " + dataVersion };
             tn.Items.Add(fqidNode);
         }
 
@@ -400,14 +397,15 @@ namespace ConfigDump.Client
 
         private void OnItemPickerClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            ItemPickerForm form = new ItemPickerForm();
-
-            if (selectedItem!=null)
+            var form = new ItemPickerWpfWindow()
+            {
+                Items = Configuration.Instance.GetItems(),
+            };
+            if (selectedItem != null)
             {
                 var item = selectedItem.Header as MipconfigItem;
-                form.KindFilter = item.MipItem.FQID.Kind;
+                form.KindsFilter = new List<Guid>() { item.MipItem.FQID.Kind };
             }
-            form.Init();
             form.ShowDialog();
         }
 

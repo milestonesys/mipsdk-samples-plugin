@@ -28,7 +28,7 @@ has been implemented to ensure the PC does not get overloaded. The
 background thread will perform one export at a time and continuously
 display the status in the left pane.
 
-![](SCExport1.png)
+![](SCExport.png)
 
 ## The sample demonstrates
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
@@ -57,26 +58,29 @@ namespace SCInsertCamera.Client
         /// <param name="e"></param>
         private void OnSelectCameraClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            ItemPickerForm form = new ItemPickerForm();
-            form.AutoAccept = true;
-            form.KindFilter = Kind.Camera;
-            form.Init();
-            if (form.ShowDialog() == DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
             {
-                _selectedCamera = form.SelectedItem;
+                KindsFilter = new List<Guid>() { Kind.Camera },
+                Items = Configuration.Instance.GetItemsByKind(Kind.Camera),                
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect
+            };
+            form.ShowDialog();
+            if(form.SelectedItems != null && form.SelectedItems.Any())
+            {
+                _selectedCamera = form.SelectedItems.First();
                 buttonSelect.Content = _selectedCamera.Name;
                 buttonInsert.IsEnabled = true;
 
                 comboBoxStream.Items.Clear();
                 comboBoxStream.SelectedIndex = 0;
 
-                StreamDataSource streamDataSource = new StreamDataSource(_selectedCamera);
-                List<DataType> streams = streamDataSource.GetTypes();
-                foreach (DataType stream in streams)
+                var streamDataSource = new StreamDataSource(_selectedCamera);
+                var streams = streamDataSource.GetTypes();
+                foreach(var stream in streams)
                 {
                     comboBoxStream.Items.Add(stream);
                 }
-                comboBoxStream.IsEnabled = streams.Count > 0;
+                comboBoxStream.IsEnabled = streams.Any();
             }
         }
 
