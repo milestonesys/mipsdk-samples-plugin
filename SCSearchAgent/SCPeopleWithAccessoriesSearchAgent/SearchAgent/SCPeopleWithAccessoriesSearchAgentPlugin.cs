@@ -1,6 +1,7 @@
 ﻿using System;
 using VideoOS.Platform.Search;
 using VideoOS.Platform.Search.FilterCategories;
+using VideoOS.Platform.UI.Controls;
 
 namespace SCSearchAgent.SCPeopleWithAccessoriesSearchAgent.SearchAgent
 {
@@ -45,7 +46,7 @@ namespace SCSearchAgent.SCPeopleWithAccessoriesSearchAgent.SearchAgent
         {
             // We use the existing "Person" category for this search agent. 
             // It is strongly recommended to use the existing categories whenever it is posssible.
-            SearchFilterCategory = new PersonSearchFilterCategory("People with accessories", null,
+            SearchFilterCategory = new PersonSearchFilterCategory("People with accessories", (VideoOSIconSourceBase)null,
                 PersonSearchFilterCategory.StandardSearchFilters.None,
                 new SearchFilter[]
                 {

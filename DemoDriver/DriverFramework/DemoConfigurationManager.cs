@@ -273,6 +273,10 @@ namespace DemoDriver
             {
                 DisplayName = "Speaker",
                 DeviceId = Constants.Speaker1.ToString(),
+                Settings = new Dictionary<string, string>() // Settings for speakers should be created on the device and not the stream
+                {
+                    { Constants.OutputGain, "25" }
+                },
                 Streams = BuildSpeakerStream()
             });
 
@@ -289,7 +293,7 @@ namespace DemoDriver
                 Settings = new Dictionary<string, string>()
                 {
                     {Constants.Codec, "MJPEG" },
-                    {Constants.FPS, "8.0" },
+                    {Constants.FPS, "8.0" }
                 },
                 RemotePlaybackSupport = true,
             });
@@ -300,7 +304,7 @@ namespace DemoDriver
                 Settings = new Dictionary<string, string>()
                 {
                     {Constants.Codec, "MJPEG" },
-                    {Constants.FPS, "8.0" },
+                    {Constants.FPS, "8.0" }
                 },
                 RemotePlaybackSupport = true,
 
@@ -318,7 +322,7 @@ namespace DemoDriver
                 ReferenceId = Constants.AudioStream1RefId.ToString(),
                 Settings = new Dictionary<string, string>()
                 {
-                    {Constants.InputGain, "25" },
+                    {Constants.InputGain, "25" }
                 },
             });
             return streams;
@@ -330,11 +334,8 @@ namespace DemoDriver
             streams.Add(new StreamDefinition()
             {
                 DisplayName = "Speaker stream 1",
-                ReferenceId = Constants.SpeakerStream1RefId.ToString(),
-                Settings = new Dictionary<string, string>()
-                {
-                    {Constants.OutputGain, "25" },
-                },
+                ReferenceId = Constants.SpeakerStream1RefId.ToString()
+                // Settings for speakers should be created on the device and not the stream so don't add any here
             });
             return streams;
         }
@@ -356,7 +357,7 @@ namespace DemoDriver
                         ValidTime = TimeSpan.FromSeconds(5),
                         Settings = new Dictionary<string, string>()
                         {
-                            { Constants.BoundingBoxColor, "C" },
+                            { Constants.BoundingBoxColor, "C" }
                         },
                     },
                     new MetadataTypeDefinition()

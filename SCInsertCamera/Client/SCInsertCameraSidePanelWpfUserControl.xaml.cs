@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.Data;
@@ -17,11 +16,12 @@ namespace SCInsertCamera.Client
     public partial class SCInsertCameraSidePanelWpfUserControl : SidePanelWpfUserControl
     {
         private object _selectedViewChanged;
-        private ViewAndLayoutItem _currentView;
+        private SCInsertCameraSidePanelPlugin _sCInsertCameraSidePanelPlugin;
         private Item _selectedCamera;
-
-        public SCInsertCameraSidePanelWpfUserControl()
+        private const string _serializedMSLogo = "Qk02DAAAAAAAADYAAAAoAAAAIAAAACAAAAABABgAAAAAAAAMAADDDgAAww4AAAAAAAAAAAAA/////////////////////////////////////////////////////////////Pfr////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+vHb3qQb68l3////////////////////////////////////////////////////////////////////////////////////////////////////////////////+vHb3qQb2pkA2pkA68l3////////////////////////////////////////////////////////////////////////////////////////////////////////+vHb3qQb2pkA2pkA2pkA2pkA68h2///+////////////////////////////////////////////////////////////////////////////////////////////+O3S3aEU2pkA2pkA2pkA2pkA2pkA2pkA6cNo///+////////////////////////////////////////////////////////////////////////////////////+O3S3aEU2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA6cNo///+////////////////////////////////////////////////////////////////////////////+O3S3aEU2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA6cNo///+////////////////////////////////////////////////////////////////////+O3S3aEU2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA6cNo///+////////////////////////////////////////////////////////////9+nI3aEU2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA575d//78////////////////////////////////////////////////////9+nI3J8O2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA571a//78////////////////////////////////////////////9+nI3J8O2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA571a//78////////////////////////////////////9+nI3J8O2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA571a//78////////////////////////////9ufD3J8O2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5rtW/v35////////////////////9eW9250J2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5bhN/v35////////////9eW9250J2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5bhN/v35////9eW9250J2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5bhN/v3589+u25sF2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA47I//fnx////9OCx25sF2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA47NB/vv1////////////9OCx25sF2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA47NB/vv1////////////////////9OCx25sF2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA47NB/vv1////////////////////////////9OGz250J2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5LVF/vv1////////////////////////////////////9eW9250J2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5bhN/v35////////////////////////////////////////////9eW9250J2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5bhN/v35////////////////////////////////////////////////////9eW9250J2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5bhN/v35////////////////////////////////////////////////////////////9eW9250K2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5bhN/v35////////////////////////////////////////////////////////////////////9+nI3J8O2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA571a/v36////////////////////////////////////////////////////////////////////////////9+nI3J8O2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA571a//78////////////////////////////////////////////////////////////////////////////////////9+nI3J8O2pkA2pkA2pkA2pkA2pkA2pkA571a//78////////////////////////////////////////////////////////////////////////////////////////////9+nI3J8O2pkA2pkA2pkA2pkA571a//78////////////////////////////////////////////////////////////////////////////////////////////////////+OvN3aEU2pkA2pkA6MFj//78////////////////////////////////////////////////////////////////////////////////////////////////////////////+O3S3aEU6cNo///+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+/Pi///+////////////////////////////////////////////////////////////";
+        public SCInsertCameraSidePanelWpfUserControl(SCInsertCameraSidePanelPlugin sCInsertCameraSidePanelPlugin)
         {
+            _sCInsertCameraSidePanelPlugin = sCInsertCameraSidePanelPlugin;
             InitializeComponent();
         }
 
@@ -29,6 +29,7 @@ namespace SCInsertCamera.Client
         {
             _selectedViewChanged =
                 EnvironmentManager.Instance.RegisterReceiver(ViewChangedHandler, new MessageIdFilter(MessageId.SmartClient.SelectedViewChangedIndication));
+            UpdateIndexes();
         }
         public override void Close()
         {
@@ -43,9 +44,9 @@ namespace SCInsertCamera.Client
         /// <param name="s"></param>
         /// <param name="r"></param>
         /// <returns></returns>
-        private object ViewChangedHandler(VideoOS.Platform.Messaging.Message message, FQID s, FQID r)
+        private object ViewChangedHandler(Message message, FQID s, FQID r)
         {
-            _currentView = message.Data as ViewAndLayoutItem;
+            _sCInsertCameraSidePanelPlugin.CurrentView = message.Data as ViewAndLayoutItem;
 
             UpdateIndexes();
             return null;
@@ -124,7 +125,8 @@ namespace SCInsertCamera.Client
                 (ViewAndLayoutItem)groupItem.AddChild("ScInsertLayout-" + ix, Kind.View, FolderType.No);
             viewAndLayoutItem.Layout = rect;
             viewAndLayoutItem.Properties["Created"] = DateTime.Now.ToLongDateString();
-
+            viewAndLayoutItem.Icon = SCInsertCameraDefinition.PluginImage;
+            
             // Insert an HTML ViewItem on top
             Dictionary<String, String> properties = new Dictionary<string, string>();
             properties.Add("URL", "www.google.com");		// Next 4 for a HTML item
@@ -137,10 +139,27 @@ namespace SCInsertCamera.Client
             properties.Add("CameraId", JustGetAnyCamera(Configuration.Instance.GetItems(ItemHierarchy.SystemDefined)));
             viewAndLayoutItem.InsertBuiltinViewItem(1, ViewAndLayoutItem.CameraBuiltinId, properties);
 
+            // Insert a text ViewItem at index 2
+            properties = new Dictionary<string, string>();
+            properties.Add("Text", "Hello world");
+            viewAndLayoutItem.InsertBuiltinViewItem(2, ViewAndLayoutItem.TextBuiltInId, properties);
+
+            // Insert a carrousel ViewItem with two cameras at index 3
+            properties = new Dictionary<string, string>();
+            properties.Add("interval", "15");
+            properties.Add("carousel-item", string.Format($"<carousel-items><carousel-item><device-id>{JustGetAnyCamera(Configuration.Instance.GetItems(ItemHierarchy.SystemDefined))}</device-id><show-time /></carousel-item><carousel-item><device-id>{JustGetAnyCamera(Configuration.Instance.GetItems(ItemHierarchy.UserDefined))}</device-id><show-time>8</show-time></carousel-item></carousel-items>"));
+            viewAndLayoutItem.InsertBuiltinViewItem(3, ViewAndLayoutItem.CarrouselBuiltinId, properties);
+
+            // Insert an image ViewItem at index 4
+            properties = new Dictionary<string, string>();
+            properties.Add("EmbedImage", "True");
+            properties.Add("EmbeddedImage", _serializedMSLogo);
+            viewAndLayoutItem.InsertBuiltinViewItem(4, ViewAndLayoutItem.ImageBuiltInId, properties);
+
             // Insert a hotspot ViewItem at bottom -- index 6
             properties = new Dictionary<string, string>();
             viewAndLayoutItem.InsertBuiltinViewItem(6, ViewAndLayoutItem.HotspotBuiltinId, properties);
-
+            
             viewAndLayoutItem.Save();
             topGroupItem.PropertiesModified();
             List<Item> windows = Configuration.Instance.GetItemsByKind(Kind.Window);
@@ -166,14 +185,14 @@ namespace SCInsertCamera.Client
 
         private void UpdateIndexes()
         {
-            if (_currentView != null)
+            if (_sCInsertCameraSidePanelPlugin.CurrentView != null)
             {
-                textBoxLayoutName.Text = _currentView.Name;
+                textBoxLayoutName.Text = _sCInsertCameraSidePanelPlugin.CurrentView.Name;
                 comboBoxIndex.Items.Clear();
 
-                for (int ix = 0; ix < _currentView.Layout.Length; ix++)
+                for (int ix = 0; ix < _sCInsertCameraSidePanelPlugin.CurrentView.Layout.Length; ix++)
                 {
-                    if (!(bool)_temporaryInsertCheckBox.IsChecked || _currentView.ViewItemId(ix) == ViewAndLayoutItem.CameraBuiltinId)
+                    if (!(bool)_temporaryInsertCheckBox.IsChecked || _sCInsertCameraSidePanelPlugin.CurrentView.ViewItemId(ix) == ViewAndLayoutItem.CameraBuiltinId)
                     {
                         comboBoxIndex.Items.Add("Index " + ix);
                     }
@@ -215,7 +234,7 @@ namespace SCInsertCamera.Client
         /// <param name="e"></param>
         private void OnInsert(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (_selectedCamera != null && _currentView != null && comboBoxIndex.SelectedItem != null)
+            if (_selectedCamera != null && _sCInsertCameraSidePanelPlugin.CurrentView != null && comboBoxIndex.SelectedItem != null)
             {
                 // Make sure we are inside array boundary
                 string itemString = comboBoxIndex.SelectedItem.ToString();
@@ -226,7 +245,7 @@ namespace SCInsertCamera.Client
                 if (dataType != null)
                     streamId = dataType.Id;
 
-                if (ix >= 0 && ix < _currentView.Layout.Length)
+                if (ix >= 0 && ix < _sCInsertCameraSidePanelPlugin.CurrentView.Layout.Length)
                 {
                     if ((bool)_temporaryInsertCheckBox.IsChecked)
                     {
@@ -244,8 +263,8 @@ namespace SCInsertCamera.Client
                         Dictionary<string, string> properties = new Dictionary<string, string>();
                         properties.Add("CameraId", _selectedCamera.FQID.ObjectId.ToString());
                         properties.Add("StreamId", streamId.ToString());
-                        _currentView.InsertBuiltinViewItem(ix, ViewAndLayoutItem.CameraBuiltinId, properties);
-                        _currentView.Save();
+                        _sCInsertCameraSidePanelPlugin.CurrentView.InsertBuiltinViewItem(ix, ViewAndLayoutItem.CameraBuiltinId, properties);
+                        _sCInsertCameraSidePanelPlugin.CurrentView.Save();
                     }
                 }
             }
@@ -253,11 +272,13 @@ namespace SCInsertCamera.Client
 
         private void OnClearClick(object sender, System.Windows.RoutedEventArgs e)
         {
+            if (comboBoxIndex.SelectedItem == null)
+                return;
             // Make sure we are inside array boundary
             string itemString = comboBoxIndex.SelectedItem.ToString();
             int ix = -1;
             int.TryParse(itemString.Substring(itemString.LastIndexOf(" ")), out ix);
-            if (ix >= 0 && ix < _currentView.Layout.Length)
+            if (ix >= 0 && ix < _sCInsertCameraSidePanelPlugin.CurrentView.Layout.Length)
             {
                 if ((bool)_temporaryInsertCheckBox.IsChecked)
                 {
@@ -268,8 +289,8 @@ namespace SCInsertCamera.Client
                 {
                     // Create, insert and save a new CameraViewItem at selected index. This insert is stored permanently on the view
                     Dictionary<string, string> properties = new Dictionary<string, string>();
-                    _currentView.InsertBuiltinViewItem(ix, ViewAndLayoutItem.EmptyBuiltinId, properties);
-                    _currentView.Save();
+                    _sCInsertCameraSidePanelPlugin.CurrentView.InsertBuiltinViewItem(ix, ViewAndLayoutItem.EmptyBuiltinId, properties);
+                    _sCInsertCameraSidePanelPlugin.CurrentView.Save();
                 }
             }
         }

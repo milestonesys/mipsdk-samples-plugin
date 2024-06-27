@@ -3,22 +3,25 @@ using ConfigDump.Client;
 using ConfigDump2.Background;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 using VideoOS.Platform;
 using VideoOS.Platform.Admin;
 using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace ConfigDump
 {
     public class ConfigDumpDefinition : PluginDefinition
     {
-        internal protected static System.Drawing.Image _treeNodeImage;
+        private readonly static VideoOSIconSourceBase _pluginIcon;
+        private readonly static System.Drawing.Image _treeNodeImage;
 
         internal static Guid ConfigDumpPluginId = new Guid("1a1e0e59-f4d6-4193-8570-6ec248825461");
         internal static Guid ConfigDumpKind = new Guid("fe7c0f36-da53-426c-b1b3-cf38d5bb8bd5");
-
 
         #region Private fields
 
@@ -30,13 +33,32 @@ namespace ConfigDump
 
         static ConfigDumpDefinition()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string name = assembly.GetName().Name;
-
-            System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.ConfigDump.png");
-            if (pluginStream != null)
-                _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/ConfigDump.png");
+            Uri imageUri = new Uri(packString);
+            _pluginIcon = new VideoOSIconUriSource() { Uri = imageUri };
+            _treeNodeImage = ResourceToImage(imageUri);
         }
+
+        /// <summary>
+        /// WPF requires resources to be stored with Build Action=Resource, which unfortunately cannot easily be read for WinForms controls, so we use this small
+        /// utility method
+        /// </summary>
+        /// <param name="imageUri">Pack URI pointing to the image <seealso cref="https://learn.microsoft.com/en-us/dotnet/desktop/wpf/app-development/pack-uris-in-wpf"/></param>
+        /// <returns></returns>
+        private static System.Drawing.Image ResourceToImage(Uri imageUri)
+        {
+            var bitmapImage = new BitmapImage(imageUri);
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+            using (var stream = new MemoryStream())
+            {
+                encoder.Save(stream);
+                stream.Flush();
+                return new System.Drawing.Bitmap(stream);
+            }
+        }
+
+        internal static VideoOSIconSourceBase PluginIcon => _pluginIcon;
 
         public override void Init()
         {
@@ -167,14 +189,6 @@ namespace ConfigDump
             {
                 return new List<ViewItemPlugin> { new ConfigDumpViewItemPlugin() };
             }
-        }
-
-        /// <summary>
-        /// An extension plugin running in the Smart Client to add more choices on the Options dialog.
-        /// </summary>
-        public override List<OptionsDialogPlugin> OptionsDialogPlugins
-        {
-            get { return null; }
         }
 
         /// <summary>

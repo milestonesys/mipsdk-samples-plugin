@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Threading;
+using System.Windows.Media;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.Util;
 
@@ -40,13 +40,7 @@ namespace TimelineViewItem.Client
             }
         }
 
-        public override Color RibbonContentColor
-        {
-            get
-            {
-                return Color.Yellow;
-            }
-        }
+        public override System.Windows.Media.Brush RibbonContentColorBrush => new SolidColorBrush(Colors.Yellow);
 
         private void GetSomeData(object argument)
         {

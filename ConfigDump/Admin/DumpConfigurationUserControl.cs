@@ -418,11 +418,15 @@ namespace ConfigDump.Admin
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ItemPickerForm form = new ItemPickerForm();
-            if (_selectedItem!=null)
-                form.KindFilter = _selectedItem.FQID.Kind;
-            form.Init();
-            form.ShowDialog();
+            var form = new ItemPickerWpfWindow()
+            {
+                Items = Configuration.Instance.GetItems(),
+            };
+            if (_selectedItem != null)
+            {
+                form.KindsFilter = new List<Guid>() { _selectedItem.FQID.Kind };
+            }
+            form.ShowDialog(); 
         }
 
         internal static Guid CameraPropertiesAnalyticsPluginId = new Guid("e919b772-74ee-43a2-8a56-fe0c08abcc84");
@@ -476,11 +480,12 @@ namespace ConfigDump.Admin
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            ItemPickerForm form = new ItemPickerForm();
-            form.KindFilter = Kind.Hardware;
-            form.Init();
+            var form = new ItemPickerWpfWindow()
+            {
+                Items = Configuration.Instance.GetItems(),
+                KindsFilter = new List<Guid>() { Kind.Hardware }
+            };
             form.ShowDialog();
-
         }
 
         private void OnClick(object sender, EventArgs e)

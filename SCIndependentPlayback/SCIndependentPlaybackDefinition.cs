@@ -2,15 +2,15 @@ using SCIndependentPlayback.Client;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Reflection;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace SCIndependentPlayback
 {
 	public class SCIndependentPlaybackDefinition : PluginDefinition
 	{
-		private static Image _treeNodeImage;
+		private static VideoOSIconSourceBase _treeNodeImageSource;
 
 		internal static Guid SCIndependentPlaybackPluginId = new Guid("83e83d08-5df0-4ff6-bb69-37bef5c33ccc");
 		internal static Guid SCIndependentPlaybackKind = new Guid("c0cc6dc0-a75f-4058-bdea-6a3e7ff002e6");
@@ -29,17 +29,15 @@ namespace SCIndependentPlayback
 		/// </summary>
 		static SCIndependentPlaybackDefinition()
 		{
-			Assembly assembly = Assembly.GetExecutingAssembly();
-			string name = assembly.GetName().Name;
-			_treeNodeImage = Properties.Resources.SCIndependentPlayback;
-		}
+			_treeNodeImageSource = new VideoOSIconUriSource { Uri = new Uri("pack://application:,,,/SCIndependentPlayback;component/Resources/SCIndependentPlayback.png") };
+        }
 
 		/// <summary>
 		/// Get the icon for the plugin
 		/// </summary>
-		internal static Image TreeNodeImage
+		internal static VideoOSIconSourceBase TreeNodeImageSource
 		{
-			get { return _treeNodeImage; }
+			get { return _treeNodeImageSource; }
 		}
 
 		#endregion

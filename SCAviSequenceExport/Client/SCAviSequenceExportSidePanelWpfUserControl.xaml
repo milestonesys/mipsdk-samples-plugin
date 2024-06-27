@@ -16,23 +16,23 @@
                     <Button x:Name="selectCameraButton" Content="Select Camera" HorizontalAlignment="Center" Width="200" Margin="10" Click="selectCameraButton_Click"/>
                     <Label Content="Start:"/>
                     <WindowsFormsHost>
-                        <forms:DateTimePicker Format="Time"  x:Name="startDatePicker" ValueChanged="startDatePicker_ValueChanged"/>
+                        <forms:DateTimePicker Format="Time"  x:Name="startDatePicker" ValueChanged="datePicker_ValueChanged"/>
                     </WindowsFormsHost>
                     <Label Content="End :"/>
                     <WindowsFormsHost>
-                        <forms:DateTimePicker Format="Time" x:Name="endDatePicker"/>
+                        <forms:DateTimePicker Format="Time" x:Name="endDatePicker" ValueChanged="datePicker_ValueChanged"/>
                     </WindowsFormsHost>
                     <Label Content="Overlay:"/>
                     <TextBox x:Name="overlayTextBox"/>
-                    <Button Content="Add" Name="addButton" Width="100" HorizontalAlignment="Right" Margin="5" Click="addButton_Click"/>
+                    <Button Content="Add" Name="addButton" Width="100" HorizontalAlignment="Right" Margin="5" Click="addButton_Click" IsEnabled="False"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox VerticalAlignment="Bottom">
                 <StackPanel>
                     <ListBox Name="exportItemsListBox" Height="120"/>
                     <CheckBox Name="timestampCheckBox" Content="Timestamp overlay" Margin="0, 3"/>
-                    <Button x:Name="startExportButton" Content="Start Export" Margin="0, 3" Click="startExportButton_Click"/>
-                    <Button x:Name="cancelButton" Content="Cancel" Width="70" HorizontalAlignment="Right" Margin="0, 3" Click="cancelButton_Click"/>
+                    <Button x:Name="startExportButton" Content="Start Export" Margin="0, 3" Click="startExportButton_Click" IsEnabled="False"/>
+                    <Button x:Name="cancelButton" Content="Cancel" Width="70" HorizontalAlignment="Right" Margin="0, 3" Click="cancelButton_Click" IsEnabled="False"/>
                     <ProgressBar Name="exportProgressBar" Height="20" Margin="0, 3"/>
                     <Label Name="errorLabel" Height="30"/>
                 </StackPanel>

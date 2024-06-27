@@ -6,12 +6,13 @@ using LocationView.Client;
 using VideoOS.Platform;
 using VideoOS.Platform.Admin;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace LocationView
 {
 	public class LocationViewDefinition : PluginDefinition
 	{
-		internal protected static System.Drawing.Image TreeNodeImage;
+		private readonly static VideoOSIconSourceBase _treeNodeImage;
 
         internal static Guid LocationViewPluginId = new Guid("527F292F-B321-4487-9493-03DBD51D4231");
         internal static Guid LocationViewKind = new Guid("41E20EC4-2798-486B-B4E2-97ED81E10BEC");
@@ -20,15 +21,13 @@ namespace LocationView
 
         static LocationViewDefinition()
 		{
-			Assembly assembly = Assembly.GetExecutingAssembly();
-			string name = assembly.GetName().Name;
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/LocationView.png");
+            _treeNodeImage = new VideoOSIconUriSource() { Uri = new Uri(packString) };
+        }
 
-			System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.LocationView.png");
-			if (pluginStream != null)
-				TreeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-		}
-         
-		public override Guid Id
+        internal static VideoOSIconSourceBase TreeNodeImage => _treeNodeImage;
+
+        public override Guid Id
 		{
 			get
 			{

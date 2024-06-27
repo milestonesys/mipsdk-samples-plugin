@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Reflection;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace SCTheme.Client
 {
 	public class SCThemeViewItemPlugin : ViewItemPlugin
 	{
-        internal protected static System.Drawing.Image _treeNodeImage;
+        private readonly static VideoOSIconSourceBase _treeNodeImage;
+
+		static SCThemeViewItemPlugin()
+		{
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/SCTheme.png");
+            _treeNodeImage = new VideoOSIconUriSource() { Uri = new Uri(packString) };
+        }
 
         public SCThemeViewItemPlugin()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string name = assembly.GetName().Name;
-            _treeNodeImage = System.Drawing.Image.FromStream(assembly.GetManifestResourceStream(name + ".Resources.SCTheme.ico"));
         }
 
 		public override Guid Id
@@ -23,10 +27,7 @@ namespace SCTheme.Client
 			}
 		}
 
-		public override System.Drawing.Image Icon
-		{
-            get { return _treeNodeImage; }
-		}
+        public override VideoOSIconSourceBase IconSource { get => _treeNodeImage; protected set => base.IconSource = value; }
 
 		public override string Name
 		{

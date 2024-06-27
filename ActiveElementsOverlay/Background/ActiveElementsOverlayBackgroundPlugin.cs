@@ -114,7 +114,7 @@ namespace ActiveElementsOverlay.Background
             Canvas.SetLeft(textBlock, 250);
             Canvas.SetTop(textBlock, 250);
 
-            imageViewerAddOn.ActiveElementsOverlayAdd(new List<FrameworkElement> { button, textBlock }, new ActiveElementsOverlayRenderParameters() { FollowDigitalZoom = false, ShowAlways = false, ZOrder = 1 });
+            imageViewerAddOn.ActiveElementsOverlayAdd(new List<FrameworkElement> { button, textBlock }, new ActiveElementsOverlayRenderParameters() { Placement = OverlayPlacement.FollowImageViewport, ShowAlways = false, ZOrder = 1 });
 
             RegisterEvents(imageViewerAddOn);
             lock (_imageViewerAddOnButtons)
@@ -137,7 +137,7 @@ namespace ActiveElementsOverlay.Background
             border.MouseLeave += Border_MouseLeave;
             Canvas.SetLeft(border, 42);
             Canvas.SetTop(border, 42);
-            return imageViewerAddOn.ActiveElementsOverlayAdd(new List<FrameworkElement> { border }, new ActiveElementsOverlayRenderParameters() { FollowDigitalZoom = true, ShowAlways = true, ZOrder = 2 });
+            return imageViewerAddOn.ActiveElementsOverlayAdd(new List<FrameworkElement> { border }, new ActiveElementsOverlayRenderParameters() { Placement = OverlayPlacement.FollowDigitalZoom, ShowAlways = true, ZOrder = 2 });
         }
 
         /// <summary>

@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.Reflection;
-using System.Windows.Forms;
 using ChatWithWebsockets.Admin;
 using ChatWithWebsockets.Client;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Reflection;
 using VideoOS.Platform;
 using VideoOS.Platform.Admin;
-using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
 
 namespace ChatWithWebsockets
@@ -29,8 +26,6 @@ namespace ChatWithWebsockets
         internal static Guid ChatWithWebsocketsBackgroundPlugin = new Guid("6432A4A8-0F1D-4D51-AFE1-3A0A97AC63D2");
 
         #region Private fields
-
-        private UserControl _treeNodeInofUserControl;
 
         private List<ViewItemPlugin> _viewItemPlugin = new List<ViewItemPlugin>();
         private List<ItemNode> _itemNodes = new List<ItemNode>();

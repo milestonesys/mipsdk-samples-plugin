@@ -1,22 +1,23 @@
 using System;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace RGBVideoEnhancement.Client
 {
-	/// <summary>
-	/// Class defining one Smart Client ViewItem.<br/>
-	/// The ViewItemPlugin is only constructed one time.  
-	/// For each ViewItem defined on any view layout, a call to GenerateViewItemManager is performed to create a ViewItemManager. 
-	/// This instance of the ViewItemManager is then responsible for the configuration in relation to one viewitem.<br/>
-	/// The ViewItemManager will again generate ViewItemUserControl and PropertiesUserControl as appropriate for this viewitem.<br/>
-	/// e.g. if a given viewlayout is shown once, then only one ViewItemUserControl is generated, and only one PropertiesUserControl
-	/// is generated when selected in setup mode.<br/>
-	/// Now, if multiple floating windows are opened with SAME viewlayout, and thereby same configuration of a viewitem,
-	/// then multiple ViewItemUserControl's may be requested via the same ViewItemManager.<br/>
-	/// The properties part of the class is used to build the tree node in the Smart Client.
-	/// </summary>
-	public class RGBVideoEnhancementViewItemPlugin : ViewItemPlugin
+    /// <summary>
+    /// Class defining one Smart Client ViewItem.<br/>
+    /// The ViewItemPlugin is only constructed one time.  
+    /// For each ViewItem defined on any view layout, a call to GenerateViewItemManager is performed to create a ViewItemManager. 
+    /// This instance of the ViewItemManager is then responsible for the configuration in relation to one viewitem.<br/>
+    /// The ViewItemManager will again generate ViewItemUserControl and PropertiesUserControl as appropriate for this viewitem.<br/>
+    /// e.g. if a given viewlayout is shown once, then only one ViewItemUserControl is generated, and only one PropertiesUserControl
+    /// is generated when selected in setup mode.<br/>
+    /// Now, if multiple floating windows are opened with SAME viewlayout, and thereby same configuration of a viewitem,
+    /// then multiple ViewItemUserControl's may be requested via the same ViewItemManager.<br/>
+    /// The properties part of the class is used to build the tree node in the Smart Client.
+    /// </summary>
+    public class RGBVideoEnhancementViewItemPlugin : ViewItemPlugin
 	{
 	    /// <summary>
 		/// Called by the Environment when the user has logged in and has received configuration from the server.
@@ -43,16 +44,12 @@ namespace RGBVideoEnhancement.Client
 			get { return RGBVideoEnhancementDefinition.RGBVideoEnhancementViewItemPlugin; }
 		}
 
+        public override VideoOSIconSourceBase IconSource { get => RGBVideoEnhancementDefinition.PluginIcon; protected set => base.IconSource = value; }
 
-		public override System.Drawing.Image Icon
-		{
-			get { return RGBVideoEnhancementDefinition.TreeNodeImage; }
-		}
-
-		/// <summary>
-		/// The text used for a single ViewItem
-		/// </summary>
-		public override string Name
+        /// <summary>
+        /// The text used for a single ViewItem
+        /// </summary>
+        public override string Name
 		{
 			get { return "RGBVideoEnhancement"; }
 		}

@@ -1,5 +1,6 @@
 ﻿using System;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace ServerSideCarrousel.Client
 {
@@ -18,10 +19,7 @@ namespace ServerSideCarrousel.Client
 			}
 		}
 
-		public override System.Drawing.Image Icon
-		{
-			get { return ServerSideCarrouselDefinition._treeNodeImage; }
-		}
+        public override VideoOSIconSourceBase IconSource { get => ServerSideCarrouselDefinition.PluginIcon; protected set => base.IconSource = value; }
 
 		public override string Name
 		{

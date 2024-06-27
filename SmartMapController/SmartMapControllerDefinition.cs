@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Reflection;
 using SmartMapController.Client;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace SmartMapController
 {
@@ -13,7 +15,7 @@ namespace SmartMapController
     /// </summary>
     public class SmartMapControllerDefinition : PluginDefinition
     {
-        private static System.Drawing.Image _treeNodeImage;
+        private static readonly VideoOSIconSourceBase _pluginIcon;
         internal static Guid SmartMapControllerPluginId = new Guid("4b8e9e95-1443-4193-9332-619a9ecfb0e9");
         internal static Guid SmartMapControllerKind = new Guid("49eaf8d2-eb12-4b2c-9197-82ff42fb5b90");
         internal static Guid SmartMapControllerViewItemPlugin = new Guid("b4957ad3-edc3-4c67-b8ff-66ae05e2bb98");
@@ -34,17 +36,11 @@ namespace SmartMapController
         /// </summary>
         static SmartMapControllerDefinition()
         {
-            _treeNodeImage = Properties.Resources.DummyItem;
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/DummyItem.bmp");
+            _pluginIcon = new VideoOSIconUriSource() { Uri = new Uri(packString) };
         }
 
-
-        /// <summary>
-        /// Get the icon for the plugin
-        /// </summary>
-        internal static Image TreeNodeImage
-        {
-            get { return _treeNodeImage; }
-        }
+        internal static VideoOSIconSourceBase PluginIcon => _pluginIcon;
 
         /// <summary>
         /// This method is called when the environment is up and running.

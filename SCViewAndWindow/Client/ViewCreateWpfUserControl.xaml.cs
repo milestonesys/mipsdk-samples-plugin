@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.UI;
@@ -13,6 +14,17 @@ namespace SCViewAndWindow.Client
         private ConfigItem _groupItem;                                  // The Group
         private ViewAndLayoutItem _viewAndLayoutItem;   // The ViewLayout
         private Dictionary<Guid, ViewItemPlugin> viewItemPlugins = new Dictionary<Guid, ViewItemPlugin>();
+        private static readonly System.Drawing.Image _unknownLayoutIcon;
+
+        static ViewCreateWpfUserControl()
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string name = assembly.GetName().Name;
+
+            System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.UnknownLayout.png");
+            if (pluginStream != null)
+                _unknownLayoutIcon = System.Drawing.Image.FromStream(pluginStream);
+        }
 
         public ViewCreateWpfUserControl()
         {
@@ -138,7 +150,7 @@ namespace SCViewAndWindow.Client
                         rect[1] = new System.Drawing.Rectangle(000, 499, 499, 499);
                         rect[2] = new System.Drawing.Rectangle(499, 499, 499, 499);
                         _viewAndLayoutItem = (ViewAndLayoutItem)_groupItem.AddChild(textBoxLayout.Text, Kind.View, FolderType.No);
-                        _viewAndLayoutItem.Icon = Properties.Resources.UnknownLayout;
+                        _viewAndLayoutItem.Icon = _unknownLayoutIcon;
                         _viewAndLayoutItem.Layout = rect;
                         MakeIXList(3);
                     }

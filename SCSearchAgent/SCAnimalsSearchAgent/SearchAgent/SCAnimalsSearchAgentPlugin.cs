@@ -1,6 +1,7 @@
 using System;
 using VideoOS.Platform.Search;
 using VideoOS.Platform.Search.FilterCategories;
+using VideoOS.Platform.UI.Controls;
 
 namespace SCSearchAgent.SCAnimalsSearchAgent.SearchAgent
 {
@@ -47,7 +48,7 @@ namespace SCSearchAgent.SCAnimalsSearchAgent.SearchAgent
             // using one of the existing ones (like Person or Vehicle). We do that because "Animals search agent" 
             // does not logically fit into any of the existing search categories.
             // However, it is strongly recommended to use the existing categories whenever it is posssible.
-            SearchFilterCategory = new OtherSearchFilterCategory("Animals", null,
+            SearchFilterCategory = new OtherSearchFilterCategory("Animals", (VideoOSIconSourceBase)null,
                     new SearchFilter[]
                     {
                         SCAnimalsSearchDefinition.ActivityFilter,

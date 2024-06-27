@@ -2,19 +2,21 @@ using ServiceTest.Admin;
 using ServiceTest.Client;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 using VideoOS.Platform;
 using VideoOS.Platform.Admin;
-using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace ServiceTest
 {
     public class ServiceTestDefinition : PluginDefinition
     {
-        internal protected static System.Drawing.Image _treeNodeImage;
-
+        private readonly static VideoOSIconSourceBase _pluginIcon;
+        private readonly static System.Drawing.Image _treeNodeImage;
         internal static Guid ServiceTestPluginId = new Guid("09d8f704-0a78-41fb-92f2-ae8ad53fd8cb");
         internal static Guid ServiceTestKind = new Guid("efbec3c9-b5b8-485f-8308-23ac786c080b");
 
@@ -29,13 +31,32 @@ namespace ServiceTest
 
         static ServiceTestDefinition()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string name = assembly.GetName().Name;
-
-            System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.ServiceTest.png");
-            if (pluginStream != null)
-                _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/ServiceTest.png");
+            Uri imageUri = new Uri(packString);
+            _pluginIcon = new VideoOSIconUriSource() { Uri = imageUri };
+            _treeNodeImage = ResourceToImage(imageUri);
         }
+
+        /// <summary>
+        /// WPF requires resources to be stored with Build Action=Resource, which unfortunately cannot easily be read for WinForms controls, so we use this small
+        /// utility method
+        /// </summary>
+        /// <param name="imageUri">Pack URI pointing to the image <seealso cref="https://learn.microsoft.com/en-us/dotnet/desktop/wpf/app-development/pack-uris-in-wpf"/></param>
+        /// <returns></returns>
+        private static System.Drawing.Image ResourceToImage(Uri imageUri)
+        {
+            var bitmapImage = new BitmapImage(imageUri);
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+            using (var stream = new MemoryStream())
+            {
+                encoder.Save(stream);
+                stream.Flush();
+                return new System.Drawing.Bitmap(stream);
+            }
+        }
+
+        internal static VideoOSIconSourceBase PluginIcon => _pluginIcon;
 
         #endregion
 
@@ -159,26 +180,6 @@ namespace ServiceTest
             get
             {
                 return new List<ViewItemPlugin> { new ServiceTestViewItemPlugin() };
-            }
-        }
-
-        /// <summary>
-        /// An extension plugin running in the Smart Client to add more choices on the Options dialog.
-        /// </summary>
-        public override List<OptionsDialogPlugin> OptionsDialogPlugins
-        {
-            get { return null; }
-        }
-
-        /// <summary>
-        /// Create and returns the background task.
-        /// </summary>
-        public override List<VideoOS.Platform.Background.BackgroundPlugin> BackgroundPlugins
-        {
-            get
-            {
-                // Should only create the background class first time this is accessed.
-                return new List<BackgroundPlugin>() { };
             }
         }
 

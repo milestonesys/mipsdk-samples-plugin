@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using VideoOS.Platform;
-using VideoOS.Platform.Admin;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.Messaging;
 using VideoOS.Platform.UI;
@@ -20,8 +20,10 @@ namespace VideoPreview.Admin
 		private Point _first, _next;
 		private bool _lineDefined;
 
-		private PlaybackUserControl _playbackUserControl;
-		private BitmapSource _bitmapSource;
+#pragma warning disable CS0618 // Type or member is obsolete
+        private PlaybackUserControl _playbackUserControl;
+#pragma warning restore CS0618 // Type or member is obsolete
+        private BitmapSource _bitmapSource;
         private bool _inLiveMode = false;
 		#endregion
 
@@ -31,7 +33,9 @@ namespace VideoPreview.Admin
 		{
 			InitializeComponent();
 
+#pragma warning disable CS0618 // Type or member is obsolete
 			_playbackUserControl = ClientControl.Instance.GeneratePlaybackUserControl();
+#pragma warning restore CS0618 // Type or member is obsolete
 			_playbackUserControl.Dock = DockStyle.Top;
 			_playbackUserControl.TimeSpan = TimeSpan.FromHours(1);
 			_playbackUserControl.ShowTallUserControl = true;
@@ -211,14 +215,16 @@ namespace VideoPreview.Admin
 			_bitmapSource.Close();
 			textBoxHeader.Text = "";
 
-			ItemPickerForm form = new ItemPickerForm();
-			form.CategoryFilter = Category.VideoIn;
-			form.SelectedItem = _selectedCameraItem;
-			form.AutoAccept = true;
-			form.Init( Configuration.Instance.GetItemsByKind(Kind.Camera));
-			if (form.ShowDialog()==DialogResult.OK)
+            var form = new ItemPickerWpfWindow
+            {
+                Items = Configuration.Instance.GetItemsByKind(Kind.Camera),				
+                KindsFilter = new List<Guid> { Kind.Camera },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+				SelectedItems = new List<Item> { _selectedCameraItem }
+            };
+            if (form.ShowDialog().Value)
 			{
-				_selectedCameraItem = form.SelectedItem;
+				_selectedCameraItem = form.SelectedItems.First();
 				textBoxCameraName.Text = "";
 				if (_selectedCameraItem!=null)
 				{

@@ -1,17 +1,18 @@
 using System;
 using System.Reflection;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace Property.Client
 {
     public class PropertyWorkSpaceViewItemPlugin : ViewItemPlugin
     {
-        private static System.Drawing.Image _treeNodeImage;
+        private static VideoOSIconSourceBase _treeNodeImage;
+
         public PropertyWorkSpaceViewItemPlugin()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string name = assembly.GetName().Name;
-            _treeNodeImage = System.Drawing.Image.FromStream(assembly.GetManifestResourceStream(name + ".Resources.PropertyWorkSpace.bmp"));
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/PropertyWorkSpace.bmp");
+            _treeNodeImage = new VideoOSIconUriSource() { Uri = new Uri(packString) };
         }
 
         public override Guid Id
@@ -19,10 +20,7 @@ namespace Property.Client
             get { return PropertyDefinition.PropertyWorkSpaceViewItemPluginId; }
         }
 
-        public override System.Drawing.Image Icon
-        {
-            get { return _treeNodeImage; }
-        }
+        public override VideoOSIconSourceBase IconSource { get => _treeNodeImage; protected set => base.IconSource = value; }
 
         public override string Name
         {

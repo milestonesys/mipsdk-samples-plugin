@@ -29,7 +29,7 @@ namespace ServerSideCarrousel.Admin
         {
             return
                 new VideoOS.Platform.UI.HelpUserControl(
-                    ServerSideCarrouselDefinition._treeNodeImage,
+                    ServerSideCarrouselDefinition.TreeNodeImage,
                     "Server Side Carrousel",
                     "This sample show how selection of multiple cameras can be done, \r\nand later be retrieved by a Smart Client plug-in.");
         }

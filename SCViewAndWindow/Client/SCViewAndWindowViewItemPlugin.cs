@@ -1,7 +1,6 @@
 using System;
-using System.Windows.Forms;
-using System.Xml;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace SCViewAndWindow.Client
 {
@@ -16,13 +15,10 @@ namespace SCViewAndWindow.Client
 		{
 			get { return new Guid("3a3e4a7f-8661-4021-8106-86898c1dbe89"); }
 		}
+		
+        public override VideoOSIconSourceBase IconSource { get => SCViewAndWindowDefinition.PluginIcon; protected set => base.IconSource = value; }
 
-		public override System.Drawing.Image Icon
-		{
-			get { return SCViewAndWindowDefinition._treeNodeImage; }
-		}
-
-		public override string Name
+        public override string Name
 		{
 			get { return "View And Window Tool"; }
 		}

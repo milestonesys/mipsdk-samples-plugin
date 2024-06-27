@@ -13,7 +13,7 @@ using namespace System::Runtime::CompilerServices;
 [assembly:AssemblyConfigurationAttribute("")];
 [assembly:AssemblyCompanyAttribute("Milestone Systems")];
 [assembly:AssemblyProductAttribute("MIPSDK")];
-[assembly:AssemblyCopyrightAttribute("Milestone Systems")];
+[assembly:AssemblyCopyrightAttribute("")];
 [assembly:AssemblyTrademarkAttribute("")];
 [assembly:AssemblyCultureAttribute("")];
 

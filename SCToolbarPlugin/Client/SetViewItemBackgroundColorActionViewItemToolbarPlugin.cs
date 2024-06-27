@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.Messaging;
+using VideoOS.Platform.UI.Controls;
 
 namespace SCToolbarPlugin.Client
 {
@@ -13,11 +15,11 @@ namespace SCToolbarPlugin.Client
         private List<object> _messageRegistrationObjects = new List<object>();
 
         private SolidColorBrush _color;
-        private Image _icon;
+        private VideoOSIconSourceBase _icon;
         private Item _viewItemInstance;
         private Item _window;
 
-        public SetViewItemBackgroundColorActionViewItemToolbarPluginInstance(SolidColorBrush color, Image icon)
+        public SetViewItemBackgroundColorActionViewItemToolbarPluginInstance(SolidColorBrush color, VideoOSIconSourceBase icon)
         {
             _color = color;
             _icon = icon;
@@ -31,8 +33,8 @@ namespace SCToolbarPlugin.Client
             string currentColor = ColorConverter.ConvertColorToCommonName(_color.Color);
             Title = "Set view item background color to " + currentColor;
             Tooltip = "Click to set view item background color to " + currentColor;
-            Icon = _icon;
-
+            IconSource = _icon;
+            
             _messageRegistrationObjects.Add(EnvironmentManager.Instance.RegisterReceiver(ViewItemBackgroundColorChangedReceiver, new MessageIdFilter(SCToolbarPluginDefinition.ViewItemBackgroundColorChanged)));
         }
 
@@ -77,16 +79,32 @@ namespace SCToolbarPlugin.Client
     {
         private static readonly Guid PluginId = new Guid("8A4E43A9-B181-4689-8B4F-BCE331173FE7");
         private SolidColorBrush _color;
-        private Image _icon;
+        private VideoOSIconSourceBase _icon;
 
         public SetViewItemBackgroundColorActionViewItemToolbarPlugin(SolidColorBrush color)
         {
             _color = color;
-            _icon = new Bitmap(16, 16, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            using (Graphics g = Graphics.FromImage(_icon))
+            
+            _icon = new VideoOSIconBitmapSource() { BitmapSource = BitmapSourceFromBrush(color) };
+        }
+
+        private static System.Windows.Media.Imaging.BitmapSource BitmapSourceFromBrush(SolidColorBrush color, int size = 32, int dpi = 96)
+        {
+            // RenderTargetBitmap = builds a bitmap rendering of a visual
+            var pixelFormat = PixelFormats.Pbgra32;
+            RenderTargetBitmap rtb = new RenderTargetBitmap(size, size, dpi, dpi, pixelFormat);
+
+            // Drawing visual allows us to compose graphic drawing parts into a visual to render
+            var drawingVisual = new DrawingVisual();
+            using (DrawingContext context = drawingVisual.RenderOpen())
             {
-                g.FillRectangle(new SolidBrush(ColorConverter.ConvertMediaColorToDrawingColor(color.Color)), 0, 0, _icon.Width, _icon.Height);
+                // Declaring drawing a rectangle using the input brush to fill up the visual
+                context.DrawRectangle(color, null, new Rect(0, 0, size, size));
             }
+
+            // Actually rendering the bitmap
+            rtb.Render(drawingVisual);
+            return rtb;
         }
 
         public override Guid Id

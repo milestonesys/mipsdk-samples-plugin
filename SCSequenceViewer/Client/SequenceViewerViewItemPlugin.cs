@@ -1,5 +1,6 @@
 using System;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace SequenceViewer.Client
 {
@@ -14,10 +15,7 @@ namespace SequenceViewer.Client
 			get { return new Guid("a5833d9c-1fa3-421a-ad92-a86ab3de923d"); }
 		}
 
-		public override System.Drawing.Image Icon
-		{
-			get { return SequenceViewerDefinition._treeNodeImage; }
-		}
+        public override VideoOSIconSourceBase IconSource { get => SequenceViewerDefinition.TreeNodeImage; protected set => base.IconSource = value; }
 
 		public override string Name
 		{

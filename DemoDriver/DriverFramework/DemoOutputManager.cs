@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using VideoOS.Platform.DriverFramework.Data.Settings;
 using VideoOS.Platform.DriverFramework.Definitions;
 using VideoOS.Platform.DriverFramework.Exceptions;
 using VideoOS.Platform.DriverFramework.Managers;
@@ -30,6 +31,14 @@ namespace DemoDriver
 
         public override void TriggerOutput(string deviceId, int durationMs)
         {
+            if (durationMs == 0)
+            {
+                var setting = Container.SettingsManager.GetSetting(new DeviceSetting(Setting.OutputTriggerTime, deviceId, "0"));
+                if (setting != null && int.TryParse(setting.Value, out var duration))
+                {
+                    durationMs = duration;
+                }
+            }
             WriteLine(deviceId, string.Format("{0}, ms= {1}", nameof(TriggerOutput), durationMs));
             if (new Guid(deviceId) == Constants.Output1)
             {
@@ -39,7 +48,7 @@ namespace DemoDriver
                 {
                     DeviceId = deviceId
                 };
-                map.TriggerTimer = new Timer(TimerCallback, map, 1000, Timeout.Infinite);
+                map.TriggerTimer = new Timer(TimerCallback, map, durationMs, Timeout.Infinite);
                 _triggerTimers.Add(map);
                 return;
             }

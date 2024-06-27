@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.572
@@ -27,5 +27,13 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4EC78ECB-0485-444C-8502-95BEF1DF44F2}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://tfsserver:8080/tfs/xprotect
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = DemoDriver.csproj
+		SccLocalPath1 = .
 	EndGlobalSection
 EndGlobal

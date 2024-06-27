@@ -1,5 +1,6 @@
 using System;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace SCIndependentPlayback.Client
 {
@@ -45,9 +46,9 @@ namespace SCIndependentPlayback.Client
 			get { return SCIndependentPlaybackDefinition.SCIndependentPlaybackViewItemPlugin; }
 		}
 
-		public override System.Drawing.Image Icon
+		public override VideoOSIconSourceBase IconSource
 		{
-			get { return SCIndependentPlaybackDefinition.TreeNodeImage; }
+			get { return SCIndependentPlaybackDefinition.TreeNodeImageSource; }
 		}
 
 		/// <summary>

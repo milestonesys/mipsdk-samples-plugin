@@ -1,23 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 using ServerSideCarrousel.Admin;
 using ServerSideCarrousel.Client;
 using VideoOS.Platform;
 using VideoOS.Platform.Admin;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace ServerSideCarrousel
 {
     public class ServerSideCarrouselDefinition : PluginDefinition
     {
-        internal protected static System.Drawing.Image _treeNodeImage;
+        private static readonly VideoOSIconSourceBase _pluginIcon;
+        private static readonly System.Drawing.Image _treeNodeImage;
 
         internal static Guid CarrouselPluginId = new Guid("FD2AB85B-B944-448f-BAA9-CC4DCE1172FA");
         internal static Guid CarrouselKind = new Guid("8A9F28E8-042E-480d-BE46-A690537ECEE6");	//Remember to make a new one, if you copy this code
-
-
 
         #region Private fields
 
@@ -29,10 +31,33 @@ namespace ServerSideCarrousel
 
         static ServerSideCarrouselDefinition()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string name = assembly.GetName().Name;
-            _treeNodeImage = System.Drawing.Image.FromStream(assembly.GetManifestResourceStream(name + ".Resources.Carousel.png"));
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/Carousel.png");
+            Uri imageUri = new Uri(packString);
+            _pluginIcon = new VideoOSIconUriSource() { Uri = imageUri };
+            _treeNodeImage = ResourceToImage(imageUri);
         }
+
+        /// <summary>
+        /// WPF requires resources to be stored with Build Action=Resource, which unfortunately cannot easily be read for WinForms controls, so we use this small
+        /// utility method
+        /// </summary>
+        /// <param name="imageUri">Pack URI pointing to the image <seealso cref="https://learn.microsoft.com/en-us/dotnet/desktop/wpf/app-development/pack-uris-in-wpf"/></param>
+        /// <returns></returns>
+        private static System.Drawing.Image ResourceToImage(Uri imageUri)
+        {
+            var bitmapImage = new BitmapImage(imageUri);
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+            using (var stream = new MemoryStream())
+            {
+                encoder.Save(stream);
+                stream.Flush();
+                return new System.Drawing.Bitmap(stream);
+            }
+        }
+
+        internal static VideoOSIconSourceBase PluginIcon => _pluginIcon;
+        internal static System.Drawing.Image TreeNodeImage => _treeNodeImage;
 
         public override Guid Id
         {

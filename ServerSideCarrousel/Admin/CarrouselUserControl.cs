@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using VideoOS.Platform;
 
@@ -56,7 +55,9 @@ namespace ServerSideCarrousel.Admin
             textBoxSeconds.Text = "";
         }
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         internal async void FillContent()
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             treeViewAvailable.Nodes.Clear();
 

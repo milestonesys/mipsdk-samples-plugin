@@ -1,23 +1,22 @@
+using SCExport.Background;
+using SCExport.Client;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
-using SCExport.Background;
-using SCExport.Client;
 using VideoOS.Platform;
-using VideoOS.Platform.Admin;
 using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
 
 namespace SCExport
 {
-	/// <summary>
-	/// This sample show how to perform small AVI and DB exports from the side panel in the Smart Client.
-	/// </summary>
-	public class SCExportDefinition : PluginDefinition
+    /// <summary>
+    /// This sample show how to perform small AVI and DB exports from the side panel in the Smart Client.
+    /// </summary>
+    public class SCExportDefinition : PluginDefinition
 	{
-		private static System.Drawing.Image _treeNodeImage;
+		private static Image _treeNodeImage;
 
 		internal static Guid SCExportPluginId = new Guid("afc84565-3e6a-4a3f-aed5-51976f50bfd1");
 		internal static Guid SCExportSidePanel = new Guid("250b2a9a-7384-4aba-a855-33f2523e8a54");
@@ -26,12 +25,7 @@ namespace SCExport
         #region Private fields
 
         private List<BackgroundPlugin> _backgroundPlugins = new List<BackgroundPlugin>();
-        private List<OptionsDialogPlugin> _optionsDialogPlugins = new List<OptionsDialogPlugin>();
-        private List<ViewItemPlugin> _viewItemPlugins = new List<ViewItemPlugin>();
-        private List<ItemNode> _itemNodes = new List<ItemNode>();
         private List<SidePanelPlugin> _sidePanelPlugins = new List<SidePanelPlugin>();
-        private List<String> _messageIdStrings = new List<string>();
-        private List<SecurityAction> _securityActions = new List<SecurityAction>();
 
         #endregion
 
@@ -79,34 +73,6 @@ namespace SCExport
         {
             _sidePanelPlugins.Clear();
             _backgroundPlugins.Clear();
-        }
-
-        /// <summary>
-        /// Return any new messages that this plugin can use in SendMessage or PostMessage,
-        /// or has a Receiver set up to listen for.
-        /// The suggested format is: "YourCompany.Area.MessageId"
-        /// </summary>
-        public override List<string> PluginDefinedMessageIds
-        {
-            get
-            {
-                return _messageIdStrings;
-            }
-        }
-
-        /// <summary>
-        /// If authorization is to be used, add the SecurityActions the entire plugin 
-        /// would like to be available.  E.g. Application level authorization.
-        /// </summary>
-        public override List<SecurityAction> SecurityActions
-        {
-            get
-            {
-                return _securityActions;
-            }
-            set
-            {
-            }
         }
 
         #region Identification Properties
@@ -187,14 +153,6 @@ namespace SCExport
         #region Administration properties
 
         /// <summary>
-        /// A list of server side configuration items in the administrator
-        /// </summary>
-        public override List<ItemNode> ItemNodes
-        {
-            get { return _itemNodes; }
-        }
-
-        /// <summary>
         /// A user control to display when the administrator clicks on the top TreeNode
         /// </summary>
         public override UserControl GenerateUserControl()
@@ -213,22 +171,6 @@ namespace SCExport
         #endregion
 
         #region Client related methods and properties
-
-        /// <summary>
-        /// A list of Client side definitions for Smart Client
-        /// </summary>
-        public override List<ViewItemPlugin> ViewItemPlugins
-        {
-            get { return _viewItemPlugins; }
-        }
-
-        /// <summary>
-        /// An extention plugin running in the Smart Client to add more choices on the Options dialog.
-        /// </summary>
-        public override List<OptionsDialogPlugin> OptionsDialogPlugins
-        {
-            get { return _optionsDialogPlugins; }
-        }
 
         /// <summary> 
         /// An extension plugin to add to the side panel of the Smart Client.

@@ -1,38 +1,40 @@
 using SCViewAndWindow.Client;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using System.Reflection;
 using VideoOS.Platform;
 using VideoOS.Platform.Admin;
-using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace SCViewAndWindow
 {
     public class SCViewAndWindowDefinition : PluginDefinition
 	{
-		internal protected static System.Drawing.Image _treeNodeImage;
+		private readonly static VideoOSIconSourceBase _pluginIcon;
 
 		internal static Guid PlatformToolsId = new Guid("F37BC4E7-0CB5-4782-8A34-6CC48164CCB4");
 		internal static Guid SCViewAndWindowPluginId = new Guid("eb548fc4-5970-4a95-91c8-d9123e85659a");
 		internal static Guid SCViewAndWindowKind = new Guid("0d03d106-0960-4fbf-8d64-37741b25b7c5");
 
-
 		#region Initialization
 
 		static SCViewAndWindowDefinition()
 		{
-			_treeNodeImage = SCViewAndWindow.Properties.Resources.SCVAWTool.ToBitmap();
-		}
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/SCVAWTool.png");
+            _pluginIcon = new VideoOSIconUriSource() { Uri = new Uri(packString) };
+        }
 
-		#endregion
+        internal static VideoOSIconSourceBase PluginIcon => _pluginIcon;
 
-		#region Identification Properties
+        #endregion
 
-		/// <summary>
-		/// Gets the unique id identifying this plugin component
-		/// </summary>
-		public override Guid Id
+        #region Identification Properties
+
+        /// <summary>
+        /// Gets the unique id identifying this plugin component
+        /// </summary>
+        public override Guid Id
 		{
 			get
 			{
@@ -100,11 +102,6 @@ namespace SCViewAndWindow
 
 		#region Administration properties
 
-		public override UserControl GenerateUserControl()
-		{
-			return new UserControl();
-		}
-
 		/// <summary>
 		/// A list of server side configuration items in the administrator
 		/// </summary>
@@ -116,7 +113,6 @@ namespace SCViewAndWindow
 			}
 		}
 
-
 		#endregion
 
 		#region Client related methods and properties
@@ -126,25 +122,6 @@ namespace SCViewAndWindow
 			get
 			{
 				return new List<ViewItemPlugin> { new SCViewAndWindowViewItemPlugin() };
-			}
-		}
-
-		/// <summary>
-		/// An extension plugin running in the Smart Client to add more choices on the Options dialog.
-		/// </summary>
-		public override List<OptionsDialogPlugin> OptionsDialogPlugins
-		{
-			get { return null; }
-		}
-
-		/// <summary>
-		/// Create and returns the background task.
-		/// </summary>
-		public override List<VideoOS.Platform.Background.BackgroundPlugin> BackgroundPlugins
-		{
-			get
-			{
-				return new List<BackgroundPlugin>() { };
 			}
 		}
 

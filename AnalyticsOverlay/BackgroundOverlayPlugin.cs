@@ -13,7 +13,6 @@ using Color = System.Windows.Media.Color;
 using Colors = System.Windows.Media.Colors;
 using FormattedText = System.Windows.Media.FormattedText;
 using RectangleGeometry = System.Windows.Media.RectangleGeometry;
-using Size = System.Drawing.Size;
 using SolidColorBrush = System.Windows.Media.SolidColorBrush;
 using Typeface = System.Windows.Media.Typeface;
 
@@ -377,7 +376,7 @@ namespace AnalyticsOverlay
         private delegate void DrawOverlayDelegate(ImageViewerAddOn addOn, DateTime dateTime);
         private void DrawOverlay(ImageViewerAddOn addOn, DateTime dateTime)
         {
-            if (addOn.PaintSize.Width == 0 || addOn.PaintSize.Height == 0)
+            if (addOn.PaintSizeWpf.Width == 0 || addOn.PaintSizeWpf.Height == 0)
             {
                 return;
             }
@@ -389,8 +388,8 @@ namespace AnalyticsOverlay
                             // number between 0 and 100 -counting 1/10 of seconds
                             int s = dateTime.Second % 10 * 10 + dateTime.Millisecond / 100;
                         List<Shape> shapes = new List<Shape>();
-                        shapes.Add(CreateBoxShape(addOn.PaintSize, s * 50 / _sampleRateOfOverlay, s * 50 / _sampleRateOfOverlay, 100, 200, Colors.Yellow, 0.7));
-                        shapes.Add(CreateTextShape(addOn.PaintSize, s.ToString(), s * 50 / _sampleRateOfOverlay, s * 50 / _sampleRateOfOverlay, 100, Colors.Red));
+                        shapes.Add(CreateBoxShape(addOn.PaintSizeWpf, s * 50 / _sampleRateOfOverlay, s * 50 / _sampleRateOfOverlay, 100, 200, Colors.Yellow, 0.7));
+                        shapes.Add(CreateTextShape(addOn.PaintSizeWpf, s.ToString(), s * 50 / _sampleRateOfOverlay, s * 50 / _sampleRateOfOverlay, 100, Colors.Red));
 
                         if (!_dictShapes.ContainsKey(addOn))
                         {
@@ -462,18 +461,18 @@ namespace AnalyticsOverlay
         /// <returns></returns>
         private Shape CreateBoxShape(Size size, int scaleX, int scaleY, int scaleWidth, int scaleHeight, Color color, double opacity)
         {
-            int x = size.Width * scaleX / 1000;
-            int y = size.Height * scaleY / 1000;
-            int width = size.Width * scaleWidth / 1000;
-            int height = size.Height * scaleHeight / 1000;
+            double x = size.Width * scaleX / 1000;
+            double y = size.Height * scaleY / 1000;
+            double width = size.Width * scaleWidth / 1000;
+            double height = size.Height * scaleHeight / 1000;
 
             return CreateBoxShape(x, y, width, height, color, opacity);
         }
-        private Shape CreateBoxShape(int x, int y, int width, int height, Color color, double opacity)
+        private Shape CreateBoxShape(double x, double y, double width, double height, Color color, double opacity)
         {
             Shape boxShape;
             Path path2 = new Path();
-            path2.Data = new RectangleGeometry(new Rect(new Point(x, y), new System.Windows.Size(width, height)));
+            path2.Data = new RectangleGeometry(new Rect(new Point(x, y), new Size(width, height)));
             path2.Stroke = new SolidColorBrush(color);
             path2.Fill = new SolidColorBrush(color);
             path2.Fill.Opacity = opacity;

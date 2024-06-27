@@ -19,6 +19,7 @@ namespace SCAviSequenceExport.Client
         public SCAviSequenceExportSidePanelWpfUserControl()
         {
             InitializeComponent();
+            EnableAddButton();
         }
 
         public override void Init()
@@ -47,7 +48,7 @@ namespace SCAviSequenceExport.Client
             }
         }
 
-        private void startDatePicker_ValueChanged(object sender, EventArgs e)
+        private void datePicker_ValueChanged(object sender, EventArgs e)
         {
             EnableAddButton();
         }
@@ -96,11 +97,18 @@ namespace SCAviSequenceExport.Client
                 List<ExportItem> exportItems = new List<ExportItem>();
                 foreach (ExportItem item in exportItemsListBox.Items)
                     exportItems.Add(item);
-                _exporter.StartExport(exportItems);
-                var thread = new Thread(UpdateProgressThread);
-                thread.Start();
-                cancelButton.IsEnabled = true;
-                startExportButton.IsEnabled = false;
+                if (_exporter.StartExport(exportItems))
+                {
+                    var thread = new Thread(UpdateProgressThread);
+                    thread.Start();
+                    cancelButton.IsEnabled = true;
+                    startExportButton.IsEnabled = false;
+                }
+                else
+                {
+                    ShowError(_exporter.LastErrorString);
+                    _exporter.EndExport();
+                }
             }
         }
 

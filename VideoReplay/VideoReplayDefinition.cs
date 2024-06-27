@@ -5,14 +5,15 @@ using VideoReplay.Client;
 using VideoOS.Platform;
 using VideoOS.Platform.Admin;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace VideoReplay
 {
 	public class VideoReplayDefinition : PluginDefinition
 	{
-		private static System.Drawing.Image _treeNodeImage;
+        private static readonly VideoOSIconSourceBase _pluginIcon;
 
-		internal static Guid VideoReplayPluginId = new Guid("bcde60bf-3537-4787-85dd-250e2be7bec7");
+        internal static Guid VideoReplayPluginId = new Guid("bcde60bf-3537-4787-85dd-250e2be7bec7");
 		internal static Guid VideoReplayKind = new Guid("9c16cd76-6226-422c-bd55-4973f3497fa7");
 		internal static Guid VideoReplaySidePanel = new Guid("b5d2f61b-0d4a-49e9-8d07-d4d81cef03fb");
 		internal static Guid VideoReplayViewItemPlugin = new Guid("7b951f40-6600-46fe-9d5b-3eb494c80923");
@@ -34,29 +35,18 @@ namespace VideoReplay
 
 		static VideoReplayDefinition()
 		{
-			Assembly assembly = Assembly.GetExecutingAssembly();
-			string name = assembly.GetName().Name;
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/VideoReplay.png");
+            _pluginIcon = new VideoOSIconUriSource() { Uri = new Uri(packString) };
+        }
 
-			System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.VideoReplay.png");
-			if (pluginStream != null)
-				_treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-		}
+        internal static VideoOSIconSourceBase PluginIcon => _pluginIcon;
 
+        #endregion
 
-		/// <summary>
-		/// Get the icon for the plugin
-		/// </summary>
-		internal static System.Drawing.Image TreeNodeImage
-		{
-			get { return _treeNodeImage; }
-		}
-
-		#endregion
-
-		/// <summary>
-		/// Base initialization of the Plugin.
-		/// </summary>
-		public override void Init()
+        /// <summary>
+        /// Base initialization of the Plugin.
+        /// </summary>
+        public override void Init()
 		{
 			// Populate all relevant lists with your plugins etc.
 			_viewItemPlugin.Add(new VideoReplayViewItemPlugin());

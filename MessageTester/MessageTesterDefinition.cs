@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using MessageTester.Client;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace MessageTester
 {
@@ -41,14 +42,15 @@ namespace MessageTester
         /// </summary>
         static MessageTesterDefinition()
         {
-            TreeNodeImage = MessageTester.Properties.Resources.Messages;
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/Messages.bmp");
+            TreeNodeImage = new VideoOSIconUriSource() { Uri = new Uri(packString) };
         }
 
 
         /// <summary>
         /// Get the icon for the plugin
         /// </summary>
-        internal static Image TreeNodeImage { get; private set; }
+        internal static VideoOSIconSourceBase TreeNodeImage { get; private set; }
 
         #endregion
 

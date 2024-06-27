@@ -1,21 +1,20 @@
+using SensorMonitor.Admin;
+using SensorMonitor.Background;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Globalization;
+using System.Threading;
 using System.Windows.Forms;
-using SensorMonitor.Admin;
-using SensorMonitor.Background;
 using VideoOS.Platform;
 using VideoOS.Platform.Admin;
 using VideoOS.Platform.Background;
-using VideoOS.Platform.Client;
-using System.Globalization;
-using System.Threading;
 using VideoOS.Platform.RuleAction;
 
 namespace SensorMonitor
 {
-	public class SensorMonitorDefinition : PluginDefinition
+    public class SensorMonitorDefinition : PluginDefinition
 	{
 		internal protected static System.Drawing.Image _controllerImage;
 		internal protected static System.Drawing.Image _treeNodeSensorImage;
@@ -212,22 +211,6 @@ namespace SensorMonitor
 		#endregion
 
 		#region Client related methods and properties
-
-		/// <summary>
-		/// We have no ViewItems in this sample, Smart Client are using MAP and Alarm ViewItems
-		/// </summary>
-		public override List<ViewItemPlugin> ViewItemPlugins
-		{
-			get { return null; }
-		}
-
-		/// <summary>
-		/// An extension plugin running in the Smart Client to add more choices on the Options dialog.
-		/// </summary>
-		public override List<OptionsDialogPlugin> OptionsDialogPlugins
-		{
-			get { return null; }
-		}
 
 		/// <summary>
 		/// Create and returns the background task.

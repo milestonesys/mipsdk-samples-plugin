@@ -1,5 +1,6 @@
 using System;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace LocationView.Client
 {
@@ -11,10 +12,7 @@ namespace LocationView.Client
             get { return new Guid("05C1DB06-792A-44F4-A4B4-55A40EA9F7C9"); }
         }
 
-        public override System.Drawing.Image Icon
-        {
-            get { return LocationViewDefinition.TreeNodeImage; }
-        }
+        public override VideoOSIconSourceBase IconSource { get => LocationViewDefinition.TreeNodeImage; protected set => base.IconSource = value; }
 
         public override string Name
         {

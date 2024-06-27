@@ -19,7 +19,9 @@ namespace SCInsertCamera
     /// </summary>
     public class SCInsertCameraDefinition : PluginDefinition
     {
-        private static System.Drawing.Image _treeNodeImage;
+        public static System.Drawing.Image _treeNodeImage;
+
+        public static Image PluginImage => _treeNodeImage;
 
         internal static Guid SCInsertCameraPluginId = new Guid("709842df-aba3-49a7-b7d2-4c1312ebb1d9");
         internal static Guid SCInsertCameraSidePanel = new Guid("dc96fff5-18a3-47ae-b994-5a31bcf211da");

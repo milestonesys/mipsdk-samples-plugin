@@ -1,26 +1,23 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Reflection;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace SCToolbarPlugin.Client
 {
-	public class BackgroundColorViewItemPlugin : ViewItemPlugin
+    public class BackgroundColorViewItemPlugin : ViewItemPlugin
 	{
 		public static readonly Guid PluginId = new Guid("D4ACB8A8-85F0-417D-B3CD-891502873A28");
-		internal protected static Bitmap _icon;
+		private readonly static VideoOSIconSourceBase _icon;
 
-		public BackgroundColorViewItemPlugin()
+		static BackgroundColorViewItemPlugin()
 		{
-			Assembly assembly = Assembly.GetExecutingAssembly();
-			string name = assembly.GetName().Name;
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/RedSquare.png");
+            _icon = new VideoOSIconUriSource() { Uri = new Uri(packString) };
+        }
 
-			_icon = new Bitmap(16, 16, PixelFormat.Format32bppArgb);
-			using (Graphics g = Graphics.FromImage(_icon))
-			{
-				g.FillRectangle(Brushes.Red, 0, 0, _icon.Width, _icon.Height);
-			} 
+        public BackgroundColorViewItemPlugin()
+		{
 		}
 
 		public override Guid Id
@@ -28,12 +25,9 @@ namespace SCToolbarPlugin.Client
 			get { return PluginId; }
 		}
 
-		public override System.Drawing.Image Icon
-		{
-			get { return _icon; }
-		}
+        public override VideoOSIconSourceBase IconSource { get => _icon; protected set => base.IconSource = value; }
 
-		public override bool HideSetupItem
+        public override bool HideSetupItem
 		{
 			get
 			{

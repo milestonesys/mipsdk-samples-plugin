@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Milestone Systems")]
 [assembly: AssemblyProduct("ServerSideCarrousel")]
-[assembly: AssemblyCopyright("Copyright © Milestone Systems 2010")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

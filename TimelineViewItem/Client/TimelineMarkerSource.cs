@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Reflection;
 using System.Threading;
 using VideoOS.Platform.Client;
@@ -10,19 +9,18 @@ namespace TimelineViewItem.Client
 {
     public class TimelineMarkerSource : TimelineSequenceSource
     {
-        private Image _markerImage;
+        private static readonly System.Windows.Media.Imaging.BitmapSource _markerImage;
         private Guid _sourceId;
+
+        static TimelineMarkerSource()
+        {
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/TimelineMarker.png");
+            _markerImage = new System.Windows.Media.Imaging.BitmapImage(new Uri(packString));
+        }
 
         public TimelineMarkerSource()
         {
             _sourceId = Guid.NewGuid();
-
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string name = assembly.GetName().Name;
-
-            System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.TimelineMarker.png");
-            if (pluginStream != null)
-                _markerImage = Image.FromStream(pluginStream);
         }
 
         public override Guid Id
@@ -49,13 +47,7 @@ namespace TimelineViewItem.Client
             }
         }
 
-        public override Image MarkerIcon
-        {
-            get
-            {
-                return _markerImage;
-            }
-        }
+        public override System.Windows.Media.Imaging.BitmapSource MarkerIconSource => _markerImage;
 
         public override System.Windows.Controls.UserControl GetPreviewWpfUserControl(object dataId)
         {

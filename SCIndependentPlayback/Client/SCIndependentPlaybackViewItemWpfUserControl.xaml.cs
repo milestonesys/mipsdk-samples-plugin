@@ -4,6 +4,8 @@ using System.Linq;
 using System.Windows.Forms;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.Messaging;
+using Message = VideoOS.Platform.Messaging.Message;
 
 namespace SCIndependentPlayback.Client
 {
@@ -172,8 +174,34 @@ namespace SCIndependentPlayback.Client
             {
                 _audioPlayer.MicrophoneFQID = mic.FQID;
                 _audioPlayer.Initialize();
-                _audioPlayer.Connect();
+                try
+                {
+                    _audioPlayer.Connect();
+                }
+                catch (MIPException ex)
+                {
+                    // AudioPlayer.Connect() throws MIPException if:
+                    // - AudioPlayer.MicrophoneFQID is not set
+                    // - No audio devices are available e.g. when Windows Audio service is not running
+                    DisplayMessage(ex.Message, SmartClientMessageDataType.Warning);
+                    _audioPlayer.Close();
+                }
             }
+        }
+
+        // Displays given message in the message area
+        private void DisplayMessage(string messageText, SmartClientMessageDataType messageType)
+        {
+            SmartClientMessageData smartClientMessageData = new SmartClientMessageData
+            {
+                MessageId = Guid.NewGuid(),
+                Message = messageText,
+                MessageType = messageType,
+                IsClosable = true
+            };
+
+            Message message = new Message(MessageId.SmartClient.SmartClientMessageCommand, smartClientMessageData);
+            EnvironmentManager.Instance.SendMessage(message);
         }
 
         private void _imageViewerControl_Drop(object sender, System.Windows.DragEventArgs e)

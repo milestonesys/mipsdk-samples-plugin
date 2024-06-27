@@ -2,6 +2,7 @@ using System;
 using System.Windows.Forms;
 using System.Xml;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace MessageTester.Client
 {
@@ -48,11 +49,7 @@ namespace MessageTester.Client
             get { return MessageTesterDefinition.MessageTesterViewItemPlugin; }
         }
 
-
-        public override System.Drawing.Image Icon
-        {
-            get { return MessageTesterDefinition.TreeNodeImage; }
-        }
+        public override VideoOSIconSourceBase IconSource { get => MessageTesterDefinition.TreeNodeImage; protected set => base.IconSource = value; }
 
         /// <summary>
         /// The text used for a single ViewItem

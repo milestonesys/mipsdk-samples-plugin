@@ -1,16 +1,17 @@
+using DataExport.Client;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
-using DataExport.Client;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace DataExport
 {
     public class DataExportDefinition : PluginDefinition
     {
-        private static readonly Image _treeNodeImage;
+        private static readonly VideoOSIconSourceBase _pluginIcon;
         private Image _topTreeNodeImage;
 
         internal static Guid DataExportPluginId = new Guid("bd4ef35e-995e-4718-a3be-c2f006133f51");
@@ -31,19 +32,11 @@ namespace DataExport
 
         static DataExportDefinition()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string name = assembly.GetName().Name;
-
-            System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.DataExport.bmp");
-            if (pluginStream != null)
-                _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/DataExport.bmp");
+            _pluginIcon = new VideoOSIconUriSource() { Uri = new Uri(packString) };
         }
 
-
-        internal static Image TreeNodeImage
-        {
-            get { return _treeNodeImage; }
-        }
+        internal static VideoOSIconSourceBase PluginIcon => _pluginIcon;
 
         #endregion
 

@@ -47,11 +47,11 @@ namespace ConfigDump2.Background
 
 		private object configChangedHandler(Message message, FQID f1, FQID f2)
 		{
-		    Item siteItem = EnvironmentManager.Instance.GetSiteItem(EnvironmentManager.Instance.MasterSite);
-            DumpItems(new List<Item>() {siteItem},0, true);
+			Item siteItem = EnvironmentManager.Instance.GetSiteItem(EnvironmentManager.Instance.MasterSite);
+			DumpItems(new List<Item>() { siteItem }, 0, true);
 			List<Item> items = Configuration.Instance.GetItems();
-            DumpItems(items, 0, true);
-            return null;	
+			DumpItems(items, 0, true);
+			return null;	
 		}
 
 		private object NewEventsHandler(Message message, FQID f1, FQID f2)
@@ -70,6 +70,8 @@ namespace ConfigDump2.Background
 			return null;
 		}
 
+		// This shows that you can have the background service to run
+		// not only in the service, but the SmartClient and ManagementClient as well.
 		public override List<VideoOS.Platform.EnvironmentType> TargetEnvironments
 		{
 			get { return new List<EnvironmentType>() {EnvironmentType.Service, EnvironmentType.SmartClient}; }
@@ -78,50 +80,22 @@ namespace ConfigDump2.Background
 
 		private void Run()
 		{
-            Thread.Sleep(15000);
+			while (true)
+			{
+                try
+                {
+                    EnvironmentManager.Instance.Log(false,
+                        "BackgroundDump:",
+                        "This message is being logged from 'Run()' method in the background every 10 minutes");
+                }
+                catch (Exception)
+                {
+                    // Ignore, as Smart Client might have been logged out while Sleep was running.
+                }
 
-            try
-            {
-                List<Item> items = Configuration.Instance.GetItems();
-			    DumpItems(items, 0, true);
-
-		        // To get this sample to work - replace the below GUIDs with some real ones.
-		        Item outputItem = Configuration.Instance.GetItem(new Guid("bf98e470-701c-44ea-b4b0-45d937833563"), Kind.Output);
-		        Item cameraItem = Configuration.Instance.GetItem(new Guid("656be09f-2ca9-4e3f-b307-84d2b23f8e7e"), Kind.Camera);
-		        String preset1 = "Clock";
-		        String preset2 = "BackDoor";
-		        if (outputItem != null && cameraItem != null)
-		        {
-		            Thread.Sleep(10000);
-		            EnvironmentManager.Instance.SendMessage(new Message(MessageId.Control.TriggerCommand), outputItem.FQID,
-		                null);
-
-		            Thread.Sleep(10000);
-		            EnvironmentManager.Instance.SendMessage(new Message(MessageId.Control.StartRecordingCommand),
-		                cameraItem.FQID);
-		            Thread.Sleep(4000);
-		            EnvironmentManager.Instance.SendMessage(new Message(MessageId.Control.StopRecordingCommand),
-		                cameraItem.FQID, null);
-
-		            Thread.Sleep(10000);
-		            FQID presetFQID = new FQID(cameraItem.FQID.ServerId, cameraItem.FQID.ObjectId, preset1, FolderType.No,
-		                Kind.Preset);
-		            EnvironmentManager.Instance.SendMessage(new Message(MessageId.Control.TriggerCommand), presetFQID, null);
-
-		            Thread.Sleep(4000);
-		            presetFQID.ObjectIdString = preset2;
-		            EnvironmentManager.Instance.SendMessage(new Message(MessageId.Control.TriggerCommand), presetFQID, null);
-
-		            Thread.Sleep(4000);
-		            presetFQID.ObjectIdString = preset1;
-		            EnvironmentManager.Instance.SendMessage(new Message(MessageId.Control.TriggerCommand), presetFQID, null);
-		        }
-		    }
-		    catch (Exception)
-		    {
-		        // Ignore, as Smart Client might have been logged out while Sleep was running.
-		    }
-		}
+				Thread.Sleep(TimeSpan.FromMinutes(10));
+            }
+        }
 
 		private void DumpItems(List<Item> items, int indent, bool dumpRelated)
 		{
@@ -136,7 +110,7 @@ namespace ConfigDump2.Background
                 if (result != null && result.Count>0)
                     ip = result[0] as String;
 
-				EnvironmentManager.Instance.Log(false, "ConfigDump", filler + "Item.Name:   " + item.Name, null);
+                EnvironmentManager.Instance.Log(false, "ConfigDump", filler + "Item.Name:   " + item.Name, null);
 				EnvironmentManager.Instance.Log(false, "ConfigDump", filler + "     FQID:   " + item.FQID.ToString(), null);
 				EnvironmentManager.Instance.Log(false, "ConfigDump", filler + "     Kind:   " + Kind.DefaultTypeToNameTable[item.FQID.Kind], null);
                 EnvironmentManager.Instance.Log(false, "ConfigDump", filler + "     IP  :   " + ip, null);

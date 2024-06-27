@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using VideoOS.Platform.Messaging;
+using VideoOS.Platform.UI.Controls;
 
 namespace SCToast.Client
 {
@@ -13,16 +12,13 @@ namespace SCToast.Client
     /// </summary>
     public partial class TextToastDetailsWindow : Window
     {
-        private static Icon _iconGreen;
-        private static Icon _iconRed;
+        private static VideoOSIconSourceBase _iconGreen;
+        private static VideoOSIconSourceBase _iconRed;
 
         static TextToastDetailsWindow()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string name = assembly.GetName().Name;
-
-            _iconGreen = new Icon(assembly.GetManifestResourceStream(name + ".Resources.IconGreen.ico"));
-            _iconRed = new Icon(assembly.GetManifestResourceStream(name + ".Resources.IconRed.ico"));
+            _iconGreen = new VideoOSIconUriSource { Uri = new Uri("pack://application:,,,/SCToast;component/Resources/IconGreen.png") };
+            _iconRed = new VideoOSIconUriSource { Uri = new Uri("pack://application:,,,/SCToast;component/Resources/IconRed.png") };
         }
 
         private readonly Action<SmartClientToastData> _dismissed;
@@ -51,9 +47,9 @@ namespace SCToast.Client
 
             _iconComboBox.ItemsSource = new List<IconComboBoxItem>()
             {
-                new IconComboBoxItem() { DisplayText = "[none]", Icon = null },
-                new IconComboBoxItem() { DisplayText = "Green", Icon = _iconGreen },
-                new IconComboBoxItem() { DisplayText = "Red", Icon = _iconRed },
+                new IconComboBoxItem() { DisplayText = "[none]", IconSource = null },
+                new IconComboBoxItem() { DisplayText = "Green", IconSource = _iconGreen },
+                new IconComboBoxItem() { DisplayText = "Red", IconSource = _iconRed },
             };
 
             _dismissed = dismissed;
@@ -69,7 +65,7 @@ namespace SCToast.Client
         {
             _idTextBlock.Text = smartClientTextToastData.Id.ToString();
             _durationComboBox.SelectedItem = ((List<DurationComboBoxItem>)_durationComboBox.ItemsSource).Single(x => x.Duration == smartClientTextToastData.Duration);
-            _iconComboBox.SelectedItem = ((List<IconComboBoxItem>)_iconComboBox.ItemsSource).Single(x => x.Icon == smartClientTextToastData.Icon);
+            _iconComboBox.SelectedItem = ((List<IconComboBoxItem>)_iconComboBox.ItemsSource).Single(x => x.IconSource == smartClientTextToastData.IconSource);
             _primaryTextTextBox.Text = smartClientTextToastData.PrimaryText;
             _secondaryTextTextBox.Text = smartClientTextToastData.SecondaryText;
             _countTextTextBox.Text = smartClientTextToastData.CountText;
@@ -77,7 +73,7 @@ namespace SCToast.Client
 
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
-            SmartClientTextToastData = new SmartClientTextToastData(Guid.Parse(_idTextBlock.Text), ((DurationComboBoxItem)_durationComboBox.SelectedItem).Duration, _dismissed, _activated, _expired, ((IconComboBoxItem)_iconComboBox.SelectedItem).Icon, _primaryTextTextBox.Text, _secondaryTextTextBox.Text, _countTextTextBox.Text);
+            SmartClientTextToastData = new SmartClientTextToastData(Guid.Parse(_idTextBlock.Text), ((DurationComboBoxItem)_durationComboBox.SelectedItem).Duration, _dismissed, _activated, _expired, ((IconComboBoxItem)_iconComboBox.SelectedItem).IconSource, _primaryTextTextBox.Text, _secondaryTextTextBox.Text, _countTextTextBox.Text);
             Close();
         }
 
@@ -94,7 +90,7 @@ namespace SCToast.Client
 
         private class IconComboBoxItem
         {
-            public Icon Icon { get; set; }
+            public VideoOSIconSourceBase IconSource { get; set; }
             public string DisplayText { get; set; }
         }
     }

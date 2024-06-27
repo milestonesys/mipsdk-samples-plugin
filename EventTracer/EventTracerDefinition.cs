@@ -5,9 +5,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using VideoOS.Platform;
-using VideoOS.Platform.Admin;
 using VideoOS.Platform.Background;
-using VideoOS.Platform.Client;
 
 namespace EventTracer
 {
@@ -35,12 +33,6 @@ namespace EventTracer
 		// should only contain code that references their own dll, e.g. resource load.
 
 		private List<BackgroundPlugin> _backgroundPlugins = new List<BackgroundPlugin>();
-		private List<OptionsDialogPlugin> _optionsDialogPlugins = new List<OptionsDialogPlugin>();
-		private List<ViewItemPlugin> _viewItemPlugin = new List<ViewItemPlugin>();
-		private List<ItemNode> _itemNodes = new List<ItemNode>();
-		private List<SidePanelPlugin> _sidePanelPlugins = new List<SidePanelPlugin>();
-		private List<String> _messageIdStrings = new List<string>();
-		private List<SecurityAction> _securityActions = new List<SecurityAction>();
 
 		#endregion
 
@@ -86,38 +78,7 @@ namespace EventTracer
 		/// </summary>
 		public override void Close()
 		{
-			_itemNodes.Clear();
-			_sidePanelPlugins.Clear();
-			_viewItemPlugin.Clear();
-			_optionsDialogPlugins.Clear();
 			_backgroundPlugins.Clear();
-		}
-		/// <summary>
-		/// Return any new messages that this plugin can use in SendMessage or PostMessage,
-		/// or has a Receiver set up to listen for.
-		/// The suggested format is: "YourCompany.Area.MessageId"
-		/// </summary>
-		public override List<string> PluginDefinedMessageIds
-		{
-			get
-			{
-				return _messageIdStrings;
-			}
-		}
-
-		/// <summary>
-		/// If authorization is to be used, add the SecurityActions the entire plugin 
-		/// would like to be available.  E.g. Application level authorization.
-		/// </summary>
-		public override List<SecurityAction> SecurityActions
-		{
-			get
-			{
-				return _securityActions;
-			}
-			set
-			{
-			}
 		}
 
 		#region Identification Properties
@@ -198,14 +159,6 @@ namespace EventTracer
 		#region Administration properties
 
 		/// <summary>
-		/// A list of server side configuration items in the administrator
-		/// </summary>
-		public override List<ItemNode> ItemNodes
-		{
-			get { return _itemNodes; }
-		}
-
-		/// <summary>
 		/// A user control to display when the administrator clicks on the top TreeNode
 		/// </summary>
 		public override UserControl GenerateUserControl()
@@ -224,30 +177,6 @@ namespace EventTracer
 		#endregion
 
 		#region Client related methods and properties
-
-		/// <summary>
-		/// A list of Client side definitions for Smart Client
-		/// </summary>
-		public override List<ViewItemPlugin> ViewItemPlugins
-		{
-			get { return _viewItemPlugin; }
-		}
-
-		/// <summary>
-		/// An extension plugin running in the Smart Client to add more choices on the Options dialog.
-		/// </summary>
-		public override List<OptionsDialogPlugin> OptionsDialogPlugins
-		{
-			get { return _optionsDialogPlugins; }
-		}
-
-		/// <summary> 
-		/// An extension plugin to add to the side panel of the Smart Client.
-		/// </summary>
-		public override List<SidePanelPlugin> SidePanelPlugins
-		{
-			get { return _sidePanelPlugins; }
-		}
 
 		/// <summary>
 		/// Create and returns the background task.

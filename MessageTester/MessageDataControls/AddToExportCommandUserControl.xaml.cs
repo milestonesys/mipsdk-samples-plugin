@@ -54,8 +54,7 @@ namespace MessageTester.MessageDataControls
                 KindsFilter = new List<Guid> { Kind.Camera },
                 SelectionMode = SelectionModeOptions.AutoCloseOnSelect
             };
-            form.ShowDialog();
-            if(form.SelectedItems != null && form.SelectedItems.Any())
+            if(form.ShowDialog().Value)
             {
                 return form.SelectedItems.First();
             }

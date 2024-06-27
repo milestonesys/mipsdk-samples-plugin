@@ -1,5 +1,6 @@
 using System;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace Property.Client
 {
@@ -33,10 +34,7 @@ namespace Property.Client
             get { return PropertyDefinition.PropertyViewItemPlugin; }
         }
 
-        public override System.Drawing.Image Icon
-        {
-            get { return PropertyDefinition.TreeNodeImage; }
-        }
+        public override VideoOSIconSourceBase IconSource { get => PropertyDefinition.TreeNodeImage; protected set => base.IconSource = value; }
 
         /// <summary>
         /// The text used for a single ViewItem

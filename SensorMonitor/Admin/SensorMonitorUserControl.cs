@@ -1,7 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using VideoOS.Platform;
-using VideoOS.Platform.Messaging;
 using VideoOS.Platform.UI;
 
 namespace SensorMonitor.Admin
@@ -100,16 +101,17 @@ namespace SensorMonitor.Admin
 
 		private void OnCameraSelect(object sender, EventArgs e)
 		{
-			ItemPickerForm form = new ItemPickerForm
-			                          {
-			                              KindFilter = Kind.Camera,
-			                              SelectedItem = _selectedCameraItem,
-			                              AutoAccept = true
-			                          };
-			form.Init();
-			if (form.ShowDialog() == DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
+            {
+                Items = Configuration.Instance.GetItems(),
+                KindsFilter = new List<Guid>() { Kind.Camera },
+				SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                SelectedItems = new List<Item> { _selectedCameraItem }
+            };
+
+			if (form.ShowDialog().Value)
 			{
-				_selectedCameraItem = form.SelectedItem;
+				_selectedCameraItem = form.SelectedItems.First();
 				buttonCameraSelect.Text = "";
 				if (_selectedCameraItem != null)
 				{
@@ -117,21 +119,21 @@ namespace SensorMonitor.Admin
 					OnUserChange(this, null);
 				}
 			}
-
 		}
 
         private void OnEventSelect(object sender, EventArgs e)
         {
-			ItemPickerForm form = new ItemPickerForm
-			                          {
-			                              KindFilter = Kind.TriggerEvent,
-                                          SelectedItem = _selectedEventItem,
-			                              AutoAccept = true
-			                          };
-            form.Init();
-			if (form.ShowDialog() == DialogResult.OK)
+            var form = new ItemPickerWpfWindow()
+            {
+                Items = Configuration.Instance.GetItems(),
+                KindsFilter = new List<Guid>() { Kind.TriggerEvent },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                SelectedItems = new List<Item> { _selectedEventItem }
+            };
+
+            if (form.ShowDialog().Value)
 			{
-				_selectedEventItem = form.SelectedItem;
+				_selectedEventItem = form.SelectedItems.First();
                 buttonEventSelect.Text = "";
                 if (_selectedEventItem != null)
 				{

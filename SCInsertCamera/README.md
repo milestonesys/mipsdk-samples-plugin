@@ -22,7 +22,8 @@ The above side panel is displayed when the Smart Client is in live mode.
 
 Select the \"Create 1x5x1\" button to create a view layout with a
 HTML page containing the main Google web page, a view item with the first
-found camera, some empty view items, and a hotspot view item.
+found camera, a text view item, a carrousel view item, an image view item, 
+one empty view item, and a hotspot view item.
 
 ![](insertCameraView.png)
 

@@ -7,6 +7,7 @@ using TimelineViewItem.Client;
 using VideoOS.Platform;
 using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace TimelineViewItem
 {
@@ -20,7 +21,7 @@ namespace TimelineViewItem
     /// </summary>
     public class TimelineViewItemDefinition : PluginDefinition
     {
-        private static Image _treeNodeImage;
+        private static readonly VideoOSIconSourceBase _pluginIcon;
         private Image _topTreeNodeImage;
 
         internal static Guid TimelineViewItemPluginId = new Guid("66875f08-a883-495b-bfd2-5314fde2f597");
@@ -46,22 +47,11 @@ namespace TimelineViewItem
         /// </summary>
         static TimelineViewItemDefinition()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string name = assembly.GetName().Name;
-
-            System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.TimelineViewItem.bmp");
-            if (pluginStream != null)
-                _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/TimelineViewItem.bmp");
+            _pluginIcon = new VideoOSIconUriSource() { Uri = new Uri(packString) };
         }
 
-
-        /// <summary>
-        /// Get the icon for the plugin
-        /// </summary>
-        internal static Image TreeNodeImage
-        {
-            get { return _treeNodeImage; }
-        }
+        internal static VideoOSIconSourceBase PluginIcon => _pluginIcon;
 
         #endregion
 

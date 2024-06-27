@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Reflection;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace SCWorkSpace.Client
 {
     public class SCWorkSpaceViewItemPlugin2 : ViewItemPlugin
     {
-        internal protected static System.Drawing.Image _treeNodeImage;
+        internal protected static VideoOSIconSourceBase _treeNodeImage;
 
         public SCWorkSpaceViewItemPlugin2()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string name = assembly.GetName().Name;
-            _treeNodeImage = System.Drawing.Image.FromStream(assembly.GetManifestResourceStream(name + ".Resources.WorkSpace.ico"));
+            _treeNodeImage = new VideoOSIconUriSource { Uri = new Uri("pack://application:,,,/SCWorkSpace;component/Resources/WorkSpace.png") };
         }
 
         public override Guid Id
@@ -20,7 +18,7 @@ namespace SCWorkSpace.Client
             get { return new Guid("CCD3FD1E-FD65-4F3D-9012-1BE73D44D188"); }
         }
 
-        public override System.Drawing.Image Icon
+        public override VideoOSIconSourceBase IconSource
         {
             get { return _treeNodeImage; }
         }

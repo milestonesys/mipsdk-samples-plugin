@@ -1,5 +1,6 @@
 using System;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace VideoReplay.Client
 {
@@ -23,10 +24,7 @@ namespace VideoReplay.Client
             get { return VideoReplayDefinition.VideoReplayViewItemPlugin; }
         }
 
-        public override System.Drawing.Image Icon
-        {
-            get { return VideoReplayDefinition.TreeNodeImage; }
-        }
+        public override VideoOSIconSourceBase IconSource { get => VideoReplayDefinition.PluginIcon; protected set => base.IconSource = value; }
 
         public override string Name
         {

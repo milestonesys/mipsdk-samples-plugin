@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Security;
 using VideoOS.Platform.DriverFramework.Data;
+using VideoOS.Platform.DriverFramework.Data.Ptz;
 using VideoOS.Platform.DriverFramework.Data.Settings;
 using VideoOS.Platform.DriverFramework.Exceptions;
 using VideoOS.Platform.DriverFramework.Managers;
@@ -224,6 +225,21 @@ namespace DemoDriver
             string msg = string.Format("{0} on {1} with {2}", command, device, parameter);
             Toolbox.Log.Trace(msg);
             return _proxy.Client.SendCommand(msg);
+        }
+
+        public void SetAbsolutePosition(PtzMoveAbsoluteData ptzargs)
+        {
+            ThrowIfNotConnected();
+            Toolbox.Log.Trace("SetAbsolutePosition");
+            _proxy.Client.SetAbsolutePosition(ptzargs.Pan, ptzargs.Tilt, ptzargs.Zoom);
+        }
+
+        public PtzGetAbsoluteData GetAbsolutePosition()
+        {
+            ThrowIfNotConnected();
+            Toolbox.Log.Trace("GetAbsolutePosition");
+            var position = _proxy.Client.GetAbsolutePosition();
+            return new PtzGetAbsoluteData() { Pan = position[0], Tilt = position[1], Zoom = position[2] };
         }
 
         public void ChangeSetting(int channel, string key, string data)

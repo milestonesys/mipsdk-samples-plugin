@@ -6,8 +6,8 @@ using System.Reflection;
 using System.Windows.Forms;
 using VideoOS.Platform;
 using VideoOS.Platform.Admin;
-using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace RGBVideoEnhancement
 {
@@ -21,8 +21,7 @@ namespace RGBVideoEnhancement
     /// </summary>
     public class RGBVideoEnhancementDefinition : PluginDefinition
     {
-        private static System.Drawing.Image _treeNodeImage;
-        private static System.Drawing.Image _topTreeNodeImage;
+        private static readonly VideoOSIconSourceBase _pluginIcon;
 
         internal static Guid RGBVideoEnhancementPluginId = new Guid("8145c800-1081-495b-a08e-d79fe99cc85f");
         internal static Guid RGBVideoEnhancementKind = new Guid("e1f55d1e-1014-42eb-8610-e6ead93e29b6");
@@ -34,12 +33,8 @@ namespace RGBVideoEnhancement
         // Note that all the plugin are constructed during application start, and the constructors
         // should only contain code that references their own dll, e.g. resource load.
 
-        private List<BackgroundPlugin> _backgroundPlugins = new List<BackgroundPlugin>();
-        private List<OptionsDialogPlugin> _optionsDialogPlugins = new List<OptionsDialogPlugin>();
-        private List<ViewItemPlugin> _viewItemPlugin = new List<ViewItemPlugin>();
-        private List<ItemNode> _itemNodes = new List<ItemNode>();
-        private List<SidePanelPlugin> _sidePanelPlugins = new List<SidePanelPlugin>();
-        private List<String> _messageIdStrings = new List<string>();
+        private List<ViewItemPlugin> _viewItemPlugins = new List<ViewItemPlugin>();
+        private List<string> _messageIdStrings = new List<string>();
         private List<SecurityAction> _securityActions = new List<SecurityAction>();
 
         #endregion
@@ -51,22 +46,11 @@ namespace RGBVideoEnhancement
         /// </summary>
         static RGBVideoEnhancementDefinition()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string name = assembly.GetName().Name;
-
-            System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.RGBVideoEnhancement.png");
-            if (pluginStream != null)
-                _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/RGBVideoEnhancement.png");
+            _pluginIcon = new VideoOSIconUriSource() { Uri = new Uri(packString) };
         }
 
-
-        /// <summary>
-        /// Get the icon for the plugin
-        /// </summary>
-        internal static Image TreeNodeImage
-        {
-            get { return _treeNodeImage; }
-        }
+        internal static VideoOSIconSourceBase PluginIcon => _pluginIcon;
 
         #endregion
 
@@ -76,8 +60,7 @@ namespace RGBVideoEnhancement
         /// </summary>
         public override void Init()
         {
-            _topTreeNodeImage = VideoOS.Platform.UI.Util.ImageList.Images[VideoOS.Platform.UI.Util.PluginIx];
-            _viewItemPlugin.Add(new RGBVideoEnhancementViewItemPlugin());
+            _viewItemPlugins.Add(new RGBVideoEnhancementViewItemPlugin());
         }
 
         /// <summary>
@@ -86,11 +69,7 @@ namespace RGBVideoEnhancement
         /// </summary>
         public override void Close()
         {
-            _itemNodes.Clear();
-            _sidePanelPlugins.Clear();
-            _viewItemPlugin.Clear();
-            _optionsDialogPlugins.Clear();
-            _backgroundPlugins.Clear();
+            _viewItemPlugins.Clear();
         }
         /// <summary>
         /// Return any new messages that this plugin can use in SendMessage or PostMessage,
@@ -198,14 +177,6 @@ namespace RGBVideoEnhancement
         #region Administration properties
 
         /// <summary>
-        /// A list of server side configuration items in the administrator
-        /// </summary>
-        public override List<ItemNode> ItemNodes
-        {
-            get { return _itemNodes; }
-        }
-
-        /// <summary>
         /// A user control to display when the administrator clicks on the top TreeNode
         /// </summary>
         public override UserControl GenerateUserControl()
@@ -238,31 +209,7 @@ namespace RGBVideoEnhancement
         /// </summary>
         public override List<ViewItemPlugin> ViewItemPlugins
         {
-            get { return _viewItemPlugin; }
-        }
-
-        /// <summary>
-        /// An extension plugin running in the Smart Client to add more choices on the Options dialog.
-        /// </summary>
-        public override List<OptionsDialogPlugin> OptionsDialogPlugins
-        {
-            get { return _optionsDialogPlugins; }
-        }
-
-        /// <summary> 
-        /// An extension plugin to add to the side panel of the Smart Client.
-        /// </summary>
-        public override List<SidePanelPlugin> SidePanelPlugins
-        {
-            get { return _sidePanelPlugins; }
-        }
-
-        /// <summary>
-        /// Create and returns the background task.
-        /// </summary>
-        public override List<VideoOS.Platform.Background.BackgroundPlugin> BackgroundPlugins
-        {
-            get { return _backgroundPlugins; }
+            get { return _viewItemPlugins; }
         }
 
         /// <summary>

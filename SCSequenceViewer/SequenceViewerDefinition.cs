@@ -3,34 +3,27 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using VideoOS.Platform;
-using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace SequenceViewer
 {
-	public class SequenceViewerDefinition : PluginDefinition
+    public class SequenceViewerDefinition : PluginDefinition
 	{
-		internal protected static System.Drawing.Image _treeNodeImage;
+		private readonly static VideoOSIconSourceBase _treeNodeImage;
 		internal protected static System.Drawing.Image _topTreeNodeImage;
 		internal static Guid DataSourcePluginId = new Guid("D253F7D6-5FC7-4952-A266-0D1569193FC2");
 		internal static Guid DataSourceKind = new Guid("BA24FF40-8410-45E3-BC7E-230D3DF088E1");
-
-		#region Private fields
-
-
-		#endregion
 
 		#region Initialization
 
 		static SequenceViewerDefinition()
 		{
-			Assembly assembly = Assembly.GetExecutingAssembly();
-			string name = assembly.GetName().Name;
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/SequenceViewer.png");
+            _treeNodeImage = new VideoOSIconUriSource() { Uri = new Uri(packString) };
+        }
 
-			System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.SequenceViewer.png");
-			if (pluginStream != null)
-				_treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
-		}
+        internal static VideoOSIconSourceBase TreeNodeImage => _treeNodeImage;
 
         public override void Init()
         {
@@ -118,25 +111,6 @@ namespace SequenceViewer
 			get
 			{
 				return new List<ViewItemPlugin> { new SequenceViewerViewItemPlugin() };
-			}
-		}
-
-		/// <summary>
-		/// An extention plugin running in the Smart Client to add more choices on the Options dialog.
-		/// </summary>
-		public override List<OptionsDialogPlugin> OptionsDialogPlugins
-		{
-			get { return null; }
-		}
-
-		/// <summary>
-		/// Create and returns the background task.
-		/// </summary>
-		public override List<VideoOS.Platform.Background.BackgroundPlugin> BackgroundPlugins
-		{
-			get
-			{
-				return new List<BackgroundPlugin>() { };
 			}
 		}
 

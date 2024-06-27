@@ -11,7 +11,7 @@ title: Milestone Integration Platform Software Development Kit plug-in integrati
 
 The Milestone Integration Platform (MIP) enables fast and flexible integration between
 Milestone XProtect video management software (VMS), applications available from
-[Milestone Marketplace](<https://www.milestonesys.com/community/marketplace/>),
+[Milestone Technology Partner Finder](<https://www.milestonesys.com/partners/technology-partners/technology-partner-finder/>),
 and other third-party applications and devices.
 
 The Milestone Integration Platform Software Development Kit (MIP SDK) offers a suite of integration options, including
@@ -43,7 +43,7 @@ A Visual Studio solution file in the `src` folder includes a Visual Studio proje
 
 ## Prerequisites
 
-Please refer to the [MIP SDK Getting Started Guide](<https://content.milestonesys.com/l/299bb22321041592/>)
+Please refer to the [MIP SDK Getting Started Guide](https://download.milestonesys.com/MIPSDK/MilestoneMIPSDK_GettingStartedGuide_en-US.pdf)
 for information about how to set up a development environment for Milestone XProtect integrations.
 
 ## Documentation and support
@@ -54,11 +54,11 @@ Ask questions and find answers to common questions at the
 Browse overview and reference documentation at
 [MIP SDK Documentation](<https://doc.developer.milestonesys.com>).
 
-Get access to free eLearning at the
-[Milestone Learning Portals](<https://www.milestonesys.com/solutions/services/learning-and-performance/>).
+Get access to free eLearning at
+[Learning | Milestone Systems](https://learn.milestonesys.com/).
 
 Watch tutorials about how to set up and use Milestone products at
-[Milestone Video Tutorials](<https://www.milestonesys.com/support/self-service-and-support/video-tutorials/>).
+[Milestone Video Tutorials](https://www.youtube.com/user/Milestonesys).
 
 ## Contributions
 

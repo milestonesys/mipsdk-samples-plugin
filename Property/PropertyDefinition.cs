@@ -11,12 +11,13 @@ using VideoOS.Platform;
 using VideoOS.Platform.Admin;
 using VideoOS.Platform.Background;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace Property
 {
     public class PropertyDefinition : PluginDefinition
     {
-        private static Image _treeNodeImage;
+        private static readonly VideoOSIconSourceBase _treeNodeImage;
         private static Image _topTreeNodeImage;
 
         internal static Guid PropertyPluginId = new Guid("b253b38b-5374-448c-babb-b576c6cce068");
@@ -54,21 +55,11 @@ namespace Property
         /// </summary>
         static PropertyDefinition()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string name = assembly.GetName().Name;
-
-            System.IO.Stream pluginStream = assembly.GetManifestResourceStream(name + ".Resources.Property.bmp");
-            if (pluginStream != null)
-                _treeNodeImage = System.Drawing.Image.FromStream(pluginStream);
+            var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/Property.bmp");
+            _treeNodeImage = new VideoOSIconUriSource() { Uri = new Uri(packString) };
         }
 
-        /// <summary>
-        /// Get the icon for the plugin
-        /// </summary>
-        internal static Image TreeNodeImage
-        {
-            get { return _treeNodeImage; }
-        }
+        internal static VideoOSIconSourceBase TreeNodeImage => _treeNodeImage;
 
         #endregion
 

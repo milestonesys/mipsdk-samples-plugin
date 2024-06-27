@@ -69,7 +69,7 @@ namespace DemoDriver
         {
             if (new Guid(deviceId) != Constants.Camera1)
                 throw new MIPDriverException("Device does not support PTZ");
-            WriteLine(deviceId, nameof(MoveAbsolute));
+            Container.ConnectionManager.SetAbsolutePosition(ptzargs);
         }
 
         public override void MoveRelative(string deviceId, string direction)
@@ -104,8 +104,7 @@ namespace DemoDriver
         {
             if (new Guid(deviceId) == Constants.Camera1)
             {
-                WriteLine(deviceId, nameof(GetAbsolutePosition));
-                return new PtzGetAbsoluteData() { Pan = 0.5, Tilt = 0.6, Zoom = 1.0 };
+                return Container.ConnectionManager.GetAbsolutePosition();
             }
             throw new MIPDriverException("Device does not support PTZ");
         }

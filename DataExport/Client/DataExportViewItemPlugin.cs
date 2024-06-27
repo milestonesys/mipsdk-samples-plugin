@@ -1,5 +1,6 @@
 using System;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace DataExport.Client
 {
@@ -18,11 +19,8 @@ namespace DataExport.Client
             get { return DataExportDefinition.DataExportViewItemPlugin; }
         }
 
-        public override System.Drawing.Image Icon
-        {
-            get { return DataExportDefinition.TreeNodeImage; }
-        }
-
+        public override VideoOSIconSourceBase IconSource { get => DataExportDefinition.PluginIcon; protected set => base.IconSource = value; }
+ 
         public override string Name
         {
             get { return DataExportDefinition.ViewItemName; }

@@ -13,6 +13,7 @@ namespace SCInsertCamera.Client
     public class SCInsertCameraSidePanelPlugin : SidePanelPlugin
     {
         List<SidePanelPlaceDefinition> _sidePanelPlaceDefinitions = null;
+        public ViewAndLayoutItem CurrentView;
 
         /// <summary>
         /// This method is called when the Environment is up and configuration is loaded.
@@ -22,6 +23,7 @@ namespace SCInsertCamera.Client
         {
             _sidePanelPlaceDefinitions = new List<SidePanelPlaceDefinition>();
             _sidePanelPlaceDefinitions.Add(new SidePanelPlaceDefinition() { WorkSpaceId = ClientControl.LiveBuildInWorkSpaceId, WorkSpaceStates = new List<WorkSpaceState>() { WorkSpaceState.Normal } });
+            
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace SCInsertCamera.Client
         /// <returns></returns>
         public override SidePanelWpfUserControl GenerateWpfUserControl()
         {
-            return new SCInsertCameraSidePanelWpfUserControl();
+            return new SCInsertCameraSidePanelWpfUserControl(this);
         }
 
         /// <summary>

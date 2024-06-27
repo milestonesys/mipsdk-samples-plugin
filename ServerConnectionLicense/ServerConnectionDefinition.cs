@@ -1,26 +1,25 @@
+using ServerConnection.Admin;
+using ServerConnection.Background;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
-using ServerConnection.Admin;
-using ServerConnection.Background;
 using VideoOS.Platform;
 using VideoOS.Platform.Admin;
 using VideoOS.Platform.Background;
-using VideoOS.Platform.Client;
 
 namespace ServerConnection
 {
-	/// <summary>
-	/// The PluginDefinition is the ‘entry’ point to any plugin.  
-	/// This is the starting point for any plugin development and the class MUST be available for a plugin to be loaded.  
-	/// Several PluginDefinitions are allowed to be available within one DLL.
-	/// Here the references to all other plugin known objects and classes are defined.
-	/// The class is an abstract class where all implemented methods and properties need to be declared with override.
-	/// The class is constructed when the environment is loading the DLL.
-	/// </summary>
-	public class ServerConnectionDefinition : PluginDefinition
+    /// <summary>
+    /// The PluginDefinition is the ‘entry’ point to any plugin.  
+    /// This is the starting point for any plugin development and the class MUST be available for a plugin to be loaded.  
+    /// Several PluginDefinitions are allowed to be available within one DLL.
+    /// Here the references to all other plugin known objects and classes are defined.
+    /// The class is an abstract class where all implemented methods and properties need to be declared with override.
+    /// The class is constructed when the environment is loading the DLL.
+    /// </summary>
+    public class ServerConnectionDefinition : PluginDefinition
 	{
 		private static System.Drawing.Image _treeNodeImage;
 		private static System.Drawing.Image _topTreeNodeImage;
@@ -40,10 +39,7 @@ namespace ServerConnection
 		// should only contain code that references their own dll, e.g. resource load.
 
 		private List<BackgroundPlugin> _backgroundPlugins = new List<BackgroundPlugin>();
-		private List<OptionsDialogPlugin> _optionsDialogPlugins = new List<OptionsDialogPlugin>();
-		private List<ViewItemPlugin> _viewItemPlugin = new List<ViewItemPlugin>();
 		private List<ItemNode> _itemNodes = new List<ItemNode>();
-		private List<SidePanelPlugin> _sidePanelPlugins = new List<SidePanelPlugin>();
 		private List<String> _messageIdStrings = new List<string>();
 		private List<SecurityAction> _securityActions = new List<SecurityAction>();
 
@@ -253,30 +249,6 @@ namespace ServerConnection
 		#endregion
 
 		#region Client related methods and properties
-
-		/// <summary>
-		/// A list of Client side definitions for Smart Client
-		/// </summary>
-		public override List<ViewItemPlugin> ViewItemPlugins
-		{
-			get { return _viewItemPlugin; }
-		}
-
-		/// <summary>
-		/// An extention plugin running in the Smart Client to add more choices on the Options dialog.
-		/// </summary>
-		public override List<OptionsDialogPlugin> OptionsDialogPlugins
-		{
-			get { return _optionsDialogPlugins; }
-		}
-
-		/// <summary> 
-		/// An extention plugin to add to the side panel of the Smart Client.
-		/// </summary>
-		public override List<SidePanelPlugin> SidePanelPlugins
-		{
-			get { return _sidePanelPlugins; }
-		}
 
 		/// <summary>
 		/// Create and returns the background task.

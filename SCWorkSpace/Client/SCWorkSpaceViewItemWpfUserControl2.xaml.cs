@@ -4,10 +4,12 @@ using System.Linq;
 using System.Windows.Forms;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.Messaging;
 using VideoOS.Platform.UI;
 
 using VideoOS.Platform.UI.ItemPicker.Utilities;
 using Item = VideoOS.Platform.Item;
+using Message = VideoOS.Platform.Messaging.Message;
 
 namespace SCWorkSpace.Client
 {
@@ -137,17 +139,33 @@ namespace SCWorkSpace.Client
 
             foreach (Item item in _selectedCameraItem.GetRelated())
             {
+                AudioPlayer audioPlayer;
                 if (item.FQID.Kind == Kind.Microphone)
                 {
-                    _audioPlayer.MicrophoneFQID = item.FQID;
-                    _audioPlayer.Initialize();
-                    _audioPlayer.Connect();
+                    audioPlayer = _audioPlayer;
                 }
-                if (item.FQID.Kind == Kind.Speaker)
+                else if (item.FQID.Kind == Kind.Speaker)
                 {
-                    _audioPlayerSpeaker.MicrophoneFQID = item.FQID;
-                    _audioPlayerSpeaker.Initialize();
-                    _audioPlayerSpeaker.Connect();
+                    audioPlayer = _audioPlayerSpeaker;
+                }
+                else
+                {
+                    continue;
+                }
+
+                audioPlayer.MicrophoneFQID = item.FQID;
+                audioPlayer.Initialize();
+                try
+                {
+                    audioPlayer.Connect();
+                }
+                catch (MIPException ex)
+                {
+                    // AudioPlayer.Connect() throws MIPException if:
+                    // - AudioPlayer.MicrophoneFQID is not set
+                    // - No audio devices are available e.g. when Windows Audio service is not running
+                    DisplayMessage(ex.Message, SmartClientMessageDataType.Warning);
+                    audioPlayer.Close();
                 }
             }
         }
@@ -164,12 +182,26 @@ namespace SCWorkSpace.Client
 
         private void checkBoxLive_unchecked(object sender, System.Windows.RoutedEventArgs e)
         {
-            FQID newPlayback = null;
-            newPlayback = _playbackFQID;
+            FQID newPlayback = _playbackFQID;
             _imageViewerWpfControl.PlaybackControllerFQID = newPlayback;
             _audioPlayer.PlaybackControllerFQID = newPlayback;
             _audioPlayerSpeaker.PlaybackControllerFQID = newPlayback;
             canvasPlaybackControlGrid.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        // Displays given message in the message area
+        private void DisplayMessage(string messageText, SmartClientMessageDataType messageType)
+        {
+            SmartClientMessageData smartClientMessageData = new SmartClientMessageData
+            {
+                MessageId = Guid.NewGuid(),
+                Message = messageText,
+                MessageType = messageType,
+                IsClosable = true
+            };
+
+            Message message = new Message(MessageId.SmartClient.SmartClientMessageCommand, smartClientMessageData);
+            EnvironmentManager.Instance.SendMessage(message);
         }
     }
 }

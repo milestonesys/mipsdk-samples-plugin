@@ -11,8 +11,6 @@ using VideoOS.Platform.Client;
 using VideoOS.Platform.Data;
 using VideoOS.Platform.Messaging;
 using VideoOS.Platform.UI;
-
-using VideoOS.Platform.UI.ItemPicker.Utilities;
 using Brushes = System.Windows.Media.Brushes;
 using Point = System.Windows.Point;
 using Size = System.Windows.Size;
@@ -305,8 +303,34 @@ namespace VideoPreview.Client
             {
                 _audioPlayer.Initialize();
                 _audioPlayer.MicrophoneFQID = mic.FQID;
-                _audioPlayer.Connect();
+                try
+                {
+                    _audioPlayer.Connect();
+                }
+                catch (MIPException ex) 
+                {
+                    // AudioPlayer.Connect() throws MIPException if:
+                    // - AudioPlayer.MicrophoneFQID is not set
+                    // - No audio devices are available e.g. when Windows Audio service is not running
+                    DisplayMessage(ex.Message, SmartClientMessageDataType.Warning);
+                    _audioPlayer.Close();
+                }
             }
+        }
+
+        // Displays given message in the message area
+        private void DisplayMessage(string messageText, SmartClientMessageDataType messageType)
+        {
+            SmartClientMessageData smartClientMessageData = new SmartClientMessageData
+            {
+                MessageId = Guid.NewGuid(),
+                Message = messageText,
+                MessageType = messageType,
+                IsClosable = true
+            };
+
+            Message message = new Message(MessageId.SmartClient.SmartClientMessageCommand, smartClientMessageData);
+            EnvironmentManager.Instance.SendMessage(message);
         }
 
         private void OnAspectChange(object sender, RoutedEventArgs e)

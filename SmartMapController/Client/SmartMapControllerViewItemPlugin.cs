@@ -2,6 +2,7 @@ using System;
 using System.Windows.Forms;
 using System.Xml;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace SmartMapController.Client
 {
@@ -46,11 +47,7 @@ namespace SmartMapController.Client
             get { return SmartMapControllerDefinition.SmartMapControllerViewItemPlugin; }
         }
 
-
-        public override System.Drawing.Image Icon
-        {
-            get { return SmartMapControllerDefinition.TreeNodeImage; }
-        }
+        public override VideoOSIconSourceBase IconSource { get => SmartMapControllerDefinition.PluginIcon; protected set => base.IconSource = value; }
 
         /// <summary>
         /// The text used for a single ViewItem

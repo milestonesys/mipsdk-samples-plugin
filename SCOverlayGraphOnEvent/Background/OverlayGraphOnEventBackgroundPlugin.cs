@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Timers;
 using System.Windows.Shapes;
 using VideoOS.Platform;
@@ -391,7 +390,7 @@ namespace SCOverlayGraphOnEvent.Background
         /// <param name="addOn"></param>
         private void DrawGraphOverlay(ImageViewerAddOn addOn)
         {
-            if (addOn.PaintSize.Width == 0 || addOn.PaintSize.Height == 0)
+            if (addOn.PaintSizeWpf.Width == 0 || addOn.PaintSizeWpf.Height == 0)
             {
                 return;
             }
@@ -402,14 +401,14 @@ namespace SCOverlayGraphOnEvent.Background
             }
             ClientControl.Instance.CallOnUiThread(() =>
             {
-                List<Shape> shapes = VideoOS.Platform.Util.AnalyticsOverlayBuilder.BuildShapeOverlay(addOn.PaintSize.Width, addOn.PaintSize.Height, (BaseEvent)oo.EventObject);
+                List<Shape> shapes = VideoOS.Platform.Util.AnalyticsOverlayBuilder.BuildShapeOverlay((int)addOn.PaintSizeWpf.Width, (int)addOn.PaintSizeWpf.Height, (BaseEvent)oo.EventObject);
                 UpdateShapeOverlay(addOn, shapes);
             });
         }
 
         private void DrawGraphOverlayPlayback(ImageViewerAddOn addOn, DateTime playbackDatetime)
         {
-            if (addOn.PaintSize.Width == 0 || addOn.PaintSize.Height == 0)
+            if (addOn.PaintSizeWpf.Width == 0 || addOn.PaintSizeWpf.Height == 0)
             {
                 return;
             }
@@ -424,7 +423,7 @@ namespace SCOverlayGraphOnEvent.Background
             {
                 if (oo.StartTime <= playbackDatetime && oo.StartTime.AddMilliseconds(_keepOverlayPeriod) >= playbackDatetime)
                 {
-                    shapes.AddRange(VideoOS.Platform.Util.AnalyticsOverlayBuilder.BuildShapeOverlay(addOn.PaintSize.Width, addOn.PaintSize.Height, (BaseEvent)oo.EventObject));
+                    shapes.AddRange(VideoOS.Platform.Util.AnalyticsOverlayBuilder.BuildShapeOverlay((int)addOn.PaintSizeWpf.Width, (int)addOn.PaintSizeWpf.Height, (BaseEvent)oo.EventObject));
                 }
             }
 

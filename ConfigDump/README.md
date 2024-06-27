@@ -11,10 +11,10 @@ title: Configuration Dump
 The ConfigDump sample can be used for all MIP environments, and will
 dump the configuration as it sees it.
 
-MIP Environment - Smart Client
+## MIP Environment - Smart Client
 
 In the Smart Client, it populates a tree view with the entire
-configuration. Each time the user clicks on a node, the plug-in asks for
+configuration. Each time the user expands a node, the plug-in asks for
 the child nodes and populates the child nodes with the result. Also,
 when a node is selected, the node properties are displayed in the
 upper-right corner of the window.
@@ -27,9 +27,12 @@ The lower half of the window shows if multiple sites in a Milestone
 Federated Architecture (MFA) setup is available and properties for each
 site.
 
+The ItemPicker button showcases that instead of building a treeview yourself
+the ItemPickerWpfWindow can be used.
+
 ![Configuration dump in Smart Client](Dump.png)
 
-MIP Environment - Management Client
+## MIP Environment - Management Client
 
 When placed in the Management Client, the properties for each item
 is filled with a lot of configuration settings, like IP address of the
@@ -43,51 +46,33 @@ configured on the currently selected site. At the top of the panel, all
 sites are listed, and by clicking on these, the properties for each site
 is displayed in the right pane.
 
+The Hardware button showcases that it is possible to get Hardware items
+within the Management Client, but Group Hierarchy must be disabled.
+The reason is that groups do not exist for hardware.
+
+The ItemPicker button showcases that instead of building a treeview yourself
+the ItemPickerWpfWindow can be used.
+
 ![Configuration dump in Management Client](DumpMC.png)
 
-MIP Environment - Event Server
+## MIP Environment - Event Server
 
 When this plug-in is loaded in the Event Server MIP environment, the
 background plug-in is started and will dump the configuration to the log
 file as well as write to Debug.WriteLine.
-
-The content of these lines is the entire configuration as seen by this
-plug-in. The plug-in can also issue commands to control a camera. You
-will have to modify the code to insert correct camera GUIDs or other
-relevant code to select a camera. The sequence is:
-
-~~~cs
-retry:
-    Thread.Sleep(5000);
-    Item outputItem = Configuration.Instance.GetItem(new Guid("bf98e470-701c-44ea-b4b0-45d937833563"), Kind.Output);
-    Item cameraItem = Configuration.Instance.GetItem(new Guid("656be09f-2ca9-4e3f-b307-84d2b23f8e7e"), Kind.Camera);
-    String preset1 = "Clock";
-    String preset2 = "BackDoor";
-    if (outputItem == null)
-       goto retry;
-
-    Thread.Sleep(10000);
-    EnvironmentManager.Instance.SendMessage(new Message(MessageId.Control.TriggerCommand), outputItem.FQID, null);
-
-    Thread.Sleep(10000);
-    EnvironmentManager.Instance.SendMessage(new Message(MessageId.Control.StartRecordingCommand), cameraItem.FQID, null);
-    Thread.Sleep(4000);
-    EnvironmentManager.Instance.SendMessage(new Message(MessageId.Control.StopRecordingCommand), cameraItem.FQID, null);
-~~~
+It also demonstrates how to make use of a thread to have code execute in the background.
 
 ## The sample demonstrates
 
 - How to get configuration items from the MIP environment
 - What properties exist for each item in the MIP environment
-- How to control cameras (preset, recording on/off) from Event Server
-  background plug-in
+- How to use a thread to execute actions in the Event Server
 
 ## Using
 
 - VideoOS.Platform.Configuration
 - VideoOS.Platform.UI.ItemPickerUserControl
 - VideoOS.Platform.Messaging
-- Triggering of output and start/stop of recording
 
 ## Environment
 

@@ -1,5 +1,6 @@
 using System;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.UI.Controls;
 
 namespace TimelineViewItem.Client
 {
@@ -45,10 +46,7 @@ namespace TimelineViewItem.Client
             get { return TimelineViewItemDefinition.TimelineViewItemViewItemPlugin; }
         }
 
-        public override System.Drawing.Image Icon
-        {
-            get { return TimelineViewItemDefinition.TreeNodeImage; }
-        }
+        public override VideoOSIconSourceBase IconSource { get => TimelineViewItemDefinition.PluginIcon; protected set => base.IconSource = value; }
 
         /// <summary>
         /// The text used for a single ViewItem
