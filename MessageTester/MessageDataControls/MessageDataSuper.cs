@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows.Controls;
 using VideoOS.Platform;
 
 namespace MessageTester.MessageDataControls
 {
-    public abstract class MessageDataSuper : UserControl ,INotifyPropertyChanged 
+    public abstract class MessageDataSuper : UserControl, INotifyPropertyChanged 
     {
         public virtual FQID Destination { get => null; }
         public virtual FQID Related { get => null; }

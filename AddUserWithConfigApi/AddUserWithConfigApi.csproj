@@ -44,7 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xaml" />
-    <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*-*" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>

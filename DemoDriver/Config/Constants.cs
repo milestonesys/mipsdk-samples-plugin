@@ -77,5 +77,13 @@ namespace DemoDriver
         public static readonly string InputGain = nameof(InputGain);
         public static readonly string OutputGain = nameof(OutputGain);
 
+        public static readonly string Resolution = nameof(Resolution);
+        public static readonly Guid ResolutionReferenceId = new Guid("9DE75E5B-4597-47CA-9594-46A32BE5EA6A"); 
+        public static readonly Guid ResolutionHighReferenceId = new Guid("2F7B992C-87A7-4337-8D79-EBB8DA08EFCD");
+        public static readonly Guid ResolutionHighDisplayNameReferenceId = new Guid("3525C00E-D666-401A-933E-05120F1784BB");
+        public static readonly Guid ResolutionLowReferenceId = new Guid("3CF249D6-57F0-42DD-97CA-26827EF99355");
+        public static readonly Guid ResolutionLowDisplayNameReferenceId = new Guid("8E788D6D-8312-4696-A4DC-FBA122313B37");
+        public static readonly string ResolutionHighKey = "high"; 
+        public static readonly string ResolutionLowKey = "low";
     }
 }

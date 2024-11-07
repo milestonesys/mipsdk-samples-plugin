@@ -32,7 +32,7 @@ application settings for showing ribbon data, and the
 Timeline population is only supported from Smart Client
 2017 R1.
 
-![](timelineviewitem.png)
+![](TimelineViewItem.png)
 
 ## The sample demonstrates
 

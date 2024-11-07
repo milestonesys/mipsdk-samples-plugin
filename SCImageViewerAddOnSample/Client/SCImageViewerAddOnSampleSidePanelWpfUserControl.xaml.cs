@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Threading;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
+using VideoOS.Platform.Data;
 using VideoOS.Platform.Messaging;
 
 namespace SCImageViewerAddOnSample.Client
@@ -22,7 +23,8 @@ namespace SCImageViewerAddOnSample.Client
         private ImageViewerAddOn _currentImageViewer;
         private double _refWidth = short.MaxValue;
         private double _refHeight = short.MaxValue;
-        private Timer _timer;
+        private DispatcherTimer _timer;
+        private bool _streamBeingUpdatedFromCode = false;
 
         /// <summary>
         /// The constructor of our SidePanel
@@ -42,10 +44,10 @@ namespace SCImageViewerAddOnSample.Client
 
             if (_timer == null)
             {
-                _timer = new Timer(1000);
-                _timer.AutoReset = true;
-                _timer.Elapsed += Timer_Elapsed;
-                _timer.Enabled = true;
+                _timer = new DispatcherTimer();
+                _timer.Interval = TimeSpan.FromSeconds(1);
+                _timer.Tick += Timer_Elapsed;
+                _timer.Start();
             }
         }
 
@@ -59,7 +61,6 @@ namespace SCImageViewerAddOnSample.Client
             if (_timer != null)
             {
                 _timer.Stop();
-                _timer.Dispose();
                 _timer = null;
             }
 
@@ -97,10 +98,27 @@ namespace SCImageViewerAddOnSample.Client
             SetVideoEffectButtonState();
         }
 
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void Timer_Elapsed(object sender, EventArgs e)
         {
             //We poll here to check whether digital zoom state has been changed via the Smart Client default UI.
             SetDigitalZoomButtonState();
+        }
+
+        private void UpdateSelectedStream()
+        {
+            if (_currentImageViewer != null && !_currentImageViewer.IndependentPlaybackEnabled && _currentImageViewer.InLiveMode)
+            {
+                _streamBeingUpdatedFromCode = true;
+                foreach (var item in comboBoxStream.Items)
+                {
+                    if (((DataType)item).Id == _currentImageViewer.StreamId)
+                    {
+                        comboBoxStream.SelectedItem = item;
+                        break;
+                    }
+                }
+                _streamBeingUpdatedFromCode = false;
+            }
         }
 
         private object SelectedViewItemChangedReceived(Message message, FQID destination, FQID sender)
@@ -139,33 +157,27 @@ namespace SCImageViewerAddOnSample.Client
         private void SetDigitalZoomButtonState()
         {
             bool enable = _currentImageViewer != null && _currentImageViewer.DigitalZoomEnabled;
-            Dispatcher.Invoke(() =>
-            {
-                buttonZoomEnable.IsEnabled = !enable;
-                buttonZoomDisable.IsEnabled = enable;
-                buttonZoomIn.IsEnabled = enable;
-                buttonZoomOut.IsEnabled = enable;
-                buttonZoomMoveDown.IsEnabled = enable;
-                buttonZoomMoveDownLeft.IsEnabled = enable;
-                buttonZoomMoveDownRight.IsEnabled = enable;
-                buttonZoomMoveLeft.IsEnabled = enable;
-                buttonZoomMoveRight.IsEnabled = enable;
-                buttonZoomMoveUpLeft.IsEnabled = enable;
-                buttonZoomMoveUpRight.IsEnabled = enable;
-                buttonZoomMoveUp.IsEnabled = enable;
-                buttonZoomGetRectangle.IsEnabled = enable;
-                buttonZoomSetRectangle.IsEnabled = enable;
-            });
+            buttonZoomEnable.IsEnabled = _currentImageViewer != null && !_currentImageViewer.DigitalZoomEnabled;
+            buttonZoomDisable.IsEnabled = enable;
+            buttonZoomIn.IsEnabled = enable;
+            buttonZoomOut.IsEnabled = enable;
+            buttonZoomMoveDown.IsEnabled = enable;
+            buttonZoomMoveDownLeft.IsEnabled = enable;
+            buttonZoomMoveDownRight.IsEnabled = enable;
+            buttonZoomMoveLeft.IsEnabled = enable;
+            buttonZoomMoveRight.IsEnabled = enable;
+            buttonZoomMoveUpLeft.IsEnabled = enable;
+            buttonZoomMoveUpRight.IsEnabled = enable;
+            buttonZoomMoveUp.IsEnabled = enable;
+            buttonZoomGetRectangle.IsEnabled = enable;
+            buttonZoomSetRectangle.IsEnabled = enable;
         }
 
         private void SetVideoEffectButtonState()
         {
             bool enable = _currentImageViewer != null && _currentImageViewer.VideoEffect != null;
-            Dispatcher.Invoke(() =>
-            {
-                buttonThresholdEffectEnable.IsEnabled = !enable;
-                buttonThresholdEffectDisable.IsEnabled = enable;
-            });
+            buttonThresholdEffectEnable.IsEnabled = !enable;
+            buttonThresholdEffectDisable.IsEnabled = enable;
         }
 
         private void ChangeCurrentImageViewer(ImageViewerAddOn selectedImageViewerAddon)
@@ -178,18 +190,48 @@ namespace SCImageViewerAddOnSample.Client
 
             if (_currentImageViewer != null && selectedImageViewerAddon != _currentImageViewer)
             {
-                RemoveIndependentPlaybackEvents(_currentImageViewer);
+                RemoveImageViewerEvents(_currentImageViewer);
                 _currentImageViewer = selectedImageViewerAddon;
             }
 
             if (_currentImageViewer?.IndependentPlaybackController != null)
             {
-                SetupNewIndependentPlaybackEvents(_currentImageViewer);
+                SetupImageViewerEvents(_currentImageViewer);
             }
+
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                PopulateStreams();
+            }));
         }
 
-        private void RemoveIndependentPlaybackEvents(ImageViewerAddOn currentImageViewer)
+        private void PopulateStreams()
         {
+            _streamBeingUpdatedFromCode = true;
+            comboBoxStream.Items.Clear();
+            comboBoxStream.SelectedIndex = 0;
+            if (_currentImageViewer?.CameraFQID != null)
+            {
+                comboBoxStream.Items.Add(new DataType() { Id = Guid.Empty, Name = "Default" });
+                var camera = Configuration.Instance.GetItem(_currentImageViewer.CameraFQID);
+                var streamDataSource = new StreamDataSource(camera);
+                var streams = streamDataSource.GetTypes();
+                foreach (var stream in streams)
+                {
+                    comboBoxStream.Items.Add(stream);
+                    if (stream.Id == _currentImageViewer.StreamId)
+                    {
+                        comboBoxStream.SelectedItem = stream;
+                    }
+                }
+            }
+            comboBoxStream.IsEnabled = comboBoxStream.Items.Count > 0;
+            _streamBeingUpdatedFromCode = false;
+        }
+
+        private void RemoveImageViewerEvents(ImageViewerAddOn currentImageViewer)
+        {
+            _currentImageViewer.PropertyChangedEvent -= _currentImageViewer_PropertyChangedEvent;
             _currentImageViewer.IndependentPlaybackModeChangedEvent -= IndependentPlaybackModeChangedHandler;
             if (_currentImageViewer.IndependentPlaybackController != null)
             {
@@ -199,13 +241,19 @@ namespace SCImageViewerAddOnSample.Client
             }
         }
 
-        private void SetupNewIndependentPlaybackEvents(ImageViewerAddOn currentImageViewer)
+        private void SetupImageViewerEvents(ImageViewerAddOn currentImageViewer)
         {
+            _currentImageViewer.PropertyChangedEvent += _currentImageViewer_PropertyChangedEvent;
             _currentImageViewer.IndependentPlaybackModeChangedEvent += IndependentPlaybackModeChangedHandler;
 
             // When a new ImageViewerAddon is selected and independent playback is enabled, we subscribe to the PlaybackTimeChangedEvent in order to show the current time in the ViewItem
             _currentImageViewer.IndependentPlaybackController.PlaybackTimeChangedEvent += PlaybackTimeChangedEvent;
             _currentImageViewer.IndependentPlaybackController.PlaybackModeChangedEvent += PlaybackModeChangedEvent;
+        }
+
+        private void _currentImageViewer_PropertyChangedEvent(object sender, EventArgs e)
+        {
+            UpdateSelectedStream();
         }
 
         private void IndependentPlaybackModeChangedHandler(object sender, IndependentPlaybackModeEventArgs e)
@@ -377,6 +425,13 @@ namespace SCImageViewerAddOnSample.Client
             _currentImageViewer.VideoEffect = null;
             SetVideoEffectButtonState();
         }
-        
+
+        private void comboBoxStream_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (!_streamBeingUpdatedFromCode)
+            {
+                _currentImageViewer.StreamId = ((DataType)comboBoxStream.SelectedItem).Id;
+            }
+        }
     }
 }

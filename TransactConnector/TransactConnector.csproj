@@ -38,7 +38,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <PackageReference Include="MilestoneSystems.VideoOS.Platform.Transact" Version="*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform.Transact" Version="*-*" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\src\CommonSamples.cs">

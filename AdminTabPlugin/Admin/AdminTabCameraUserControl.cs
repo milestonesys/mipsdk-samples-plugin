@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using VideoOS.Platform;
 using VideoOS.Platform.Admin;
 using VideoOS.Platform.Messaging;
@@ -116,9 +117,16 @@ namespace AdminTabPlugin.Admin
             if (answer.Count != 0 && answer[0] is PTZGetAbsoluteRequestData)
             {
                 var position = (PTZGetAbsoluteRequestData)answer[0];
-                panNumericUpDown.Value = (decimal)position.Pan;
-                tiltNumericUpDown.Value = (decimal)position.Tilt;
-                zoomNumericUpDown.Value = (decimal)position.Zoom;
+                try
+                {
+                    panNumericUpDown.Value = Convert.ToDecimal(position.Pan);
+                    tiltNumericUpDown.Value = Convert.ToDecimal(position.Tilt);
+                    zoomNumericUpDown.Value = Convert.ToDecimal(position.Zoom);
+                }
+                catch (OverflowException)
+                {
+                    MessageBox.Show("At least one of the returned values could not be parsed. Most likely because the device did not provide it.");
+                }
             }
             UseWaitCursor = false;
         }

@@ -146,6 +146,20 @@ namespace DemoDriver
                 },
                 DefaultValue = "jpeg",
             });
+            f.Add(new EnumSetupField()
+            {
+                Key = Constants.Resolution,
+                DisplayName = "Resolution",
+                DisplayNameReferenceId = Guid.Empty,
+                IsReadOnly = false,
+                ReferenceId = Constants.ResolutionReferenceId,
+                EnumList = new[]
+                {
+                    new StringSetupField {Key = Constants.ResolutionHighKey, DefaultValue = Constants.ResolutionHighKey, DisplayName = "High", ReferenceId = Constants.ResolutionHighReferenceId, DisplayNameReferenceId = Constants.ResolutionHighDisplayNameReferenceId },
+                    new StringSetupField {Key = Constants.ResolutionLowKey, DefaultValue = Constants.ResolutionLowKey, DisplayName = "Low", ReferenceId = Constants.ResolutionLowReferenceId, DisplayNameReferenceId = Constants.ResolutionLowDisplayNameReferenceId },
+                },
+                DefaultValue = Constants.ResolutionHighKey
+            });
             f.Add(new NumberSetupField()
             {
                 Key = Constants.InputGain,
@@ -293,7 +307,8 @@ namespace DemoDriver
                 Settings = new Dictionary<string, string>()
                 {
                     {Constants.Codec, "MJPEG" },
-                    {Constants.FPS, "8.0" }
+                    {Constants.FPS, "8.0" },
+                    {Constants.Resolution, Constants.ResolutionHighKey}
                 },
                 RemotePlaybackSupport = true,
             });
@@ -304,7 +319,8 @@ namespace DemoDriver
                 Settings = new Dictionary<string, string>()
                 {
                     {Constants.Codec, "MJPEG" },
-                    {Constants.FPS, "8.0" }
+                    {Constants.FPS, "8.0" },
+                    {Constants.Resolution, Constants.ResolutionHighKey}
                 },
                 RemotePlaybackSupport = true,
 

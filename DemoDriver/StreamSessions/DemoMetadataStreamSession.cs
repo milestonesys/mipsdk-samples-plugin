@@ -27,7 +27,7 @@ namespace DemoDriver
             {
                 colored = md.Value == "C";
             }
-            data = _demoConnectionManager.GetLiveFrame(Channel, colored);
+            data = _demoConnectionManager.GetLiveFrame(Channel, 0, colored);
             if (data == null || data.Length == 0)
             {
                 return false;

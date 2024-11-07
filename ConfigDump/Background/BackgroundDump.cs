@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using VideoOS.Platform;
 using VideoOS.Platform.Background;
@@ -12,15 +10,12 @@ using VideoOS.Platform.Messaging;
 
 namespace ConfigDump2.Background
 {
-	class BackgroundDump : BackgroundPlugin
+    class BackgroundDump : BackgroundPlugin
 	{
 		private static Guid _id = new Guid("EB675CE1-58BC-42BB-B78B-BB0B92B95993");
-		private System.Threading.Thread _thread;
+		private Thread _thread;
 		private object _msgRef, _msgRef2;
-
-		public override void Close()
-		{
-		}
+		private readonly AutoResetEvent _shutdownEvent = new AutoResetEvent(false);
 
 		public override Guid Id
 		{
@@ -30,17 +25,22 @@ namespace ConfigDump2.Background
 		public override void Init()
 		{
 			_msgRef = EnvironmentManager.Instance.RegisterReceiver(configChangedHandler,
-			                                                       new MessageIdFilter(
-			                                                       	VideoOS.Platform.Messaging.MessageId.System.
-			                                                       		SystemConfigurationChangedIndication));
+			                                                       new MessageIdFilter(MessageId.System.SystemConfigurationChangedIndication));
 			_msgRef2 = EnvironmentManager.Instance.RegisterReceiver(NewEventsHandler,
-																   new MessageIdFilter(
-																	VideoOS.Platform.Messaging.MessageId.Server.NewEventsIndication));
-            _thread = new System.Threading.Thread(new ThreadStart(Run));
+																    new MessageIdFilter(MessageId.Server.NewEventsIndication));
+            _thread = new Thread(new ThreadStart(Run));
 			_thread.Start();
 		}
 
-		public override string Name
+        public override void Close()
+        {
+			EnvironmentManager.Instance.UnRegisterReceiver(_msgRef);
+            EnvironmentManager.Instance.UnRegisterReceiver(_msgRef2);
+			_shutdownEvent.Set();
+            _thread.Join();
+        }
+
+        public override string Name
 		{
 			get { return "ConfigDump"; }
 		}
@@ -56,7 +56,7 @@ namespace ConfigDump2.Background
 
 		private object NewEventsHandler(Message message, FQID f1, FQID f2)
 		{
-            var events = message.Data as System.Collections.Generic.IEnumerable<BaseEvent>;
+            var events = message.Data as IEnumerable<BaseEvent>;
             if (events != null)
             {
                 foreach (BaseEvent baseEventData in events)
@@ -70,13 +70,12 @@ namespace ConfigDump2.Background
 			return null;
 		}
 
-		// This shows that you can have the background service to run
-		// not only in the service, but the SmartClient and ManagementClient as well.
-		public override List<VideoOS.Platform.EnvironmentType> TargetEnvironments
+		// This shows that you can have the background service running
+		// not only in the Event Server, but the Smart Client and Management Client as well.
+		public override List<EnvironmentType> TargetEnvironments
 		{
 			get { return new List<EnvironmentType>() {EnvironmentType.Service, EnvironmentType.SmartClient}; }
 		}
-
 
 		private void Run()
 		{
@@ -91,9 +90,11 @@ namespace ConfigDump2.Background
                 catch (Exception)
                 {
                     // Ignore, as Smart Client might have been logged out while Sleep was running.
-                }
-
-				Thread.Sleep(TimeSpan.FromMinutes(10));
+                }				
+				if (_shutdownEvent.WaitOne(TimeSpan.FromMinutes(10)))
+				{
+					break;
+				}
             }
         }
 
@@ -101,14 +102,14 @@ namespace ConfigDump2.Background
 		{
 		    if (indent > 80) return;
 
-			String filler = "                                                                                               ".Substring(0, indent);
+			string filler = "                                                                                               ".Substring(0, indent);
 			foreach (Item item in items)
 			{
 			    Collection<object> result =
 			        EnvironmentManager.Instance.SendMessage(new Message(MessageId.Server.GetIPAddressRequest, item.FQID));
-			    String ip = "";
+			    string ip = "";
                 if (result != null && result.Count>0)
-                    ip = result[0] as String;
+                    ip = result[0] as string;
 
                 EnvironmentManager.Instance.Log(false, "ConfigDump", filler + "Item.Name:   " + item.Name, null);
 				EnvironmentManager.Instance.Log(false, "ConfigDump", filler + "     FQID:   " + item.FQID.ToString(), null);

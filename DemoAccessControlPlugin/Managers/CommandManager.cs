@@ -47,6 +47,30 @@ namespace DemoAccessControlPlugin.Managers
                 {
                     _client.UnlockDoor(operationableInstance, username, password, vmsUsername);
                 }
+                else if (commandType == CommandTypes.DoorLockAccessPoint.Id)
+                {
+                    _client.LockDoorOnAccessPoint(operationableInstance, username, password, vmsUsername);
+                }
+                else if (commandType == CommandTypes.DoorUnlockAccessPoint.Id)
+                {
+                    _client.UnLockDoorOnAccessPoint(operationableInstance, username, password, vmsUsername);
+                }
+                else if (commandType == CommandTypes.DoorLockDoorController.Id)
+                {
+                    _client.LockAllDoorsOnController(operationableInstance, username, password, vmsUsername);
+                }
+                else if (commandType == CommandTypes.DoorUnlockDoorController.Id)
+                {
+                    _client.UnlockAllDoorsOnController(operationableInstance, username, password, vmsUsername);
+                }
+                else if (commandType == CommandTypes.DoorLockAll.Id)
+                {
+                    _client.LockAllDoors(username, password, vmsUsername);
+                }
+                else if (commandType == CommandTypes.DoorUnlockAll.Id)
+                {
+                    _client.UnlockAllDoors(username, password, vmsUsername);
+                }
                 else
                 {
                     return new ACCommandResult(false, "Invalid command.");

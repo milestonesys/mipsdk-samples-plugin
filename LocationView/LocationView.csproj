@@ -77,7 +77,7 @@
     <PackageReference Include="GMap.NET.Presentation">
       <Version>1.7.5</Version>
     </PackageReference>
-    <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*-*" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>

@@ -22,8 +22,8 @@
         <Button x:Name="buttonDevice" Grid.Column="2" Content="Select device..."  Margin="0,10,10,0" VerticalAlignment="Center" Click="deviceButton_Click"/>
         <ComboBox x:Name="comboBoxMarker" Grid.Column="2" Grid.Row="1" Margin="0,10,10,0" VerticalAlignment="Center" SelectionChanged="ComboBox_SelectionChanged"/>
         <StackPanel Orientation="Horizontal"  Grid.Row="2" Grid.Column="2" Margin="0,10,10,10" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <Button  Content="OK" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" IsDefault="True" Width="60" Click="OkButton_Click"/>
-            <Button  Content="Cancel" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" IsCancel="True" Width="60"/>
+            <Button x:Name="buttonOk" Content="OK" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" IsEnabled="{Binding Path=OkEnabled}" IsDefault="True" Width="60" Click="OkButton_Click"/>
+            <Button Content="Cancel" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" IsCancel="True" Width="60"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="5c2c0470-092c-4f5a-84b3-8cf2a5ce503f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="5c2c0470-092c-4f5a-84b3-8cf2a5ce503f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,13 +22,13 @@
     <MetadataSource Address="http://localhost:8732/DemoACServerApplication/WebService/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="062e9329-30d3-40f6-99dd-2dd9a47d672a" SourceId="1" SourceUrl="http://localhost:8732/DemoACServerApplication/WebService/?xsd=xsd2" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="6d1cb227-1626-47ab-87fb-d359727638c5" SourceId="1" SourceUrl="http://localhost:8732/DemoACServerApplication/WebService/?xsd=xsd1" />
     <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="3a67fbef-7f6a-472d-b93c-48fb8f51fbaa" SourceId="1" SourceUrl="http://localhost:8732/DemoACServerApplication/WebService/?xsd=xsd3" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="de282851-e0f9-451c-b7af-130046fab71a" SourceId="1" SourceUrl="http://localhost:8732/DemoACServerApplication/WebService/?disco" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="062e9329-30d3-40f6-99dd-2dd9a47d672a" SourceId="1" SourceUrl="http://localhost:8732/DemoACServerApplication/WebService/?xsd=xsd2" />
     <MetadataFile FileName="item4.xsd" MetadataType="Schema" ID="45157bce-6e9d-476f-9698-2c7b61c28ceb" SourceId="1" SourceUrl="http://localhost:8732/DemoACServerApplication/WebService/?xsd=xsd4" />
     <MetadataFile FileName="WebService.wsdl" MetadataType="Wsdl" ID="3251d7a5-807c-40f9-bbcd-79861147a214" SourceId="1" SourceUrl="http://localhost:8732/DemoACServerApplication/WebService/?wsdl" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="6d1cb227-1626-47ab-87fb-d359727638c5" SourceId="1" SourceUrl="http://localhost:8732/DemoACServerApplication/WebService/?xsd=xsd1" />
     <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="7ee3fe6e-486f-47a1-a47c-d4cef37d9c8e" SourceId="1" SourceUrl="http://localhost:8732/DemoACServerApplication/WebService/?xsd=xsd0" />
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="de282851-e0f9-451c-b7af-130046fab71a" SourceId="1" SourceUrl="http://localhost:8732/DemoACServerApplication/WebService/?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

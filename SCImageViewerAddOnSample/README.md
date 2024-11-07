@@ -8,6 +8,7 @@ keywords:
 - Independent playback
 - Digital zoom
 - Video effects
+- Streams
 lang: en-US
 title: Smart Client ImageViewerAddOn
 ---
@@ -41,6 +42,7 @@ become active.
   used to control the video playback from an individual camera.
 - How digital zoom is activated and used.
 - How a video effect can be applied.
+- How currently selected stream for a camera view item can be read and changed.
 
 ## Using
 
@@ -61,8 +63,9 @@ become active.
 
 ## Requirements
 
-- Smart Client 2021R2 or later is required for independent playback and digital zoom.
-- Smart Client 2022R3 or later is required for video effects.
+- Smart Client 2021 R2 or later is required for independent playback and digital zoom.
+- Smart Client 2022 R3 or later is required for video effects.
+- Smart Client 2024 R2 or later is required for read and change of selected stream.
 
 ## Visual Studio C\# project
 

@@ -31,10 +31,11 @@ The \"Select camera\...\" button is used to select a new camera, and the
 \"Index xx\" drop-down is used to select what position/index the selected
 camera should be inserted on.
 
-Select the \"Insert camera on index\" button to replace the view item at
+Select the \"Insert camera on index\" button to replace the camera view item at
 the defined index with a camera view item containing the selected camera. If the
 \"Temporary insert"\ checkbox is checked, just the camera id is
-replaced temporarily - and therefore not saved on the server.
+replaced temporarily - and therefore not saved on the server. Note that only camera
+view items can be replaced in this way, other view items cannot.
 
 Select the \"Clear camera on index\" button to place the CameraViewItem in an
 empty state - ready to be filled with a camera later.

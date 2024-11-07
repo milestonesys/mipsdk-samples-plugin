@@ -6,7 +6,7 @@ using VideoOS.Platform.AccessControl.Plugin;
 namespace DemoAccessControlPlugin.Managers
 {
     /// <summary>
-    /// This part of the ConfigurationManager class handles the personalized configuraiton.
+    /// This part of the ConfigurationManager class handles the personalized configuration.
     /// The class has been separated for clarity.
     /// </summary>
     internal partial class ConfigurationManager : ACConfigurationManager

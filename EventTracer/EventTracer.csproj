@@ -55,7 +55,7 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform" Version="*-*" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\src\CommonSamples.cs">

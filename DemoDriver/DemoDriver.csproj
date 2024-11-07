@@ -51,6 +51,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -58,7 +59,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <PackageReference Include="MilestoneSystems.VideoOS.Platform.DriverFramework" Version="*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform.DriverFramework" Version="*-*" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\Constants.cs" />

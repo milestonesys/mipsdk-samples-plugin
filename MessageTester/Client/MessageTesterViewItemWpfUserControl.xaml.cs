@@ -1,7 +1,7 @@
+using MessageTester.MessageDataControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using VideoOS.Platform;
@@ -23,15 +23,23 @@ namespace MessageTester.Client
     ///	FireDoubleClickEvent() for double click<br>
     /// The single click will be interpreted by the Smart Client as a selection of the item, and the double click will be interpreted to expand the current viewitem to fill the entire View.
     /// </summary>
-    public partial class MessageTesterViewItemWpfUserControl : ViewItemWpfUserControl
+    public partial class MessageTesterViewItemWpfUserControl : ViewItemWpfUserControl, INotifyPropertyChanged
     {
+        public class MessageHolder
+        {
+            public string MessageId { get; }
+            public MessageDataSuper Control { get; }
+            public MessageHolder(string messageId, MessageDataSuper control)
+            {
+                MessageId = messageId;
+                Control = control;
+            }
+        }
+
         #region Component private class variables
 
-        private MessageTesterViewItemManager _viewItemManager;
         private object _themeChangedReceiver;
-        private string _messageId;
-        private Dictionary<string, MessageDataControls.MessageDataSuper> _dicData = new Dictionary<string, MessageDataControls.MessageDataSuper>();
-        private MessageDataControls.MessageDataSuper _currentControl;
+        private Dictionary<string, MessageHolder> _dicData = new Dictionary<string, MessageHolder>();
         private object _messageReceiverObject;
         #endregion
 
@@ -40,42 +48,48 @@ namespace MessageTester.Client
         /// <summary>
         /// Constructs a MessageTesterViewItemUserControl instance
         /// </summary>
-        public MessageTesterViewItemWpfUserControl(MessageTesterViewItemManager viewItemManager)
+        public MessageTesterViewItemWpfUserControl()
         {
-            _viewItemManager = viewItemManager;
-
             InitializeComponent();
 
             SetColorFromTheme();
             InitializeUsageDictionary();
-            this.DataContext = _currentControl;
+            DataContext = this;
             FillCBControl();
             _messageReceiverObject = EnvironmentManager.Instance.RegisterReceiver(MessageReceiver, null);
         }
+        
         private void FillCBControl()
         {
             List<String> messageIds = EnvironmentManager.Instance.MessageIdList;
             messageIds.Sort();
-            foreach (String id in messageIds)
+            foreach (string id in messageIds)
             {
-                if (id.EndsWith("Indication") == false && id.EndsWith("Message") == false)
-                    cbMessageIds.Items.Add(id);
+                if (!id.EndsWith("Indication") && !id.EndsWith("Message"))
+                {
+                    if (_dicData.ContainsKey(id))
+                        cbMessageIds.Items.Add(_dicData[id]);
+                    else
+                        cbMessageIds.Items.Add(new MessageHolder(id, new NoSupportUserControl()));
+                }
             }
+            cbMessageIds.SelectedIndex = 0;
         }
+
         private void InitializeUsageDictionary()
         {
-            _dicData.Add(MessageId.SmartClient.GetCurrentPlaybackTimeRequest, new MessageDataControls.InformationOnlyUserControl("Can be used without any parameters"));
-            _dicData.Add(MessageId.Control.StartRecordingCommand, new MessageDataControls.DestinationUserControl(Kind.Camera));
-            _dicData.Add(MessageId.Control.StopRecordingCommand, new MessageDataControls.DestinationUserControl(Kind.Camera));
-            _dicData.Add(MessageId.Control.OutputActivate, new MessageDataControls.DestinationUserControl(Kind.Output));
-            _dicData.Add(MessageId.Control.OutputDeactivate, new MessageDataControls.DestinationUserControl(Kind.Output));
-            _dicData.Add(MessageId.SmartClient.GetCurrentWorkspaceRequest, new MessageDataControls.InformationOnlyUserControl("Can be used without any parameters"));
-            _dicData.Add(MessageId.SmartClient.ApplicationControlCommand, new MessageDataControls.ApplicationControlCommandUserControl());
-            _dicData.Add(MessageId.SmartClient.GetTimelineSelectedIntervalRequest, new MessageDataControls.InformationOnlyUserControl("Can be used without any parameters"));
-            _dicData.Add(MessageId.SmartClient.SmartClientMessageCommand, new MessageDataControls.SmartClientMessageCommandUserControl());
-            _dicData.Add(MessageId.Control.TriggerCommand, new MessageDataControls.TriggerCommandUserControl());
-            _dicData.Add(MessageId.SmartClient.SetCameraInViewCommand, new MessageDataControls.InformationOnlyUserControl("No support implemented.\nPlease note that the Smart Client Insert Camera plugin sample Will show the use of this command."));
-            _dicData.Add(MessageId.SmartClient.AddToExportCommand, new MessageDataControls.AddToExportCommandUserControl());
+            _dicData.Add(MessageId.SmartClient.GetCurrentPlaybackTimeRequest, new MessageHolder(MessageId.SmartClient.GetCurrentPlaybackTimeRequest, new InformationOnlyUserControl("Can be used without any parameters")));
+            _dicData.Add(MessageId.Control.StartRecordingCommand, new MessageHolder(MessageId.Control.StartRecordingCommand, new DestinationUserControl(Kind.Camera)));
+            _dicData.Add(MessageId.Control.StopRecordingCommand, new MessageHolder(MessageId.Control.StopRecordingCommand, new DestinationUserControl(Kind.Camera)));
+            _dicData.Add(MessageId.Control.OutputActivate, new MessageHolder(MessageId.Control.OutputActivate, new DestinationUserControl(Kind.Output)));
+            _dicData.Add(MessageId.Control.OutputDeactivate, new MessageHolder(MessageId.Control.OutputDeactivate, new DestinationUserControl(Kind.Output)));
+            _dicData.Add(MessageId.SmartClient.GetCurrentWorkspaceRequest, new MessageHolder(MessageId.SmartClient.GetCurrentWorkspaceRequest, new InformationOnlyUserControl("Can be used without any parameters")));
+            _dicData.Add(MessageId.SmartClient.ApplicationControlCommand, new MessageHolder(MessageId.SmartClient.ApplicationControlCommand, new ApplicationControlCommandUserControl()));
+            _dicData.Add(MessageId.SmartClient.GetTimelineSelectedIntervalRequest, new MessageHolder(MessageId.SmartClient.GetTimelineSelectedIntervalRequest, new InformationOnlyUserControl("Can be used without any parameters")));
+            _dicData.Add(MessageId.SmartClient.SmartClientMessageCommand, new MessageHolder(MessageId.SmartClient.SmartClientMessageCommand, new SmartClientMessageCommandUserControl()));
+            _dicData.Add(MessageId.Control.TriggerCommand, new MessageHolder(MessageId.Control.TriggerCommand, new TriggerCommandUserControl()));
+            _dicData.Add(MessageId.SmartClient.SetCameraInViewCommand, new MessageHolder(MessageId.SmartClient.SetCameraInViewCommand, new InformationOnlyUserControl("No support implemented.\nPlease note that the Smart Client Insert Camera plugin sample Will show the use of this command.")));
+            _dicData.Add(MessageId.SmartClient.AddToExportCommand, new MessageHolder(MessageId.SmartClient.AddToExportCommand, new AddToExportCommandUserControl()));
             ShownInSmartMapControl();
             ShownInSCViewAndWindow();
             ShownInVideoWallController();
@@ -83,60 +97,61 @@ namespace MessageTester.Client
 
         private void ShownInVideoWallController()
         {
+            AddVideoWallMessage(MessageId.Control.VideoWallApplyXmlCommand);
+            AddVideoWallMessage(MessageId.Control.VideoWallPresetActivateCommand);
+            AddVideoWallMessage(MessageId.Control.VideoWallRemoveCamerasCommand);
+            AddVideoWallMessage(MessageId.Control.VideoWallSetCamerasCommand);
+            AddVideoWallMessage(MessageId.Control.VideoWallSetLayoutAndCamerasCommand);
+            AddVideoWallMessage(MessageId.Control.VideoWallSetLayoutCommand);
+            AddVideoWallMessage(MessageId.Control.VideoWallShowTextCommand);
+        }
+
+        private void AddVideoWallMessage(string messageId)
+        {
             string note = "No support implemented.\nPlease note that the Video Wall Controller sample will show messaging related to Video Wall usage.";
-            _dicData.Add(MessageId.Control.VideoWallApplyXmlCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.Control.VideoWallPresetActivateCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.Control.VideoWallRemoveCamerasCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.Control.VideoWallSetCamerasCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.Control.VideoWallSetLayoutAndCamerasCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.Control.VideoWallSetLayoutCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.Control.VideoWallShowTextCommand, new MessageDataControls.InformationOnlyUserControl(note));
+            _dicData.Add(messageId, new MessageHolder(messageId, new NoSupportUserControl(note)));
         }
 
         private void ShownInSmartMapControl()
         {
+            AddSmartMapMessage(MessageId.SmartClient.SmartMapGetPositionRequest);
+            AddSmartMapMessage(MessageId.SmartClient.SmartMapGoToAreaCommand);
+            AddSmartMapMessage(MessageId.SmartClient.SmartMapGoToLocationCommand);
+            AddSmartMapMessage(MessageId.SmartClient.SmartMapGoToPositionCommand);
+            AddSmartMapMessage(MessageId.SmartClient.SmartMapNavigateToCamera);
+            AddSmartMapMessage(MessageId.SmartClient.SmartMapPositionChangedIndication);
+            AddSmartMapMessage(MessageId.SmartClient.SmartMapSelectItemCommand);
+        }
+
+        private void AddSmartMapMessage(string messageId)
+        {
             string note = "No support implemented.\nPlease note that the Smart Map Control plugin sample will show messaging related to Smart Map.";
-            _dicData.Add(MessageId.SmartClient.SmartMapGetPositionRequest, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.SmartClient.SmartMapGoToAreaCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.SmartClient.SmartMapGoToLocationCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.SmartClient.SmartMapGoToPositionCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.SmartClient.SmartMapNavigateToCamera, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.SmartClient.SmartMapPositionChangedIndication, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.SmartClient.SmartMapSelectItemCommand, new MessageDataControls.InformationOnlyUserControl(note));
+            _dicData.Add(messageId, new MessageHolder(messageId, new NoSupportUserControl(note)));
         }
 
         private void ShownInSCViewAndWindow()
         {
-            string note = "No support implemented.\nPlease note that the Smart Client View and Window Tools plugin sample will show messaging related to this command.";
-            _dicData.Add(MessageId.Control.PTZAUXCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.SmartClient.ClearIndicatorCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.SmartClient.ChangeModeCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.Control.LensCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.Server.GetMapRequest, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.SmartClient.MultiWindowCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.SmartClient.PlaybackCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.Control.PTZMoveAbsoluteCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.Control.PTZGetAbsoluteRequest, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.Control.PTZMoveStartCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.Control.PTZMoveStopCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.Control.PTZMoveCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.SmartClient.ViewItemControlCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.SmartClient.SetSelectedViewItemCommand, new MessageDataControls.InformationOnlyUserControl(note));
-            _dicData.Add(MessageId.SmartClient.ShowWorkSpaceCommand, new MessageDataControls.InformationOnlyUserControl(note));
+            AddViewAndWindowMessage(MessageId.Control.PTZAUXCommand);
+            AddViewAndWindowMessage(MessageId.SmartClient.ClearIndicatorCommand);
+            AddViewAndWindowMessage(MessageId.SmartClient.ChangeModeCommand);
+            AddViewAndWindowMessage(MessageId.Control.LensCommand);
+            AddViewAndWindowMessage(MessageId.Server.GetMapRequest);
+            AddViewAndWindowMessage(MessageId.SmartClient.MultiWindowCommand);
+            AddViewAndWindowMessage(MessageId.SmartClient.PlaybackCommand);
+            AddViewAndWindowMessage(MessageId.Control.PTZMoveAbsoluteCommand);
+            AddViewAndWindowMessage(MessageId.Control.PTZGetAbsoluteRequest);
+            AddViewAndWindowMessage(MessageId.Control.PTZMoveStartCommand);
+            AddViewAndWindowMessage(MessageId.Control.PTZMoveStopCommand);
+            AddViewAndWindowMessage(MessageId.Control.PTZMoveCommand);
+            AddViewAndWindowMessage(MessageId.SmartClient.ViewItemControlCommand);
+            AddViewAndWindowMessage(MessageId.SmartClient.SetSelectedViewItemCommand);
+            AddViewAndWindowMessage(MessageId.SmartClient.ShowWorkSpaceCommand);
         }
 
-        private MessageDataControls.MessageDataSuper DataControl(string messageId)
+        private void AddViewAndWindowMessage(string messageId)
         {
-            MessageDataControls.MessageDataSuper control;
-            
-            if (_dicData.TryGetValue(messageId, out control))
-            {
-                return control;
-            }
-            else
-            {
-                return new MessageDataControls.NoSupportUserControl();
-            }
+           string note = "No support implemented.\nPlease note that the Smart Client View and Window Tools plugin sample will show messaging related to this command.";
+            _dicData.Add(messageId, new MessageHolder(messageId, new NoSupportUserControl(note)));
         }
 
         private static Color GetWindowsMediaColor(System.Drawing.Color inColor)
@@ -305,20 +320,23 @@ namespace MessageTester.Client
 
         private void OnSendMessage(object sender, System.Windows.RoutedEventArgs e)
         {
+            var selectedMessage = cbMessageIds.SelectedItem as MessageHolder;
+            if (selectedMessage == null)
+            {
+                return;
+            }
+
             ResponseTextBox.Text = "";
             object messageData = null;
-            if(_currentControl.Destination!= null)
-            {
 
-            }
-            if (_currentControl.Data != null)
+            if (selectedMessage.Control.Data != null)
             {
-                messageData = _currentControl.Data;
+                messageData = selectedMessage.Control.Data;
             }
-            Message message = new Message(_messageId, _currentControl.Related ,messageData);
+            Message message = new Message(selectedMessage.MessageId, selectedMessage.Control.Related ,messageData);
             try
             {
-                var response = EnvironmentManager.Instance.SendMessage(message, _currentControl.Destination, null);
+                var response = EnvironmentManager.Instance.SendMessage(message, selectedMessage.Control.Destination, null);
                 if (response != null && response.Count > 0)
                 {
                     ResponseTextBox.Text = response[0].ToString();
@@ -332,11 +350,15 @@ namespace MessageTester.Client
 
         private void OnMessageSelect(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            _messageId = cbMessageIds.SelectedItem.ToString();
             _messageDataControlsGrid.Children.Clear();
-            _currentControl = DataControl(_messageId);
-            _messageDataControlsGrid.Children.Add(_currentControl);
-            DataContext = _currentControl;
+            _messageDataControlsGrid.Children.Add((cbMessageIds.SelectedItem as MessageHolder).Control);
         }
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -33,6 +33,8 @@ namespace ConfigDump
 
         static ConfigDumpDefinition()
         {
+            if (!UriParser.IsKnownScheme("pack"))
+                new System.Windows.Application(); // Ensure WPF is initialized - otherwise the pack URI scheme may not be registered
             var packString = string.Format($"pack://application:,,,/{Assembly.GetExecutingAssembly().GetName().Name};component/Resources/ConfigDump.png");
             Uri imageUri = new Uri(packString);
             _pluginIcon = new VideoOSIconUriSource() { Uri = imageUri };

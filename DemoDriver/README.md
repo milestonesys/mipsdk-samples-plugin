@@ -55,7 +55,7 @@ To try out the Demo Driver sample:
     **as administrator**.  
     **Note:** `DemoDriverDevice.exe` is available here [DemoDriverDevice on GitHub](https://github.com/milestonesys/mipsdk-samples-plugin/tree/main/DemoDriver/DemoDriverDevice)
 3.  By default, the device will use the credentials `root:pass`, the scheme 'http', 
-    the port `22222`, and the MAC address `DE:AD:CO:DE:56:78`. Specify the
+    the port `22222`, and the MAC address `DE:AD:C0:DE:56:78`. Specify the
     desired port, MAC address, and credentials, and then select the
     *Start service* button.
 4.  In the Management Client, use the *Add Hardware\...* wizard with the

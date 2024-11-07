@@ -25,14 +25,12 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Content="Message ids"/>
-                <ComboBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="120" Width="auto" x:Name="cbMessageIds" SelectionChanged="OnMessageSelect"/>
+                <Label Grid.Row="0" Grid.Column="0" Content="Message IDs:"/>
+                <ComboBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" MinWidth="120" Width="auto" x:Name="cbMessageIds" SelectionChanged="OnMessageSelect" DisplayMemberPath="MessageId"/>
                 <Grid Grid.Row="3" x:Name="_messageDataControlsGrid"/>
-                <Button Content="Send message" HorizontalAlignment="Left"  Grid.Row="5" VerticalAlignment="Top" Width="120" x:Name="SendMessage" Click="OnSendMessage" IsEnabled="{Binding IsReadyToSend}"/>
+        <Button Content="Send message" HorizontalAlignment="Left"  Grid.Row="5" VerticalAlignment="Top" Width="120" x:Name="SendMessage" Click="OnSendMessage" IsEnabled="{Binding ElementName=cbMessageIds, Path=SelectedItem.Control.IsReadyToSend}"/>
                 <Label Grid.Row="6" Content="Response:" />
                 <TextBox Grid.Row="7" x:Name="ResponseTextBox" Text="No response" />
-                
-
             </Grid>
 
         </Grid>

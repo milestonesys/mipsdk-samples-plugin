@@ -30,7 +30,7 @@ namespace DemoDriver
         {
             header = null;
             data = null;
-            byte[] frame = _demoConnectionManager.GetLiveFrame(Channel, false);
+            byte[] frame = _demoConnectionManager.GetLiveFrame(Channel, 0, false);
             if (frame == null)
             {
                 return false;

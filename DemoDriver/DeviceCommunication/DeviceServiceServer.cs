@@ -28,6 +28,7 @@ namespace DemoDriverDevice
         public const string DeviceEventLPR = "LPR:";
 
         public const string DeviceSettingFPS = "FPS";
+        public const string DeviceSettingResolution = "Resolution";
 
         public const int DeviceVideoChannel1 = 0;
         public const int DeviceVideoChannel2 = 1;
@@ -36,6 +37,11 @@ namespace DemoDriverDevice
         public const int DeviceMetadataChannel2 = 9;
         public const int DeviceSpeakerChannel = 30;
         public const int DeviceInvalidChannel = 9999;
+
+        public const int LowResWidth = 150;
+        public const int LowResHeight = 100;
+        public const int HighResWidth = 475;
+        public const int HighResHeight = 305;
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
@@ -52,7 +58,7 @@ namespace DemoDriverDevice
         System.Guid StartLiveStream(int channel, System.Collections.Generic.Dictionary<string, string> parameters);
 
         [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IDeviceService/GetLiveFrame", ReplyAction = "http://tempuri.org/IDeviceService/GetLiveFrameResponse")]
-        byte[] GetLiveFrame(int channel, bool coloredMetadata);
+        byte[] GetLiveFrame(int channel, int stream, bool coloredMetadata);
 
         [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IDeviceService/StopLiveStream", ReplyAction = "http://tempuri.org/IDeviceService/StopLiveStreamResponse")]
         void StopLiveStream(int channel);
@@ -73,7 +79,7 @@ namespace DemoDriverDevice
         string SendCommand(string command);
 
         [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IDeviceService/ChangeSetting", ReplyAction = "http://tempuri.org/IDeviceService/ChangeSetting")]
-        void ChangeSetting(int channel, string key, string data);
+        void ChangeSetting(int channel, int stream, string key, string data);
 
         [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IDeviceService/StartFirmwareUpgrade", ReplyAction = "http://tempuri.org/IDeviceService/StartFirmwareUpgrade")]
         Guid StartFirmwareUpgrade(string firmwareContent);
@@ -137,9 +143,9 @@ namespace DemoDriverDevice
             return base.Channel.StartLiveStream(channel, parameters);
         }
 
-        public byte[] GetLiveFrame(int channel, bool color)
+        public byte[] GetLiveFrame(int channel, int stream, bool color)
         {
-            return base.Channel.GetLiveFrame(channel, color);
+            return base.Channel.GetLiveFrame(channel, stream, color);
         }
 
         public void StopLiveStream(int channel)
@@ -172,9 +178,9 @@ namespace DemoDriverDevice
             return base.Channel.SendCommand(command);
         }
 
-        public void ChangeSetting(int channel, string key, string data)
+        public void ChangeSetting(int channel, int stream, string key, string data)
         {
-            base.Channel.ChangeSetting(channel, key, data);
+            base.Channel.ChangeSetting(channel, stream, key, data);
         }
 
         public Guid StartFirmwareUpgrade(string firmwareContent)

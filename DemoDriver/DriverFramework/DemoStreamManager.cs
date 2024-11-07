@@ -1,7 +1,9 @@
 ﻿using DemoDriverDevice;
 using System;
+using System.Drawing;
 using System.Linq;
 using VideoOS.Platform.DriverFramework.Data;
+using VideoOS.Platform.DriverFramework.Data.Settings;
 using VideoOS.Platform.DriverFramework.Exceptions;
 using VideoOS.Platform.DriverFramework.Managers;
 using VideoOS.Platform.DriverFramework.Utilities;
@@ -27,6 +29,15 @@ namespace DemoDriver
                 Toolbox.Log.Trace("DemoDriver.StreamManager.GetLiveFrame: Exception={0}", ex.Message);
                 return GetLiveFrameResult.ErrorResult(StreamLiveStatus.NoConnection);
             }
+        }
+
+        public override StreamInformation GetStreamInformation(string deviceId, Guid streamId)
+        {
+            var setting = Container.SettingsManager.GetSetting(new StreamSetting(Constants.Resolution, deviceId, streamId, ""));
+            return new StreamInformation
+            {
+                Resolution = setting?.Value == Constants.ResolutionLowKey ? new Size(DemoDeviceConstants.LowResWidth, DemoDeviceConstants.LowResHeight) : new Size(DemoDeviceConstants.HighResWidth, DemoDeviceConstants.HighResHeight)
+            };
         }
 
         internal BaseStreamSession GetSession(int channel)

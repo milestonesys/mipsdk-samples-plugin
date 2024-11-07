@@ -9,6 +9,10 @@ namespace DemoDriver
     internal class DemoVideoStreamSession : BaseDemoStreamSession
     {
         private string _fps;
+        private string _resolution;
+
+        private int StreamNumber => _streamId == Constants.Stream1RefId ? 0 : 1;
+
         public DemoVideoStreamSession(ISettingsManager settingsManager, DemoConnectionManager demoConnectionManager, Guid sessionId, string deviceId, int channelId, Guid streamId) : 
             base(settingsManager, demoConnectionManager, sessionId, deviceId, channelId, streamId)
         {
@@ -30,6 +34,10 @@ namespace DemoDriver
             {
                 UpdateFrameRateOnDevice();
             }
+            if (e.Settings.Any(s => s.Key == Constants.Resolution))
+            {
+                UpdateResolutionOnDevice();
+            }
         }
 
         private void UpdateFrameRateOnDevice()
@@ -37,15 +45,25 @@ namespace DemoDriver
             var setting = _settingsManager.GetSetting(new StreamSetting(Constants.FPS, _deviceId, _streamId, ""));
             if (setting != null && setting.Value != _fps)
             {
-                _demoConnectionManager.ChangeSetting(Channel, DemoDriverDevice.DemoDeviceConstants.DeviceSettingFPS, setting.Value);
+                _demoConnectionManager.ChangeSetting(Channel, StreamNumber, DemoDriverDevice.DemoDeviceConstants.DeviceSettingFPS, setting.Value);
                 _fps = setting.Value;
+            }
+        }
+
+        private void UpdateResolutionOnDevice()
+        {
+            var setting = _settingsManager.GetSetting(new StreamSetting(Constants.Resolution, _deviceId, _streamId, ""));
+            if (setting != null && setting.Value != _resolution)
+            {
+                _demoConnectionManager.ChangeSetting(Channel, StreamNumber, DemoDriverDevice.DemoDeviceConstants.DeviceSettingResolution, setting.Value);
+                _resolution = setting.Value;
             }
         }
 
         protected override bool GetLiveFrameInternal(TimeSpan timeout, out BaseDataHeader header, out byte[] data)
         {
             header = null;
-            data = _demoConnectionManager.GetLiveFrame(Channel, false);
+            data = _demoConnectionManager.GetLiveFrame(Channel, StreamNumber, false);
             if (data == null || data.Length == 0)
             {
                 return false;

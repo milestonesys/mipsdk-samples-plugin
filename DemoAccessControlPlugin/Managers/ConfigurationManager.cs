@@ -205,7 +205,7 @@ namespace DemoAccessControlPlugin.Managers
             elements.AddRange(StateTypes.DoorStateTypes);
 
             // Add command types
-            elements.AddRange(CommandTypes.DoorCommands);
+            elements.AddRange(CommandTypes.AllCommands);
 
             // Look up the all events, which can be fired on a door
             // OBS: In the Demo Access Control application, events with source "DoorController" are actually fired on the door.

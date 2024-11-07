@@ -1,7 +1,9 @@
 ﻿using LocationView.Client.Config;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using VideoOS.Platform;
@@ -12,7 +14,7 @@ namespace LocationView.Client
     /// <summary>
     /// Interaction logic for MarkerChangeWindow.xaml
     /// </summary>
-    public partial class MarkerChangeWindow : Window
+    public partial class MarkerChangeWindow : Window, INotifyPropertyChanged
     {
         public enum Mode
         {
@@ -28,7 +30,7 @@ namespace LocationView.Client
                 comboBoxMarker.Items.Add(MarkerNames.GetName(type));
             }
 
-            SetSelectedMarkerType("");
+            SetSelectedMarkerType(MarkerNames.GetName(_marker.MarkerType));
         }
 
         private void SetSelectedMarkerType(string markerType)
@@ -67,14 +69,35 @@ namespace LocationView.Client
             {
                 _marker.InitFrom(value);
 
-                _selectedMetadataItem = Configuration.Instance.GetItem(_marker.DeviceId, Kind.Metadata);
-                buttonDevice.Content = _selectedMetadataItem.Name;
+                SelectedMetadataItem = Configuration.Instance.GetItem(_marker.DeviceId, Kind.Metadata);
+                buttonDevice.Content = SelectedMetadataItem.Name;
 
                 SetSelectedMarkerType(MarkerNames.GetName(_marker.MarkerType));
             }
         }
 
+        public bool OkEnabled
+        {
+            get => SelectedMetadataItem != null;
+        }
+
         private Item _selectedMetadataItem = null;
+        private Item SelectedMetadataItem
+        {
+            get => _selectedMetadataItem;
+            set
+            {
+                _selectedMetadataItem = value;
+                OnPropertyChanged(nameof(OkEnabled));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 
         public MarkerChangeWindow(Mode mode = Mode.Add)
         {
@@ -83,6 +106,8 @@ namespace LocationView.Client
             InitializeMarkerTypes();
 
             WorkMode = mode;
+
+            DataContext = this;
         }
 
         private void deviceButton_Click(object sender, RoutedEventArgs e)
@@ -91,18 +116,18 @@ namespace LocationView.Client
             {
                 KindsFilter = new List<Guid>() { Kind.Metadata },
                 SelectionMode = SelectionModeOptions.SingleSelect,
-                SelectedItems = new List<Item>() { _selectedMetadataItem },
+                SelectedItems = new List<Item>() { SelectedMetadataItem },
                 Items = Configuration.Instance.GetItemsByKind(Kind.Metadata),
             };
             form.ShowDialog();
             if (form.SelectedItems != null && form.SelectedItems.Any())
             {
-                _selectedMetadataItem = form.SelectedItems.First();
+                SelectedMetadataItem = form.SelectedItems.First();
 
-                _marker.DeviceId = _selectedMetadataItem.FQID.ObjectId;
-                _marker.DeviceName = _selectedMetadataItem.Name;
+                _marker.DeviceId = SelectedMetadataItem.FQID.ObjectId;
+                _marker.DeviceName = SelectedMetadataItem.Name;
 
-                buttonDevice.Content = _selectedMetadataItem.Name;
+                buttonDevice.Content = SelectedMetadataItem.Name;
             }
         }
 

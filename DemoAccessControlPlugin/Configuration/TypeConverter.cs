@@ -123,6 +123,12 @@ namespace DemoAccessControlPlugin.Configuration
             return string.Format("AP{0}_{1}", accessPoint, doorId);
         }
 
+        public static string GetDoorIdFromAccessPointId(string accessPointId)
+        {
+            int underscoreIndex = accessPointId.IndexOf('_');
+            return accessPointId.Substring(underscoreIndex + 1);
+        }
+
         private static IEnumerable<string> GetDoorStates(DoorStatus status)
         {
             if (status == null)

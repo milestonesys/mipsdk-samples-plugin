@@ -28,6 +28,12 @@
     {
         public const string Lock = "DC_Lock";
         public const string Unlock = "DC_Unlock";
+        public const string LockAccessPoint = "DC_LockAccessPoint";
+        public const string UnlockAccessPoint = "DC_UnlockAccessPoint";
+        public const string LockDoorController = "DC_LockDoorController";
+        public const string UnlockDoorController = "DC_UnlockDoorController";
+        public const string LockAll = "DC_LockAll";
+        public const string UnlockAll = "DC_UnlockAll";
     }
 
     internal static class ServerEventId

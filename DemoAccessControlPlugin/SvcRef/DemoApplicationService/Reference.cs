@@ -1077,6 +1077,30 @@ namespace DemoAccessControlPlugin.DemoApplicationService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWebService/LockDoor", ReplyAction="http://tempuri.org/IWebService/LockDoorResponse")]
         System.Threading.Tasks.Task<bool> LockDoorAsync(string userName, string password, string vmsUserName, System.Guid doorId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWebService/UnlockAllDoorsOnDoorController", ReplyAction="http://tempuri.org/IWebService/UnlockAllDoorsOnDoorControllerResponse")]
+        bool UnlockAllDoorsOnDoorController(string userName, string password, string vmsUserName, System.Guid doorControllerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWebService/UnlockAllDoorsOnDoorController", ReplyAction="http://tempuri.org/IWebService/UnlockAllDoorsOnDoorControllerResponse")]
+        System.Threading.Tasks.Task<bool> UnlockAllDoorsOnDoorControllerAsync(string userName, string password, string vmsUserName, System.Guid doorControllerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWebService/LockAllDoorsOnDoorController", ReplyAction="http://tempuri.org/IWebService/LockAllDoorsOnDoorControllerResponse")]
+        bool LockAllDoorsOnDoorController(string userName, string password, string vmsUserName, System.Guid doorControllerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWebService/LockAllDoorsOnDoorController", ReplyAction="http://tempuri.org/IWebService/LockAllDoorsOnDoorControllerResponse")]
+        System.Threading.Tasks.Task<bool> LockAllDoorsOnDoorControllerAsync(string userName, string password, string vmsUserName, System.Guid doorControllerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWebService/UnlockAllDoors", ReplyAction="http://tempuri.org/IWebService/UnlockAllDoorsResponse")]
+        bool UnlockAllDoors(string userName, string password, string vmsUserName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWebService/UnlockAllDoors", ReplyAction="http://tempuri.org/IWebService/UnlockAllDoorsResponse")]
+        System.Threading.Tasks.Task<bool> UnlockAllDoorsAsync(string userName, string password, string vmsUserName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWebService/LockAllDoors", ReplyAction="http://tempuri.org/IWebService/LockAllDoorsResponse")]
+        bool LockAllDoors(string userName, string password, string vmsUserName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWebService/LockAllDoors", ReplyAction="http://tempuri.org/IWebService/LockAllDoorsResponse")]
+        System.Threading.Tasks.Task<bool> LockAllDoorsAsync(string userName, string password, string vmsUserName);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWebService/GetDoorStatus", ReplyAction="http://tempuri.org/IWebService/GetDoorStatusResponse")]
         DemoApplicationService.DoorStatus GetDoorStatus(string userName, string password, System.Guid doorId);
         
@@ -1213,6 +1237,38 @@ namespace DemoAccessControlPlugin.DemoApplicationService {
         
         public System.Threading.Tasks.Task<bool> LockDoorAsync(string userName, string password, string vmsUserName, System.Guid doorId) {
             return base.Channel.LockDoorAsync(userName, password, vmsUserName, doorId);
+        }
+        
+        public bool UnlockAllDoorsOnDoorController(string userName, string password, string vmsUserName, System.Guid doorControllerId) {
+            return base.Channel.UnlockAllDoorsOnDoorController(userName, password, vmsUserName, doorControllerId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UnlockAllDoorsOnDoorControllerAsync(string userName, string password, string vmsUserName, System.Guid doorControllerId) {
+            return base.Channel.UnlockAllDoorsOnDoorControllerAsync(userName, password, vmsUserName, doorControllerId);
+        }
+        
+        public bool LockAllDoorsOnDoorController(string userName, string password, string vmsUserName, System.Guid doorControllerId) {
+            return base.Channel.LockAllDoorsOnDoorController(userName, password, vmsUserName, doorControllerId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> LockAllDoorsOnDoorControllerAsync(string userName, string password, string vmsUserName, System.Guid doorControllerId) {
+            return base.Channel.LockAllDoorsOnDoorControllerAsync(userName, password, vmsUserName, doorControllerId);
+        }
+        
+        public bool UnlockAllDoors(string userName, string password, string vmsUserName) {
+            return base.Channel.UnlockAllDoors(userName, password, vmsUserName);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UnlockAllDoorsAsync(string userName, string password, string vmsUserName) {
+            return base.Channel.UnlockAllDoorsAsync(userName, password, vmsUserName);
+        }
+        
+        public bool LockAllDoors(string userName, string password, string vmsUserName) {
+            return base.Channel.LockAllDoors(userName, password, vmsUserName);
+        }
+        
+        public System.Threading.Tasks.Task<bool> LockAllDoorsAsync(string userName, string password, string vmsUserName) {
+            return base.Channel.LockAllDoorsAsync(userName, password, vmsUserName);
         }
         
         public DemoApplicationService.DoorStatus GetDoorStatus(string userName, string password, System.Guid doorId) {

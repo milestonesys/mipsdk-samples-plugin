@@ -26,7 +26,7 @@ namespace MessageTester.Client
         /// <returns></returns>
         public override ViewItemWpfUserControl GenerateViewItemWpfUserControl()
         {
-            return new MessageTesterViewItemWpfUserControl(this);
+            return new MessageTesterViewItemWpfUserControl();
         }
 
         #endregion

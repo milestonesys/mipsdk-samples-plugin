@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VideoOS.Platform.AccessControl;
 using VideoOS.Platform.AccessControl.Elements;
@@ -40,15 +41,29 @@ namespace DemoAccessControlPlugin.Constants
         public static ACCommandType DoorUnlock = new ACCommandType(DoorCommandId.Unlock, "Unlock", null, null, new[] { ACBuiltInCommandTypeCategories.GrantAccess, ACBuiltInCommandTypeCategories.AccessRequest }, 0);
         public static ACCommandType DoorLock = new ACCommandType(DoorCommandId.Lock, "Lock", null, null, new[] { ACBuiltInCommandTypeCategories.AccessRequest }, 0);
 
+        public static ACCommandType DoorUnlockAccessPoint = new ACCommandType(DoorCommandId.UnlockAccessPoint, "Unlock door", null, null, new[] { ACBuiltInCommandTypeCategories.GrantAccess, ACBuiltInCommandTypeCategories.AccessRequest }, 0);
+        public static ACCommandType DoorLockAccessPoint = new ACCommandType(DoorCommandId.LockAccessPoint, "Lock door", null, null, new[] { ACBuiltInCommandTypeCategories.AccessRequest }, 0);
+
+        public static ACCommandType DoorUnlockDoorController = new ACCommandType(DoorCommandId.UnlockDoorController, "Unlock all", null, null, new[] { ACBuiltInCommandTypeCategories.GrantAccess, ACBuiltInCommandTypeCategories.AccessRequest }, 0);
+        public static ACCommandType DoorLockDoorController = new ACCommandType(DoorCommandId.LockDoorController, "Lock all", null, null, new[] { ACBuiltInCommandTypeCategories.AccessRequest }, 0);
+
+        public static ACCommandType DoorUnlockAll = new ACCommandType(DoorCommandId.UnlockAll, "Unlock all", null, null, new[] { ACBuiltInCommandTypeCategories.GrantAccess, ACBuiltInCommandTypeCategories.AccessRequest }, 0);
+        public static ACCommandType DoorLockAll = new ACCommandType(DoorCommandId.LockAll, "Lock all", null, null, new[] { ACBuiltInCommandTypeCategories.AccessRequest }, 0);
+
         public static ACCommandType[] DoorCommands = new[] { DoorLock, DoorUnlock };
+        public static ACCommandType[] AccessPointCommands = new[] { DoorUnlockAccessPoint, DoorLockAccessPoint };
+        public static ACCommandType[] DoorControllerCommandTypes = new[] { DoorUnlockDoorController, DoorLockDoorController };
+        public static ACCommandType[] AllDoorsCommands = new[] { DoorLockAll, DoorUnlockAll };
+
+        public static ACCommandType[] AllCommands = DoorCommands.Concat(AccessPointCommands).Concat(DoorControllerCommandTypes).Concat(AllDoorsCommands).ToArray();
     }
 
     internal static class ElementTypes
     {
         public static ACServerType ServerType = new ACServerType(TypeId.Server, "Demo Server", ACBuiltInIconKeys.ServerConnected, null, null,
-            StateTypes.ServerStateTypes.Select(s => s.Id), null, EventTypes.ServerEventTypes.Select(t => t.Id));
+            StateTypes.ServerStateTypes.Select(s => s.Id), CommandTypes.AllDoorsCommands.Select(d => d.Id), EventTypes.ServerEventTypes.Select(t => t.Id));
 
-        public static ACUnitType DoorControllerType = new ACUnitType(TypeId.DoorController, "Door Controller", null, null, null, null, null, null);
+        public static ACUnitType DoorControllerType = new ACUnitType(TypeId.DoorController, "Door Controller", null, null, null, null, CommandTypes.DoorControllerCommandTypes.Select(d => d.Id), null);
 
         public static ACUnitType CreateDoorType(IEnumerable<string> eventTypeIds)
         {
@@ -59,7 +74,7 @@ namespace DemoAccessControlPlugin.Constants
         public static ACUnitType CreateAccessPointType(IEnumerable<string> eventTypeIds)
         {
             return new ACUnitType(TypeId.AccessPoint, "Access Point", null, null, new[] { ACBuiltInUnitTypeCategories.AccessPoint },
-                null, null, eventTypeIds);
+                null, CommandTypes.AccessPointCommands.Select(d => d.Id), eventTypeIds);
         }
     }
 }

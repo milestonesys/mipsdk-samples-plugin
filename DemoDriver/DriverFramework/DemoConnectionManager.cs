@@ -97,6 +97,7 @@ namespace DemoDriver
         /// </summary>
         /// <param name="firmwarePath"></param>
         /// <returns></returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("", "S2083", Justification = "Interface is only exposed locally as it is hosted by driver proxy application")]
         public override Guid StartFirmwareUpgrade(string firmwarePath)
         {
             ThrowIfNotConnected();
@@ -159,12 +160,12 @@ namespace DemoDriver
             }
         }
 
-        public byte[] GetLiveFrame(int channel, bool color)
+        public byte[] GetLiveFrame(int channel, int stream, bool color)
         {
             ThrowIfNotConnected();
             if (_proxy != null)
             {
-                return _proxy.Client.GetLiveFrame(channel, color);
+                return _proxy.Client.GetLiveFrame(channel, stream, color);
             }
             return null;
         }
@@ -242,12 +243,12 @@ namespace DemoDriver
             return new PtzGetAbsoluteData() { Pan = position[0], Tilt = position[1], Zoom = position[2] };
         }
 
-        public void ChangeSetting(int channel, string key, string data)
+        public void ChangeSetting(int channel, int stream, string key, string data)
         {
             ThrowIfNotConnected();
             if (_proxy != null)
             {
-                _proxy.Client.ChangeSetting(channel, key, data);
+                _proxy.Client.ChangeSetting(channel, stream, key, data);
             }
         }
 
