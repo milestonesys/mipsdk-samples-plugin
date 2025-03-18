@@ -89,7 +89,7 @@ namespace DemoAccessControlPlugin.Managers
                 }
                 else
                 {
-                    FireFetchPersonalizedConfigurationStatusChanged(new ACFetchPersonalizedConfigurationStatusChangedEventArgs("Invalid configuration.", username));
+                    FireFetchPersonalizedConfigurationStatusChanged(new ACFetchPersonalizedConfigurationStatusChangedEventArgs("Invalid configuration! Check Access Control logs.", username));
                 }
             }
             catch (DemoApplicationClientException ex)

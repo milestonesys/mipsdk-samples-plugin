@@ -7,7 +7,7 @@ lang: en-US
 title: Chat with WebSockets
 ---
 
-# Chat with WebSockets [BETA]
+# Chat with WebSockets
 
 This sample implements a simple chat functionality using WebSockets. Chat lines
 are sent and received as messages. All chat lines will be presented in the
@@ -17,11 +17,9 @@ Please note that the clients can be different applications, e.g. a
 Management Client can send messages to Smart Clients. The client can
 even be without UI, like the Event Server.
 
-![](ChatWithWebsocketsSC.png)	![](ChatWithWebsocketsMC.png)
+![Smart Client](ChatWithWebsocketsSC.png) ![Management Client](ChatWithWebsocketsMC.png)
 
 There are no configurations necessary in the application.
-
-Messages through WebSockets are in beta version. I.e., both the API and this sample might change without preserving backwards compatibility as long as it is in beta.
 
 ## The sample demonstrates
 

@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using VideoOS.Platform;
@@ -17,98 +15,101 @@ using VideoOS.Platform.Util;
 
 namespace SensorMonitor.Admin
 {
-	public class SensorMonitorSensorItemManager : ItemManager
-	{
-		private SensorMonitorUserControl _userControl;
-		private readonly Guid _kind;
-		private object msgRef;
+    public class SensorMonitorSensorItemManager : ItemManager
+    {
+        private SensorMonitorUserControl _userControl;
+        private readonly Guid _kind;
+        private object msgRef;
 
-		#region Constructors
+        #region Constructors
 
-		public SensorMonitorSensorItemManager(Guid kind)
-		{
-			_kind = kind;
-		}
+        public SensorMonitorSensorItemManager(Guid kind)
+        {
+            _kind = kind;
+        }
 
-		public override void Init()
-		{
-			msgRef = EnvironmentManager.Instance.RegisterReceiver(TriggerReceiver, new MessageIdFilter(MessageId.Control.TriggerCommand));
-		}
+        public override void Init()
+        {
+            msgRef = EnvironmentManager.Instance.RegisterReceiver(TriggerReceiver, new MessageIdFilter(MessageId.Control.TriggerCommand));
+        }
 
-		public override void Close()
-		{
-			EnvironmentManager.Instance.UnRegisterReceiver(msgRef);
-			msgRef = null;
-		}
+        public override void Close()
+        {
+            EnvironmentManager.Instance.UnRegisterReceiver(msgRef);
+            msgRef = null;
+        }
 
-		#endregion
+        #endregion
 
-		#region UserControl Methods
+        #region UserControl Methods
 
-		/// <summary>
-		/// Generate the UserControl for configuring a type of item that this ItemManager manages.
-		/// </summary>
-		/// <returns></returns>
-		public override UserControl GenerateDetailUserControl()
-		{
-			_userControl = new SensorMonitorUserControl("Sensor");
-			_userControl.ConfigurationChangedByUser += new EventHandler(ConfigurationChangedByUserHandler);
-			return _userControl;
-		}
+        /// <summary>
+        /// Generate the UserControl for configuring a type of item that this ItemManager manages.
+        /// </summary>
+        /// <returns></returns>
+        public override UserControl GenerateDetailUserControl()
+        {
+            _userControl = new SensorMonitorUserControl("Sensor");
+            _userControl.ConfigurationChangedByUser += new EventHandler(ConfigurationChangedByUserHandler);
+            return _userControl;
+        }
 
-		/// <summary>
-		/// A user control to display when the administrator clicks on the treeNode.
-		/// This can be a help page or a status over of the configuration
-		/// </summary>
-		public override ItemNodeUserControl GenerateOverviewUserControl()
-		{
-			return
-				new VideoOS.Platform.UI.HelpUserControl(
-					SensorMonitorDefinition._treeNodeSensorImage,
-					"Sensor Monitor - Sensor",
-					"Here you can add a sample sensor assumed to be controlled by its parent controller.\r\nThe sample show how multi level Items can be created.");
-		}
+        /// <summary>
+        /// A user control to display when the administrator clicks on the treeNode.
+        /// This can be a help page or a status over of the configuration
+        /// </summary>
+        public override ItemNodeUserControl GenerateOverviewUserControl()
+        {
+            return
+              new VideoOS.Platform.UI.HelpUserControl(
+                SensorMonitorDefinition._treeNodeSensorImage,
+                "Sensor Monitor - Sensor",
+                "Here you can add a sample sensor assumed to be controlled by its parent controller.\r\nThe sample show how multi level Items can be created.");
+        }
 
-		/// <summary>
-		/// Clear all user entries on the UserControl.
-		/// </summary>
-		public override void ClearUserControl()
-		{
-			CurrentItem = null;
-			if (_userControl!=null)
-				_userControl.ClearContent();
-		}
+        /// <summary>
+        /// Clear all user entries on the UserControl.
+        /// </summary>
+        public override void ClearUserControl()
+        {
+            CurrentItem = null;
+            if (_userControl != null)
+                _userControl.ClearContent();
+        }
 
-		/// <summary>
-		/// Fill the UserControl with the content of the Item or the data it represent.
-		/// </summary>
-		/// <param name="item">The Item to work with</param>
-		public override void FillUserControl(Item item)
-		{
-			CurrentItem = item;
-			if (_userControl != null)
-			{
-				_userControl.FillContent(item);
-			}
-		}
+        /// <summary>
+        /// Fill the UserControl with the content of the Item or the data it represent.
+        /// </summary>
+        /// <param name="item">The Item to work with</param>
+        public override void FillUserControl(Item item)
+        {
+            CurrentItem = item;
+            if (_userControl != null)
+            {
+                _userControl.FillContent(item);
+            }
+        }
 
         /// <summary>
         /// Use the Status XML format to describe the parent of the sensor
         /// </summary>
         /// <param name="parent">parent item</param>
         /// <returns></returns>
-        private static string SensorDetails(Item parent)
+        private static string SensorDetails(Item parent, CultureInfo culture)
         {
+            string parentLabel = SensorMonitorDefinition.GetTranslationString("ITEMSTATUSDETAILS_PARENT", culture);
+            string orphanLabel = SensorMonitorDefinition.GetTranslationString("ITEMSTATUSDETAILS_ORPHAN", culture);
+
             MemoryStream xmlStream = new MemoryStream(256);
-            XmlTextWriter xmlWriter = new XmlTextWriter(xmlStream, null) {Formatting = Formatting.None};
-                // utf-8 encoding
+            XmlTextWriter xmlWriter = new XmlTextWriter(xmlStream, null) { Formatting = Formatting.None };
+            // utf-8 encoding
 
             // create root element
             xmlWriter.WriteStartDocument();
             xmlWriter.WriteStartElement("details");
-            xmlWriter.WriteAttributeString("language", "en-US");
+            xmlWriter.WriteAttributeString("language", culture.ToString());
             xmlWriter.WriteStartElement("detail");
-            xmlWriter.WriteAttributeString("detailname", "parent");
+            xmlWriter.WriteAttributeString("detailname", parentLabel);
             {
                 xmlWriter.WriteStartElement("detail_string");
                 if (parent != null)
@@ -117,53 +118,55 @@ namespace SensorMonitor.Admin
                 }
                 else
                 {
-                    xmlWriter.WriteString("orphan!!");
+                    xmlWriter.WriteString(orphanLabel);
                 }
                 xmlWriter.WriteEndElement();
             }
             xmlWriter.WriteEndElement();
 
             xmlWriter.WriteEndElement();
-            xmlWriter.WriteEndDocument(); 
+            xmlWriter.WriteEndDocument();
             xmlWriter.Close();
 
             return Encoding.UTF8.GetString(xmlStream.GetBuffer());
         }
 
-	    public override string GetItemStatusDetails(Item item, String language)
-	    {
-	        SensorItem sensor = item as SensorItem;
+        public override string GetItemStatusDetails(Item item, String language)
+        {
+            var culture = new CultureInfo(language);
+
+            SensorItem sensor = item as SensorItem;
             if (sensor != null)
             {
-                return SensorDetails(sensor.GetParent());
+                return SensorDetails(sensor.GetParent(), culture);
             }
-	        return SensorDetails(item.GetParent());
+            return SensorDetails(item.GetParent(), culture);
         }
 
-		private object TriggerReceiver(VideoOS.Platform.Messaging.Message message, FQID dest, FQID sender)
-		{
-			try
-			{
-				if (dest != null && dest.Kind == _kind)
-				{
-					string userSID = "";
-					if (sender != null && sender.Kind == Kind.User)
-						userSID = sender.ObjectIdString;				// Get hold of the user executing the command
+        private object TriggerReceiver(VideoOS.Platform.Messaging.Message message, FQID dest, FQID sender)
+        {
+            try
+            {
+                if (dest != null && dest.Kind == _kind)
+                {
+                    string userSID = "";
+                    if (sender != null && sender.Kind == Kind.User)
+                        userSID = sender.ObjectIdString;        // Get hold of the user executing the command
 
-					String command = message.Data as String;
-					Item item = GetItem(dest);
+                    String command = message.Data as String;
+                    Item item = GetItem(dest);
 
-					if (command != null && item != null)
-					{
-						// We have selected to use the "Manage" tick-mark for these operations:  ("Manage" is stored as "GENERIC_WRITE")
-						if (userSID == null)
-							SecurityAccess.CheckPermission(item, "GENERIC_WRITE");
-						else
-							SecurityAccess.CheckPermission(item, "GENERIC_WRITE", userSID);
+                    if (command != null && item != null)
+                    {
+                        // We have selected to use the "Manage" tick-mark for these operations:  ("Manage" is stored as "GENERIC_WRITE")
+                        if (userSID == null)
+                            SecurityAccess.CheckPermission(item, "GENERIC_WRITE");
+                        else
+                            SecurityAccess.CheckPermission(item, "GENERIC_WRITE", userSID);
 
-						if (command == "ACTIVATESENSOR")
-						{
-							EnvironmentManager.Instance.Log(false, "SensorMonitor", "Activate sensor" + command, null);
+                        if (command == "ACTIVATESENSOR")
+                        {
+                            EnvironmentManager.Instance.Log(false, "SensorMonitor", "Activate sensor" + command, null);
                             SensorItem.SensorActiveState[item.FQID.ObjectId] = true;
                             EventServerControl.Instance.ItemStatusChanged(item);
 
@@ -194,10 +197,10 @@ namespace SensorMonitor.Admin
                             }
                             EnvironmentManager.Instance.SendMessage(new VideoOS.Platform.Messaging.Message(MessageId.Server.NewEventCommand) { Data = eventData, RelatedFQID = cameraFQID });
 
-						}
-						if (command == "DEACTIVATESENSOR")
-						{
-							EnvironmentManager.Instance.Log(false, "SensorMonitor", "Deactive sensor " + command, null);
+                        }
+                        if (command == "DEACTIVATESENSOR")
+                        {
+                            EnvironmentManager.Instance.Log(false, "SensorMonitor", "Deactive sensor " + command, null);
                             SensorItem.SensorActiveState[item.FQID.ObjectId] = false;
                             EventServerControl.Instance.ItemStatusChanged(item);
 
@@ -228,138 +231,138 @@ namespace SensorMonitor.Admin
                             }
                             EnvironmentManager.Instance.SendMessage(new VideoOS.Platform.Messaging.Message(MessageId.Server.NewEventCommand) { Data = eventData, RelatedFQID = cameraFQID });
 
-						}
-					}
-				}
+                        }
+                    }
+                }
 
-			}
-			catch (NotAuthorizedMIPException)
-			{
-				throw;
-			}
-			catch (Exception ex)
-			{
-				EnvironmentManager.Instance.Log(false, "SensorMonitor", "SensorMonitor-9 " + ex.Message, new[] { ex });
-				//User not authorized to perform the action
-			}
-			return null;
-		}
+            }
+            catch (NotAuthorizedMIPException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                EnvironmentManager.Instance.Log(false, "SensorMonitor", "SensorMonitor-9 " + ex.Message, new[] { ex });
+                //User not authorized to perform the action
+            }
+            return null;
+        }
 
 
-		#endregion
+        #endregion
 
-		#region Working with currentItem
+        #region Working with currentItem
 
-		/// <summary>
-		/// Get the name of the current Item.
-		/// </summary>
-		/// <returns></returns>
-		public override string GetItemName()
-		{
-			if (_userControl != null)
-			{
-				return _userControl.DisplayName;
-			}
-			return "";
-		}
+        /// <summary>
+        /// Get the name of the current Item.
+        /// </summary>
+        /// <returns></returns>
+        public override string GetItemName()
+        {
+            if (_userControl != null)
+            {
+                return _userControl.DisplayName;
+            }
+            return "";
+        }
 
-		/// <summary>
-		/// Update the name for current Item.  the user edited the Name via F2 in the TreeView
-		/// </summary>
-		/// <param name="name"></param>
-		public override void SetItemName(string name)
-		{
-			if (_userControl != null)
-			{
-				_userControl.DisplayName = name;
-			}
-		}
+        /// <summary>
+        /// Update the name for current Item.  the user edited the Name via F2 in the TreeView
+        /// </summary>
+        /// <param name="name"></param>
+        public override void SetItemName(string name)
+        {
+            if (_userControl != null)
+            {
+                _userControl.DisplayName = name;
+            }
+        }
 
-		/// <summary>
-		/// Validate the user entry, and return true for OK
-		/// </summary>
-		/// <returns></returns>
-		public override bool ValidateAndSaveUserControl()
-		{
-			if (CurrentItem != null)
-			{
-				//Get user entered fields
-				_userControl.UpdateItem(CurrentItem);
+        /// <summary>
+        /// Validate the user entry, and return true for OK
+        /// </summary>
+        /// <returns></returns>
+        public override bool ValidateAndSaveUserControl()
+        {
+            if (CurrentItem != null)
+            {
+                //Get user entered fields
+                _userControl.UpdateItem(CurrentItem);
 
-				//In this template we save configuration on the VMS system
-				Configuration.Instance.SaveItemConfiguration(SensorMonitorDefinition.SensorMonitorPluginId, CurrentItem);
-			}
-			return true;
-		}
+                //In this template we save configuration on the VMS system
+                Configuration.Instance.SaveItemConfiguration(SensorMonitorDefinition.SensorMonitorPluginId, CurrentItem);
+            }
+            return true;
+        }
 
-		/// <summary>
-		/// Create a new Item
-		/// </summary>
-		/// <param name="parentItem">The parent for the new Item</param>
-		/// <param name="suggestedFQID">A suggested FQID for the new Item</param>
-		public override Item CreateItem(Item parentItem, FQID suggestedFQID)
-		{
-			CurrentItem = new SensorItem(suggestedFQID, "Enter a name", parentItem);
-			if (_userControl != null)
-			{
-				_userControl.FillContent(CurrentItem);
-			}
-			Configuration.Instance.SaveItemConfiguration(SensorMonitorDefinition.SensorMonitorPluginId, CurrentItem);
-			return CurrentItem;
-		}
+        /// <summary>
+        /// Create a new Item
+        /// </summary>
+        /// <param name="parentItem">The parent for the new Item</param>
+        /// <param name="suggestedFQID">A suggested FQID for the new Item</param>
+        public override Item CreateItem(Item parentItem, FQID suggestedFQID)
+        {
+            CurrentItem = new SensorItem(suggestedFQID, "Enter a name", parentItem);
+            if (_userControl != null)
+            {
+                _userControl.FillContent(CurrentItem);
+            }
+            Configuration.Instance.SaveItemConfiguration(SensorMonitorDefinition.SensorMonitorPluginId, CurrentItem);
+            return CurrentItem;
+        }
 
-		/// <summary>
-		/// Delete an Item
-		/// </summary>
-		/// <param name="item">The Item to delete</param>
-		public override void DeleteItem(Item item)
-		{
-			if (item != null)
-			{
-				Configuration.Instance.DeleteItemConfiguration(SensorMonitorDefinition.SensorMonitorPluginId, item);
-			}
+        /// <summary>
+        /// Delete an Item
+        /// </summary>
+        /// <param name="item">The Item to delete</param>
+        public override void DeleteItem(Item item)
+        {
+            if (item != null)
+            {
+                Configuration.Instance.DeleteItemConfiguration(SensorMonitorDefinition.SensorMonitorPluginId, item);
+            }
 
-		}
-		#endregion
+        }
+        #endregion
 
-		#region Configuration Access Methods
+        #region Configuration Access Methods
 
-		/// <summary>
-		/// Returns a list of all Items of this Kind
-		/// </summary>
-		/// <returns>A list of items.  Allowed to return null if no Items found.</returns>
-		public override List<Item> GetItems()
-		{
-			//All items in this sample are stored with the Video, therefor no ServerIs or parent ids is used.
-			List<Item> items = Configuration.Instance.GetItemConfigurations(SensorMonitorDefinition.SensorMonitorPluginId, null, _kind).Select(i => (Item)(new SensorItem(i))).ToList();
-			return items;
-		}
+        /// <summary>
+        /// Returns a list of all Items of this Kind
+        /// </summary>
+        /// <returns>A list of items.  Allowed to return null if no Items found.</returns>
+        public override List<Item> GetItems()
+        {
+            //All items in this sample are stored with the Video, therefor no ServerIs or parent ids is used.
+            List<Item> items = Configuration.Instance.GetItemConfigurations(SensorMonitorDefinition.SensorMonitorPluginId, null, _kind).Select(i => (Item)(new SensorItem(i))).ToList();
+            return items;
+        }
 
-		/// <summary>
-		/// Returns a list of all Items from a specific server.
-		/// </summary>
-		/// <param name="parentItem">The parent Items</param>
-		/// <returns>A list of items.  Allowed to return null if no Items found.</returns>
-		public override List<Item> GetItems(Item parentItem)
-		{
-			List<Item> items = Configuration.Instance.GetItemConfigurations(SensorMonitorDefinition.SensorMonitorPluginId, parentItem, _kind).Select(i => (Item)(new SensorItem(i))).ToList();
-			return items;
-		}
+        /// <summary>
+        /// Returns a list of all Items from a specific server.
+        /// </summary>
+        /// <param name="parentItem">The parent Items</param>
+        /// <returns>A list of items.  Allowed to return null if no Items found.</returns>
+        public override List<Item> GetItems(Item parentItem)
+        {
+            List<Item> items = Configuration.Instance.GetItemConfigurations(SensorMonitorDefinition.SensorMonitorPluginId, parentItem, _kind).Select(i => (Item)(new SensorItem(i))).ToList();
+            return items;
+        }
 
-		/// <summary>
-		/// Returns the Item defined by the FQID. Will return null if not found.
-		/// </summary>
-		/// <param name="fqid">Fully Qualified ID of an Item</param>
-		/// <returns>An Item</returns>
-		public override Item GetItem(FQID fqid)
-		{
-			Item item = Configuration.Instance.GetItemConfiguration(SensorMonitorDefinition.SensorMonitorPluginId, _kind, fqid.ObjectId);
+        /// <summary>
+        /// Returns the Item defined by the FQID. Will return null if not found.
+        /// </summary>
+        /// <param name="fqid">Fully Qualified ID of an Item</param>
+        /// <returns>An Item</returns>
+        public override Item GetItem(FQID fqid)
+        {
+            Item item = Configuration.Instance.GetItemConfiguration(SensorMonitorDefinition.SensorMonitorPluginId, _kind, fqid.ObjectId);
             if (item != null)
             {
                 return new SensorItem(item);
             }
-			return item;
-		}
+            return item;
+        }
 
         #endregion
 

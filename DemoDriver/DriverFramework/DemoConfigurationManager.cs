@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
+using VideoOS.Platform.DriverFramework.Data;
 using VideoOS.Platform.DriverFramework.Definitions;
 using VideoOS.Platform.DriverFramework.Exceptions;
 using VideoOS.Platform.DriverFramework.Managers;
@@ -47,6 +49,13 @@ namespace DemoDriver
             };
         }
 
+        public override bool ChangePasswordSupported => true;
+
+        public override ChangePasswordResult ChangePassword(string targetUser, SecureString password)
+        {
+            return Container.ConnectionManager.ChangePassword(targetUser, DemoConnectionManager.SecureStringToString(password));
+        }
+
         protected override IDictionary<string, string> BuildHardwareSettings()
         {
             return new Dictionary<string, string>()
@@ -62,7 +71,7 @@ namespace DemoDriver
             f.Add(new NumberSetupField()
             {
                 Key = Constants.BandwidthLimit,
-                DisplayName = "Bandwith limit (number sample)",
+                DisplayName = "Bandwidth limit (number sample)",
                 DisplayNameReferenceId = Guid.Empty,
                 IsReadOnly = false,
                 ReferenceId = Constants.BandwidthLimitRefId,

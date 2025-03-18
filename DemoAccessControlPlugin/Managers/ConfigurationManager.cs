@@ -4,6 +4,7 @@ using DemoAccessControlPlugin.Constants;
 using DemoAccessControlPlugin.DemoApplicationService;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -168,9 +169,8 @@ namespace DemoAccessControlPlugin.Managers
                 }
                 else
                 {
-                    FireFetchConfigurationStatusChanged(new ACFetchConfigurationStatusChangedEventArgs("Invalid configuration."));
+                    FireFetchConfigurationStatusChanged(new ACFetchConfigurationStatusChangedEventArgs("Invalid configuration! Check Access Control logs."));
                 }
-
             }
             catch (DemoApplicationClientException ex)
             {
@@ -186,7 +186,7 @@ namespace DemoAccessControlPlugin.Managers
         private ACConfiguration BuildConfiguration(DoorControllerDescriptor[] doorControllers, DoorDescriptor[] doors, EventDescriptor[] eventDescriptors)
         {
             var elements = new List<ACElement>();
-            
+
             // Add element types
             elements.Add(ElementTypes.ServerType);
             elements.Add(ElementTypes.DoorControllerType);
@@ -219,21 +219,21 @@ namespace DemoAccessControlPlugin.Managers
             // Add server element
             elements.Add(TypeConverter.CreateACServer(_client.ServerId, _systemProperties.Address));
 
-            // Add door controllers
-            foreach (var doorController in doorControllers)
-            {
-                elements.Add(TypeConverter.ToACUnit(doorController));
-            }
-
-            // Add doors and access points
-            foreach (var door in doors)
-            {
-                door.Enabled = !_disabledDoors.Contains(door.DoorId);
-                elements.AddRange(TypeConverter.ToACUnits(door));
-            }
-
             try
             {
+                // Add door controllers
+                foreach (var doorController in doorControllers)
+                {
+                    elements.Add(TypeConverter.ToACUnit(doorController));
+                }
+
+                // Add doors and access points
+                foreach (var door in doors)
+                {
+                    door.Enabled = !_disabledDoors.Contains(door.DoorId);
+                    elements.AddRange(TypeConverter.ToACUnits(door));
+                }
+
                 return ACConfiguration.CreateACConfiguration(DateTime.UtcNow, elements);
             }
             catch (ACConfigurationException ex)

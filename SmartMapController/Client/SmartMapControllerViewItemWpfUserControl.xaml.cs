@@ -222,6 +222,17 @@ namespace SmartMapController.Client
             if(form.SelectedItems == null || form.SelectedItems.Any())
             {
                 var item = form.SelectedItems.First();
+                // If the item selected is a ViewItemInstance then we need to extract the camera item and use that instead
+                if (item.FQID.Kind == Kind.ViewItemInstance)  
+                {                    
+                    if (item.Properties.TryGetValue("CurrentCameraId", out string str))
+                    {
+                        if(Guid.TryParse(str, out Guid guid))
+                        {
+                            item = Configuration.Instance.GetItem(guid, Kind.Camera) ?? item;
+                        }                        
+                    }
+                }
                 EnvironmentManager.Instance.PostMessage(new VideoOS.Platform.Messaging.Message(MessageId.SmartClient.SmartMapSelectItemCommand, new SmartMapSelectItemCommandData
                 {
                     Item = item.FQID,

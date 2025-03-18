@@ -36,7 +36,6 @@ namespace DemoAccessControlPlugin.Configuration
                 sourceId = CreateAccessPointId(dce.DoorId, dce.AccessPoint);
             }
             else
-
             {
                 sourceId = dce.DoorId.ToString();
             }

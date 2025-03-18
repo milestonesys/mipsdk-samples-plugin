@@ -92,6 +92,10 @@ namespace DemoDriverDevice
 
         [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IDeviceService/GetAbsolutePosition", ReplyAction = "http://tempuri.org/IDeviceService/GetAbsolutePosition")]
         double[] GetAbsolutePosition();
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IDeviceService/ChangePassword", ReplyAction = "http://tempuri.org/IDeviceService/ChangePassword")]
+        int ChangePassword(string targetUsername, string password);
+
     }
 
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
@@ -201,6 +205,11 @@ namespace DemoDriverDevice
         public double[] GetAbsolutePosition()
         {
             return base.Channel.GetAbsolutePosition();
+        }
+
+        public int ChangePassword(string targetUsername, string password)
+        {
+            return base.Channel.ChangePassword(targetUsername, password);
         }
     }
 }

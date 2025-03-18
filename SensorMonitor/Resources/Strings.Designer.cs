@@ -19,7 +19,7 @@ namespace SensorMonitor.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Strings {
@@ -84,6 +84,51 @@ namespace SensorMonitor.Resources {
         internal static string DEACTIVATESENSOR {
             get {
                 return ResourceManager.GetString("DEACTIVATESENSOR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MIPSDK Sensor Monitor.
+        /// </summary>
+        internal static string EVENTGROUPNAME {
+            get {
+                return ResourceManager.GetString("EVENTGROUPNAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controller state.
+        /// </summary>
+        internal static string ITEMSTATUSDETAILS_CONTROLLERSTATE {
+            get {
+                return ResourceManager.GetString("ITEMSTATUSDETAILS_CONTROLLERSTATE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Orphan.
+        /// </summary>
+        internal static string ITEMSTATUSDETAILS_ORPHAN {
+            get {
+                return ResourceManager.GetString("ITEMSTATUSDETAILS_ORPHAN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parent.
+        /// </summary>
+        internal static string ITEMSTATUSDETAILS_PARENT {
+            get {
+                return ResourceManager.GetString("ITEMSTATUSDETAILS_PARENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some Counter.
+        /// </summary>
+        internal static string ITEMSTATUSDETAILS_SOMECOUNTER {
+            get {
+                return ResourceManager.GetString("ITEMSTATUSDETAILS_SOMECOUNTER", resourceCulture);
             }
         }
         

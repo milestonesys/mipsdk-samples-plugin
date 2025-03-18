@@ -111,7 +111,9 @@
     <Compile Include="SensorMonitorDefinition.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Strings.da.resx" />
+    <EmbeddedResource Include="Resources\Strings.da.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>

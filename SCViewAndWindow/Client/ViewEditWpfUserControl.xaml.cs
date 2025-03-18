@@ -101,6 +101,7 @@ namespace SCViewAndWindow.Client
             {
                 var form = new ItemPickerWpfWindow()
                 {
+                    AllowGroupSelection = true,
                     Items = ClientControl.Instance.GetViewGroupItems(),
                     SelectionMode = SelectionModeOptions.SingleSelect
                 };

@@ -126,6 +126,21 @@
   <data name="DEACTIVATESENSOR" xml:space="preserve">
     <value>Deactivate sensor</value>
   </data>
+  <data name="EVENTGROUPNAME" xml:space="preserve">
+    <value>MIPSDK Sensor Monitor</value>
+  </data>
+  <data name="ITEMSTATUSDETAILS_CONTROLLERSTATE" xml:space="preserve">
+    <value>Controller state</value>
+  </data>
+  <data name="ITEMSTATUSDETAILS_ORPHAN" xml:space="preserve">
+    <value>Orphan</value>
+  </data>
+  <data name="ITEMSTATUSDETAILS_PARENT" xml:space="preserve">
+    <value>Parent</value>
+  </data>
+  <data name="ITEMSTATUSDETAILS_SOMECOUNTER" xml:space="preserve">
+    <value>Some Counter</value>
+  </data>
   <data name="POWEROFF" xml:space="preserve">
     <value>Power controller off</value>
   </data>

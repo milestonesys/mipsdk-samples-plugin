@@ -1,0 +1,4 @@
+<plugin>
+   <file name="SCHidPlugin.dll"/>
+   <load env="Client" />
+</plugin>

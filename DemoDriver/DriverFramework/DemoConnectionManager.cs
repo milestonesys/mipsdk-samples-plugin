@@ -42,7 +42,7 @@ namespace DemoDriver
         /// <param name="hardwareSettings"></param>
         public override void Connect(Uri uri, string userName, SecureString password, ICollection<HardwareSetting> hardwareSettings)
         {
-            _connected = false;
+            Close();
             _uri = uri;
             _userName = userName;
             _scrambledPassword = password;
@@ -65,6 +65,11 @@ namespace DemoDriver
         /// </summary>
         public override void Close()
         {
+            if (_inputPoller != null)
+            {
+                _inputPoller.Stop();
+                _inputPoller = null;
+            }
             _connected = false;
             _lastConnectCheck = DateTime.MinValue;
         }
@@ -243,6 +248,13 @@ namespace DemoDriver
             return new PtzGetAbsoluteData() { Pan = position[0], Tilt = position[1], Zoom = position[2] };
         }
 
+        public ChangePasswordResult ChangePassword(string targetUsername, string password)
+        {
+            ThrowIfNotConnected();
+            Toolbox.Log.Trace(nameof(ChangePassword));
+            return (ChangePasswordResult)_proxy.Client.ChangePassword(targetUsername, password);
+        }
+
         public void ChangeSetting(int channel, int stream, string key, string data)
         {
             ThrowIfNotConnected();
@@ -302,7 +314,7 @@ namespace DemoDriver
         /// </summary>
         /// <param name="password"></param>
         /// <returns>Reference to unsecured password string</returns>
-        private static string SecureStringToString(SecureString password)
+        internal static string SecureStringToString(SecureString password)
         {
             IntPtr unmanagedString = IntPtr.Zero;
             try
