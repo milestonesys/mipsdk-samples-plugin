@@ -40,6 +40,7 @@ The demo access control plug-in contains a suggested way of handling:
 - Event handling creating
 - Command processing
 - State handling
+- Setting a GIS position for doors containing latitude and longitude coordinates
 
 The following screens become available in the Management Client:
 

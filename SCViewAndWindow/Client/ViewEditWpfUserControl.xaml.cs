@@ -70,8 +70,7 @@ namespace SCViewAndWindow.Client
             comboBoxViewItemType.Items.Add(new ViewCreateWpfUserControl.GuidTag() { Guid = ViewAndLayoutItem.HotspotBuiltinId, Name = "Hotspot", Builtin = true });
             comboBoxViewItemType.Items.Add(new ViewCreateWpfUserControl.GuidTag() { Guid = ViewAndLayoutItem.HTMLBuiltinId, Name = "HTML", Builtin = true });
             comboBoxViewItemType.Items.Add(new ViewCreateWpfUserControl.GuidTag() { Guid = ViewAndLayoutItem.MapBuiltinId, Name = "Map", Builtin = true });
-            comboBoxViewItemType.Items.Add(new ViewCreateWpfUserControl.GuidTag() { Guid = ViewAndLayoutItem.TextBuiltInId, Name = "Text", Builtin = true });
-            comboBoxViewItemType.Items.Add(new ViewCreateWpfUserControl.GuidTag() { Guid = ViewAndLayoutItem.ImageBuiltInId, Name = "Image", Builtin = true });
+            comboBoxViewItemType.Items.Add(new ViewCreateWpfUserControl.GuidTag() { Guid = ViewAndLayoutItem.ImageTextBuiltInId, Name = "Text and image", Builtin = true });
             comboBoxViewItemType.Items.Add(new ViewCreateWpfUserControl.GuidTag() { Guid = ViewAndLayoutItem.MatrixBuiltinId, Name = "Matrix", Builtin = true });
             comboBoxViewItemType.Items.Add(new ViewCreateWpfUserControl.GuidTag() { Guid = ViewAndLayoutItem.GisMapBuiltinId, Name = "SmartMap", Builtin = true });
 
@@ -82,6 +81,10 @@ namespace SCViewAndWindow.Client
                 {
                     foreach (ViewItemPlugin vi in pd.ViewItemPlugins)
                     {
+                        if (vi.Id == ViewAndLayoutItem.ImageTextBuiltInId)
+                        {
+                            continue; // ImageText view item is considered a built-in view item and is added above. Skip it here.
+                        }
                         comboBoxViewItemType.Items.Add(new ViewCreateWpfUserControl.GuidTag() { Guid = vi.Id, Name = vi.Name, Builtin = false });
                         viewItemPlugins.Add(vi.Id, vi);
                     }
@@ -244,15 +247,11 @@ namespace SCViewAndWindow.Client
                                         if (_selectedViewItem.Properties.ContainsKey("Addscript"))
                                             checkBoxAddScript.IsChecked = _selectedViewItem.Properties["Addscript"] == "true";
                                     }
-                                    if (tag.Guid == ViewAndLayoutItem.TextBuiltInId)
+
+                                    if (tag.Guid == ViewAndLayoutItem.ImageTextBuiltInId)
                                     {
                                         IsTextPartVisible(true);
                                         _selectedViewItem.Properties["Text"] = textBoxText.Text;
-                                    }
-                                    if (tag.Guid == ViewAndLayoutItem.ImageBuiltInId)
-                                    {
-                                        // Below line not yet implemented in Smart Client
-                                        //_selectedViewItem.Properties["EmbeddedImage"] = ToBase64(someImage);
                                     }
                                     if (tag.Guid == ViewAndLayoutItem.MapBuiltinId)
                                     {
@@ -310,6 +309,10 @@ namespace SCViewAndWindow.Client
                                 {
                                     textBoxURL.Text = "http://www.google.com";
                                 }
+                                properties.Add("URL", textBoxURL.Text);
+                                properties.Add("Scaling", "4"); // fit in 640x480
+                                properties.Add("Addscript", checkBoxAddScript.IsChecked.ToString());
+                                properties.Add("HideNavigationBar", (!checkBoxNavigationBar.IsChecked).ToString());
                                 IsHTMLPartVisible(true);
                             }
 
@@ -319,10 +322,6 @@ namespace SCViewAndWindow.Client
                                 properties.Add("CameraId", cameraId.ToString());
                                 IsCameraPartVisible(true);
                             }
-                            properties.Add("URL", textBoxURL.Text);
-                            properties.Add("Scaling", "4"); // fit in 640x480
-                            properties.Add("Addscript", checkBoxAddScript.IsChecked.ToString());
-                            properties.Add("HideNavigationBar", (!checkBoxNavigationBar.IsChecked).ToString());
 
                             if (tag.Guid == ViewAndLayoutItem.MapBuiltinId)
                             {
@@ -338,9 +337,14 @@ namespace SCViewAndWindow.Client
                                     properties.Add("mapguid", selectedMapGuid);
                                 }
                             }
-                            if (tag.Guid == ViewAndLayoutItem.TextBuiltInId)
+                            if (tag.Guid == ViewAndLayoutItem.ImageTextBuiltInId)
                             {
                                 properties.Add("Text", textBoxText.Text);
+                                if(checkBoxAddImage.IsChecked == true)
+                                {
+                                    properties.Add("EmbeddedImage", PluginSamples.Common.MSLogoSerialized);
+                                    properties.Add("EmbedImage", "True");
+                                }
                                 IsTextPartVisible(true);
                             }
                             _viewAndLayoutItem.InsertBuiltinViewItem(ix, tag.Guid, properties);
@@ -404,7 +408,8 @@ namespace SCViewAndWindow.Client
             if (isVisible)
             {
                 textBoxText.Visibility = Visibility.Visible;
-                labelTextViewItem.Visibility = Visibility.Visible;
+                labelImageTextViewItem.Visibility = Visibility.Visible;
+                checkBoxAddImage.Visibility = Visibility.Visible;
                 IsHTMLPartVisible(false);
                 IsCameraPartVisible(false);
                 IsMapPartVisible(false);
@@ -413,7 +418,8 @@ namespace SCViewAndWindow.Client
             else
             {
                 textBoxText.Visibility = Visibility.Collapsed;
-                labelTextViewItem.Visibility = Visibility.Collapsed;
+                labelImageTextViewItem.Visibility = Visibility.Collapsed;
+                checkBoxAddImage.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -582,6 +588,12 @@ namespace SCViewAndWindow.Client
         }
 
         private void OnAddScriptCheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (_ignoreChanged == false)
+                OnSelectedViewItemChanged(null, null);
+        }
+
+        private void OnAddImageCheckedChanged(object sender, RoutedEventArgs e)
         {
             if (_ignoreChanged == false)
                 OnSelectedViewItemChanged(null, null);

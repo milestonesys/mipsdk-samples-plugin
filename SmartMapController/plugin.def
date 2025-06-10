@@ -1,4 +1,0 @@
-<plugin>
-   <file name="SmartMapController.dll"/>
-   <load env="SmartClient"/>
-</plugin>

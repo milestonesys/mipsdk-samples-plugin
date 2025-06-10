@@ -18,7 +18,6 @@ namespace SCInsertCamera.Client
         private object _selectedViewChanged;
         private SCInsertCameraSidePanelPlugin _sCInsertCameraSidePanelPlugin;
         private Item _selectedCamera;
-        private const string _serializedMSLogo = "Qk02DAAAAAAAADYAAAAoAAAAIAAAACAAAAABABgAAAAAAAAMAADDDgAAww4AAAAAAAAAAAAA/////////////////////////////////////////////////////////////Pfr////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+vHb3qQb68l3////////////////////////////////////////////////////////////////////////////////////////////////////////////////+vHb3qQb2pkA2pkA68l3////////////////////////////////////////////////////////////////////////////////////////////////////////+vHb3qQb2pkA2pkA2pkA2pkA68h2///+////////////////////////////////////////////////////////////////////////////////////////////+O3S3aEU2pkA2pkA2pkA2pkA2pkA2pkA6cNo///+////////////////////////////////////////////////////////////////////////////////////+O3S3aEU2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA6cNo///+////////////////////////////////////////////////////////////////////////////+O3S3aEU2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA6cNo///+////////////////////////////////////////////////////////////////////+O3S3aEU2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA6cNo///+////////////////////////////////////////////////////////////9+nI3aEU2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA575d//78////////////////////////////////////////////////////9+nI3J8O2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA571a//78////////////////////////////////////////////9+nI3J8O2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA571a//78////////////////////////////////////9+nI3J8O2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA571a//78////////////////////////////9ufD3J8O2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5rtW/v35////////////////////9eW9250J2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5bhN/v35////////////9eW9250J2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5bhN/v35////9eW9250J2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5bhN/v3589+u25sF2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA47I//fnx////9OCx25sF2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA47NB/vv1////////////9OCx25sF2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA47NB/vv1////////////////////9OCx25sF2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA47NB/vv1////////////////////////////9OGz250J2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5LVF/vv1////////////////////////////////////9eW9250J2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5bhN/v35////////////////////////////////////////////9eW9250J2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5bhN/v35////////////////////////////////////////////////////9eW9250J2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5bhN/v35////////////////////////////////////////////////////////////9eW9250K2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA5bhN/v35////////////////////////////////////////////////////////////////////9+nI3J8O2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA571a/v36////////////////////////////////////////////////////////////////////////////9+nI3J8O2pkA2pkA2pkA2pkA2pkA2pkA2pkA2pkA571a//78////////////////////////////////////////////////////////////////////////////////////9+nI3J8O2pkA2pkA2pkA2pkA2pkA2pkA571a//78////////////////////////////////////////////////////////////////////////////////////////////9+nI3J8O2pkA2pkA2pkA2pkA571a//78////////////////////////////////////////////////////////////////////////////////////////////////////+OvN3aEU2pkA2pkA6MFj//78////////////////////////////////////////////////////////////////////////////////////////////////////////////+O3S3aEU6cNo///+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+/Pi///+////////////////////////////////////////////////////////////";
         public SCInsertCameraSidePanelWpfUserControl(SCInsertCameraSidePanelPlugin sCInsertCameraSidePanelPlugin)
         {
             _sCInsertCameraSidePanelPlugin = sCInsertCameraSidePanelPlugin;
@@ -139,27 +138,34 @@ namespace SCInsertCamera.Client
             properties.Add("CameraId", JustGetAnyCamera(Configuration.Instance.GetItems(ItemHierarchy.SystemDefined)));
             viewAndLayoutItem.InsertBuiltinViewItem(1, ViewAndLayoutItem.CameraBuiltinId, properties);
 
-            // Insert a text ViewItem at index 2
-            properties = new Dictionary<string, string>();
-            properties.Add("Text", "Hello world");
-            viewAndLayoutItem.InsertBuiltinViewItem(2, ViewAndLayoutItem.TextBuiltInId, properties);
-
-            // Insert a carrousel ViewItem with two cameras at index 3
+            // Insert a carrousel ViewItem with two cameras at index 2
             properties = new Dictionary<string, string>();
             properties.Add("interval", "15");
             properties.Add("carousel-item", string.Format($"<carousel-items><carousel-item><device-id>{JustGetAnyCamera(Configuration.Instance.GetItems(ItemHierarchy.SystemDefined))}</device-id><show-time /></carousel-item><carousel-item><device-id>{JustGetAnyCamera(Configuration.Instance.GetItems(ItemHierarchy.UserDefined))}</device-id><show-time>8</show-time></carousel-item></carousel-items>"));
-            viewAndLayoutItem.InsertBuiltinViewItem(3, ViewAndLayoutItem.CarrouselBuiltinId, properties);
+            viewAndLayoutItem.InsertBuiltinViewItem(2, ViewAndLayoutItem.CarrouselBuiltinId, properties);
 
-            // Insert an image ViewItem at index 4
+            // Insert an image/text ViewItem containing only text at index 3
+            properties = new Dictionary<string, string>();
+            properties.Add("Text", "Hello world");
+            viewAndLayoutItem.InsertBuiltinViewItem(3, ViewAndLayoutItem.ImageTextBuiltInId, properties);
+
+            // Insert an image/text ViewItem containing only image at index 4
             properties = new Dictionary<string, string>();
             properties.Add("EmbedImage", "True");
-            properties.Add("EmbeddedImage", _serializedMSLogo);
-            viewAndLayoutItem.InsertBuiltinViewItem(4, ViewAndLayoutItem.ImageBuiltInId, properties);
+            properties.Add("EmbeddedImage", PluginSamples.Common.MSLogoSerialized);
+            viewAndLayoutItem.InsertBuiltinViewItem(4, ViewAndLayoutItem.ImageTextBuiltInId, properties);
+
+            // Insert an image/text ViewItem containing both image and text at index 5
+            properties = new Dictionary<string, string>();
+            properties.Add("EmbedImage", "True");
+            properties.Add("EmbeddedImage", PluginSamples.Common.MSLogoSerialized);
+            properties.Add("Text", "Hello world");
+            viewAndLayoutItem.InsertBuiltinViewItem(5, ViewAndLayoutItem.ImageTextBuiltInId, properties);
 
             // Insert a hotspot ViewItem at bottom -- index 6
             properties = new Dictionary<string, string>();
             viewAndLayoutItem.InsertBuiltinViewItem(6, ViewAndLayoutItem.HotspotBuiltinId, properties);
-            
+
             viewAndLayoutItem.Save();
             topGroupItem.PropertiesModified();
             List<Item> windows = Configuration.Instance.GetItemsByKind(Kind.Window);

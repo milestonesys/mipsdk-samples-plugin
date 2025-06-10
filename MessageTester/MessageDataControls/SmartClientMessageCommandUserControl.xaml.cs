@@ -36,6 +36,7 @@ namespace MessageTester.MessageDataControls
             data.Message = _text.Text;
             data.Priority = (SmartClientMessageDataPriority) _priority.SelectedItem;
             data.MessageType = (SmartClientMessageDataType) _type.SelectedItem;
+            data.IsClosable = _isClosable.IsChecked.Value;
             
             return data;
         }

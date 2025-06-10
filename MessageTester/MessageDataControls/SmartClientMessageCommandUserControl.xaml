@@ -13,6 +13,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -28,5 +29,7 @@
         <ComboBox Name="_priority" Grid.Row="3" Grid.Column="1" MinWidth="120" Width="auto" HorizontalAlignment="Left"/>
         <Label Grid.Row="4" Grid.Column="0" Content="Type:" HorizontalAlignment="Right"/>
         <ComboBox Name="_type" Grid.Row="4" Grid.Column="1" MinWidth="120" Width="auto" HorizontalAlignment="Left"/>
+        <Label Grid.Row="5" Grid.Column="0" Content="Closable:" HorizontalAlignment="Right"/>
+        <CheckBox Name="_isClosable" Grid.Row="5" Grid.Column="1" IsChecked="True" HorizontalAlignment="Left"/>
     </Grid>
 </local:MessageDataSuper>
