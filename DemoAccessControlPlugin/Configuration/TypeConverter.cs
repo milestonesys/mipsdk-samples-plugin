@@ -69,7 +69,7 @@ namespace DemoAccessControlPlugin.Configuration
             // Door
             var parentId = door.DoorControllerId != Guid.Empty ? door.DoorControllerId.ToString() : null;
             var doorId = door.DoorId.ToString();
-            yield return new ACUnit(doorId, door.DoorName, ACBuiltInIconKeys.Door, door.Latitude, door.Longitude, null, TypeId.Door, parentId, unsupportedCommands) { IsEnabled = door.Enabled };
+            yield return new ACUnit(doorId, door.DoorName, ACBuiltInIconKeys.Door, null, TypeId.Door, parentId, unsupportedCommands) { IsEnabled = door.Enabled };
 
             // The access points in the Demo Access Control are not returned explicitly, but are numbered 1 and 2 based on the door.
             // Outside access point

@@ -1,0 +1,4 @@
+<plugin>
+   <file name="VideoReplay.dll"/>
+   <load env="SmartClient"/>
+</plugin>

@@ -353,11 +353,6 @@ namespace DemoAccessControlPlugin.Client
             await TryCall(client => client.UpdateEventTypeEnabledStatesAsync(username, password, changedStates));
         }
 
-        public async Task UpdateAccessControlUnitPosition(string username, string password, Tuple<string, double, double>[] unitPositions)
-        {
-            await TryCall(client => client.UpdateAccessControlUnitPositionAsync(username, password, unitPositions));
-        }
-
         public async Task<EventDescriptor[]> GetEventTypesAsync()
         {
             return await TryCall(client => client.GetEventTypesAsync(_systemProperties.AdminUser, _systemProperties.AdminPassword));

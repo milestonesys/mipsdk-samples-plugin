@@ -65,9 +65,7 @@
     <Compile Include="Admin\ChatItemNodeUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Admin\ChatItemNodeUserControl.Designer.cs">
-      <DependentUpon>ChatItemNodeUserControl.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Admin\ChatItemNodeUserControl.Designer.cs" />
     <Compile Include="Client\ChatSidePanelPlugin.cs" />
     <Compile Include="Client\ChatSidePanelWpfUserControl.xaml.cs">
       <DependentUpon>ChatSidePanelWpfUserControl.xaml</DependentUpon>

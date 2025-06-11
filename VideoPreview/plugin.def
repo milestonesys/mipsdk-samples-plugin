@@ -1,0 +1,4 @@
+<plugin>
+   <file name="VideoPreview.dll"/>
+   <load env="SmartClient, Administration"/>
+</plugin>

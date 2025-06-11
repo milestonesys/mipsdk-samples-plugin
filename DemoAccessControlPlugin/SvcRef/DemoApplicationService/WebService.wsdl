@@ -134,12 +134,6 @@
   <wsdl:message name="IWebService_UpdateEventTypeEnabledStates_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateEventTypeEnabledStatesResponse" />
   </wsdl:message>
-  <wsdl:message name="IWebService_UpdateAccessControlUnitPosition_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateAccessControlUnitPosition" />
-  </wsdl:message>
-  <wsdl:message name="IWebService_UpdateAccessControlUnitPosition_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdateAccessControlUnitPositionResponse" />
-  </wsdl:message>
   <wsdl:portType name="IWebService">
     <wsdl:operation name="Connect">
       <wsdl:input wsam:Action="http://tempuri.org/IWebService/Connect" message="tns:IWebService_Connect_InputMessage" />
@@ -216,10 +210,6 @@
     <wsdl:operation name="UpdateEventTypeEnabledStates">
       <wsdl:input wsam:Action="http://tempuri.org/IWebService/UpdateEventTypeEnabledStates" message="tns:IWebService_UpdateEventTypeEnabledStates_InputMessage" />
       <wsdl:output wsam:Action="http://tempuri.org/IWebService/UpdateEventTypeEnabledStatesResponse" message="tns:IWebService_UpdateEventTypeEnabledStates_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdateAccessControlUnitPosition">
-      <wsdl:input wsam:Action="http://tempuri.org/IWebService/UpdateAccessControlUnitPosition" message="tns:IWebService_UpdateAccessControlUnitPosition_InputMessage" />
-      <wsdl:output wsam:Action="http://tempuri.org/IWebService/UpdateAccessControlUnitPositionResponse" message="tns:IWebService_UpdateAccessControlUnitPosition_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="WSHttpBinding_IWebService" type="tns:IWebService">
@@ -389,15 +379,6 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateEventTypeEnabledStates">
       <soap12:operation soapAction="http://tempuri.org/IWebService/UpdateEventTypeEnabledStates" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdateAccessControlUnitPosition">
-      <soap12:operation soapAction="http://tempuri.org/IWebService/UpdateAccessControlUnitPosition" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

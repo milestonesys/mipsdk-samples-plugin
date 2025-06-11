@@ -27,8 +27,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
         <Label Content="Select and Delete View or Group (Folder)" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
@@ -58,10 +56,9 @@
         <Label Name="labelMapError" Grid.Column="4"  HorizontalAlignment="Left" Margin="5,2" Grid.Row="12" VerticalAlignment="Center"/>
         <ComboBox x:Name="comboMaps" Text="Select Map..." Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="12" Grid.ColumnSpan="2" VerticalAlignment="Center" SelectionChanged="OnMapSelectionChanged" />
       
-        <TextBox x:Name="textBoxText" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="13" Grid.ColumnSpan="2" VerticalAlignment="Center" TextChanged="OnTextBoxTextChanged"/>
-        <Label Name="labelImageTextViewItem" Content="ImageTextViewItem:" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Row="13" VerticalAlignment="Center"/>
-        <CheckBox x:Name="checkBoxAddImage" Content="AddImage" Margin="0, 0, 5, 0" Grid.Column="1" Grid.Row="14" VerticalAlignment="Center" HorizontalAlignment="Left" Click="OnAddImageCheckedChanged"/>
-
-        <Button x:Name="buttonSave" Grid.Column="1" Grid.ColumnSpan="2" Content="Save" HorizontalAlignment="Center" Width="100" Height="30" Margin="0,30,0,0" Grid.Row="15"  VerticalAlignment="Center" Click="OnSave"/>
+        <TextBox x:Name="textBoxText" Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="12" Grid.ColumnSpan="2" VerticalAlignment="Center" TextChanged="OnTextBoxTextChanged"/>
+        <Label Name="labelTextViewItem" Content="TextViewItem:" HorizontalAlignment="Left" Margin="15,0,0,0" Grid.Row="12" VerticalAlignment="Center"/>
+       
+        <Button x:Name="buttonSave" Grid.Column="1" Grid.ColumnSpan="2" Content="Save" HorizontalAlignment="Center" Width="100" Height="30" Margin="0,30,0,0" Grid.Row="13"  VerticalAlignment="Center" Click="OnSave"/>
     </Grid>
 </UserControl>

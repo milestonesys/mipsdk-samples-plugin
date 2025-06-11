@@ -1,0 +1,26 @@
+﻿<external:ViewItemWpfUserControl  
+             xmlns:external="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform" 
+             x:Class="VideoReplay.Client.VideoReplayViewItemWpfUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="1107.6" d:DesignWidth="1020.4"
+             PreviewMouseDoubleClick="OnMouseDoubleClick"
+             PreviewMouseLeftButtonUp ="OnMouseLeftUp">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label x:Name="label1" Content="Camera:" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Top" Height="25" Width="Auto"/>
+        <Button x:Name="buttonReplay" Content="Replay last 150 frames" HorizontalAlignment="Stretch" Margin="10,0,170,0" Grid.Row="1" VerticalAlignment="Top" MinWidth="250" Height="25" Click="OnReplay"/>
+        <Button x:Name="buttonStop" Content="Stop" HorizontalAlignment="Right" Margin="280,0,10,0" Grid.Row="1" VerticalAlignment="Top" Width="130" Height="25" Click="buttonStop_Click"/>
+        <ContentControl x:Name="imageWindowContainer" Margin="10" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Image x:Name="imageWindow"/>
+        </ContentControl>
+        <Label x:Name="label2" Content="" HorizontalAlignment="Right" Margin="296,0,0,0" Grid.RowSpan="1" VerticalAlignment="Top"/>
+    </Grid>
+</external:ViewItemWpfUserControl>

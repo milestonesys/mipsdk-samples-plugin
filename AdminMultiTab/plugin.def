@@ -1,4 +1,0 @@
-<plugin>
-   <file name="AdminMultiTab.dll"/>
-    <load env="Administration" />
-</plugin>

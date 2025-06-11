@@ -252,10 +252,5 @@ namespace DemoAccessControlPlugin.Managers
         {
             _client.UpdateEventTypeEnabledStates(_systemProperties.AdminUser, _systemProperties.AdminPassword, acEventTypes.ToArray()).Wait();
         }
-
-        public override void AccessControlUnitPositionChanged(IEnumerable<Tuple<string, double, double>> acUnitPositions)
-        {
-            _client.UpdateAccessControlUnitPosition(_systemProperties.AdminUser, _systemProperties.AdminPassword, acUnitPositions.ToArray()).Wait();
-        }
     }
 }

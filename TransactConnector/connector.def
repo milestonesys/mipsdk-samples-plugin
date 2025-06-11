@@ -1,0 +1,4 @@
+<plugin>
+   <file name="TransactConnector.dll"/>
+   <load env="Service"/>
+</plugin>

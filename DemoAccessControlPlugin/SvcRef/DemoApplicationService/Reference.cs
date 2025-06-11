@@ -253,13 +253,7 @@ namespace DemoAccessControlPlugin.DemoApplicationService {
         private bool HasRexButtonField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double LatitudeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool LockCommandSupportedField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double LongitudeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool UnlockCommandSupportedField;
@@ -340,19 +334,6 @@ namespace DemoAccessControlPlugin.DemoApplicationService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Latitude {
-            get {
-                return this.LatitudeField;
-            }
-            set {
-                if ((this.LatitudeField.Equals(value) != true)) {
-                    this.LatitudeField = value;
-                    this.RaisePropertyChanged("Latitude");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool LockCommandSupported {
             get {
                 return this.LockCommandSupportedField;
@@ -361,19 +342,6 @@ namespace DemoAccessControlPlugin.DemoApplicationService {
                 if ((this.LockCommandSupportedField.Equals(value) != true)) {
                     this.LockCommandSupportedField = value;
                     this.RaisePropertyChanged("LockCommandSupported");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Longitude {
-            get {
-                return this.LongitudeField;
-            }
-            set {
-                if ((this.LongitudeField.Equals(value) != true)) {
-                    this.LongitudeField = value;
-                    this.RaisePropertyChanged("Longitude");
                 }
             }
         }
@@ -1162,12 +1130,6 @@ namespace DemoAccessControlPlugin.DemoApplicationService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWebService/UpdateEventTypeEnabledStates", ReplyAction="http://tempuri.org/IWebService/UpdateEventTypeEnabledStatesResponse")]
         System.Threading.Tasks.Task UpdateEventTypeEnabledStatesAsync(string userName, string password, System.Tuple<string, bool>[] changedStates);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWebService/UpdateAccessControlUnitPosition", ReplyAction="http://tempuri.org/IWebService/UpdateAccessControlUnitPositionResponse")]
-        void UpdateAccessControlUnitPosition(string userName, string password, System.Tuple<string, double, double>[] unitPositions);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWebService/UpdateAccessControlUnitPosition", ReplyAction="http://tempuri.org/IWebService/UpdateAccessControlUnitPositionResponse")]
-        System.Threading.Tasks.Task UpdateAccessControlUnitPositionAsync(string userName, string password, System.Tuple<string, double, double>[] unitPositions);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1347,14 +1309,6 @@ namespace DemoAccessControlPlugin.DemoApplicationService {
         
         public System.Threading.Tasks.Task UpdateEventTypeEnabledStatesAsync(string userName, string password, System.Tuple<string, bool>[] changedStates) {
             return base.Channel.UpdateEventTypeEnabledStatesAsync(userName, password, changedStates);
-        }
-        
-        public void UpdateAccessControlUnitPosition(string userName, string password, System.Tuple<string, double, double>[] unitPositions) {
-            base.Channel.UpdateAccessControlUnitPosition(userName, password, unitPositions);
-        }
-        
-        public System.Threading.Tasks.Task UpdateAccessControlUnitPositionAsync(string userName, string password, System.Tuple<string, double, double>[] unitPositions) {
-            return base.Channel.UpdateAccessControlUnitPositionAsync(userName, password, unitPositions);
         }
     }
 }

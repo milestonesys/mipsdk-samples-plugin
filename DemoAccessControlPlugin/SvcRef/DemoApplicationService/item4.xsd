@@ -21,27 +21,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="TupleOfstringboolean" nillable="true" type="tns:TupleOfstringboolean" />
-  <xs:complexType name="ArrayOfTupleOfstringdoubledouble">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="TupleOfstringdoubledouble" nillable="true" type="tns:TupleOfstringdoubledouble" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfTupleOfstringdoubledouble" nillable="true" type="tns:ArrayOfTupleOfstringdoubledouble" />
-  <xs:complexType name="TupleOfstringdoubledouble">
-    <xs:annotation>
-      <xs:appinfo>
-        <GenericType Name="TupleOf{0}{1}{2}{#}" Namespace="http://schemas.datacontract.org/2004/07/System" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
-          <GenericParameter Name="string" Namespace="http://www.w3.org/2001/XMLSchema" />
-          <GenericParameter Name="double" Namespace="http://www.w3.org/2001/XMLSchema" />
-          <GenericParameter Name="double" Namespace="http://www.w3.org/2001/XMLSchema" />
-        </GenericType>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="m_Item1" nillable="true" type="xs:string" />
-      <xs:element name="m_Item2" type="xs:double" />
-      <xs:element name="m_Item3" type="xs:double" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="TupleOfstringdoubledouble" nillable="true" type="tns:TupleOfstringdoubledouble" />
 </xs:schema>
