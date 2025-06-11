@@ -73,6 +73,8 @@
       <LockCommandSupported>true</LockCommandSupported>
       <UnlockCommandSupported>true</UnlockCommandSupported>
       <UnlockTimeMilliSecs>10000</UnlockTimeMilliSecs>
+      <Latitude>55.65641981894683</Latitude>
+      <Longitude>12.375989291037612</Longitude>
     </Door>
     <Door>
       <Id>5feaa6e6-e024-4aac-8fb9-dde5da07f313</Id>
@@ -83,6 +85,8 @@
       <LockCommandSupported>true</LockCommandSupported>
       <UnlockCommandSupported>true</UnlockCommandSupported>
       <UnlockTimeMilliSecs>10000</UnlockTimeMilliSecs>
+      <Latitude>55.65641681607996</Latitude>
+      <Longitude>12.375860889893257</Longitude>
     </Door>
     <Door>
       <Id>5eefafb6-c0a3-4fd5-bfb9-873cd011cb0b</Id>
@@ -93,6 +97,8 @@
       <LockCommandSupported>true</LockCommandSupported>
       <UnlockCommandSupported>true</UnlockCommandSupported>
       <UnlockTimeMilliSecs>10000</UnlockTimeMilliSecs>
+      <Latitude>55.65654701392583</Latitude>
+      <Longitude>12.37603273193267</Longitude>
     </Door>
     <Door>
       <Id>51d7d7f1-cba9-4a6c-9981-3b282f490a79</Id>

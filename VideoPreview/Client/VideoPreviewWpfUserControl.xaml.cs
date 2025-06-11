@@ -33,7 +33,7 @@ namespace VideoPreview.Client
         private Guid _overlayId;
         private List<object> _messageRegistrationObjects = new List<object>();
         private bool _inLiveMode = false;
-
+        private ImageViewerWpfControl _imageViewer;
         #endregion
 
         #region Component constructors + dispose
@@ -49,7 +49,7 @@ namespace VideoPreview.Client
 
         private void SetupApplicationEventListeners()
         {
-            //set up ViewItem event listeners
+            //set up image viewer event listeners
             _imageViewer.ImageDisplayed += IVC_ImageEvent;
             _imageViewer.RecordedImageReceived += IVC_ImageEvent;
             _imageViewer.ImageOrPaintInfoChanged += IVC_ImageInfoChangedEvent;
@@ -59,21 +59,22 @@ namespace VideoPreview.Client
 
         private void RemoveApplicationEventListeners()
         {
-            //remove ViewItem event listeners
-            _imageViewer.ImageDisplayed -= IVC_ImageEvent;
-            _imageViewer.RecordedImageReceived -= IVC_ImageEvent;
-            _imageViewer.ImageOrPaintInfoChanged -= IVC_ImageInfoChangedEvent;
-
-            if (chkLiveInfo.IsChecked.Equals(true))
-            {
-                _imageViewer.LiveStreamInformationReceived -= IVC_LiveStreamInformationEvent;
-            }
 
             foreach (var messageRegistration in _messageRegistrationObjects)
             {
                 EnvironmentManager.Instance.UnRegisterReceiver(messageRegistration);
             }
             _messageRegistrationObjects.Clear();
+
+            //remove image viewer event listeners
+            _imageViewer.ImageDisplayed -= IVC_ImageEvent;
+            _imageViewer.RecordedImageReceived -= IVC_ImageEvent;
+            _imageViewer.ImageOrPaintInfoChanged -= IVC_ImageInfoChangedEvent;
+
+            if (chkLiveInfo.IsChecked.Value)
+            {
+                _imageViewer.LiveStreamInformationReceived -= IVC_LiveStreamInformationEvent;
+            }
         }
 
         /// <summary>
@@ -81,7 +82,16 @@ namespace VideoPreview.Client
         /// </summary>
         public override void Init()
         {
-
+            _imageViewer = new ImageViewerWpfControl(WindowInformation)
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                MinWidth = 100
+            };
+            _imageViewer.MouseDown += IVC_MouseDown;
+            _imageViewer.MouseUp += IVC_MouseUp;
+            leftGrid.Children.Add(_imageViewer);
+           
             _audioPlayer = new AudioPlayer();
             SetupApplicationEventListeners();
 
@@ -92,7 +102,6 @@ namespace VideoPreview.Client
                 FillCameraSelection();
                 FillMicrophoneSelection();
             }
-            HandleWorkspace();
         }
 
 
@@ -147,10 +156,26 @@ namespace VideoPreview.Client
             }
         }
 
+        private bool IsForMe(FQID sender)
+        {
+            return sender == null && WindowInformation.WindowId == Kind.Window || sender != null && sender.ObjectId == WindowInformation.WindowId;
+        }
+
         private object ShownWorkSpaceChangedReceiver(Message message, FQID destination, FQID sender)
         {
-            HandleWorkspace();
+            if (IsForMe(sender) && message.Data is Item item)
+            {
+                PlaybackModeUpdated(item.FQID.ObjectId == ClientControl.LiveBuildInWorkSpaceId);
+            }
             return null;
+        }
+
+        private void PlaybackModeUpdated(bool inLiveMode)
+        {
+            _inLiveMode = inLiveMode;
+            chkLiveInfo.IsEnabled = _inLiveMode;
+            cmbStreams.IsEnabled = _inLiveMode && (cmbStreams.Items.Count > 0);
+            txtLiveInfo.Text = "";
         }
 
         #endregion
@@ -298,7 +323,6 @@ namespace VideoPreview.Client
 
             Item mic = _selectedCameraItem.GetRelated().Find(x => x.FQID.Kind.Equals(Kind.Microphone));
 
-            var test = _imageViewer.PlaybackControllerFQID;
             if (mic != null)
             {
                 _audioPlayer.Initialize();
@@ -437,14 +461,6 @@ namespace VideoPreview.Client
                 }
             }
 
-        }
-
-        private void HandleWorkspace()
-        {
-            _inLiveMode = ClientControl.Instance.ShownWorkSpace.FQID.ObjectId == ClientControl.LiveBuildInWorkSpaceId;
-            chkLiveInfo.IsEnabled = _inLiveMode;
-            cmbStreams.IsEnabled = _inLiveMode && (cmbStreams.Items.Count > 0);
-            txtLiveInfo.Text = "";
         }
 
         #endregion

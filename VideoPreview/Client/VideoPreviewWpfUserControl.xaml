@@ -12,7 +12,7 @@
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" x:Name="left">
+        <Grid Grid.Column="0" x:Name="leftGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"  />
                 <RowDefinition Height="auto"/>
@@ -21,7 +21,6 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <platformclient:ImageViewerWpfControl x:Name="_imageViewer" Grid.Row="0" MinHeight="100" MouseDown="IVC_MouseDown" MouseUp="IVC_MouseUp"/>
             <TextBox x:Name="txtDisplayTime" IsReadOnly="True" Grid.Row="1" Margin="2,2,2,2"/>
             <CheckBox x:Name="chkHeader" Grid.Row="2" Click="OnShowHeaderChanged" Margin="2,2,2,2">Show Header</CheckBox>
             <CheckBox x:Name="chkLiveIndicator" Grid.Row="3" Click="OnShowLiveIndicatorChanged" Margin="2,2,2,5" IsEnabled="False">Show Indicator</CheckBox>

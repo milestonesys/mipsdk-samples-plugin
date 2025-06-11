@@ -23,7 +23,7 @@ configurations via the MIP Environment in the Smart Client.
 ## Avoid blocking UI thread
 
 Generally, our samples focus on how to use the MIPSDK. This means that 
-we avoid having to much exception and thread handling which 
+we avoid having too much exception and thread handling which 
 a production ready solution should have. In this sample, we demonstrate
 a way to encapsulate calls to `VideoOS.Platform.Configuration` in seperate threads
 to avoid blocking the UI thread. We use a combination of tasks and async methods to

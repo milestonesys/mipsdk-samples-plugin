@@ -101,6 +101,7 @@ namespace SCViewAndWindow.Client
             if ((string)(((Button)sender).Content) == "Low")
                 data.Priority = SmartClientMessageDataPriority.Low;
             data.MessageId = Guid.NewGuid();
+            data.IsClosable = true;
             EnvironmentManager.Instance.SendMessage(
                 new Message(MessageId.SmartClient.SmartClientMessageCommand, data));
         }
