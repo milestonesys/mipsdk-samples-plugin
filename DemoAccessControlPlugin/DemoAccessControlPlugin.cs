@@ -1,4 +1,5 @@
-﻿using DemoAccessControlPlugin.Configuration;
+﻿using DemoAccessControlPlugin.Client;
+using DemoAccessControlPlugin.Configuration;
 using DemoAccessControlPlugin.Constants;
 using System;
 using System.Collections.Generic;
@@ -68,7 +69,18 @@ namespace DemoAccessControlPlugin
 
         public override ACPropertyValidationResult ValidateProperties(IEnumerable<ACProperty> properties)
         {
-            return SystemProperties.ValidateProperties(properties);
+            var propValidation = SystemProperties.ValidateProperties(properties);
+            if (!propValidation.ValidatedOk) 
+                return propValidation;
+            
+            var tempSysProps = new SystemProperties();
+            tempSysProps.UpdateProperties(properties);
+            DemoClient tempClient = new DemoClient(tempSysProps);
+            
+            if (tempClient.CheckCredentials(tempSysProps.AdminUser, tempSysProps.AdminPassword))
+                return new ACPropertyValidationResult();
+
+            return new ACPropertyValidationResult(tempSysProps.UsernamePropertyKey, "Incorrect credentials");
         }
     }
 }

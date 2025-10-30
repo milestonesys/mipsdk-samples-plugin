@@ -29,6 +29,14 @@ namespace DemoAccessControlPlugin.Configuration
         public int EventPollingCount { get; private set; }
         public bool ImageOverrideEnabled { get; private set; }
 
+        public string UsernamePropertyKey
+        {
+            get
+            {
+                return _propertyDefinitions.FirstOrDefault(x => x.Key == Keys.User).Key;
+            }
+        }
+
         public static IEnumerable<ACPropertyDefinition> PropertyDefinitions { get { return _propertyDefinitions; } }
 
         private static List<ACPropertyDefinition> _propertyDefinitions = new List<ACPropertyDefinition>()

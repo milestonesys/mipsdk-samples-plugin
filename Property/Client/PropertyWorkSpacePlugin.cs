@@ -51,7 +51,7 @@ namespace Property.Client
             ViewAndLayoutItem.Name = Name;
             Dictionary<String, String> customProperties = new Dictionary<string, string>();
             customProperties.Add("MyPropertyPPV", "propValue");
-            ViewAndLayoutItem.InsertViewItemPlugin(0, new PropertyWorkSpaceViewItemPlugin(), customProperties);
+            ViewAndLayoutItem.InsertViewItemPlugin(0, new PropertyViewItemPlugin(), customProperties);
         }
 
         /// <summary>

@@ -1,3 +1,4 @@
 <plugin>
    <file name="AdminTabHardwarePlugin.dll"/>
+   <load env="Administration"/>
 </plugin>

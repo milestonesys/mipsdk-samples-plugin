@@ -1,0 +1,217 @@
+﻿<UserControl x:Class="DemoServerApplication.UI.Views.DoorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:conv="clr-namespace:DemoServerApplication.UI.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="300"
+             AutomationProperties.AutomationId="doorView">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DoorViewResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid IsEnabled="{Binding IsEnabled}">
+
+        <Border Margin="2" 
+                CornerRadius="10">
+
+            <Border.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsEnabled}" Value="true">
+                            <Setter Property = "Border.Background" Value = "SaddleBrown"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsEnabled}" Value="false">
+                            <Setter Property = "Border.Background" Value = "LightGray"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Grid Margin="5">
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65"/>
+                    <RowDefinition Height="65"/>
+                </Grid.RowDefinitions>
+                
+                <Grid Grid.Row="0">
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="210"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                        
+                        <Image Height="64"
+                               Width="64"                   
+                               Source="{Binding DoorStatusImageSource}"/>
+                    </Border>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBlock FontSize="16"
+                                   FontWeight="Bold" 
+                                   Foreground="White" 
+                                   TextWrapping="Wrap" 
+                                   TextTrimming="CharacterEllipsis" 
+                                   Text="{Binding Door.Name}" />
+                        
+                        <TextBlock Foreground="White"
+                                   Margin="0,10,0,0"
+                                   Text="{Binding DoorStatusString}" />
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1">    
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <StackPanel Grid.Row="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                        
+                        <Button AutomationProperties.AutomationId="rexButton"
+                                Content="REX" 
+                                Width="80"
+                                Height="25"
+                                Margin="0,0,10,0"
+                                IsEnabled="{Binding Door.HasRexButton}"
+                                Command="{Binding REXCommand}"/>
+                        
+                        <Button AutomationProperties.AutomationId="unlockDoorButton"
+                                Content="Unlock" 
+                                Width="80"
+                                Height="25"
+                                Margin="0,0,10,0"
+                                IsEnabled="{Binding Door.UnlockCommandSupported}"
+                                Command="{Binding UnlockCommand}"/>
+                        
+                        <Button AutomationProperties.AutomationId="lockDoorButton"
+                                Content="Lock" 
+                                Width="80"
+                                Height="25"
+                                IsEnabled="{Binding Door.LockCommandSupported}"
+                                Command="{Binding LockCommand}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+
+                        <ToggleButton x:Name="tamperToggleButton"
+                                      AutomationProperties.AutomationId="tamperToggleButton"
+                                      Content="Tamper"
+                                      Height="25"          
+                                      Margin="0,0,5,0"
+                                      HorizontalAlignment="Stretch"                     
+                                      HorizontalContentAlignment="Stretch"
+                                      Style="{StaticResource DropdownToggleButton}"
+                                      Background="{Binding IsTampered, Converter={conv:BoolConverter FalseValue='#FFDDDDDD', TrueValue=Red }}"
+                                      Click="tamperToggleButton_Click" />
+
+                        <Popup x:Name="tamperToggleButtonPopup"
+                               AutomationProperties.AutomationId="tamperToggleButtonPopup"
+                               StaysOpen="False"
+                               PlacementTarget="{Binding ElementName=tamperToggleButton}"
+                               MinWidth="{Binding ActualWidth, ElementName=tamperToggleButton}">
+
+                            <StackPanel>
+                                <Button x:Name="tamperButton"
+                                        AutomationProperties.AutomationId="tamperButton"
+                                        Content="Tamper"
+                                        Height="25"
+                                        HorizontalAlignment="Stretch"
+                                        Command="{Binding TamperCommand}"
+                                        Click="tamperButton_Click"/>
+
+                                <Button x:Name="clearTamperButton"
+                                        AutomationProperties.AutomationId="clearTamperButton"
+                                        Content="Clear"
+                                        Height="25"
+                                        HorizontalAlignment="Stretch"
+                                        Command="{Binding ClearTamperCommand}"
+                                        Click="clearTamperButton_Click"/>
+                            </StackPanel>
+                        </Popup>
+
+                        <ToggleButton x:Name="forcedOpenToggleButton"
+                                      Content="Forced Open"
+                                      Height="25"          
+                                      Margin="0,0,5,0"
+                                      HorizontalAlignment="Stretch"
+                                      HorizontalContentAlignment="Stretch"
+                                      Style="{StaticResource DropdownToggleButton}"
+                                      Background="{Binding IsForcedOpen, Converter={conv:BoolConverter FalseValue='#FFDDDDDD', TrueValue=Red }}"
+                                      Click="forcedOpenToggleButton_Click" />
+
+                        <Popup x:Name="forcedOpenToggleButtonPopup"
+                               StaysOpen="False"
+                               PlacementTarget="{Binding ElementName=forcedOpenToggleButton}"
+                               MinWidth="{Binding ActualWidth, ElementName=forcedOpenToggleButton}">
+
+                            <StackPanel>
+                                <Button x:Name="forcedOpenButton"
+                                        Content="Forced Open"
+                                        Height="25"
+                                        HorizontalAlignment="Stretch"
+                                        Command="{Binding ForcedOpenCommand}"
+                                        Click="forcedOpenButton_Click"/>
+
+                                <Button x:Name="clearForcedOpenButton"
+                                        Content="Clear"
+                                        Height="25"
+                                        HorizontalAlignment="Stretch"
+                                        Command="{Binding ClearForcedOpenCommand}"
+                                        Click="clearForcedOpenButton_Click"/>
+                            </StackPanel>
+                        </Popup>
+
+                        <ToggleButton x:Name="powerFailureToggleButton"
+                                      Content="Power Failure"
+                                      Height="25"
+                                      HorizontalAlignment="Stretch"                     
+                                      HorizontalContentAlignment="Stretch"
+                                      Style="{StaticResource DropdownToggleButton}"
+                                      Background="{Binding IsPowerFailure, Converter={conv:BoolConverter FalseValue='#FFDDDDDD', TrueValue=Red }}"
+                                      Click="powerFailureToggleButton_Click" />
+
+                        <Popup x:Name="powerFailureToggleButtonPopup"
+                               StaysOpen="False"
+                               PlacementTarget="{Binding ElementName=powerFailureToggleButton}"
+                               MinWidth="{Binding ActualWidth, ElementName=powerFailureToggleButton}">
+
+                            <StackPanel>
+                                <Button x:Name="powerFailureButton"
+                                        Content="Power Failure"
+                                        Height="25"
+                                        HorizontalAlignment="Stretch"
+                                        Command="{Binding PowerFailureCommand}"
+                                        Click="powerFailureButton_Click"/>
+
+                                <Button x:Name="clearPowerFailureButton"
+                                        Content="Clear"           
+                                        Height="25"
+                                        HorizontalAlignment="Stretch"
+                                        Command="{Binding ClearPowerFailureCommand}"
+                                        Click="clearPowerFailureButton_Click"/>
+                            </StackPanel>
+                        </Popup>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

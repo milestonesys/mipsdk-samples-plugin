@@ -75,7 +75,6 @@ namespace Property
                 _workSpacePlugins.Add(new PropertyWorkSpacePlugin());
                 _sidePanelPlugins.Add(new PropertySidePanelPlugin());
                 _viewItemPlugin.Add(new PropertyViewItemPlugin());
-                _viewItemPlugin.Add(new PropertyWorkSpaceViewItemPlugin());
             }
 
             _settingsPanelPlugins.Add(new PropertySettingsPanelPlugin());

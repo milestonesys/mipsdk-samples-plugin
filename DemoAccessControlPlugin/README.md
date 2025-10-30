@@ -12,9 +12,8 @@ This sample demonstrates how the communication between VMS and the
 access control system could be handled by a plugin.
 
 NOTE: This plugin uses the *Demo Access Control Server Application* to
-simulate an access control system. It can be found in:
-`mipsdk-samples-plugin-main\mipsdk-samples-plugin-main\DemoAccessControlPlugin\DemoServerApplication`.  
-**Note:** `DemoServerApplication.exe` is available here [DemoServerApplication on GitHub](https://github.com/milestonesys/mipsdk-samples-plugin/tree/main/DemoAccessControlPlugin/DemoServerApplication)
+simulate an access control system. The *Demo Access Control Server Application* is automatically build when building the plugin. It can be found here:
+`mipsdk-samples-plugin\Simulators\DemoACServerApplication\bin\debug\DemoServerApplication.exe`.  
 
 This sample provides among others this set of features:
 
@@ -25,8 +24,7 @@ This sample provides among others this set of features:
 ![Demo App](ac_demoapp.png)
 
 The Demo Access Control Server Application simulates a real access
-control system, but is as such not part of the sample and the source
-code is therefore not available.
+control system and is necessary for the Demo Access Control Plug-in to function.
 
 The access control plug-in (loaded by the Event Server) connects to the
 demo application in a way similar to how a real plugin would connect to

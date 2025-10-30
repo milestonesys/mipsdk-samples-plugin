@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="DemoServerApplication.UI.Views.AdministrationTabView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Views="clr-namespace:DemoServerApplication.UI.Views"
+             xmlns:ViewModels="clr-namespace:DemoServerApplication.UI.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1200">
+    <Grid Background="#FFE5E5E5">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListView Name="optionList"
+                  Grid.Column="0"
+                  ItemsSource="{Binding Options}"
+                  HorizontalContentAlignment="Left"
+                  VerticalContentAlignment="Center"
+                  SelectedItem="{Binding SelectedOption}"> 
+            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Label Content="{Binding OptionName}"                                                         
+                           FontSize="16"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ContentPresenter Grid.Column="1"
+                          Content="{Binding SelectedOption}">
+            
+            <ContentPresenter.Resources>
+                <DataTemplate DataType="{x:Type ViewModels:GeneralOptionViewModel}">
+                    <Views:GeneralOptionView/>
+                </DataTemplate>
+                
+                <DataTemplate DataType="{x:Type ViewModels:UsersOptionViewModel}">
+                    <Views:UsersOptionView/>
+                </DataTemplate>
+                
+                <DataTemplate DataType="{x:Type ViewModels:DoorManagementViewModel}">
+                    <Views:DoorManagementView/>
+                </DataTemplate>
+                
+                <DataTemplate DataType="{x:Type ViewModels:CredentialHoldersManagementViewModel}">
+                    <Views:CredentialHoldersManagementView/>
+                </DataTemplate>
+            </ContentPresenter.Resources>
+        </ContentPresenter>
+    </Grid>
+</UserControl>
