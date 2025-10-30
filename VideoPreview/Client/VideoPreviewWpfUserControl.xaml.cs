@@ -92,6 +92,8 @@ namespace VideoPreview.Client
             _imageViewer.MouseUp += IVC_MouseUp;
             leftGrid.Children.Add(_imageViewer);
            
+            _inLiveMode = WindowInformation.Mode == Mode.ClientLive;
+            UpdatePtzCenterEnabled();
             _audioPlayer = new AudioPlayer();
             SetupApplicationEventListeners();
 
@@ -173,9 +175,15 @@ namespace VideoPreview.Client
         private void PlaybackModeUpdated(bool inLiveMode)
         {
             _inLiveMode = inLiveMode;
+            UpdatePtzCenterEnabled();
             chkLiveInfo.IsEnabled = _inLiveMode;
             cmbStreams.IsEnabled = _inLiveMode && (cmbStreams.Items.Count > 0);
             txtLiveInfo.Text = "";
+        }
+
+        private void UpdatePtzCenterEnabled()
+        {
+            btnPtzCenter.IsEnabled = !_lineMode && (_inLiveMode || (!_inLiveMode && chkDigitalZoom.IsChecked.Value));
         }
 
         #endregion
@@ -281,7 +289,6 @@ namespace VideoPreview.Client
                 _imageViewer.MaintainImageAspectRatio = chkAspectRatio.IsChecked.Value;
                 _imageViewer.EnableMouseControlledPtz = true;
                 _imageViewer.EnableDigitalZoom = chkDigitalZoom.IsChecked.Value;
-                _imageViewer.EnableMousePtzEmbeddedHandler = chkDigitalZoom.IsChecked.Value;
                 _imageViewer.Initialize();
                 _imageViewer.Connect();
 
@@ -415,8 +422,7 @@ namespace VideoPreview.Client
             if (_imageViewer != null)
             {
                 _imageViewer.EnableDigitalZoom = isSet;
-                _imageViewer.EnableMousePtzEmbeddedHandler = isSet;
-                btnPtzCenter.IsEnabled = isSet;
+                UpdatePtzCenterEnabled();
                 chkLine.IsEnabled = !isSet;
                 _imageViewer.Disconnect();
                 _imageViewer.Connect();

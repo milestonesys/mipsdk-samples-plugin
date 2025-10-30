@@ -13,19 +13,19 @@ the Smart Client.
 
 The areas are divided into tabs:
 
+- Command - Controlling options for a view
+- Edit - How to edit an existing view layout
+- Dump - Shows a tree view with all known views
+- Workspaces - How to work with workspaces
 - Multi Window - How to work with floating windows
 - PTZ Move - Controlling cameras
 - PTZ Absolute - How to get and set / go to a specific absolute
   position
 - Indicator & App - Smart Client application control
-- Lens Control - Commands that can be sent to a camera
-- Playback Control - Smart Client playback control via programming
+- Lens - Commands that can be sent to a camera
+- Playback - Smart Client playback control via programming
 - AUX - Extension to PTZ control for specific devices
-- View Create - How to create a new view layout and assign views
-- View Control - Controlling options for a view
-- View Edit - How to edit an existing view layout
-- View Dump - Shows a tree view with all known views
-- Workspaces - How to work with workspaces
+- Create - How to create a new view layout and assign views
 
 ![Smart Client View and Windows Tool](viewandwindow.png)
 
@@ -62,3 +62,4 @@ ignored.
 
 Lens control: It should be observed that camera support of these
 commands vary greatly from camera to camera.
+

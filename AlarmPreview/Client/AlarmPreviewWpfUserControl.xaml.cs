@@ -22,13 +22,13 @@ namespace AlarmPreview.Client
             if (alarm != null)
             {
                 string alarmInText = "Message: {0}" + Environment.NewLine +
-                    "Definition {8}" + Environment.NewLine +
+                    "Definition: {8}" + Environment.NewLine +
                     "Type: {1}" + Environment.NewLine +
                     "Source: {2}" + Environment.NewLine +
                     "CustomTag: {3}" + Environment.NewLine +
-                    "Object {4}" + Environment.NewLine +
-                    "Vendor {5}" + Environment.NewLine +
-                    "Location {6}" + Environment.NewLine +
+                    "Object: {4}" + Environment.NewLine +
+                    "Vendor: {5}" + Environment.NewLine +
+                    "Location: {6}" + Environment.NewLine +
                     "Description: {7}";
 
                 string alarmDef = alarm.RuleList != null && alarm.RuleList.Count > 0 ? alarm.RuleList[0].Name : "";

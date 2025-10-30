@@ -61,9 +61,8 @@ To try out the Demo Driver sample:
 1.  If you have just deployed the Demo Driver, restart the Recording
     Server Service to make the driver available.
 2.  Run
-    `mipsdk-samples-plugin\DemoDriver\DemoDriverDevice\DemoDriverDevice.exe`
+    `mipsdk-samples-plugin\Simulators\DemoDriverDevice\bin\debug\DemoDriverDevice.exe`
     **as administrator**.  
-    **Note:** `DemoDriverDevice.exe` is available here [DemoDriverDevice on GitHub](https://github.com/milestonesys/mipsdk-samples-plugin/tree/main/DemoDriver/DemoDriverDevice)
 3.  By default, the device will use the credentials `root:pass`, the scheme 'http', 
     the port `22222`, and the MAC address `DE:AD:C0:DE:56:78`. Specify the
     desired port, MAC address, and credentials, and then select the

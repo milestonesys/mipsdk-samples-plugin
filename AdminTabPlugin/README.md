@@ -31,6 +31,10 @@ selected.
 If the current camera supports PTZ, the sample will also show controls
 that allow basic PTZ operations.
 
+In the SmartClient, the sample also generates an overlay on the camera showing the values of the properties set from Management Client.
+
+![Smart Client View](SCAdminTabProperties.png)
+
 ## This sample illustrates the classes
 
 - VideoOS.Platform.Admin.TabPlugin

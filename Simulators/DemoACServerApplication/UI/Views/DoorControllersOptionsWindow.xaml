@@ -1,0 +1,76 @@
+﻿<Window x:Class="DemoServerApplication.UI.Views.DoorControllersOptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Door Controllers Options" Height="300" Width="320" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    
+    <Grid Margin="10,10,10,5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+
+            <ListView Grid.Column="0"
+                      ItemsSource="{Binding DoorControllers}"
+                      HorizontalContentAlignment="Left"
+                      VerticalContentAlignment="Center"
+                      SelectedItem="{Binding SelectedDoorController}"
+                      Margin="0,0,10,0">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Name}"                                                         
+                           FontSize="12"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackPanel Orientation="Vertical"
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top">
+
+                <Button Content="Create"
+                        MinWidth="80"
+                        Command="{Binding CreateDoorControllerCommand}"/>
+
+                <Button Content="Edit"
+                        MinWidth="80"
+                        Margin="0,10,0,0"
+                        Command="{Binding EditDoorControllerCommand}"/>
+
+                <Button Content="Delete"
+                        MinWidth="80"
+                        Margin="0,10,0,0"
+                        Command="{Binding DeleteDoorControllerCommand}"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              VerticalAlignment="Center">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="80"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Remove unused door controllers."
+                       Grid.Column="0"
+                       Margin="0,0,10,0"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"/>
+
+            <Button Content="Remove" 
+                    Grid.Column="1"
+                    MinWidth="80"
+                    Command="{Binding RemoveUnusedDoorControllersCommand}"/>
+        </Grid>
+    </Grid>
+</Window>

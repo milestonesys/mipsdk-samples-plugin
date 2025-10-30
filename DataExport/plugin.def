@@ -1,3 +1,4 @@
 <plugin>
+   <load env="SmartClient"/>
    <file name="DataExport.dll"/>
 </plugin>

@@ -1,0 +1,167 @@
+﻿<UserControl x:Class="DemoServerApplication.UI.Views.SwipeCardsTabView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Views="clr-namespace:DemoServerApplication.UI.Views"
+             xmlns:ViewModels="clr-namespace:DemoServerApplication.UI.ViewModels"
+             xmlns:Interaction="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
+             xmlns:dd="clr-namespace:DemoServerApplication.UI.Views.DragDropBehavior"
+             mc:Ignorable="d"                     
+             d:DesignHeight="600" d:DesignWidth="1200"
+             AutomationProperties.AutomationId="swipeCardsTabView">
+    
+    <Grid Background="#FFE5E5E5">
+        
+        <Grid.Resources>
+            <DataTemplate x:Key="CredentialHolderDataTemplate">
+                <Views:CredentialHolderView/>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DoorDataTemplate">
+                <Views:DoorView/>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="340"/>
+            <ColumnDefinition Width="340"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox AutomationProperties.AutomationId="credentialHoldersGroupBox"
+                  Grid.Column="0">
+            
+            <GroupBox.Header>
+                <Label FontSize="16"
+                       ContentStringFormat="Credential Holders ({0})" 
+                       Content="{Binding CredentialHolders.Count, Mode=OneWay, UpdateSourceTrigger=Default}"/>                    
+            </GroupBox.Header>
+
+            <Grid>
+                <ListView AutomationProperties.AutomationId="credentialHoldersListView"
+                          SelectionMode="Single"
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                          ScrollViewer.VerticalScrollBarVisibility="Visible"
+                          ItemTemplate="{StaticResource CredentialHolderDataTemplate}"
+                          ItemsSource="{Binding CredentialHolders}" >
+
+                    <Interaction:Interaction.Behaviors>
+                        <dd:DragDropBehavior ItemType="{x:Type ViewModels:CredentialHolderViewModel}"
+											 DataTemplate="{StaticResource CredentialHolderDataTemplate}" />
+                    </Interaction:Interaction.Behaviors>
+                </ListView>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox AutomationProperties.AutomationId="doorsGroupBox"
+                  Grid.Column="1">
+            
+            <GroupBox.Header>
+                <Label FontSize="16" 
+                       ContentStringFormat="Doors ({0})" 
+                       Content="{Binding Doors.Count, Mode=OneWay, UpdateSourceTrigger=Default}"/>
+            </GroupBox.Header>
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <ListBox AutomationProperties.AutomationId="doorsListBox"
+                         SelectionMode="Single"
+                         ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                         ScrollViewer.VerticalScrollBarVisibility="Visible"
+                         ItemTemplate="{StaticResource DoorDataTemplate}"
+                         ItemsSource="{Binding Doors}" >
+
+                    <Interaction:Interaction.Behaviors>
+                        <dd:DragDropBehavior ItemType="{x:Type ViewModels:CredentialHolderViewModel}"
+											 DataTemplate="{StaticResource CredentialHolderDataTemplate}" />
+                    </Interaction:Interaction.Behaviors>
+                </ListBox>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Button Grid.Column="0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Content="Automate"
+                            MinWidth="80"
+                            Command="{Binding AutomateCommand}"/>
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right">
+                        
+                        <Button Content="Unlock all" 
+                                Margin="0,0,10,0" 
+                                MinWidth="80"
+                                Command="{Binding UnlockAllDoorsCommand}"/>
+                        
+                        <Button Content="Lock all" 
+                                MinWidth="80"
+                                Command="{Binding LockAllDoorsCommand}"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox AutomationProperties.AutomationId="eventsStatusGroupBox"
+                  Grid.Column="2">
+            
+            <GroupBox.Header>
+                <TextBlock Text="Events/Status" 
+                           FontSize="16"/>
+            </GroupBox.Header>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <ListBox AutomationProperties.AutomationId="eventsListBox"
+                         Grid.Row="0" 
+                         SelectionMode="Single" 
+                         ScrollViewer.HorizontalScrollBarVisibility="Hidden" 
+                         ScrollViewer.VerticalScrollBarVisibility="Visible"
+                         ItemsSource="{Binding Events}">
+                    
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="10"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Grid.Column="0" 
+                                           Text="{Binding TimeStampString}"/>
+                                
+                                <TextBlock Grid.Column="2" 
+                                           Text="{Binding EventString}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+                <StackPanel Grid.Row="1" 
+                            Orientation="Horizontal" 
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center">
+                    
+                    <ComboBox ItemsSource="{Binding EventsStatusFilters}"
+                              SelectedItem="{Binding EventsStatusSelectedFilter, Mode=TwoWay}"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

@@ -55,6 +55,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddUserWithConfigApi", "..\AddUserWithConfigApi\AddUserWithConfigApi.csproj", "{5D6C8BD6-B11B-48A3-98CF-2FF86FF51A7D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAccessControlPlugin", "..\DemoAccessControlPlugin\DemoAccessControlPlugin.csproj", "{973931B3-69CB-4264-BAB6-2893D425360F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5A15BDC9-52D3-4EFF-8552-BC348E4BE346} = {5A15BDC9-52D3-4EFF-8552-BC348E4BE346}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimelineViewItem", "..\TimelineViewItem\TimelineViewItem.csproj", "{F7F7F0A9-9739-4ABC-AE30-5DF539F76EF6}"
 EndProject
@@ -77,6 +80,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCSearchAgent", "..\SCSearchAgent\SCSearchAgent.csproj", "{0C51D4B0-7B67-4D0B-95E5-B1B29E73E366}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoDriver", "..\DemoDriver\DemoDriver.csproj", "{FEC3B73E-E33D-40FA-AD99-C8FAE01B3629}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E44E759E-4C07-4CE1-8076-CB76430E7500} = {E44E759E-4C07-4CE1-8076-CB76430E7500}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCToast", "..\SCToast\SCToast.csproj", "{76D0E21D-E86C-4BBF-8B05-7A6ED124E70E}"
 EndProject
@@ -107,6 +113,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCHidPlugin", "..\SCHidPlugin\SCHidPlugin.csproj", "{99D3E88C-7F23-4880-86AE-591E14155929}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminMultiTab", "..\AdminMultiTab\AdminMultiTab.csproj", "{D3F67746-C64E-4555-AB5A-DB033B66BDAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Simulators", "Simulators", "{6C135477-482E-4228-B3C3-E08EBF26510C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoACServerApplication", "..\Simulators\DemoACServerApplication\DemoACServerApplication.csproj", "{5A15BDC9-52D3-4EFF-8552-BC348E4BE346}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoDriverDevice", "..\Simulators\DemoDriverDevice\DemoDriverDevice.csproj", "{E44E759E-4C07-4CE1-8076-CB76430E7500}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -727,9 +739,37 @@ Global
 		{D3F67746-C64E-4555-AB5A-DB033B66BDAA}.Release|x64.Build.0 = Release|Any CPU
 		{D3F67746-C64E-4555-AB5A-DB033B66BDAA}.Release|x86.ActiveCfg = Release|Any CPU
 		{D3F67746-C64E-4555-AB5A-DB033B66BDAA}.Release|x86.Build.0 = Release|Any CPU
+		{5A15BDC9-52D3-4EFF-8552-BC348E4BE346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A15BDC9-52D3-4EFF-8552-BC348E4BE346}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A15BDC9-52D3-4EFF-8552-BC348E4BE346}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5A15BDC9-52D3-4EFF-8552-BC348E4BE346}.Debug|x64.Build.0 = Debug|Any CPU
+		{5A15BDC9-52D3-4EFF-8552-BC348E4BE346}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5A15BDC9-52D3-4EFF-8552-BC348E4BE346}.Debug|x86.Build.0 = Debug|Any CPU
+		{5A15BDC9-52D3-4EFF-8552-BC348E4BE346}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A15BDC9-52D3-4EFF-8552-BC348E4BE346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A15BDC9-52D3-4EFF-8552-BC348E4BE346}.Release|x64.ActiveCfg = Release|Any CPU
+		{5A15BDC9-52D3-4EFF-8552-BC348E4BE346}.Release|x64.Build.0 = Release|Any CPU
+		{5A15BDC9-52D3-4EFF-8552-BC348E4BE346}.Release|x86.ActiveCfg = Release|Any CPU
+		{5A15BDC9-52D3-4EFF-8552-BC348E4BE346}.Release|x86.Build.0 = Release|Any CPU
+		{E44E759E-4C07-4CE1-8076-CB76430E7500}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{E44E759E-4C07-4CE1-8076-CB76430E7500}.Debug|Any CPU.Build.0 = Debug|x64
+		{E44E759E-4C07-4CE1-8076-CB76430E7500}.Debug|x64.ActiveCfg = Debug|x64
+		{E44E759E-4C07-4CE1-8076-CB76430E7500}.Debug|x64.Build.0 = Debug|x64
+		{E44E759E-4C07-4CE1-8076-CB76430E7500}.Debug|x86.ActiveCfg = Debug|x86
+		{E44E759E-4C07-4CE1-8076-CB76430E7500}.Debug|x86.Build.0 = Debug|x86
+		{E44E759E-4C07-4CE1-8076-CB76430E7500}.Release|Any CPU.ActiveCfg = Release|x64
+		{E44E759E-4C07-4CE1-8076-CB76430E7500}.Release|Any CPU.Build.0 = Release|x64
+		{E44E759E-4C07-4CE1-8076-CB76430E7500}.Release|x64.ActiveCfg = Release|x64
+		{E44E759E-4C07-4CE1-8076-CB76430E7500}.Release|x64.Build.0 = Release|x64
+		{E44E759E-4C07-4CE1-8076-CB76430E7500}.Release|x86.ActiveCfg = Release|x86
+		{E44E759E-4C07-4CE1-8076-CB76430E7500}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5A15BDC9-52D3-4EFF-8552-BC348E4BE346} = {6C135477-482E-4228-B3C3-E08EBF26510C}
+		{E44E759E-4C07-4CE1-8076-CB76430E7500} = {6C135477-482E-4228-B3C3-E08EBF26510C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DCF85F50-6E4E-4CEC-A3F7-FFD563B8A13C}

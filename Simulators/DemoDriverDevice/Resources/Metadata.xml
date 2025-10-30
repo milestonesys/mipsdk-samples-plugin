@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<tt:MetadataStream xmlns:tt="http://www.onvif.org/ver10/schema">
+  <tt:VideoAnalytics>
+    <tt:Frame UtcTime="{0}">
+      <tt:Object ObjectId="1">
+        <tt:Appearance>
+          <tt:Shape>
+            <tt:BoundingBox bottom="{1}" top="{2}" right="{3}" left="{4}" />
+            <tt:CenterOfGravity x="0" y="0" />
+            <tt:Extension>
+              <BoundingBoxAppearance>
+                <Fill color="{5}" />
+                <Line color="{6}" displayedThicknessInPixels="4" />
+              </BoundingBoxAppearance>
+            </tt:Extension>
+          </tt:Shape>
+        </tt:Appearance>
+      </tt:Object>
+    </tt:Frame>
+  </tt:VideoAnalytics>
+  <tt:Extension>
+    <NavigationalData version="1.0">
+      <Latitude>{7}</Latitude>
+      <Longitude>{8}</Longitude>
+      <Altitude>{9}</Altitude>
+      <Azimuth>{10}</Azimuth>
+      <HorizontalAccuracy>6.5</HorizontalAccuracy>
+      <VerticalAccuracy>6.5</VerticalAccuracy>
+      <Speed>{11}</Speed>
+      <GeodeticSystem>WGS84</GeodeticSystem>
+    </NavigationalData>
+  </tt:Extension>
+</tt:MetadataStream>

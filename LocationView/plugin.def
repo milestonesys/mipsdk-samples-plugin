@@ -1,4 +1,4 @@
 <plugin>
    <file name="LocationView.dll"/>
-   <load env="SmartClient, Administration"/>
+   <load env="SmartClient"/>
 </plugin>
