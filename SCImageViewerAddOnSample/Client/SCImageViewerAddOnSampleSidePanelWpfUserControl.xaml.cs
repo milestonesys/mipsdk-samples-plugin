@@ -1,6 +1,5 @@
 using SCImageViewerAddOnSample.Background;
 using System;
-using System.Timers;
 using System.Windows;
 using System.Windows.Threading;
 using VideoOS.Platform;
@@ -178,6 +177,7 @@ namespace SCImageViewerAddOnSample.Client
             bool enable = _currentImageViewer != null && _currentImageViewer.VideoEffect != null;
             buttonThresholdEffectEnable.IsEnabled = !enable;
             buttonThresholdEffectDisable.IsEnabled = enable;
+            checkBoxShowMetadata.IsEnabled = _currentImageViewer != null;
         }
 
         private void ChangeCurrentImageViewer(ImageViewerAddOn selectedImageViewerAddon)
@@ -192,6 +192,11 @@ namespace SCImageViewerAddOnSample.Client
             {
                 RemoveImageViewerEvents(_currentImageViewer);
                 _currentImageViewer = selectedImageViewerAddon;
+            }
+
+            if (_currentImageViewer != null)
+            {
+                checkBoxShowMetadata.IsChecked = _currentImageViewer.ShowMetadataOverlay;
             }
 
             if (_currentImageViewer?.IndependentPlaybackController != null)
@@ -431,6 +436,14 @@ namespace SCImageViewerAddOnSample.Client
             if (!_streamBeingUpdatedFromCode)
             {
                 _currentImageViewer.StreamId = ((DataType)comboBoxStream.SelectedItem).Id;
+            }
+        }
+
+        private void checkBoxShowMetadata_Checked(object sender, RoutedEventArgs e)
+        {
+            if (_currentImageViewer != null)
+            {
+                _currentImageViewer.ShowMetadataOverlay = checkBoxShowMetadata.IsChecked == true;
             }
         }
     }

@@ -73,6 +73,7 @@
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="*"/>
@@ -82,6 +83,7 @@
         <Button x:Name="buttonThresholdEffectDisable" Content="Disable Threshold" Grid.Column="1" Grid.Row="0" Margin="5" IsEnabled="False" HorizontalAlignment="Stretch" Click="ButtonThresholdEffectDisable_Click" />
         <Label Content="Stream:" Grid.Row="1" Margin="5"/>
         <ComboBox x:Name="comboBoxStream" Grid.Row="1" Grid.Column="1" Margin="5" IsEnabled="False" HorizontalAlignment="Stretch" SelectionChanged="comboBoxStream_SelectionChanged" />
+        <CheckBox x:Name="checkBoxShowMetadata" Content="Show metadata overlay" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" IsEnabled="False" IsChecked="True" Checked="checkBoxShowMetadata_Checked" Unchecked="checkBoxShowMetadata_Checked"/>
       </Grid>
     </GroupBox>
   </StackPanel>
