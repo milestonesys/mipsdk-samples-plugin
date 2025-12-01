@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 using VideoOS.Platform;
 using VideoOS.Platform.Client;
 using VideoOS.Platform.Messaging;
 using VideoOS.Platform.UI;
-
-using VideoOS.Platform.UI.ItemPicker.Utilities;
 using Item = VideoOS.Platform.Item;
 using Message = VideoOS.Platform.Messaging.Message;
 
@@ -15,7 +12,6 @@ namespace SCWorkSpace.Client
 {
     public partial class SCWorkSpaceViewItemWpfUserControl2 : ViewItemWpfUserControl
     {
-        private List<object> _messageRegistrationObjects = new List<object>();
         private ImageViewerWpfControl _imageViewerWpfControl;
         private AudioPlayer _audioPlayer;
         private AudioPlayer _audioPlayerSpeaker;
@@ -34,14 +30,12 @@ namespace SCWorkSpace.Client
         {
             base.Init();
 
-
-
             //set up camera video
             _imageViewerWpfControl = new ImageViewerWpfControl(WindowInformation);
             _imageViewerWpfControl.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
             _imageViewerWpfControl.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
             _imageViewerWpfControl.EnableMouseControlledPtz = true;
-            _imageViewerWpfControl.Selected = true;
+            _imageViewerWpfControl.Selected = Selected;
             canvasVideoGrid.Children.Add(_imageViewerWpfControl);
 
             //set up timeline
@@ -57,19 +51,6 @@ namespace SCWorkSpace.Client
             //set up speaker
             _audioPlayerSpeaker = new AudioPlayer(_playbackFQID);
         }
-
-        public override void Close()
-        {
-            base.Close();
-
-            foreach (object messageRegistrationObject in _messageRegistrationObjects)
-            {
-                EnvironmentManager.Instance.UnRegisterReceiver(messageRegistrationObject);
-            }
-            _messageRegistrationObjects.Clear();
-        }
-
-
 
         /// <summary>
         /// Do not show the sliding toolbar!
@@ -123,7 +104,7 @@ namespace SCWorkSpace.Client
                 _imageViewerWpfControl.EnableDigitalZoom = false;
                 _imageViewerWpfControl.Initialize();
                 _imageViewerWpfControl.Connect();
-                _imageViewerWpfControl.Selected = true;
+                _imageViewerWpfControl.Selected = Selected;
                 _playbackWpfUserControl.SetCameras(new List<FQID>() { _selectedCameraItem.FQID });
             }
         }
@@ -202,6 +183,23 @@ namespace SCWorkSpace.Client
 
             Message message = new Message(MessageId.SmartClient.SmartClientMessageCommand, smartClientMessageData);
             EnvironmentManager.Instance.SendMessage(message);
+        }
+
+        /// <summary>
+        /// We override the Selected property to inform the ImageViewerWpfControl about selection changes.
+        /// </summary>
+        public override bool Selected
+        {
+            get => base.Selected;
+            set
+            {
+                if (_imageViewerWpfControl != null)
+                {
+                    _imageViewerWpfControl.Selected = value;
+                }
+
+                base.Selected = value;
+            }
         }
     }
 }

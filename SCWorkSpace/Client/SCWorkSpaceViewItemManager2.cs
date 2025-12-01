@@ -2,7 +2,7 @@
 
 namespace SCWorkSpace.Client
 {
-    public class SCWorkSpaceViewItemManager2 : VideoOS.Platform.Client.ViewItemManager
+    public class SCWorkSpaceViewItemManager2 : ViewItemManager
     {
         public SCWorkSpaceViewItemManager2()
             : base("SCWorkSpaceViewItemManager2")
